@@ -11,7 +11,8 @@ const Greeting = ( { currentUser, logout } ) => {
       </div>
     );
   } else {
-    // What if I want the link to be a button?
+    // Question: What if I want the link to be a button?
+    // Note: Actual routing happens in App
     return (
       <div>
         <Link to="/signup">Sign Up</Link>
