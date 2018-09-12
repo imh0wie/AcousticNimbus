@@ -27,6 +27,6 @@ class ApplicationController < ActionController::Base
   private
 
   def require_login
-    unless current_user # render errors?
+    # render unless current_user # render errors?
   end
 end
