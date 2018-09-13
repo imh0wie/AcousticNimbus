@@ -38,7 +38,7 @@ class SessionForm extends React.Component {
       <ul>
         {this.props.errors.map( (error) => {
           return (
-            <li>{errors}</li>
+            <li>{error}</li>
           );
         })}
       </ul>

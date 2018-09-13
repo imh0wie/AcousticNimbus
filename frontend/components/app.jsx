@@ -1,19 +1,25 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Link, Switch } from "react-router-dom";
 import GreetingContainer from "./greeting/greeting_container";
-import LoginFormContainer from "./session_form/session_form";
-import SignupFormContainer from "./session_form/session_form";
+import LoginFormContainer from "./session_form/login_form_container";
+import SignupFormContainer from "./session_form/signup_form_container";
+import { AuthRoute } from "../util/route_util";
 
 const App = () => {
   return (
     <div>
       <header>
-        <h1>Acoustic Nimbus</h1>
+        <Link to="/">
+          <h1>Acoustic Nimbus</h1>
+        </Link>
         <GreetingContainer />
       </header>
 
-      <Route exact path="/signup" component={SignupFormContainer} />
-      <Route exact path="/login" component={LoginFormContainer} />
+      <Switch>
+        <Route exact path="/" />
+        <AuthRoute path="/signup" component={SignupFormContainer} />
+        <AuthRoute path="/login" component={LoginFormContainer} />
+      </Switch>
     </div>
   );
 };

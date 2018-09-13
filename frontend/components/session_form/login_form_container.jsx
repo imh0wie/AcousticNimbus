@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { login } from "../../actopms/session_actions";
+import { login } from "../../actions/session_actions";
 import SessionForm from "./session_form";
 
 const msp = ({ errors }) => {
@@ -11,12 +11,12 @@ const msp = ({ errors }) => {
     switchLink: <Link to="/signup">Sign Up</Link>
   };
   // errors.session (Array)
-}
+};
 
 const mdp = (dispatch) => {
   return {
-    submitAction: () => dispatch(login())
+    submitAction: (user) => dispatch(login(user))
   };
-}
+};
 
 export default connect(msp, mdp)(SessionForm);

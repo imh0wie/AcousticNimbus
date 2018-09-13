@@ -6,19 +6,23 @@ export const RECEIVE_SESSION_ERRORS = "RECEIVE_SESSION_ERRORS";
 
 export const signup = (userToServer) => {
   return (dispatch) => {
+    debugger
     return SessionAPIUtil.signup(userToServer).then(
       (userFromServer) => (dispatch(receiveCurrentUser(userFromServer))),
-      (error) => (dispatch(receiveSessionErrors(error)))
+      (error) => (dispatch(receiveSessionErrors(error.responseJSON)))
     );
   };
 };
-// (error) => (dispatch(receiveSessionErrors(error.responseJSON)))
 
 export const login = (userToServer) => {
   return (dispatch) => {
     return SessionAPIUtil.login(userToServer).then(
-      (userFromServer) => (dispatch(receiveCurrentUser(userFromServer))),
-      (error) => (dispatch(receiveSessionErrors(error)))
+      (userFromServer) => {
+        return dispatch(receiveCurrentUser(userFromServer));
+      },
+      (error) => {
+        return dispatch(receiveSessionErrors(error.responseJSON));
+      }
     );
   };
 };
