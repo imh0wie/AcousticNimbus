@@ -23,6 +23,11 @@ class SessionForm extends React.Component {
     });
   }
 
+  demoLogin() {
+    const dummyUser = { username: "howiechan", password: "88888888" };
+    this.props.login(dummyUser);
+  }
+
   // update(field) {
   //   return (e => {
   //     return (
@@ -66,7 +71,8 @@ class SessionForm extends React.Component {
     // }
 
     return(
-      <div>
+      <div className=".modal-background">
+        <span onClick={this.props.closeModal} className="form-close">&times;</span>
         { formHeader() }
         <br/>
         <form onSubmit={this.handleSubmit.bind(this)}>
@@ -76,11 +82,12 @@ class SessionForm extends React.Component {
           </label>
           <br/>
           <label>Password
-            <input type="text" value={this.state.password} onChange={this.update('password')} />
+            <input type="password" value={this.state.password} onChange={this.update('password')} />
           </label>
           <br/>
-          <input type="submit" value={this.props.formType} /> or {this.props.switchLink}
+          <input type="submit" value={this.props.formType} /> or {this.props.switchForm}
         </form>
+        <button onClick={this.demoLogin.bind(this)}>Demo Login</button>
       </div>
     );
   }

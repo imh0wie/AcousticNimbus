@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { logout } from "../../actions/session_actions";
-import Greeting from "./greeting";
+import HeaderButtons from "./header_buttons";
 
 // Already have access to state because:
 // in the entry file, we passed store to root, AND;
@@ -23,4 +23,4 @@ const mdp = (dispatch) => {
   };
 };
 
-export default connect(msp, mdp)(Greeting);
+export default connect(msp, mdp)(HeaderButtons);

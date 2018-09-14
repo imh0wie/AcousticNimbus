@@ -1,0 +1,64 @@
+.homepage-container {
+  height: 300px;
+}
+
+.logo-before-login {
+  position: absolute;
+  top: 10px;
+  left: 100px;
+  width: 80px;
+  height: 80px;
+}
+
+.logoname-before-login {
+  font-size: 35px;
+  font-weight: bold;
+  transform: scale(1, 1.25);
+  color: white;
+  position: absolute;
+  top: 27.5px;
+  left: 190px;
+}
+
+.homepage-header {
+  display: flex;
+  align-self: center;
+  border-top: 5px solid #f7530f;
+  margin: 0 80px;
+  height: 700px;
+  background: image_url("header-background.gif") no-repeat;
+  background-size: cover;
+
+}
+
+// min-width: 800px;
+// max-width: 1240px;
+.header-buttons {
+  display: flex;
+  position: absolute;
+  top: 15px;
+  right: 125px;
+  width: 275px;
+  justify-content: space-between;
+}
+
+
+.login-button {
+  display: inline-block;
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  border-radius: 3px;
+  margin: 5px;
+  padding: 5px 20px;
+}
+
+.signup-button {
+  display: inline-block;
+  background-color: #f7530f;
+  color: white;
+  border: 1px solid white;
+  border-radius: 3px;
+  margin: 5px;
+  padding: 5px 20px;
+}

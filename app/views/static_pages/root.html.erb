@@ -1,3 +1,6 @@
+<style>
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+</style>
 <% if logged_in? %>
   <script type="text/javascript">
     window.currentUser = <%= render(
@@ -8,3 +11,7 @@
 <% end %>
 
 <main id="root"></main>
+
+<script type="text/javascript">
+  window.logo = "<%= asset_path "an_logo.png" %>"
+</script>
