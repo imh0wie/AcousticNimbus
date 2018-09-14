@@ -4,13 +4,14 @@ import SignupFormContainer from '../session_form/signup_form_container';
 
 function Modal( { modal, closeModal } ) {
   if (!modal) {
-    // debugger
+    debugger
     return null;
   }
+  const newModal = modal.modal;
   let component;
-  switch (modal.modal) {
+  switch (newModal) {
     case 'login':
-      // debugger
+      debugger
       component = <LoginFormContainer />;
       break;
     case 'signup':

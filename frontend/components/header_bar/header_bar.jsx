@@ -1,5 +1,5 @@
 import React from 'react';
-import HeaderButtonsContainer from "../header_buttons/header_buttons_container";
+import BarButtonsContainer from "../bar_buttons/bar_buttons_container";
 // line 21: Should we pass in currentUser as props?
 class HeaderBar extends React.Component {
   render () {
@@ -7,7 +7,7 @@ class HeaderBar extends React.Component {
     if (this.props.currentUser) {
       return (
         <header>
-          <HeaderButtonsContainer />
+          <BarButtonsContainer />
         </header>
       );
     } else {
@@ -15,7 +15,7 @@ class HeaderBar extends React.Component {
         <header className="homepage-header">
           <img src={window.logo} className="logo-before-login"></img>
           <h2 className="logoname-before-login">ACOUSTIC NIMBUS</h2>
-          <HeaderButtonsContainer />
+          <BarButtonsContainer />
         </header>
       );
     }

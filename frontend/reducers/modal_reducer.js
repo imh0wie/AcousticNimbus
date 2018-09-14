@@ -7,7 +7,7 @@ const modalReducer = (state = null, action) => {
       const newModal = {
         modal: action.modal
       }
-      // debugger
+      debugger
       return merge({}, state, newModal);
     case CLOSE_MODAL:
       // debugger

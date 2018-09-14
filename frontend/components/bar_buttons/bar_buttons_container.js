@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { login, logout } from "../../actions/session_actions";
 import { openModal } from "../../actions/modal_actions";
-import HeaderButtons from "./header_buttons";
+import BarButtons from "./bar_buttons";
 
 // Already have access to state because:
 // in the entry file, we passed store to root, AND;
@@ -26,4 +26,4 @@ const mdp = (dispatch) => {
   };
 };
 
-export default connect(msp, mdp)(HeaderButtons);
+export default connect(msp, mdp)(BarButtons);

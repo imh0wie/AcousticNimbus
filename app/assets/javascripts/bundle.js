@@ -156,7 +156,7 @@ __webpack_require__.r(__webpack_exports__);
 var OPEN_MODAL = "OPEN_MODAL";
 var CLOSE_MODAL = "CLOSE_MODAL";
 var openModal = function openModal(modal) {
-  // debugger
+  debugger;
   return {
     type: OPEN_MODAL,
     modal: modal
@@ -295,6 +295,245 @@ var App = function App() {
 
 /***/ }),
 
+/***/ "./frontend/components/bar_buttons/bar_buttons.jsx":
+/*!*********************************************************!*\
+  !*** ./frontend/components/bar_buttons/bar_buttons.jsx ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var _session_form_login_form_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../session_form/login_form_container */ "./frontend/components/session_form/login_form_container.jsx");
+/* harmony import */ var _session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../session_form/signup_form_container */ "./frontend/components/session_form/signup_form_container.jsx");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+
+
+var BarButtons =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(BarButtons, _React$Component);
+
+  function BarButtons(props) {
+    var _this;
+
+    _classCallCheck(this, BarButtons);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(BarButtons).call(this, props));
+    _this.state = {
+      form: null
+    };
+    return _this;
+  } // renderForm(form) {
+  //   if (form === "login") {
+  //     return (<LoginFormContainer />);
+  //   } else if (form === "signup") {
+  //     return (<SignupFormContainer />);
+  //   } else {
+  //     return (<div></div>);
+  //   }
+  // }
+  // <div className="user-form-container">
+  //   {renderForm(this.state.form)}
+  // </div>
+
+
+  _createClass(BarButtons, [{
+    key: "beforeLogin",
+    value: function beforeLogin(state) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "user-auth-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "bar-buttons"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: function onClick() {
+          return Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["openModal"])("login");
+        },
+        className: "login-button"
+      }, "Log In"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: function onClick() {
+          return Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["openModal"])("signup");
+        },
+        className: "signup-button"
+      }, "Create account")));
+    }
+  }, {
+    key: "afterLogin",
+    value: function afterLogin() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "bar-buttons"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/stream",
+        className: ""
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: "logo.jpg",
+        alt: "logo",
+        className: "logo-after-login"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "",
+        className: "bar-collection"
+      }, "Collection"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "",
+        className: "upload-button"
+      }, "Upload"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "",
+        className: "profile-dropdown"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: "profile-dropdown-img",
+        src: ""
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "profile-dropdown-username"
+      }, this.props.currentUser.username)));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      if (this.props.currentUser) {
+        this.state.form = "login";
+        return this.afterLogin();
+      } else {
+        return this.beforeLogin();
+      }
+    }
+  }]);
+
+  return BarButtons;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (BarButtons); // this.toggleForm = this.toggleForm.bind(this);
+// toggleForm(formType) {
+//   debugger
+//   return (e) => {
+//     return this.setState({
+//       form: formType,
+//       formOn: !this.state.formOn
+//     })
+//   };
+// }
+//
+//   render () {
+//     if (this.props.currentUser) {
+//       return (
+//         <div className="bar-buttons">
+//           <Link to="/stream" className=""<img src="logo.jpg" alt="logo" className="logo-after-login"></img>
+//           <Link to="" className="bar-collection">Collection</Link>
+//           <Link to="" className="upload-button">Upload</Link>
+//           <Link to="" className="profile-dropdown">
+//             <img className="profile-dropdown-img" src=""></img>
+//             <p className="profile-dropdown-username">{this.props.currentUser.username}</p>
+//           </Link>
+//         </div>
+//       );
+//       // {this.renderProfileDropdown}
+//     } else {
+//       return (
+//         <div className="user-auth-container">
+//           <div className="bar-buttons">
+//             <button onClick={() => openModal("login")} className="login-button">Log In</button>
+//             <button onClick={() => openModal("signup")} className="signup-button">Create account</button>
+//           </div>
+//           <div className="user-form-container">
+//             {this.renderForm(this.state.form)}
+//           </div>
+//         </div>
+//       );
+//     }
+//   }
+//
+//   if (this.state.form === "login" && this.state.formOn) {
+//     return (
+//       <LoginFormContainer />
+//     );
+//   } else if (this.state.form === "signup" && this.state.formOn) {
+//     return (
+//       <SignupFormContainer />
+//     );
+//   } else {
+//     return (
+//       <div></div>
+//     )
+//   }
+// } else {
+//
+// }
+
+/***/ }),
+
+/***/ "./frontend/components/bar_buttons/bar_buttons_container.js":
+/*!******************************************************************!*\
+  !*** ./frontend/components/bar_buttons/bar_buttons_container.js ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var _bar_buttons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./bar_buttons */ "./frontend/components/bar_buttons/bar_buttons.jsx");
+
+
+
+ // Already have access to state because:
+// in the entry file, we passed store to root, AND;
+// in the root file, all containers would be wrapped
+// in the provider, which passed store to this file
+// In this container, we want to give what Greeting wants, which would be:
+// 1. currentUser <-- state.entities.users[state.session.id] <-- session.id, AND;
+// 2. logout
+
+var msp = function msp(_ref) {
+  var session = _ref.session,
+      users = _ref.entities.users;
+  return {
+    currentUser: window.currentUser
+  };
+};
+
+var mdp = function mdp(dispatch) {
+  return {
+    login: function login(user) {
+      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["login"])(user));
+    },
+    logout: function logout() {
+      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["logout"])());
+    },
+    openModal: function openModal() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["openModal"])(modal));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(msp, mdp)(_bar_buttons__WEBPACK_IMPORTED_MODULE_3__["default"]));
+
+/***/ }),
+
 /***/ "./frontend/components/header_bar/header_bar.jsx":
 /*!*******************************************************!*\
   !*** ./frontend/components/header_bar/header_bar.jsx ***!
@@ -306,7 +545,7 @@ var App = function App() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _header_buttons_header_buttons_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../header_buttons/header_buttons_container */ "./frontend/components/header_buttons/header_buttons_container.js");
+/* harmony import */ var _bar_buttons_bar_buttons_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../bar_buttons/bar_buttons_container */ "./frontend/components/bar_buttons/bar_buttons_container.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -344,7 +583,7 @@ function (_React$Component) {
     value: function render() {
       // const bar = () => {
       if (this.props.currentUser) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_buttons_header_buttons_container__WEBPACK_IMPORTED_MODULE_1__["default"], null));
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_bar_buttons_bar_buttons_container__WEBPACK_IMPORTED_MODULE_1__["default"], null));
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
           className: "homepage-header"
@@ -353,7 +592,7 @@ function (_React$Component) {
           className: "logo-before-login"
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
           className: "logoname-before-login"
-        }, "ACOUSTIC NIMBUS"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_buttons_header_buttons_container__WEBPACK_IMPORTED_MODULE_1__["default"], null));
+        }, "ACOUSTIC NIMBUS"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_bar_buttons_bar_buttons_container__WEBPACK_IMPORTED_MODULE_1__["default"], null));
       } // }
 
     }
@@ -412,200 +651,6 @@ var mdp = function mdp(dispatch) {
 
 /***/ }),
 
-/***/ "./frontend/components/header_buttons/header_buttons.jsx":
-/*!***************************************************************!*\
-  !*** ./frontend/components/header_buttons/header_buttons.jsx ***!
-  \***************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
-/* harmony import */ var _session_form_login_form_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../session_form/login_form_container */ "./frontend/components/session_form/login_form_container.jsx");
-/* harmony import */ var _session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../session_form/signup_form_container */ "./frontend/components/session_form/signup_form_container.jsx");
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-
-
-
-
-
-
-var HeaderButtons =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(HeaderButtons, _React$Component);
-
-  function HeaderButtons(props) {
-    var _this;
-
-    _classCallCheck(this, HeaderButtons);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(HeaderButtons).call(this, props));
-    _this.state = {
-      form: null,
-      formOn: false
-    };
-    _this.toggleForm = _this.toggleForm.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    return _this;
-  }
-
-  _createClass(HeaderButtons, [{
-    key: "toggleForm",
-    value: function toggleForm(formType) {
-      var _this2 = this;
-
-      debugger;
-      return function (e) {
-        return _this2.setState({
-          form: formType,
-          formOn: !_this2.state.formOn
-        });
-      };
-    }
-  }, {
-    key: "renderForm",
-    value: function renderForm(form) {
-      if (form === "login") {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_session_form_login_form_container__WEBPACK_IMPORTED_MODULE_3__["default"], null);
-      } else if (form === "signup") {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_4__["default"], null);
-      } else {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
-      }
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      if (this.props.currentUser) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "header-buttons"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: "logo.jpg",
-          alt: "logo",
-          className: "logo-after-login"
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-          to: "",
-          className: "header-collection"
-        }, "Collection"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-          to: "",
-          className: "upload-button"
-        }, "Upload"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-          to: "",
-          className: "profile-dropdown"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          className: "profile-dropdown-img",
-          src: ""
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-          className: "profile-dropdown-username"
-        }, this.props.currentUser.username))); // {this.renderProfileDropdown}
-      } else {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "user-auth-container"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "header-buttons"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          onClick: function onClick() {
-            return Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["openModal"])("login");
-          },
-          className: "login-button"
-        }, "Log In"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          onClick: function onClick() {
-            return Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["openModal"])("signup");
-          },
-          className: "signup-button"
-        }, "Create account")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "user-form-container"
-        }, this.renderForm(this.state.form)));
-      }
-    }
-  }]);
-
-  return HeaderButtons;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component); //   if (this.state.form === "login" && this.state.formOn) {
-//     return (
-//       <LoginFormContainer />
-//     );
-//   } else if (this.state.form === "signup" && this.state.formOn) {
-//     return (
-//       <SignupFormContainer />
-//     );
-//   } else {
-//     return (
-//       <div></div>
-//     )
-//   }
-// } else {
-//
-// }
-
-
-/* harmony default export */ __webpack_exports__["default"] = (HeaderButtons);
-
-/***/ }),
-
-/***/ "./frontend/components/header_buttons/header_buttons_container.js":
-/*!************************************************************************!*\
-  !*** ./frontend/components/header_buttons/header_buttons_container.js ***!
-  \************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
-/* harmony import */ var _header_buttons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header_buttons */ "./frontend/components/header_buttons/header_buttons.jsx");
-
-
- // Already have access to state because:
-// in the entry file, we passed store to root, AND;
-// in the root file, all containers would be wrapped
-// in the provider, which passed store to this file
-// In this container, we want to give what Greeting wants, which would be:
-// 1. currentUser <-- state.entities.users[state.session.id] <-- session.id, AND;
-// 2. logout
-
-var msp = function msp(_ref) {
-  var session = _ref.session,
-      users = _ref.entities.users;
-  return {
-    currentUser: window.currentUser
-  };
-};
-
-var mdp = function mdp(dispatch) {
-  return {
-    logout: function logout() {
-      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["logout"])());
-    }
-  };
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(msp, mdp)(_header_buttons__WEBPACK_IMPORTED_MODULE_2__["default"]));
-
-/***/ }),
-
 /***/ "./frontend/components/modal/modal.jsx":
 /*!*********************************************!*\
   !*** ./frontend/components/modal/modal.jsx ***!
@@ -628,15 +673,16 @@ function Modal(_ref) {
       closeModal = _ref.closeModal;
 
   if (!modal) {
-    // debugger
+    debugger;
     return null;
   }
 
+  var newModal = modal.modal;
   var component;
 
-  switch (modal.modal) {
+  switch (newModal) {
     case 'login':
-      // debugger
+      debugger;
       component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_session_form_login_form_container__WEBPACK_IMPORTED_MODULE_1__["default"], null);
       break;
 
@@ -684,7 +730,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var msp = function msp(state) {
-  // debugger
+  debugger;
   return {
     modal: state.ui.modal
   };
@@ -1071,9 +1117,9 @@ var modalReducer = function modalReducer() {
   switch (action.type) {
     case _actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__["OPEN_MODAL"]:
       var newModal = {
-        modal: action.modal // debugger
-
+        modal: action.modal
       };
+      debugger;
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, newModal);
 
     case _actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__["CLOSE_MODAL"]:
