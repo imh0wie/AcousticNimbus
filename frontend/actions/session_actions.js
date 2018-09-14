@@ -6,7 +6,7 @@ export const RECEIVE_SESSION_ERRORS = "RECEIVE_SESSION_ERRORS";
 
 export const signup = (userToServer) => {
   return (dispatch) => {
-    debugger
+    // debugger
     return SessionAPIUtil.signup(userToServer).then(
       (userFromServer) => (dispatch(receiveCurrentUser(userFromServer))),
       (error) => (dispatch(receiveSessionErrors(error.responseJSON)))

@@ -5,6 +5,7 @@ import { openModal, closeModal } from "../../actions/modal_actions";
 import SessionForm from "./session_form";
 
 const msp = ({ errors }) => {
+  debugger
   return {
     errors: errors.session,
     formType: "login",
@@ -16,7 +17,7 @@ const mdp = (dispatch) => {
   return {
     submitAction: (user) => dispatch(login(user)),
     switchForm: (
-      <button onClick={() => dispatch(openModal('signup'))}>
+      <button className="switch-form-button" onClick={() => dispatch(openModal('signup'))}>
         Sign Up
       </button>
     ),

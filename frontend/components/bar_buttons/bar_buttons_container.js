@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
-import { logout } from "../../actions/session_actions";
+import { login, logout } from "../../actions/session_actions";
+import { openModal } from "../../actions/modal_actions";
 import HeaderButtons from "./header_buttons";
 
 // Already have access to state because:
@@ -13,13 +14,15 @@ import HeaderButtons from "./header_buttons";
 
 const msp = ( { session, entities: { users } }) => {
   return {
-    currentUser: users[session.id]
+    currentUser: window.currentUser,
   };
 };
 
 const mdp = (dispatch) => {
   return {
-    logout: () => dispatch(logout())
+    login: (user) => dispatch(login(user)),
+    logout: () => dispatch(logout()),
+    openModal: () => dispatch(openModal(modal))
   };
 };
 

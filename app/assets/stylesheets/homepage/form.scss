@@ -1,9 +1,53 @@
 .user-form {
-  position: fixed;
-  top: 150px;
-  bottom: 150px;
-  right: 200px;
-  left: 200px;
-  color: black;
+  position: absolute;
+  left: 450px;
+  top: 200px;
+  padding: 80px 40px;
   background-color: white;
+  border: 1px none #e6e6e6;
+  border-radius: 5px;
+}
+
+.form-welcome-message {
+  font-size: 30px;
+}
+
+.form-action {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.form-close {
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  font-size: 30px;
+}
+
+.form-data {
+  margin: 15px 30px;
+  width: 300px;
+  height: 30px;
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+}
+
+.form-buttons-container {
+  width: 200px;
+  margin: 0px 0px 0px 160px;
+}
+
+.form-submit-button {
+  margin: 0px;
+  padding: 5px 40px;
+  border: 1px solid #e6e6e6;
+  border-radius: 3px;
+}
+
+.switch-form-button {
+  margin: 0px;
+}
+
+.demo-login-button {
+  margin: 0px;
 }
