@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { connect } from "react-redux";
 import { login } from "../../actions/session_actions";
 import { openModal, closeModal } from "../../actions/modal_actions";
@@ -17,7 +17,7 @@ const mdp = (dispatch) => {
   return {
     submitAction: (user) => dispatch(login(user)),
     switchForm: (
-      <button className="switch-form-button" onClick={() => dispatch(openModal('signup'))}>
+      <button className="switch-signup-button" onClick={() => dispatch(openModal("signup"))}>
         Sign Up
       </button>
     ),

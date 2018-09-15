@@ -22,7 +22,7 @@ const mdp = (dispatch) => {
   return {
     login: (user) => dispatch(login(user)),
     logout: () => dispatch(logout()),
-    openModal: () => dispatch(openModal(modal))
+    openModal: (modal) => dispatch(openModal(modal)),
   };
 };
 

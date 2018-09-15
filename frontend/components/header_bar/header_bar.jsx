@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import BarButtonsContainer from "../bar_buttons/bar_buttons_container";
 // line 21: Should we pass in currentUser as props?
 class HeaderBar extends React.Component {
@@ -12,9 +12,7 @@ class HeaderBar extends React.Component {
       );
     } else {
       return (
-        <header className="homepage-header">
-          <img src={window.logo} className="logo-before-login"></img>
-          <h2 className="logoname-before-login">ACOUSTIC NIMBUS</h2>
+        <header className="homepage-header-bar-container">
           <BarButtonsContainer />
         </header>
       );

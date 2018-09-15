@@ -12,5 +12,5 @@ export const openModal = (modal) => {
 export const closeModal = () => {
   return {
     type: CLOSE_MODAL,
-  }
+  };
 };

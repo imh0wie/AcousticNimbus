@@ -17,7 +17,7 @@ const mdp = (dispatch) => {
   return {
     submitAction: (user) => dispatch(signup(user)),
     switchForm: (
-      <button className="switch-form-button" onClick={() => dispatch(openModal('signup'))}>
+      <button className="switch-login-button" onClick={() => dispatch(openModal("login"))}>
         Sign In
       </button>
     ),

@@ -5,14 +5,14 @@ import Modal from "./modal";
 
 const msp = (state) => {
   debugger
-  return {
-    modal: state.ui.modal
-  };
+  return ({
+    modal: state.ui.modal,
+  });
 };
 
 const mdp = (dispatch) => {
   return {
-    closeModal: () => dispatch(closeModal())
+    closeModal: () => dispatch(closeModal()),
   };
 };
 

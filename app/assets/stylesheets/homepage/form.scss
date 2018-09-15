@@ -1,15 +1,19 @@
-.user-form {
-  position: absolute;
-  left: 450px;
-  top: 200px;
+.user-form-container {
+  position: fixed;
+  left: -180px;
+  top: -70px;
+  width: 435px;
   padding: 80px 40px;
   background-color: white;
   border: 1px none #e6e6e6;
   border-radius: 5px;
+  opacity: 1;
 }
 
 .form-welcome-message {
   font-size: 30px;
+  text-align: center;
+
 }
 
 .form-action {
@@ -25,7 +29,8 @@
 }
 
 .form-data {
-  margin: 15px 30px;
+  display: inline-block;
+  margin: 15px 15px;
   width: 300px;
   height: 30px;
   border: 1px solid #e6e6e6;
@@ -33,21 +38,66 @@
 }
 
 .form-buttons-container {
-  width: 200px;
-  margin: 0px 0px 0px 160px;
+  width: 250px;
+  margin: 15px 0px 0px 160px;
 }
 
-.form-submit-button {
+.form-login-button {
   margin: 0px;
   padding: 5px 40px;
   border: 1px solid #e6e6e6;
-  border-radius: 3px;
+  border-radius: 8px;
+  background-color: white;
+  color: #f7530f;
 }
 
-.switch-form-button {
+.switch-signup-button {
+  display: inline-block;
   margin: 0px;
+  padding: 5px 10px;
+  border: 1px solid #f2f2f2;
+  border-radius: 8px;
+  background-color: #f7530f;
+  color: white;
+  font-size: 12px;
+}
+
+.form-signup-button {
+  margin: 0px;
+  padding: 5px 40px;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  background-color: #f7530f;
+  color: white;
+}
+
+.switch-login-button {
+  display: inline-block;
+  margin: 0px;
+  padding: 5px 10px;
+  border: 1px solid #f2f2f2;
+  border-radius: 8px;
+  background-color: white;
+  color: #f7530f;
+  font-size: 12px;
+}
+
+.button-separator {
+  display: inline-block;
+  font-size: 14px;
+  margin: 0px 16px;
+}
+
+.demo-login-container {
+  text-align: center;
 }
 
 .demo-login-button {
   margin: 0px;
+  border: 1px solid #f2f2f2;
+  border-radius: 50px;
+  padding: 10px 65px;
+  background-color: #f7ba0f;
+  color: white;
+  font-size: 25px;
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { withRouter } from "react-router-dom";
 import { merge } from "lodash";
 
@@ -7,7 +7,7 @@ class SessionForm extends React.Component {
     super(props);
     this.state = {
       username: "",
-      password: ""
+      password: "",
     };
   }
 
@@ -19,12 +19,12 @@ class SessionForm extends React.Component {
 
   update(field) {
     return e => this.setState({
-      [field]: e.currentTarget.value
+      [field]: e.currentTarget.value,
     });
   }
 
   demoLogin() {
-    const dummyUser = { username: "howiechan", password: "88888888" };
+    const dummyUser = { username: "h0wiechan", password: "12345678" };
     this.props.login(dummyUser);
   }
 
@@ -48,7 +48,7 @@ class SessionForm extends React.Component {
     } else {
       return (
         <div className="form-header">
-          <h2 className="form-welcome-message">Welcome back to your Nimbus!</h2>
+          <h2 className="form-welcome-message">Welcome back!</h2>
           <br/>
           <h3 className="form-action">Sign In</h3>
         </div>
@@ -70,50 +70,51 @@ class SessionForm extends React.Component {
 
   submit() {
     if (this.props.formType === "signup")
-    return "Sign Up";
+      return (
+        <input type="submit" value="Sign Up" className="form-signup-button"/>
+      );
     else {
-      return "Log In";
+      return (
+        <input type="submit" value="Log In" className="form-login-button"/>
+      );
     }
   }
 
   render() {
-    // const submitAction = () => {
-    //   if (this.props.formType === "signup")
-    //     return {this.props.signup};
-    //   else {
-    //     return {this.props.login};
-    //   }
-    // }
-
-    // <form onSubmit={this.handleSubmit.bind(this)} className="">
     return(
-      <form onSubmit={this.handleSubmit.bind(this)} className="user-form-container">
-        <p onClick={this.props.closeModal} className="form-close">x</p>
-        <div className="user-form">
+      <div className="user-form-container">
+        <form onSubmit={this.handleSubmit.bind(this)} className="user-form">
+          <p onClick={this.props.closeModal} className="form-close">x</p>
           { this.formHeader() }
           <br/>
-            {this.renderErrors()}
+          {this.renderErrors()}
+          <div className="username-input">
             <label>Username
               <input type="text"
                      value={this.state.username}
-                     onChange={this.update('username')}
+                     onChange={this.update("username")}
                      className="form-data" />
             </label>
-            <br/>
+          </div>
+          <br/>
+          <div className="password-input">
             <label>Password
               <input type="password"
                      value={this.state.password}
-                     onChange={this.update('password')}
+                     onChange={this.update("password")}
                      className="form-data" />
             </label>
-            <br/>
-            <div className="form-buttons-container">
-              <input type="submit" value={this.submit()} className="form-submit-button"/>  or  {this.props.switchForm}
-            </div>
+          </div>
+          <div className="form-buttons-container">
+            {this.submit()}<p className="button-separator">or</p>{this.props.switchForm}
+          </div>
           <br/>
-          <button onClick={this.demoLogin.bind(this)} className="demo-login-button">Demo Login</button>
-        </div>
-      </form>
+          <br/>
+          <div className="demo-login-container">
+            <button onClick={this.demoLogin.bind(this)} className="demo-login-button">DEMO LOGIN</button>
+          </div>
+        </form>
+      </div>
     );
     // </form>
   }

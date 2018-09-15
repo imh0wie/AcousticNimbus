@@ -1,24 +1,21 @@
 import React from "react";
 import { Route, Link, Switch } from "react-router-dom";
-import ModalContainer from "./modal/modal_container"
-import HeaderBarContainer from "./header_bar/header_bar_container";
-import LoginFormContainer from "./session_form/login_form_container";
-import SignupFormContainer from "./session_form/signup_form_container";
-import { AuthRoute } from "../util/route_util";
+import Homepage from "./homepage/homepage";
+import LandingPage from "./landing_page/landing_page";
+import { AuthRoute, ProtectedRoute } from "../util/route_util";
 
 const App = () => {
   // debugger
   return (
-    <div className="homepage-container">
-      <ModalContainer />
-      <HeaderBarContainer />
+    <div className="app">
       <Switch>
-        <Route exact path="/" component={HeaderBarContainer} />
-        <AuthRoute path="/stream" component={HeaderBarContainer} />
+        <ProtectedRoute exact path="/stream" component={LandingPage} />
+        <AuthRoute exact path="/" component={Homepage} />
       </Switch>
     </div>
   );
 };
+// <HeaderBarContainer />
 
 export default App;
 // before switch:

@@ -1,4 +1,12 @@
+.app {
+  height: 2000px;
+  background-color: #f2f2f2;
+  z-index: -1;
+}
+
 .homepage-container {
+  left: 50px;
+  right: 50px;
   height: 300px;
 }
 
@@ -20,7 +28,7 @@
   left: 190px;
 }
 
-.homepage-header {
+.homepage-header-bar {
   display: flex;
   align-self: center;
   border-top: 5px solid #f7530f;
@@ -28,14 +36,14 @@
   height: 700px;
   background: image_url("header-background.gif") no-repeat;
   background-size: cover;
-
+  z-index: 0;
 }
 
 // min-width: 800px;
 // max-width: 1240px;
-.bar-buttons {
+.user-auth-buttons {
   display: flex;
-  position: absolute;
+  position: fixed;
   top: 15px;
   right: 125px;
   width: 275px;

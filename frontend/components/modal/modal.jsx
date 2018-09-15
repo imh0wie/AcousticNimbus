@@ -1,33 +1,38 @@
-import React from 'react';
-import LoginFormContainer from '../session_form/login_form_container';
-import SignupFormContainer from '../session_form/signup_form_container';
+import React from "react";
+import LoginFormContainer from "../session_form/login_form_container";
+import SignupFormContainer from "../session_form/signup_form_container";
 
-function Modal( { modal, closeModal } ) {
-  if (!modal) {
-    debugger
-    return null;
-  }
-  const newModal = modal.modal;
-  let component;
-  switch (newModal) {
-    case 'login':
+class Modal extends React.Component {
+  render() {
+    if (!this.props.modal) {
+      debugger
+      return null;
+    }
+    // const newModal = modal.modal;
+    let component;
+    switch (this.props.modal.modal) {
+      case "login":
       debugger
       component = <LoginFormContainer />;
       break;
-    case 'signup':
+      case "signup":
       component = <SignupFormContainer />;
       break;
-    default:
-    // debugger
+      default:
+      // debugger
       return null;
-  }
-  return (
-    <div className="modal-background" onClick={closeModal}>
-      <div className="modal-child" onClick={e => e.stopPropagation()}>
-        { component }
+    }
+    return (
+      <div className="modal-background" onClick={this.props.closeModal}>
+        <div className="modal-child" onClick={e => e.stopPropagation()}>
+          { component }
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
+
+
+
 
 export default Modal;
