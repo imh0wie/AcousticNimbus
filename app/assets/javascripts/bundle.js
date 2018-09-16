@@ -672,10 +672,6 @@ var mdp = function mdp(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _modal_modal_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../modal/modal_container */ "./frontend/components/modal/modal_container.jsx");
-/* harmony import */ var _header_bar_header_bar_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../header_bar/header_bar_container */ "./frontend/components/header_bar/header_bar_container.jsx");
-
-
 
 
 var Homepage = function Homepage() {
