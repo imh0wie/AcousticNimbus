@@ -7,7 +7,6 @@ import LandingPage from "./landing_page/landing_page";
 import { AuthRoute, ProtectedRoute } from "../util/route_util";
 
 const App = () => {
-  // debugger
   return (
     <div className="app">
       <div className="homepage-header-container">

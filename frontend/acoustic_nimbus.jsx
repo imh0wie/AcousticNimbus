@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
   window.getState = store.getState;
   window.dispatch = store.dispatch;
   window.openModal = openModal;
-  // debugger
   if (window.currentUser) {
     const preloadedState = {
       entities: {

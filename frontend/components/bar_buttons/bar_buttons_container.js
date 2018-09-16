@@ -13,7 +13,6 @@ import BarButtons from "./bar_buttons";
 // 2. logout
 
 const msp = (state) => {
-  // debugger
   return {
     currentUser: state.entities.users[state.session.id],
   };

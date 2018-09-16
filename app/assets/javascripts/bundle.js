@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
   store = Object(_store_store__WEBPACK_IMPORTED_MODULE_3__["default"])();
   window.getState = store.getState;
   window.dispatch = store.dispatch;
-  window.openModal = _actions_modal_actions__WEBPACK_IMPORTED_MODULE_5__["openModal"]; // debugger
+  window.openModal = _actions_modal_actions__WEBPACK_IMPORTED_MODULE_5__["openModal"];
 
   if (window.currentUser) {
     var preloadedState = {
@@ -160,7 +160,6 @@ __webpack_require__.r(__webpack_exports__);
 var OPEN_MODAL = "OPEN_MODAL";
 var CLOSE_MODAL = "CLOSE_MODAL";
 var openModal = function openModal(modal) {
-  debugger;
   return {
     type: OPEN_MODAL,
     modal: modal
@@ -199,7 +198,6 @@ var LOGOUT_CURRENT_USER = "LOGOUT_CURRENT_USER";
 var RECEIVE_SESSION_ERRORS = "RECEIVE_SESSION_ERRORS";
 var signup = function signup(userToServer) {
   return function (dispatch) {
-    debugger;
     return _util_session_api_util__WEBPACK_IMPORTED_MODULE_0__["signup"](userToServer).then(function (userFromServer) {
       return dispatch(receiveCurrentUser(userFromServer));
     }, function (errors) {
@@ -208,7 +206,6 @@ var signup = function signup(userToServer) {
   };
 };
 var login = function login(userToServer) {
-  debugger;
   return function (dispatch) {
     return _util_session_api_util__WEBPACK_IMPORTED_MODULE_0__["login"](userToServer).then(function (userFromServer) {
       return dispatch(receiveCurrentUser(userFromServer));
@@ -232,7 +229,6 @@ var logout = function logout() {
 }; // What does it do? ==> reducer
 
 var receiveCurrentUser = function receiveCurrentUser(currentUser) {
-  debugger;
   return {
     type: RECEIVE_CURRENT_USER,
     currentUser: currentUser
@@ -278,7 +274,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var App = function App() {
-  // debugger
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "app"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -438,7 +433,6 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      // debugger
       if (this.props.currentUser) {
         return this.afterLogin();
       } else {
@@ -452,7 +446,6 @@ function (_React$Component) {
 
 /* harmony default export */ __webpack_exports__["default"] = (BarButtons); // this.toggleForm = this.toggleForm.bind(this);
 // toggleForm(formType) {
-//   debugger
 //   return (e) => {
 //     return this.setState({
 //       form: formType,
@@ -534,7 +527,6 @@ __webpack_require__.r(__webpack_exports__);
 // 2. logout
 
 var msp = function msp(state) {
-  // debugger
   return {
     currentUser: state.entities.users[state.session.id]
   };
@@ -649,7 +641,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var msp = function msp(state) {
-  // debugger
   return {
     currentUser: state.entities.users[state.session.id]
   };
@@ -774,7 +765,6 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       if (!this.props.modal) {
-        debugger;
         return null;
       } // const newModal = modal.modal;
 
@@ -783,7 +773,6 @@ function (_React$Component) {
 
       switch (this.props.modal.modal) {
         case "login":
-          // debugger
           component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_session_form_login_form_container__WEBPACK_IMPORTED_MODULE_1__["default"], null);
           break;
 
@@ -792,7 +781,6 @@ function (_React$Component) {
           break;
 
         default:
-          // debugger
           return null;
       }
 
@@ -835,7 +823,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var msp = function msp(state) {
-  debugger;
   return {
     modal: state.ui.modal
   };
@@ -906,7 +893,6 @@ __webpack_require__.r(__webpack_exports__);
 
 var msp = function msp(_ref) {
   var errors = _ref.errors;
-  debugger;
   return {
     errors: errors.session,
     formType: "login"
@@ -1133,7 +1119,6 @@ __webpack_require__.r(__webpack_exports__);
 
 var msp = function msp(_ref) {
   var errors = _ref.errors;
-  // debugger
   return {
     errors: errors.session,
     formType: "signup"
@@ -1221,22 +1206,18 @@ var CLOSE_MODAL = "CLOSE_MODAL";
 var modalReducer = function modalReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
   var action = arguments.length > 1 ? arguments[1] : undefined;
-  debugger;
 
   switch (action.type) {
     case OPEN_MODAL:
       var newModal = {
         modal: action.modal
       };
-      debugger;
       return Object(lodash__WEBPACK_IMPORTED_MODULE_0__["merge"])({}, state, newModal);
 
     case CLOSE_MODAL:
-      // debugger
       return null;
 
     default:
-      // debugger
       return state;
   }
 };
@@ -1329,11 +1310,9 @@ var sessionReducer = function sessionReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
-  debugger;
 
   switch (action.type) {
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
-      debugger;
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, {
         id: action.currentUser.id
       });

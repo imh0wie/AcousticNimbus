@@ -4,7 +4,6 @@ import { login, logout } from "../../actions/session_actions";
 import HeaderBar from "./header_bar";
 
 const msp = (state) => {
-  // debugger
   return {
     currentUser: state.entities.users[state.session.id],
   };

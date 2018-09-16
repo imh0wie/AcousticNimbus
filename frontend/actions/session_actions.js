@@ -6,20 +6,18 @@ export const RECEIVE_SESSION_ERRORS = "RECEIVE_SESSION_ERRORS";
 
 export const signup = (userToServer) => {
   return (dispatch) => {
-    debugger
     return SessionAPIUtil.signup(userToServer).then(
       (userFromServer) => {
-        return dispatch(receiveCurrentUser(userFromServer))
+        return dispatch(receiveCurrentUser(userFromServer));
       },
       (errors) => {
-        return dispatch(receiveSessionErrors(errors.responseJSON))
-      }
+        return dispatch(receiveSessionErrors(errors.responseJSON));
+      },
     );
   };
 };
 
 export const login = (userToServer) => {
-  debugger
   return (dispatch) => {
     return SessionAPIUtil.login(userToServer).then(
       (userFromServer) => {
@@ -51,22 +49,21 @@ export const logout = () => {
 
 // What does it do? ==> reducer
 export const receiveCurrentUser = (currentUser) => {
-  debugger
   return {
     type: RECEIVE_CURRENT_USER,
     currentUser: currentUser,
   };
-}
+};
 
 export const logoutCurrentUser = () => {
   return {
     type: LOGOUT_CURRENT_USER,
-  }
-}
+  };
+};
 
 export const receiveSessionErrors = (errors) => {
   return {
     type: RECEIVE_SESSION_ERRORS,
     errors: errors,
   };
-}
+};

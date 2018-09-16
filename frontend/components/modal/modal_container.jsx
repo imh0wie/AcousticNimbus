@@ -4,7 +4,6 @@ import { closeModal } from "../../actions/modal_actions";
 import Modal from "./modal";
 
 const msp = (state) => {
-  debugger
   return ({
     modal: state.ui.modal,
   });

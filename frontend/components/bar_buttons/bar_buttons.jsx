@@ -50,7 +50,6 @@ class BarButtons extends React.Component {
   }
 
   render() {
-    // debugger
     if (this.props.currentUser) {
       return this.afterLogin();
     } else {
@@ -65,7 +64,6 @@ export default BarButtons;
 
 
   // toggleForm(formType) {
-  //   debugger
   //   return (e) => {
   //     return this.setState({
   //       form: formType,
