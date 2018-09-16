@@ -7,7 +7,7 @@
   width: 100%;
   height: 100%;
   background: rgba(255, 255, 255, 0.9);
-  z-index: 1;
+  z-index: 5;
 }
 
 .modal-child {
@@ -16,5 +16,5 @@
   left: 35%;
   transform: translate(-50%, -50%);
   background: rgba(255, 255, 255, 1.0);
-  z-index: 2;
+  z-index: 6;
 }

@@ -16,7 +16,7 @@ class BarButtons extends React.Component {
 
   beforeLogin() {
     return (
-      <div className="homepage-header-bar">
+      <div className="homepage-header-buttons">
         <div className="bar-logo">
           <img src={window.logo} className="logo-before-login"></img>
           <h2 className="logoname-before-login">ACOUSTIC NIMBUS</h2>
@@ -31,15 +31,19 @@ class BarButtons extends React.Component {
 
   afterLogin() {
     return (
-      <div className="landing-page-header-bar">
-        <Link to="/stream" ><img className="bar-logo" src={window.logo} ></img></Link>
+      <div className="protected-page-inner-bar">
+        <Link to="/stream" ><img className="stream-logo" src={window.barLogo} ></img></Link>
+        <Link to="/stream" className="bar-home">Home</Link>
         <Link to="/you/collection" className="bar-collection">Collection</Link>
-        <input type="text" placeholder="Search" className="search-bar"></input>
+        <div className="search-bar-container">
+          <input type="text" placeholder="Search" className="search-bar"></input>
+        </div>
         <Link to="" className="upload-button">Upload</Link>
         <Link to="" className="profile-dropdown">
           <img className="profile-dropdown-img" src={window.default_avatar}></img>
           <p className="profile-dropdown-username">{this.props.currentUser.username}</p>
         </Link>
+        <button className="logout-button" onClick={() => this.props.logout()}>Sign Out</button>
       </div>
     );
 

@@ -1,51 +1,34 @@
-.app {
-  height: 2000px;
-  background-color: #f2f2f2;
-  z-index: -1;
-}
-
-.homepage-container {
-  left: 50px;
-  right: 50px;
-  height: 300px;
+.bar-logo {
+  display: flex;
+  position: absolute;
+  top: 10px;
+  left: 25px;
 }
 
 .logo-before-login {
-  position: absolute;
-  top: 10px;
-  left: 100px;
-  width: 80px;
-  height: 80px;
+  width: 50px;
+  height: 50px;
 }
 
 .logoname-before-login {
-  font-size: 35px;
+  font-size: 20px;
   font-weight: bold;
   transform: scale(1, 1.25);
   color: white;
   position: absolute;
-  top: 27.5px;
-  left: 190px;
+  top: 15px;
+  left: 60px;
+  width: 195px;
 }
 
-.homepage-header-bar {
-  display: flex;
-  align-self: center;
-  border-top: 5px solid #f7530f;
-  margin: 0 80px;
-  height: 700px;
-  background: image_url("header-background.gif") no-repeat;
-  background-size: cover;
-  z-index: 0;
-}
 
 // min-width: 800px;
 // max-width: 1240px;
 .user-auth-buttons {
   display: flex;
-  position: fixed;
-  top: 15px;
-  right: 125px;
+  position: absolute;
+  top: 20px;
+  right: 30px;
   width: 275px;
   justify-content: space-between;
 }
@@ -54,6 +37,7 @@
 .login-button {
   display: inline-block;
   background-color: transparent;
+  font-weight: lighter;
   color: white;
   border: 1px solid white;
   border-radius: 3px;

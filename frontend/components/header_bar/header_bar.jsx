@@ -6,13 +6,13 @@ class HeaderBar extends React.Component {
     // const bar = () => {
     if (this.props.currentUser) {
       return (
-        <header>
+        <header className="protected-page-outer-bar">
           <BarButtonsContainer />
         </header>
       );
     } else {
       return (
-        <header className="homepage-header-bar-container">
+        <header className="homepage-header-bar">
           <BarButtonsContainer />
         </header>
       );

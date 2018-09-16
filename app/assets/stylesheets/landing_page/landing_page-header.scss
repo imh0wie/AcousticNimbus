@@ -1,12 +1,112 @@
-.landing-page-header-bar-container {
+.protected-page-outer-bar {
+  position: fixed;
   width: 100%;
   background: #333;
   height: 45px;
 }
 
-.landing-page-header-bar {
+.protected-page-inner-bar {
+  // display: flex;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 340px;
+  right: 340px;
   width: 1240px;
   height: 45px;
-  left: 100px;
-  right: 100px;
+}
+
+.stream-logo {
+  position: absolute;
+  width: 70px;
+  height: 45px;
+}
+
+.bar-home {
+  position: absolute;
+  left: 70px;
+  color: #ccc;
+  border: 1px solid;
+  padding: 13px 28px
+}
+
+.bar-collection {
+  position: absolute;
+  left: 172px;
+  color: #ccc;
+  border: 1px solid;
+  padding: 13px 12px;
+}
+
+.search-bar-container {
+  position: absolute;
+  left: 275px;
+  width: 537px;
+  height: 44px;
+  border: 1px solid #ccc;
+}
+
+.search-bar {
+  position: absolute;
+  border: 1px solid #ccc;
+  margin: 7px 20px;
+  padding: 5px 10px;
+  width: 476px;
+  border-radius: 20px;
+  background-color: white;
+}
+
+.upload-button {
+  position: absolute;
+  left: 880px;
+  color: #ccc;
+  border: 1px solid;
+  width: 39px;
+  padding: 14px 12px;
+  font-size: 13px;
+}
+
+.profile-dropdown {
+  display: flex;
+  position: absolute;
+  left: 944px;
+  color: #ccc;
+  border: 1px solid;
+  width: 132px;
+  height: 16px;
+  padding: 14px 12px;
+  font-size: 13px;
+}
+
+.profile-dropdown-img {
+  position: absolute;
+  left: 5px;
+  margin: -6px 5px;
+  padding: 0px;
+  width: 30px;
+  height: 30px;
+}
+
+.profile-dropdown-username {
+  position: absolute;
+  left: 45px;
+  top: 18px;
+  margin: -6px 5px;
+  font-size: 15px;
+  padding: 2px;
+  width: 30px;
+  height: 30px;
+}
+
+.logout-button {
+  position: absolute;
+  left: 1101px;
+  width: 131px;
+  height: 37px;
+  margin: 0px;
+  padding: 3px;
+  border: 1px solid #ccc;
+  color: #ccc;
+  font-size: 14px;
+  text-align: center
 }

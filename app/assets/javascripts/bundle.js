@@ -281,7 +281,9 @@ var App = function App() {
   // debugger
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "app"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_modal_modal_container__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_bar_header_bar_container__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__["ProtectedRoute"], {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "homepage-header-container"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_modal_modal_container__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_bar_header_bar_container__WEBPACK_IMPORTED_MODULE_3__["default"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__["ProtectedRoute"], {
     exact: true,
     path: "/stream",
     component: _landing_page_landing_page__WEBPACK_IMPORTED_MODULE_5__["default"]
@@ -369,7 +371,7 @@ function (_React$Component) {
       var _this2 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "homepage-header-bar"
+        className: "homepage-header-buttons"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "bar-logo"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -394,21 +396,28 @@ function (_React$Component) {
   }, {
     key: "afterLogin",
     value: function afterLogin() {
+      var _this3 = this;
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "landing-page-header-bar"
+        className: "protected-page-inner-bar"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/stream"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        className: "bar-logo",
-        src: window.logo
+        className: "stream-logo",
+        src: window.barLogo
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/stream",
+        className: "bar-home"
+      }, "Home"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/you/collection",
         className: "bar-collection"
-      }, "Collection"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, "Collection"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "search-bar-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         placeholder: "Search",
         className: "search-bar"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "",
         className: "upload-button"
       }, "Upload"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
@@ -419,7 +428,12 @@ function (_React$Component) {
         src: window.default_avatar
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "profile-dropdown-username"
-      }, this.props.currentUser.username)));
+      }, this.props.currentUser.username)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "logout-button",
+        onClick: function onClick() {
+          return _this3.props.logout();
+        }
+      }, "Sign Out"));
     }
   }, {
     key: "render",
@@ -593,10 +607,12 @@ function (_React$Component) {
     value: function render() {
       // const bar = () => {
       if (this.props.currentUser) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_bar_buttons_bar_buttons_container__WEBPACK_IMPORTED_MODULE_1__["default"], null));
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
+          className: "protected-page-outer-bar"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_bar_buttons_bar_buttons_container__WEBPACK_IMPORTED_MODULE_1__["default"], null));
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
-          className: "homepage-header-bar-container"
+          className: "homepage-header-bar"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_bar_buttons_bar_buttons_container__WEBPACK_IMPORTED_MODULE_1__["default"], null));
       } // }
 
@@ -632,12 +648,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var msp = function msp(_ref) {
-  var users = _ref.entities.users,
-      session = _ref.session;
+var msp = function msp(state) {
   // debugger
   return {
-    currentUser: window.currentUser
+    currentUser: state.entities.users[state.session.id]
   };
 };
 

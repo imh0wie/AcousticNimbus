@@ -10,8 +10,10 @@ const App = () => {
   // debugger
   return (
     <div className="app">
-      <ModalContainer />
-      <HeaderBarContainer />
+      <div className="homepage-header-container">
+        <ModalContainer />
+        <HeaderBarContainer />
+      </div>
       <Switch>
         <ProtectedRoute exact path="/stream" component={LandingPage} />
         <AuthRoute exact path="/" component={Homepage} />
