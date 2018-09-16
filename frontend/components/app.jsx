@@ -1,5 +1,7 @@
 import React from "react";
 import { Route, Link, Switch } from "react-router-dom";
+import ModalContainer from "./modal/modal_container";
+import HeaderBarContainer from "./header_bar/header_bar_container";
 import Homepage from "./homepage/homepage";
 import LandingPage from "./landing_page/landing_page";
 import { AuthRoute, ProtectedRoute } from "../util/route_util";
@@ -8,6 +10,8 @@ const App = () => {
   // debugger
   return (
     <div className="app">
+      <ModalContainer />
+      <HeaderBarContainer />
       <Switch>
         <ProtectedRoute exact path="/stream" component={LandingPage} />
         <AuthRoute exact path="/" component={Homepage} />

@@ -21,7 +21,7 @@ const mdp = (dispatch) => {
         Sign Up
       </button>
     ),
-    closeModal: () => dispatch(closeModal())
+    closeModal: () => dispatch(closeModal()),
   };
 };
 

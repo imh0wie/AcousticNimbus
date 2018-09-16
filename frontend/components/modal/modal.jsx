@@ -12,7 +12,7 @@ class Modal extends React.Component {
     let component;
     switch (this.props.modal.modal) {
       case "login":
-      debugger
+      // debugger
       component = <LoginFormContainer />;
       break;
       case "signup":

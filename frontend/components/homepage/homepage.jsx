@@ -5,8 +5,6 @@ import HeaderBarContainer from "../header_bar/header_bar_container";
 const Homepage = () => {
   return (
     <div className="homepage-container">
-      <ModalContainer />
-      <HeaderBarContainer />
     </div>
   );
 };

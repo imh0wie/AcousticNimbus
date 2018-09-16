@@ -25,17 +25,9 @@ class SessionForm extends React.Component {
 
   demoLogin() {
     const dummyUser = { username: "h0wiechan", password: "12345678" };
-    this.props.login(dummyUser);
+    this.props.submitAction(dummyUser).then(this.props.closeModal);
   }
 
-  // update(field) {
-  //   return (e => {
-  //     return (
-  //       this.setState(
-  //         { [field]: e.currentTarget.value }
-  //       );
-  //     );
-  //   });
   formHeader() {
     if (this.props.formType === "signup") {
       return (
@@ -54,7 +46,7 @@ class SessionForm extends React.Component {
         </div>
       );
     }
-  };
+  }
 
   renderErrors() {
     return (
@@ -65,8 +57,14 @@ class SessionForm extends React.Component {
           );
         })}
       </ul>
-    )
+    );
   }
+
+  // onSubmit(e) {
+  //   e.preventDefault();
+  //   this.props.closeModal();
+  //   this
+  // }
 
   submit() {
     if (this.props.formType === "signup")

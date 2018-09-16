@@ -4,9 +4,6 @@ import HeaderBarContainer from "../header_bar/header_bar_container";
 const LandingPage = () => {
   return (
     <div className="landing-page-container">
-      <div className="landing-page-header-bar-container">
-        <HeaderBarContainer />
-      </div>
       <div className="landing-page-body">
         <h1>Hello</h1>
       </div>

@@ -14,20 +14,6 @@ class BarButtons extends React.Component {
     this.afterLogin = this.afterLogin.bind(this);
   }
 
-  // renderForm(form) {
-  //   if (form === "login") {
-  //     return (<LoginFormContainer />);
-  //   } else if (form === "signup") {
-  //     return (<SignupFormContainer />);
-  //   } else {
-  //     return (<div></div>);
-  //   }
-  // }
-
-  // <div className="user-form-container">
-  //   {renderForm(this.state.form)}
-  // </div>
-
   beforeLogin() {
     return (
       <div className="homepage-header-bar">
@@ -46,7 +32,7 @@ class BarButtons extends React.Component {
   afterLogin() {
     return (
       <div className="landing-page-header-bar">
-        <Link to="/stream" ><img src={window.logo} alt="logo" className="bar-logo"></img></Link>
+        <Link to="/stream" ><img className="bar-logo" src={window.logo} ></img></Link>
         <Link to="/you/collection" className="bar-collection">Collection</Link>
         <input type="text" placeholder="Search" className="search-bar"></input>
         <Link to="" className="upload-button">Upload</Link>

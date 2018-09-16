@@ -12,9 +12,10 @@ import BarButtons from "./bar_buttons";
 // 1. currentUser <-- state.entities.users[state.session.id] <-- session.id, AND;
 // 2. logout
 
-const msp = ( { session, entities: { users } }) => {
+const msp = (state) => {
+  // debugger
   return {
-    currentUser: window.currentUser,
+    currentUser: state.entities.users[state.session.id],
   };
 };
 

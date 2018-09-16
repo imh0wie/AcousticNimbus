@@ -1,16 +1,20 @@
 .modal-background {
   position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   width: 100%;
   height: 100%;
-  background: whitesmoke;
-  opacity: 0.8;
+  background: rgba(255, 255, 255, 0.9);
   z-index: 1;
 }
 
 .modal-child {
   position: fixed;
   top: 25%;
-  left: 50%;
+  left: 35%;
   transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 1.0);
   z-index: 2;
 }

@@ -23,10 +23,10 @@ export const login = (userToServer) => {
   return (dispatch) => {
     return SessionAPIUtil.login(userToServer).then(
       (userFromServer) => {
-        return dispatch(receiveCurrentUser(userFromServer))
+        return dispatch(receiveCurrentUser(userFromServer));
       },
       (errors) => {
-        return dispatch(receiveSessionErrors(errors.responseJSON))
+        return dispatch(receiveSessionErrors(errors.responseJSON));
       }
     );
   };
@@ -36,10 +36,10 @@ export const logout = () => {
   return (dispatch) => {
     return SessionAPIUtil.logout().then(
       () => {
-        return dispatch(logoutCurrentUser())
+        return dispatch(logoutCurrentUser());
       },
       (errors) => {
-        return dispatch(receiveSessionErrors(errors.responseJSON))
+        return dispatch(receiveSessionErrors(errors.responseJSON));
       }
         // solution: (user) => dispatch(logoutCurrentUser())
         // if we are passing the "user" argument,
@@ -54,19 +54,19 @@ export const receiveCurrentUser = (currentUser) => {
   debugger
   return {
     type: RECEIVE_CURRENT_USER,
-    currentUser: currentUser
+    currentUser: currentUser,
   };
 }
 
 export const logoutCurrentUser = () => {
   return {
-    type: LOGOUT_CURRENT_USER
+    type: LOGOUT_CURRENT_USER,
   }
 }
 
 export const receiveSessionErrors = (errors) => {
   return {
     type: RECEIVE_SESSION_ERRORS,
-    errors: errors
+    errors: errors,
   };
 }

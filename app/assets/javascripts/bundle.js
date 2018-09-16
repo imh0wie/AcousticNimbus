@@ -264,9 +264,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var _homepage_homepage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./homepage/homepage */ "./frontend/components/homepage/homepage.jsx");
-/* harmony import */ var _landing_page_landing_page__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./landing_page/landing_page */ "./frontend/components/landing_page/landing_page.jsx");
-/* harmony import */ var _util_route_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../util/route_util */ "./frontend/util/route_util.jsx");
+/* harmony import */ var _modal_modal_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modal/modal_container */ "./frontend/components/modal/modal_container.jsx");
+/* harmony import */ var _header_bar_header_bar_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./header_bar/header_bar_container */ "./frontend/components/header_bar/header_bar_container.jsx");
+/* harmony import */ var _homepage_homepage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./homepage/homepage */ "./frontend/components/homepage/homepage.jsx");
+/* harmony import */ var _landing_page_landing_page__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./landing_page/landing_page */ "./frontend/components/landing_page/landing_page.jsx");
+/* harmony import */ var _util_route_util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../util/route_util */ "./frontend/util/route_util.jsx");
+
+
 
 
 
@@ -277,14 +281,14 @@ var App = function App() {
   // debugger
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "app"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_4__["ProtectedRoute"], {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_modal_modal_container__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_bar_header_bar_container__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__["ProtectedRoute"], {
     exact: true,
     path: "/stream",
-    component: _landing_page_landing_page__WEBPACK_IMPORTED_MODULE_3__["default"]
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_4__["AuthRoute"], {
+    component: _landing_page_landing_page__WEBPACK_IMPORTED_MODULE_5__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__["AuthRoute"], {
     exact: true,
     path: "/",
-    component: _homepage_homepage__WEBPACK_IMPORTED_MODULE_2__["default"]
+    component: _homepage_homepage__WEBPACK_IMPORTED_MODULE_4__["default"]
   })));
 }; // <HeaderBarContainer />
 
@@ -357,19 +361,7 @@ function (_React$Component) {
     _this.beforeLogin = _this.beforeLogin.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.afterLogin = _this.afterLogin.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
-  } // renderForm(form) {
-  //   if (form === "login") {
-  //     return (<LoginFormContainer />);
-  //   } else if (form === "signup") {
-  //     return (<SignupFormContainer />);
-  //   } else {
-  //     return (<div></div>);
-  //   }
-  // }
-  // <div className="user-form-container">
-  //   {renderForm(this.state.form)}
-  // </div>
-
+  }
 
   _createClass(BarButtons, [{
     key: "beforeLogin",
@@ -407,9 +399,8 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/stream"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: window.logo,
-        alt: "logo",
-        className: "bar-logo"
+        className: "bar-logo",
+        src: window.logo
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/you/collection",
         className: "bar-collection"
@@ -528,11 +519,10 @@ __webpack_require__.r(__webpack_exports__);
 // 1. currentUser <-- state.entities.users[state.session.id] <-- session.id, AND;
 // 2. logout
 
-var msp = function msp(_ref) {
-  var session = _ref.session,
-      users = _ref.entities.users;
+var msp = function msp(state) {
+  // debugger
   return {
-    currentUser: window.currentUser
+    currentUser: state.entities.users[state.session.id]
   };
 };
 
@@ -686,7 +676,7 @@ __webpack_require__.r(__webpack_exports__);
 var Homepage = function Homepage() {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "homepage-container"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_modal_modal_container__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_bar_header_bar_container__WEBPACK_IMPORTED_MODULE_2__["default"], null));
+  });
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Homepage);
@@ -712,8 +702,6 @@ var LandingPage = function LandingPage() {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "landing-page-container"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "landing-page-header-bar-container"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_bar_header_bar_container__WEBPACK_IMPORTED_MODULE_1__["default"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "landing-page-body"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Hello")));
 };
@@ -781,7 +769,7 @@ function (_React$Component) {
 
       switch (this.props.modal.modal) {
         case "login":
-          debugger;
+          // debugger
           component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_session_form_login_form_container__WEBPACK_IMPORTED_MODULE_1__["default"], null);
           break;
 
@@ -1011,16 +999,8 @@ function (_React$Component) {
         username: "h0wiechan",
         password: "12345678"
       };
-      this.props.login(dummyUser);
-    } // update(field) {
-    //   return (e => {
-    //     return (
-    //       this.setState(
-    //         { [field]: e.currentTarget.value }
-    //       );
-    //     );
-    //   });
-
+      this.props.submitAction(dummyUser).then(this.props.closeModal);
+    }
   }, {
     key: "formHeader",
     value: function formHeader() {
@@ -1050,7 +1030,12 @@ function (_React$Component) {
           key: "error".concat(i, "}")
         }, error);
       }));
-    }
+    } // onSubmit(e) {
+    //   e.preventDefault();
+    //   this.props.closeModal();
+    //   this
+    // }
+
   }, {
     key: "submit",
     value: function submit() {
@@ -1327,7 +1312,7 @@ var noUserState = {
 }; // const defaultState = Object.freeze({id: null});
 
 var sessionReducer = function sessionReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : noUserState;
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
   debugger;

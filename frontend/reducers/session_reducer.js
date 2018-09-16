@@ -4,7 +4,7 @@ import { merge } from "lodash";
 const noUserState = { id: null };
 // const defaultState = Object.freeze({id: null});
 
-const sessionReducer = (state = noUserState, action) => {
+const sessionReducer = (state = {}, action) => {
   Object.freeze(state);
   debugger
   switch (action.type) {
