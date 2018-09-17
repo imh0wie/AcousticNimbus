@@ -5,7 +5,10 @@ Rails.application.routes.draw do
   resources :songs, only: [:show]
 
   namespace :api, defaults: {format: :json} do
-    resources :users, only: [:create]
+    resources :users, only: [:create] do
+      resources :songs, only:[:index]
+    end
     resource :session, only: [:create, :destroy]
+    resources :songs, only: [:index, :show, :create, :update, :destroy]
   end
 end
