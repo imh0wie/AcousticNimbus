@@ -9,7 +9,7 @@ import { AuthRoute, ProtectedRoute } from "../util/route_util";
 const App = () => {
   return (
     <div className="app">
-      <div className="homepage-header-container">
+      <div className="page-header-container">
         <ModalContainer />
         <HeaderBarContainer />
       </div>

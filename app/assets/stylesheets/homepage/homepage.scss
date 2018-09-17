@@ -1,35 +1,17 @@
 .app {
-  width: 1920px;
-  height: 2000px;
-  background-color: #f2f2f2;
-  z-index: 1;
-}
-
-.homepage-container {
-  position: absolute;
-  top: 445px;
-  bottom: 0;
-  left: 340px;
-  right: 340px;
-  width: 1240px;
-  height: 100%;
-  background: rgba(255, 255, 255, 1.0);
-  z-index: 2;
+  margin: 0 auto;
 }
 
 .homepage-header-bar {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 340px;
-  right: 340px;
+  margin: 0 auto;
   width: 1240px;
-  height: 100%;
-  display: flex;
-  align-self: center;
   border-top: 5px solid #f7530f;
   background: image_url("slideshow-img1.jpg") no-repeat;
-  z-index: 3;
+  height: 450px;
 }
 
-// .homeage-
+.homeage-container {
+  margin: 0 auto;
+  width: 1240px;
+  background-color: white;
+}

@@ -3,15 +3,13 @@
   width: 100%;
   background: #333;
   height: 45px;
+  z-index: 3;
 }
 
 .protected-page-inner-bar {
-  // display: flex;
-  position: absolute;
+  margin: 0 auto;
   top: 0;
   bottom: 0;
-  left: 340px;
-  right: 340px;
   width: 1240px;
   height: 45px;
 }
@@ -24,15 +22,17 @@
 
 .bar-home {
   position: absolute;
-  left: 70px;
+  left: 170px;
+  bottom: 0.5px;
   color: #ccc;
   border: 1px solid;
-  padding: 13px 28px
+  padding: 13px 28px;
 }
 
 .bar-collection {
   position: absolute;
-  left: 172px;
+  left: 272px;
+  bottom: 0.5px;
   color: #ccc;
   border: 1px solid;
   padding: 13px 12px;
@@ -40,7 +40,8 @@
 
 .search-bar-container {
   position: absolute;
-  left: 275px;
+  left: 375px;
+  bottom: 0.5px;
   width: 537px;
   height: 44px;
   border: 1px solid #ccc;
@@ -58,7 +59,8 @@
 
 .upload-button {
   position: absolute;
-  left: 880px;
+  left: 977px;
+  bottom: 0.5px;
   color: #ccc;
   border: 1px solid;
   width: 39px;
@@ -69,7 +71,8 @@
 .profile-dropdown {
   display: flex;
   position: absolute;
-  left: 944px;
+  left: 1041px;
+  bottom: 0.5px;
   color: #ccc;
   border: 1px solid;
   width: 132px;
@@ -100,7 +103,8 @@
 
 .logout-button {
   position: absolute;
-  left: 1101px;
+  left: 1198px;
+  bottom: 0.5px;
   width: 131px;
   height: 37px;
   margin: 0px;
@@ -108,5 +112,5 @@
   border: 1px solid #ccc;
   color: #ccc;
   font-size: 14px;
-  text-align: center
+  text-align: center;
 }

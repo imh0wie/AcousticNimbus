@@ -1,8 +1,11 @@
+.homepage-header-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
 .bar-logo {
   display: flex;
-  position: absolute;
-  top: 10px;
-  left: 25px;
+  margin: 15px 20px;
 }
 
 .logo-before-login {
@@ -15,42 +18,32 @@
   font-weight: bold;
   transform: scale(1, 1.25);
   color: white;
-  position: absolute;
-  top: 15px;
-  left: 60px;
-  width: 195px;
+  margin: 10px;
 }
 
 
 // min-width: 800px;
 // max-width: 1240px;
 .user-auth-buttons {
-  display: flex;
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  width: 275px;
-  justify-content: space-between;
+  margin: 15px;
 }
 
 
 .login-button {
-  display: inline-block;
   background-color: transparent;
-  font-weight: lighter;
+  font-size: 14px;
   color: white;
   border: 1px solid white;
   border-radius: 3px;
   margin: 5px;
-  padding: 5px 20px;
+  padding: 5px 15px;
 }
 
 .signup-button {
-  display: inline-block;
   background-color: #f7530f;
   color: white;
-  border: 1px solid white;
+  font-size: 14px;
   border-radius: 3px;
   margin: 5px;
-  padding: 5px 20px;
+  padding: 7px 15px;
 }

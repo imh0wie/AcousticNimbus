@@ -5,7 +5,8 @@ const LandingPage = () => {
   return (
     <div className="landing-page-container">
       <div className="landing-page-body">
-        <h1>Hello</h1>
+        <div className="sub-page-navbar">
+        </div>
       </div>
     </div>
   );
