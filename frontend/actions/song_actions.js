@@ -8,7 +8,7 @@ export const RECEIVE_SONGS_ERRORS = "RECEIVE_SONGS_ERRORS";
 export const createSong = (songToServer) => {
   return dispatch => {
     return SongAPIUtil.createSong(songToServer).then(
-      (songsFromServer) => {
+      (songFromServer) => {
         return dispatch(receiveSong(songFromServer));
       },
       (errors) => {
@@ -59,14 +59,14 @@ const receiveSongs = (songs) => {
   };
 };
 
-export const receiveSongErrors = (errors) => {
+const receiveSongErrors = (errors) => {
   return {
     type: RECEIVE_SONG_ERRORS,
     errors: errors,
   };
 };
 
-export const receiveSongsErrors = (errors) => {
+const receiveSongsErrors = (errors) => {
   return {
     type: RECEIVE_SONGS_ERRORS,
     errors: errors,

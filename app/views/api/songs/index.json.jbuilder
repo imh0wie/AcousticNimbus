@@ -8,7 +8,7 @@ json.songs do
         json.artist_id song.artist_id
         json.playlist_id song.playlist_id
       end
-      # json.likes
+      # json.likesA
       # .
       # .
       # .

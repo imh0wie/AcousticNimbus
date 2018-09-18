@@ -5,7 +5,7 @@ class Api::SongsController < ApplicationController
   end
 
   def show
-    @song = Song.find_by(params[:id])
+    @song = Song.find(params[:id])
   end
 
   def create
@@ -17,28 +17,28 @@ class Api::SongsController < ApplicationController
     end
   end
 
-  # def update
-  #   @song = Song.find(params[:id])
-  #   if @song.update(song_params)
-  #     render :show
-  #   else
-  #     render json: @song.errors.full_messages, status: 401
-  #   end
-  # end
-  #
-  # def destroy
-  #   @song = Song.find(params[:id])
-  #   if @song.destroy
-  #     render :show
-  #   else
-  #     render json: @song.errors.full_messages, status: 401
-  #   end
-  # end
+  def update
+    @song = Song.find(params[:id])
+    if @song.update(song_params)
+      render :show
+    else
+      render json: @song.errors.full_messages, status: 401
+    end
+  end
 
-  # def show
-  #   @song = Song.find(params[:id])
-  #   render :show
-  # end
+  def destroy
+    @song = Song.find(params[:id])
+    if @song.destroy
+      render :show
+    else
+      render json: @song.errors.full_messages, status: 401
+    end
+  end
+
+  def show
+    @song = Song.find(params[:id])
+    render :show
+  end
 
   private
 

@@ -2,6 +2,7 @@
   position: relative;
   top: 45px;
   width: 1240px;
+  min-height: 1000px;
   margin: 0 auto;
   background-color: white;
 }
@@ -21,6 +22,12 @@
   padding: 15px 0px;
 }
 
+.upload-form-box {
+  margin: 0 auto;
+  width: 860px;
+  box-shadow: 0px 1px 3px 2px #888888;
+}
+
 .upload-form-subheader {
   display: block;
   margin: 0 auto;
@@ -32,10 +39,75 @@
 .song-uploader-container {
   display: block;
   margin: 0 auto;
-  margin-top: 60px;
-  width: 130px;
+  width: 85px;
 }
 
 input[type=file] {
   color: transparent;
+  content: "Choose a file to upload";
+}
+
+.upload-form-content {
+  display: flex;
+  margin: 0 auto;
+  margin-top: 90px;
+  padding: 30px;
+  width: 800px;
+  border: 1px solid #ccc;
+}
+
+.upload-form-data-name {
+  display: block;
+  font-size: 14px;
+}
+
+.upload-form-title-input {
+  border: 1px solid #ccc;
+  margin: 7px 8px;
+  border-radius: 3px;
+  width: 300px;
+}
+
+.upload-form-genre-input {
+  border: 1px solid #ccc;
+  margin: 7px 8px;
+  border-radius: 3px;
+  width: 200px;
+}
+
+.upload-form-description-input {
+  border: 1px solid #ccc;
+  margin: 7px 8px;
+  border-radius: 3px;
+  width: 450px;
+}
+
+.upload-form-availability-input {
+  margin: 5px;
+}
+
+.upload-form-footer {
+  position: relative;
+  bottom: 1px;
+  display: flex;
+  margin: 0 auto;
+  justify-content: space-between;
+  padding: 30px;
+  width: 800px;
+  border: 1px solid #ccc;
+}
+
+.requirement-reminder {
+  display: flex;
+}
+
+.upload-form-end-buttons {
+  border-radius: 3px;
+  padding: 3px 5px;
+  font-size: 12px;
+}
+
+.upload-form-submit-button {
+  color: white;
+  background-color: #ff4f01;
 }

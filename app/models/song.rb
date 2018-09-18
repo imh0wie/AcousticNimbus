@@ -1,6 +1,6 @@
 class Song < ApplicationRecord
-  validates :title, :genre, :release_date, :availability, :artist_id, :playlist_id, presence: true
-  validates :availability, , inclusion: { in: ["public", "private"] }
+  validates :title, :availability, :artist_id, :playlist_id, presence: true
+  validates :availability, inclusion: { in: [true, false] }
 
   has_many :likes
   has_one_attached :audio
