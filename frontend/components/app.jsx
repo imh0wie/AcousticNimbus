@@ -1,9 +1,10 @@
 import React from "react";
-import { Route, Link, Switch } from "react-router-dom";
+import { Switch } from "react-router-dom";
 import ModalContainer from "./modal/modal_container";
 import HeaderBarContainer from "./header_bar/header_bar_container";
 import Homepage from "./homepage/homepage";
 import LandingPage from "./landing_page/landing_page";
+import SongManagementPage from "./song_management_page/song_management_page";
 import { AuthRoute, ProtectedRoute } from "../util/route_util";
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
       </div>
       <Switch>
         <ProtectedRoute exact path="/stream" component={LandingPage} />
+        <ProtectedRoute exact path="/upload" component={SongManagementPage} />
         <AuthRoute exact path="/" component={Homepage} />
       </Switch>
     </div>

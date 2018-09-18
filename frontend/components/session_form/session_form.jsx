@@ -6,8 +6,8 @@ class SessionForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      password: "",
+      username: null,
+      password: null,
     };
   }
 
@@ -25,7 +25,8 @@ class SessionForm extends React.Component {
 
   demoLogin() {
     const dummyUser = { username: "h0wiechan", password: "12345678" };
-    this.props.submitAction(dummyUser).then(this.props.closeModal);
+    this.props.demoLogin(dummyUser).then(this.props.closeModal);
+    // ((dummyUser => dispatch(login(dummyUser))).then(this.props.closeModal);
   }
 
   formHeader() {

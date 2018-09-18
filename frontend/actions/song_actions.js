@@ -5,8 +5,6 @@ export const RECEIVE_SONGS = "RECEIVE_SONGS";
 export const RECEIVE_SONG_ERRORS = "RECEIVE_SONG_ERRORS";
 export const RECEIVE_SONGS_ERRORS = "RECEIVE_SONGS_ERRORS";
 
-
-
 export const createSong = (songToServer) => {
   return dispatch => {
     return SongAPIUtil.createSong(songToServer).then(

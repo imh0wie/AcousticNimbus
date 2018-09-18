@@ -1,8 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { openModal } from "../../actions/modal_actions";
-import LoginFormContainer from "../session_form/login_form_container";
-import SignupFormContainer from "../session_form/signup_form_container";
 
 class BarButtons extends React.Component {
   constructor(props) {
@@ -19,7 +16,7 @@ class BarButtons extends React.Component {
       <div className="homepage-header-buttons">
         <div className="bar-logo">
           <img src={window.logo} className="logo-before-login"></img>
-          <h2 className="logoname-before-login">ACOUSTIC NIMBUS</h2>
+          <h2 className="logoname-before-login">ACOUSTICNIMBUS</h2>
         </div>
         <div className="user-auth-buttons">
           <button onClick={() => this.props.openModal("login")} className="login-button">Log In</button>
@@ -38,7 +35,7 @@ class BarButtons extends React.Component {
         <div className="search-bar-container">
           <input type="text" placeholder="Search" className="search-bar"></input>
         </div>
-        <Link to="" className="upload-button">Upload</Link>
+        <Link to="/upload" className="upload-button">Upload</Link>
         <Link to="" className="profile-dropdown">
           <img className="profile-dropdown-img" src={window.default_avatar}></img>
           <p className="profile-dropdown-username">{this.props.currentUser.username}</p>

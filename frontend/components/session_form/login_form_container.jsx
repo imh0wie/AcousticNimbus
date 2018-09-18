@@ -15,6 +15,7 @@ const msp = ({ errors }) => {
 const mdp = (dispatch) => {
   return {
     submitAction: (user) => dispatch(login(user)),
+    demoLogin: (user) => dispatch(login(user)),
     switchForm: (
       <button className="switch-signup-button" onClick={() => dispatch(openModal("signup"))}>
         Sign Up
