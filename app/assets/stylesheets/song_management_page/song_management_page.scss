@@ -1,0 +1,41 @@
+.song-mgmt-page-container {
+  position: relative;
+  top: 45px;
+  width: 1240px;
+  margin: 0 auto;
+  background-color: white;
+}
+
+.song-mgmt-navbar {
+  display: flex;
+  border-bottom: 1px solid #ccc;
+}
+
+.song-mgmt-navbar-button-container {
+  padding: 15px 30px;
+}
+
+.song-mgmt-navbar-button {
+  border-bottom: 1px solid #ff4d01;
+  font-size: 14px;
+  padding: 15px 0px;
+}
+
+.upload-form-subheader {
+  display: block;
+  margin: 0 auto;
+  margin-top: 60px;
+  font-size: 22px;
+  width: 285px;
+}
+
+.song-uploader-container {
+  display: block;
+  margin: 0 auto;
+  margin-top: 60px;
+  width: 130px;
+}
+
+input[type=file] {
+  color: transparent;
+}

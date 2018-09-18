@@ -16,7 +16,7 @@ class uploadForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const user = merge({}, this.state);
-    this.props.submitAction(user)
+    this.props.submitAction(user);
   }
 
   update(field) {
@@ -42,14 +42,16 @@ class uploadForm extends React.Component {
       <div className="upload_form_wrapper">
         <form className="upload-form">
           <div className="upload_form_content">
-            <h1 className="upload-form-header">Upload</h1>
-            <h2 className="upload-form-subheader">"We can't wait for your jam!"</h2>
+            <h2 className="upload-form-subheader">We can't wait for your jam!</h2>
             <br/>
-            {this.renderErrors()}
+            <div className="song-uploader-container">
+              <input type="file" className="audio-uploader" value="Choose a file to upload" />
+            </div>
             <div className="song-image-uploader-container">
               <img className="uploaded-song-image-preview"></img>
-              <input type="file" className="file-uploader" />
+              <input type="file" className="image-uploader" />
             </div>
+            {this.renderErrors()}
             <div className="upload-form-title-input-container">
               <label><span className="required-marker">*</span>Title
                 <input type="text"
@@ -95,7 +97,7 @@ class uploadForm extends React.Component {
             </div>
             <div className="upload-form-buttons-container">
               <Link to="/stream" className="upload-cancel-button">Cancel</Link>
-              <input type="submit" className="upload-form-submit-button">Upload</input>
+              <input type="submit" value="Upload" className="upload-form-submit-button" />
             </div>
           </div>
         </form>

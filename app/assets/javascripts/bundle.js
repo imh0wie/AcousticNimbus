@@ -389,10 +389,108 @@ var App = function App() {
 
 /***/ }),
 
-/***/ "./frontend/components/bar_buttons/bar_buttons.jsx":
-/*!*********************************************************!*\
-  !*** ./frontend/components/bar_buttons/bar_buttons.jsx ***!
-  \*********************************************************/
+/***/ "./frontend/components/header_bar/header_bar.jsx":
+/*!*******************************************************!*\
+  !*** ./frontend/components/header_bar/header_bar.jsx ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _header_bar_buttons_header_bar_buttons_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../header_bar_buttons/header_bar_buttons_container */ "./frontend/components/header_bar_buttons/header_bar_buttons_container.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+ // line 21: Should we pass in currentUser as props?
+
+var HeaderBar =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(HeaderBar, _React$Component);
+
+  function HeaderBar() {
+    _classCallCheck(this, HeaderBar);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(HeaderBar).apply(this, arguments));
+  }
+
+  _createClass(HeaderBar, [{
+    key: "render",
+    value: function render() {
+      // const bar = () => {
+      if (this.props.currentUser) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
+          className: "protected-page-outer-bar"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_bar_buttons_header_bar_buttons_container__WEBPACK_IMPORTED_MODULE_1__["default"], null));
+      } else {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
+          className: "homepage-header-bar"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_bar_buttons_header_bar_buttons_container__WEBPACK_IMPORTED_MODULE_1__["default"], null));
+      } // }
+
+    }
+  }]);
+
+  return HeaderBar;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component); // <iframe src="https://giphy.com/embed/wsWcsrfMXjJgk" width="480" height="264" frameBorder="0" className="giphy-embed" allowFullScreen></iframe>
+// <img src="slideshow-img1.jpg" alt="img1" className="header-background"></img>
+// <img src="images/header-background.gif" alt="header-background" className="header-background"></img>
+
+
+/* harmony default export */ __webpack_exports__["default"] = (HeaderBar);
+
+/***/ }),
+
+/***/ "./frontend/components/header_bar/header_bar_container.jsx":
+/*!*****************************************************************!*\
+  !*** ./frontend/components/header_bar/header_bar_container.jsx ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _header_bar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header_bar */ "./frontend/components/header_bar/header_bar.jsx");
+
+
+
+
+var msp = function msp(state) {
+  return {
+    currentUser: state.entities.users[state.session.id]
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, null)(_header_bar__WEBPACK_IMPORTED_MODULE_2__["default"]));
+
+/***/ }),
+
+/***/ "./frontend/components/header_bar_buttons/header_bar_buttons.jsx":
+/*!***********************************************************************!*\
+  !*** ./frontend/components/header_bar_buttons/header_bar_buttons.jsx ***!
+  \***********************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -401,9 +499,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
-/* harmony import */ var _session_form_login_form_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../session_form/login_form_container */ "./frontend/components/session_form/login_form_container.jsx");
-/* harmony import */ var _session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../session_form/signup_form_container */ "./frontend/components/session_form/signup_form_container.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -421,9 +516,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-
-
 
 
 
@@ -461,7 +553,7 @@ function (_React$Component) {
         className: "logo-before-login"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
         className: "logoname-before-login"
-      }, "ACOUSTIC NIMBUS")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "ACOUSTICNIMBUS")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "user-auth-buttons"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: function onClick() {
@@ -500,7 +592,7 @@ function (_React$Component) {
         placeholder: "Search",
         className: "search-bar"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "",
+        to: "/upload",
         className: "upload-button"
       }, "Upload"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "",
@@ -589,10 +681,10 @@ function (_React$Component) {
 
 /***/ }),
 
-/***/ "./frontend/components/bar_buttons/bar_buttons_container.js":
-/*!******************************************************************!*\
-  !*** ./frontend/components/bar_buttons/bar_buttons_container.js ***!
-  \******************************************************************/
+/***/ "./frontend/components/header_bar_buttons/header_bar_buttons_container.js":
+/*!********************************************************************************!*\
+  !*** ./frontend/components/header_bar_buttons/header_bar_buttons_container.js ***!
+  \********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -601,7 +693,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
-/* harmony import */ var _bar_buttons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./bar_buttons */ "./frontend/components/bar_buttons/bar_buttons.jsx");
+/* harmony import */ var _header_bar_buttons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./header_bar_buttons */ "./frontend/components/header_bar_buttons/header_bar_buttons.jsx");
 
 
 
@@ -633,105 +725,7 @@ var mdp = function mdp(dispatch) {
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(msp, mdp)(_bar_buttons__WEBPACK_IMPORTED_MODULE_3__["default"]));
-
-/***/ }),
-
-/***/ "./frontend/components/header_bar/header_bar.jsx":
-/*!*******************************************************!*\
-  !*** ./frontend/components/header_bar/header_bar.jsx ***!
-  \*******************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _bar_buttons_bar_buttons_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../bar_buttons/bar_buttons_container */ "./frontend/components/bar_buttons/bar_buttons_container.js");
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-
- // line 21: Should we pass in currentUser as props?
-
-var HeaderBar =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(HeaderBar, _React$Component);
-
-  function HeaderBar() {
-    _classCallCheck(this, HeaderBar);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(HeaderBar).apply(this, arguments));
-  }
-
-  _createClass(HeaderBar, [{
-    key: "render",
-    value: function render() {
-      // const bar = () => {
-      if (this.props.currentUser) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
-          className: "protected-page-outer-bar"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_bar_buttons_bar_buttons_container__WEBPACK_IMPORTED_MODULE_1__["default"], null));
-      } else {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
-          className: "homepage-header-bar"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_bar_buttons_bar_buttons_container__WEBPACK_IMPORTED_MODULE_1__["default"], null));
-      } // }
-
-    }
-  }]);
-
-  return HeaderBar;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component); // <iframe src="https://giphy.com/embed/wsWcsrfMXjJgk" width="480" height="264" frameBorder="0" className="giphy-embed" allowFullScreen></iframe>
-// <img src="slideshow-img1.jpg" alt="img1" className="header-background"></img>
-// <img src="images/header-background.gif" alt="header-background" className="header-background"></img>
-
-
-/* harmony default export */ __webpack_exports__["default"] = (HeaderBar);
-
-/***/ }),
-
-/***/ "./frontend/components/header_bar/header_bar_container.jsx":
-/*!*****************************************************************!*\
-  !*** ./frontend/components/header_bar/header_bar_container.jsx ***!
-  \*****************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _header_bar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header_bar */ "./frontend/components/header_bar/header_bar.jsx");
-
-
-
-
-var msp = function msp(state) {
-  return {
-    currentUser: state.entities.users[state.session.id]
-  };
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, null)(_header_bar__WEBPACK_IMPORTED_MODULE_2__["default"]));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(msp, mdp)(_header_bar_buttons__WEBPACK_IMPORTED_MODULE_3__["default"]));
 
 /***/ }),
 
@@ -1318,15 +1312,19 @@ function (_React$Component) {
         className: "song-mgmt-navbar-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "song-mgmt-navbar"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "song-mgmt-navbar-button-container",
+        onClick: this.switchTab()
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/upload",
-        activeClassName: "song-mgmt-navbar-button",
+        className: "song-mgmt-navbar-button"
+      }, "Upload")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "song-mgmt-navbar-button-container",
         onClick: this.switchTab()
-      }, "Upload"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/you/songs",
-        activeClassName: "song-mgmt-navbar-button",
-        onClick: this.switchTab()
-      }, "Your songs"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "song-mgmt-navbar-button"
+      }, "Your songs")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "song-mgmt-components-container"
       }, this.renderTab()));
     }
@@ -1431,18 +1429,22 @@ function (_React$Component) {
         className: "upload-form"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "upload_form_content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
-        className: "upload-form-header"
-      }, "Upload"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
         className: "upload-form-subheader"
-      }, "\"We can't wait for your jam!\""), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.renderErrors(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "We can't wait for your jam!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "song-uploader-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "file",
+        className: "audio-uploader",
+        value: "Choose a file to upload"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "song-image-uploader-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "uploaded-song-image-preview"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "file",
-        className: "file-uploader"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "image-uploader"
+      })), this.renderErrors(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "upload-form-title-input-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "required-marker"
@@ -1510,8 +1512,9 @@ function (_React$Component) {
         className: "upload-cancel-button"
       }, "Cancel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
+        value: "Upload",
         className: "upload-form-submit-button"
-      }, "Upload")))));
+      })))));
     }
   }]);
 
@@ -1765,7 +1768,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var songsErrorsReducer = function songsErrorsReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
 
