@@ -1,10 +1,13 @@
-export const createSong = (song) => (
-  $.ajax({
+export const createSong = (song) => {
+  debugger
+  return $.ajax({
     method: "POST",
     url: "/api/songs",
-    data: {song: song},
-  })
-);
+    data: song, //純粹match route
+    contentType: false,
+    processData: false,
+  });
+};
 
 export const fetchSong = (song) => (
   $.ajax({

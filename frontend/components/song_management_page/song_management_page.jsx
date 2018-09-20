@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink, withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import UploadFormContainer from "../upload_form/upload_form_container";
 import PersonalSongsListContainer from "../personal_songs_list/personal_songs_list_container";
 
@@ -20,6 +20,7 @@ class SongManagementPage extends React.Component {
 
   renderTab() {
     if (this.state.currentTab[0] === "upload") {
+      debugger
       return (
         <UploadFormContainer />
       );

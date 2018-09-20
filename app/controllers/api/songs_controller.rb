@@ -6,13 +6,17 @@ class Api::SongsController < ApplicationController
 
   def show
     @song = Song.find(params[:id])
+    render :show
   end
 
   def create
+    debugger
     @song = Song.new(song_params)
+    # @song.artist_id = current_user.id
     if @song.save
-      render :show
+      render :show #Show hai json => json: {}
     else
+      debugger
       render json: @song.errors.full_messages, status: 401
     end
   end
@@ -29,7 +33,7 @@ class Api::SongsController < ApplicationController
   def destroy
     @song = Song.find(params[:id])
     if @song.destroy
-      render :show
+      render :index
     else
       render json: @song.errors.full_messages, status: 401
     end
@@ -43,6 +47,6 @@ class Api::SongsController < ApplicationController
   private
 
   def song_params
-    params.require(:song).permit(:title, :description, :genre, :release_date, :availability)
+    params.require(:song).permit(:title, :genre, :description, :availability, :audio, :audio_url, :image, :image_url, :artist_id)
   end
 end

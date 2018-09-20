@@ -22,11 +22,6 @@
   padding: 15px 0px;
 }
 
-.upload-form-box {
-  margin: 0 auto;
-  width: 860px;
-  box-shadow: 0px 1px 3px 2px #888888;
-}
 
 .upload-form-subheader {
   display: block;
@@ -42,10 +37,16 @@
   width: 85px;
 }
 
-input[type=file] {
-  color: transparent;
-  content: "Choose a file to upload";
+.upload-fill-in-form {
+  margin: 0 auto;
+  width: 860px;
+  box-shadow: 0px 1px 3px 2px #888888;
 }
+
+// input[type=file] {
+//   color: transparent;
+//   // content: "Choose a file to upload";
+// }
 
 .upload-form-content {
   display: flex;
@@ -56,30 +57,57 @@ input[type=file] {
   border: 1px solid #ccc;
 }
 
+.song-image-uploader-container {
+  margin: 0 auto;
+  width: 255px;
+}
+
+.song-image-preview {
+  width: 190px;
+}
+
 .upload-form-data-name {
   display: block;
   font-size: 14px;
 }
 
-.upload-form-title-input {
-  border: 1px solid #ccc;
-  margin: 7px 8px;
-  border-radius: 3px;
-  width: 300px;
+.upload-form-errors-container {
+  display: block;
 }
 
-.upload-form-genre-input {
-  border: 1px solid #ccc;
-  margin: 7px 8px;
-  border-radius: 3px;
-  width: 200px;
+// .upload-form-title-input {
+//   border: 1px solid #ccc;
+//   margin: 7px 8px;
+//   border-radius: 3px;
+//   width: 300px;
+// }
+
+.upload-form-title {
+  width: 275px;
+  height: 20px;
 }
 
-.upload-form-description-input {
-  border: 1px solid #ccc;
-  margin: 7px 8px;
-  border-radius: 3px;
-  width: 450px;
+// .upload-form-genre-input {
+//   border: 1px solid #ccc;
+//   margin: 7px 8px;
+//   border-radius: 3px;
+//   width: 200px;
+// }
+
+.upload-form-genre {
+  width: 100px;
+}
+
+// .upload-form-description-input {
+//   border: 1px solid #ccc;
+//   margin: 7px 8px;
+//   border-radius: 3px;
+//   width: 450px;
+// }
+
+.upload-form-description {
+  width: 425px;
+  height: 175px;
 }
 
 .upload-form-availability-input {
@@ -94,7 +122,7 @@ input[type=file] {
   justify-content: space-between;
   padding: 30px;
   width: 800px;
-  border: 1px solid #ccc;
+  border-top: 1px solid #ccc;
 }
 
 .requirement-reminder {
