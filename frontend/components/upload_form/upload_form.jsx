@@ -21,6 +21,7 @@ class UploadForm extends React.Component {
     this.handleImage = this.handleImage.bind(this);
     this.handleAudio = this.handleAudio.bind(this);
     this.update = this.update.bind(this);
+    this.renderErrors = this.renderErrors.bind(this)
   }
 
   getValidationState() {
@@ -73,8 +74,6 @@ class UploadForm extends React.Component {
     }
   }
 
-
-
   renderErrors() {
     const errors = this.props.errors || [];
     return (
@@ -100,9 +99,11 @@ class UploadForm extends React.Component {
     songData.append('song[image]', this.state.image);
     songData.append('song[image_url]', this.state.imageURL);
     songData.append('song[artist_id]', this.state.artistId);
-    this.props.submitAction(songData).then((action) => {
-      this.props.history.push(`/songs/${action.song.id}`);
-    });
+    this.props.submitAction(songData).then(
+      (action) => {
+        this.props.history.push(`/songs/${action.song.id}`);
+      }
+    );
   }
 
   render () {
@@ -126,6 +127,7 @@ class UploadForm extends React.Component {
               <input type="file" className="image-uploader" value="" accept=".jpg, .png" onChange={this.handleImage} />
             </div>
             <div className="upload-form-right">
+              {this.renderErrors}
               <FormGroup
                 controlId="uploadFormTitle"
                 validationState={this.getValidationState()}>
@@ -150,6 +152,7 @@ class UploadForm extends React.Component {
                     <option value="Jazz">Jazz</option>
                     <option value="Metal">Metal</option>
                     <option value="Piano">Piano</option>
+                    <option value="Piano">Pop</option>
                     <option value="Soul">Soul</option>
                     <option value="Rock">Rock</option>
                     <option value="World">World</option>
