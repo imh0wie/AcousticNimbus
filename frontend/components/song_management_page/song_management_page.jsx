@@ -20,7 +20,6 @@ class SongManagementPage extends React.Component {
 
   renderTab() {
     if (this.state.currentTab[0] === "upload") {
-      debugger
       return (
         <UploadFormContainer />
       );

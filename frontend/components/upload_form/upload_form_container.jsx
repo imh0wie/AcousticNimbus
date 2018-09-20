@@ -4,7 +4,6 @@ import { createSong } from "../../actions/song_actions";
 import UploadForm from "./upload_form";
 
 const msp = (state) => {
-  debugger
   return {
     errors: state.errors.songs,
     currentUser: state.entities.users[state.session.id],

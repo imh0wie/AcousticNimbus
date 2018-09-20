@@ -9,7 +9,6 @@ const songsErrorsReducer = (state = [], action) => {
     case RECEIVE_SONGS:
       return [];
     case RECEIVE_SONG_ERRORS:
-      debugger
       return merge([], state, action.errors);
     case RECEIVE_SONGS_ERRORS:
       return merge([], state, action.errors);

@@ -9,15 +9,42 @@
 User.destroy_all
 Song.destroy_all
 
-user1 = User.create!(username: "h0wiechan", password: "88888888")
-user2 = User.create!(username: "jacksonW", password: "88888888")
-user3 = User.create!(username: "mikeschwag", password: "88888888")
-user4 = User.create!(username: "rafgarcia", password: "88888888")
-user5 = User.create!(username: "dddkinson", password: "88888888")
-user6 = User.create!(username: "tandreC", password: "88888888")
-user7 = User.create!(username: "kevinZ", password: "88888888")
-user8 = User.create!(username: "limingk", password: "88888888")
-user9 = User.create!(username: "dddkinson", password: "88888888")
-use10 = User.create!(username: "olliec", password: "88888888")
+users = [
+         {username: "h0wiechan", password: "12345678"},
+         {username: "jacksonW", password: "12345678"},
+         {username: "mikeschwag", password: "12345678"},
+         {username: "rafgarcis", password: "12345678"},
+         {username: "dddkinson", password: "12345678"},
+         {username: "tandreC", password: "12345678"},
+         {username: "kevinZ", password: "12345678"},
+         {username: "limingk", password: "12345678"},
+         {username: "blakeZ", password: "12345678"},
+         {username: "olliec", password: "12345678"}
+        ]
+#
+# songs = [
+#          {title: "Down", genre: "Electronic", description: "You have to love this song", availability: true, artist_id:},
+#          {title: "Bad & Boujee Remix", genre: "Electronic", description: "You have to love this song", availability: true, artist_id:},
+#          {title: "Alive", genre: "Electronic", description: "You have to love this song", availability: true, artist_id:},
+#          {title: "This Girl", genre: "Electronic", description: "You have to love this song", availability: true, artist_id:},
+#          {title: "Digital Love", genre: "Electronic", description: "You have to love this song", availability: true, artist_id:},
+#          {title: "Bye Bye", genre: "Electronic", description: "You have to love this song", availability: true, artist_id:},
+#          {title: "We Got U", genre: "Electronic", description: "You have to love this song", availability: true, artist_id:},
+#          {title: "Fxxk U", genre: "Electronic", description: "You have to love this song", availability: true, artist_id:},
+#          {title: "Location", genre: "Electronic", description: "You have to love this song", availability: true, artist_id:},
+#          {title: "Walking On A Dream", genre: "Electronic", description: "You have to love this song", availability: true, artist_id:},
+#          {title: "Longing", genre: "Electronic", description: "You have to love this song", availability: true, artist_id:},
+#          {title: "Conquerors", genre: "Electronic", description: "You have to love this song", availability: true, artist_id:},
+#          {title: "Home Alone", genre: "Electronic", description: "You have to love this song", availability: true, artist_id:},
+#          {title: "Beautiful", genre: "Electronic", description: "You have to love this song", availability: true, artist_id:},
+#          {title: "Sorry I Like You", genre: "Electronic", description: "You have to love this song", availability: true, artist_id:},
+#          {title: "Rebirth of Cool", genre: "Electronic", description: "You have to love this song", availability: true, artist_id:},
+#          {title: "Psychosocial", genre: "Electronic", description: "You have to love this song", availability: true, artist_id:},
+#          {title: "Wake Me Up", genre: "Electronic", description: "You have to love this song", availability: true, artist_id:},
+#         ]
+#
+# users.each do |user|
+#   User.create!(username: user.username, password: user.password)
+# end
 
-s1 = Song.create!()
+User.create!(username: "h0wiechan", password: "12345678")

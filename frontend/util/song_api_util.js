@@ -1,5 +1,4 @@
 export const createSong = (song) => {
-  debugger
   return $.ajax({
     method: "POST",
     url: "/api/songs",

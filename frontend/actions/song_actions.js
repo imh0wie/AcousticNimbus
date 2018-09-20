@@ -6,15 +6,14 @@ export const RECEIVE_SONG_ERRORS = "RECEIVE_SONG_ERRORS";
 export const RECEIVE_SONGS_ERRORS = "RECEIVE_SONGS_ERRORS";
 
 export const createSong = (songToServer) => {
-  debugger
   return dispatch => {
     return SongAPIUtil.createSong(songToServer).then(
       (songFromServer) => {
-        debugger
+    
         return dispatch(receiveSong(songFromServer));
       },
       (errors) => {
-        debugger
+    
         return dispatch(receiveSongErrors(errors.responseJSON));
       }
     );
@@ -48,7 +47,7 @@ export const fetchSongs = () => {
 };
 
 // What does it do? ==> reducer
-const receiveSong = (song) => {
+const receiveSong = ({song}) => {
   return {
     type: RECEIVE_SONG,
     song: song,
@@ -63,7 +62,6 @@ const receiveSongs = (songs) => {
 };
 
 const receiveSongErrors = (errors) => {
-  debugger
   return {
     type: RECEIVE_SONG_ERRORS,
     errors: errors,

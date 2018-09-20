@@ -1,21 +1,26 @@
 import React from "react";
 import { FormGroup, ControlLabel, FormControl, Radio } from 'react-bootstrap';
-import { Link } from "react-router-dom";
+import ReactAudioPlayer from 'react-audio-player';
+import { Link, withRouter } from "react-router-dom";
 
 class UploadForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       title: "",
-      genre: "",
+      genre: "Ambient",
       description: "",
       availability: true,
       audio: null,
       audioURL: "",
-      image: "",
+      image: null,
       imageURL: "",
       artistId: this.props.currentUser.id,
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleImage = this.handleImage.bind(this);
+    this.handleAudio = this.handleAudio.bind(this);
+    this.update = this.update.bind(this);
   }
 
   getValidationState() {
@@ -26,14 +31,12 @@ class UploadForm extends React.Component {
   }
 
   update(field) {
-    debugger
     return (e) => {
       this.setState({ [field]: e.currentTarget.value });
     };
   }
 
   updateAvailability() {
-    debugger
     return e => {
       const publicity = (e.currentTarget.value === "Public") ? true : false ;
       this.setState({
@@ -42,20 +45,35 @@ class UploadForm extends React.Component {
     };
   }
 
-  handleImage(e) {
+  handleAudio(e) {
     const reader = new FileReader();
-    const image = e.currentTarget.files[0];
-    debugger
-    reader.onloadend = () => {
-        this.setState({
-        image: image,
-        imageURL: reader.result,
+    const file = e.currentTarget.files[0];
+    reader.onloadend = function() {
+      this.setState({
+        audio: file,
+        audioURL: reader.result,
       });
-    };
-    if (image) {
-      reader.readAsDataURL(image);
+    }.bind(this);
+    if (file) {
+      reader.readAsDataURL(file);
     }
   }
+
+  handleImage(e) {
+    const reader = new FileReader();
+    const file = e.currentTarget.files[0];
+    reader.onloadend = function() {
+      this.setState({
+        image: file,
+        imageURL: reader.result,
+      });
+    }.bind(this);
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  }
+
+
 
   renderErrors() {
     const errors = this.props.errors || [];
@@ -82,27 +100,22 @@ class UploadForm extends React.Component {
     songData.append('song[image]', this.state.image);
     songData.append('song[image_url]', this.state.imageURL);
     songData.append('song[artist_id]', this.state.artistId);
-    debugger
-    this.props.submitAction(songData).then(
-      (song) => this.props.history.push(`/songs/${song.id}`)
-    );
-    // () => this.props.history.push(`/${this.props.currentUser.username}/${this.state.title.split(" ").join("-")}`)
-    // this.props.submitAction(song).then(() => this.setState({
-    //   toShowPage: true,
-    // }));
+    this.props.submitAction(songData).then((action) => {
+      this.props.history.push(`/songs/${action.song.id}`);
+    });
   }
 
   render () {
     const imagePreview = this.state.imageURL ? <img src={this.state.imageURL} className="song-image-preview" /> : null;
+    const audioPreview = this.state.audioURL ? <ReactAudioPlayer src={this.state.audioURL} className="upload-audio-preview" autoPlay controls /> : null;
     return (
-      <form className="upload-form-container" onSubmit={this.handleSubmit.bind(this)}>
+      <form className="upload-form-container">
         <div className="upload-form-header">
           <h2 className="upload-form-subheader">We can't wait for your jam!</h2>
           <br/>
           <div className="song-uploader-container">
-            <FormGroup controlId="uploadFormAudio">
-              <formControl type="file" />
-            </FormGroup>
+            <input type="file" className="audio-uploader" value="" accept=".mp3, .wav" onChange={this.handleAudio} />
+            {audioPreview}
           </div>
         </div>
 
@@ -128,18 +141,18 @@ class UploadForm extends React.Component {
               <FormGroup controlId="uploadFormGenre">
                 <ControlLabel className="upload-form-data-name">Genre</ControlLabel>
                 <FormControl componentClass="select" placeholder="None" className="upload-form-genre" onChange={this.update("genre")}>
-                    <option value={this.state.genre}>Ambient</option>
-                    <option value={this.state.genre}>Classical</option>
-                    <option value={this.state.genre}>Country</option>
-                    <option value={this.state.genre}>Dance</option>
-                    <option value={this.state.genre}>Electronic</option>
-                    <option value={this.state.genre}>Hip-hop</option>
-                    <option value={this.state.genre}>Jazz</option>
-                    <option value={this.state.genre}>Metal</option>
-                    <option value={this.state.genre}>Piano</option>
-                    <option value={this.state.genre}>Soul</option>
-                    <option value={this.state.genre}>Rock</option>
-                    <option value={this.state.genre}>World</option>
+                    <option value="Ambient">Ambient</option>
+                    <option value="Classical">Classical</option>
+                    <option value="Country">Country</option>
+                    <option value="Dance">Dance</option>
+                    <option value="Electronic">Electronic</option>
+                    <option value="Hip-Hop">Hip-hop</option>
+                    <option value="Jazz">Jazz</option>
+                    <option value="Metal">Metal</option>
+                    <option value="Piano">Piano</option>
+                    <option value="Soul">Soul</option>
+                    <option value="Rock">Rock</option>
+                    <option value="World">World</option>
                 </FormControl>
               </FormGroup>
               <FormGroup controlId="uploadFormDescription">
@@ -164,7 +177,7 @@ class UploadForm extends React.Component {
             </div>
             <div className="upload-form-buttons-container">
               <Link to="/stream" className="upload-form-end-buttons upload-cancel-button">Cancel</Link>
-              <input type="submit" value="Upload" className="upload-form-end-buttons upload-form-submit-button" />
+              <input type="submit" value="Upload" className="upload-form-end-buttons upload-form-submit-button" onClick={this.handleSubmit} />
             </div>
           </div>
         </div>
@@ -175,4 +188,4 @@ class UploadForm extends React.Component {
 
 }
 
-export default UploadForm;
+export default withRouter(UploadForm);
