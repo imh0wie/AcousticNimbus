@@ -1,35 +1,33 @@
-// import * as SongAPIUtil from "../util/song_api_util";
-//
-// export const RECEIVE_SONG = "RECEIVE_SONG";
-// export const RECEIVE_SONGS = "RECEIVE_SONGS";
-// export const RECEIVE_SONG_ERRORS = "RECEIVE_SONG_ERRORS";
-// export const RECEIVE_SONGS_ERRORS = "RECEIVE_SONGS_ERRORS";
-//
-// // What does it do? ==> reducer
-// const receiveSong = ({song}) => {
-//   return {
-//     type: RECEIVE_SONG,
-//     song: song,
-//   };
-// };
-//
-// const receiveSongs = (songs) => {
-//   return {
-//     type: RECEIVE_SONGS,
-//     songs: songs,
-//   };
-// };
-//
-// const receiveSongErrors = (errors) => {
-//   return {
-//     type: RECEIVE_SONG_ERRORS,
-//     errors: errors,
-//   };
-// };
-//
-// const receiveSongsErrors = (errors) => {
-//   return {
-//     type: RECEIVE_SONGS_ERRORS,
-//     errors: errors,
-//   };
-// };
+export const PLAY_SONG = "PLAY_SONG";
+export const PAUSE_SONG = "PAUSE_SONG";
+export const SET_CURRENT_SONG = "SET_CURRENT_SONG";
+export const RECEIVE_CURRENT_SONG_ERRORS = "RECEIVE_CURRENT_SONG_ERRORS";
+
+// What does it do? ==> reducer
+export const playSong = ({ song }) => {
+  return {
+    type: PLAY_SONG,
+    song: song,
+  };
+};
+
+export const pauseSong = ({ song }) => {
+  return {
+    type: PAUSE_SONG,
+    song: song,
+  };
+};
+
+export const setCurrentSong = ({ song }) => {
+  return {
+    type: SET_CURRENT_SONG,
+    song: song,
+  };
+};
+
+export const receiveCurrentSongErrors = (errors) => {
+  return {
+    type: RECEIVE_CURRENT_SONG_ERRORS,
+    errors: errors,
+  };
+};

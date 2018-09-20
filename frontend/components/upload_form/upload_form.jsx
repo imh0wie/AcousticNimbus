@@ -101,6 +101,9 @@ class UploadForm extends React.Component {
     songData.append('song[artist_id]', this.state.artistId);
     this.props.submitAction(songData).then(
       (action) => {
+        this.props.setCurrentSong(action.song);
+      },
+      (action) => {
         this.props.history.push(`/songs/${action.song.id}`);
       }
     );
