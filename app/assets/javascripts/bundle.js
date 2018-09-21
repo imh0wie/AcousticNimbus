@@ -500,7 +500,7 @@ function (_React$Component) {
   _createClass(BarButtons, [{
     key: "beforeLogin",
     value: function beforeLogin() {
-      return null; // <div className="protected-page-inner-bar">
+      return; // <div className="protected-page-inner-bar">
       //   <Link to="/" ><img className="stream-logo" src={window.barLogo} ></img></Link>
       //   <Link to="/" className="bar-home">Home</Link>
       //   <Link to="/charts/top" className="bar-collection">Charts</Link>

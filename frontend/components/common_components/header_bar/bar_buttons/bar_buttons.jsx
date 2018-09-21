@@ -12,7 +12,7 @@ class BarButtons extends React.Component {
   }
 
   beforeLogin() {
-    return null;
+    return ;
       // <div className="protected-page-inner-bar">
       //   <Link to="/" ><img className="stream-logo" src={window.barLogo} ></img></Link>
       //   <Link to="/" className="bar-home">Home</Link>
