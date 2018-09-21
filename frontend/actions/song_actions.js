@@ -9,11 +9,10 @@ export const createSong = (songToServer) => {
   return dispatch => {
     return SongAPIUtil.createSong(songToServer).then(
       (songFromServer) => {
-    
         return dispatch(receiveSong(songFromServer));
       },
       (errors) => {
-    
+
         return dispatch(receiveSongErrors(errors.responseJSON));
       }
     );
@@ -47,7 +46,7 @@ export const fetchSongs = () => {
 };
 
 // What does it do? ==> reducer
-const receiveSong = ({song}) => {
+const receiveSong = ({ song }) => {
   return {
     type: RECEIVE_SONG,
     song: song,

@@ -1,9 +1,16 @@
 import React from "react";
+import ModalContainer from "../modal/modal_container";
+import BannerContainer from "./banner/banner_container";
 
 const Homepage = () => {
   return (
     <div className="homepage-container">
-      <h1>Hello</h1>
+      <div className="homepage-header-container">
+        <ModalContainer />
+        <BannerContainer />
+      </div>
+      <div className="homepage-content-container">
+      </div>
     </div>
   );
 };

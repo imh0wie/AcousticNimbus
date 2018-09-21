@@ -1,6 +1,5 @@
-import React from "react";
 import { connect } from "react-redux";
-import { closeModal } from "../../actions/modal_actions";
+import { closeModal } from "../../../actions/modal_actions";
 import Modal from "./modal";
 
 const msp = (state) => {

@@ -12,18 +12,21 @@ class BarButtons extends React.Component {
   }
 
   beforeLogin() {
-    return (
-      <div className="homepage-header-buttons">
-        <div className="bar-logo">
-          <img src={window.logo} className="logo-before-login"></img>
-          <h2 className="logoname-before-login">ACOUSTICNIMBUS</h2>
-        </div>
-        <div className="user-auth-buttons">
-          <button onClick={() => this.props.openModal("login")} className="login-button">Log In</button>
-          <button onClick={() => this.props.openModal("signup")} className="signup-button">Create account</button>
-        </div>
-      </div>
-    );
+    return null;
+      // <div className="protected-page-inner-bar">
+      //   <Link to="/" ><img className="stream-logo" src={window.barLogo} ></img></Link>
+      //   <Link to="/" className="bar-home">Home</Link>
+      //   <Link to="/charts/top" className="bar-collection">Charts</Link>
+      //   <div className="search-bar-container">
+      //     <input type="text" placeholder="Search" className="search-bar"></input>
+      //   </div>
+      //   <Link to="/upload" className="upload-button">Upload</Link>
+      //   <Link to="" className="profile-dropdown">
+      //     <img className="profile-dropdown-img" src={window.default_avatar}></img>
+      //     <p className="profile-dropdown-username">{this.props.currentUser.username}</p>
+      //   </Link>
+      //   <button className="logout-button" onClick={() => this.props.logout()}>Sign Out</button>
+      // </div>
   }
 
   afterLogin() {

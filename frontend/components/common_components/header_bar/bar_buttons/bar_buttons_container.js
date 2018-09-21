@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
-import { login, logout } from "../../actions/session_actions";
-import { openModal } from "../../actions/modal_actions";
-import BarButtons from "./header_bar_buttons";
+import { login, logout } from "../../../../actions/session_actions";
+import { openModal } from "../../../../actions/modal_actions";
+import BarButtons from "./bar_buttons";
 
 // Already have access to state because:
 // in the entry file, we passed store to root, AND;

@@ -1,5 +1,5 @@
 class Song < ApplicationRecord
-  validates :title, :availability, :artist_id, presence: true
+  validates :title, :availability, :artist_id, :audio_url, presence: true
   validates :availability, inclusion: { in: [true, false] }
   # validates_attachment_content_type :audio, content_type: ['audio/aiff', 'audio/wav', 'audio/flac',
   #                                                          'audio/alac', 'audio/ogg', 'audio/mp2',

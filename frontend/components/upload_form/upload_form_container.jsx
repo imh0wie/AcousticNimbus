@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createSong } from "../../actions/song_actions";
-import { setCurrentSong } from "../..actions/current_song_actions";
+import { setCurrentSong } from "../../actions/current_song_actions";
 import UploadForm from "./upload_form";
 
 const msp = (state) => {

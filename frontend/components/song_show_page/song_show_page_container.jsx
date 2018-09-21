@@ -6,7 +6,14 @@ const msp = (state) => {
   return {
     currentSong: state.entities.currentSong.song,
     playing: state.entities.currentSong.playing,
+    pos: state.entities.currentSong.pos,
   };
 };
 
-export default connect(msp)(SongShowPage;
+// const mdp = (state) => {
+//   return {
+//
+//   }
+// }
+
+export default connect(msp)(SongShowPage);

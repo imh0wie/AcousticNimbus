@@ -18,10 +18,10 @@ export const pauseSong = ({ song }) => {
   };
 };
 
-export const setCurrentSong = ({ song }) => {
+export const setCurrentSong = ( song ) => {
   return {
     type: SET_CURRENT_SONG,
-    song: song,
+    currentSong: song,
   };
 };
 

@@ -1,6 +1,5 @@
 import { RECEIVE_SONG, RECEIVE_SONGS } from "../actions/song_actions";
 import { merge } from "lodash";
-
 const songsReducer = (state = {}, action) => {
   Object.freeze(state);
   switch (action.type) {
