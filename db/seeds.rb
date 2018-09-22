@@ -48,3 +48,15 @@ users = [
 # end
 
 User.create!(username: "h0wiechan", password: "12345678")
+User.create!(username: "jacksonW", password: "12345678")
+User.create!(username: "mikeschwag", password: "12345678")
+User.create!(username: "rafgarcia", password: "12345678")
+User.create!(username: "dddkinson", password: "12345678")
+User.create!(username: "tandreC", password: "12345678")
+User.create!(username: "kevinZz", password: "12345678")
+User.create!(username: "limingK", password: "12345678")
+User.create!(username: "blakeZ", password: "12345678")
+User.create!(username: "ollie", password: "12345678")
+User.create!(username: "ellebelle", password: "12345678")
+
+Song.create!()

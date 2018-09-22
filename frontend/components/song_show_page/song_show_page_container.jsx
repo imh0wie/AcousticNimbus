@@ -1,10 +1,10 @@
-import React from "react";
 import { connect } from "react-redux";
 import SongShowPage from "./song_show_page";
 
 const msp = (state) => {
+  debugger
   return {
-    currentSong: state.entities.currentSong.song,
+    song: state.entities.currentSong.song,
     playing: state.entities.currentSong.playing,
     pos: state.entities.currentSong.pos,
   };

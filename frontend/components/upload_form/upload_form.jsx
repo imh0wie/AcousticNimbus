@@ -102,7 +102,9 @@ class UploadForm extends React.Component {
     this.props.submitAction(songData).then(
       (action) => {
         this.props.setCurrentSong(action.song);
+        debugger
         this.props.history.push(`/songs/${action.song.id}`);
+        debugger
       }
     );
   }

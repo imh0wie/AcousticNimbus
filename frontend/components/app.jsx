@@ -6,7 +6,7 @@ import Homepage from "./homepage/homepage";
 import StreamPage from "./stream_page/stream_page";
 import SongManagementPage from "./song_management_page/song_management_page";
 import { AuthRoute, ProtectedRoute } from "../util/route_util";
-import SongShow from "./song_show_page/song_show_page";
+import SongShowPageContainer from "./song_show_page/song_show_page_container";
 
 const App = () => {
   return (
@@ -18,7 +18,7 @@ const App = () => {
         <Switch>
           <ProtectedRoute exact path="/stream" component={StreamPage} />
           <ProtectedRoute exact path="/upload" component={SongManagementPage} />
-          <ProtectedRoute exact path="/songs/:songId" component={SongShow} />
+          <ProtectedRoute exact path="/songs/:songId" component={SongShowPageContainer} />
           <AuthRoute exact path="/" component={Homepage} />
         </Switch>
       </div>

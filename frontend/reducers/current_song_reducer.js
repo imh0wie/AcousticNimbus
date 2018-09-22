@@ -26,6 +26,7 @@ const currentSongReducer = (state = defaultState, action) => {
       };
       return merge({}, state, newState);
     case SET_CURRENT_SONG:
+      debugger
       newState = {
         song: action.currentSong,
         playing: false,

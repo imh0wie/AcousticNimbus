@@ -397,7 +397,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _stream_page_stream_page__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./stream_page/stream_page */ "./frontend/components/stream_page/stream_page.jsx");
 /* harmony import */ var _song_management_page_song_management_page__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./song_management_page/song_management_page */ "./frontend/components/song_management_page/song_management_page.jsx");
 /* harmony import */ var _util_route_util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../util/route_util */ "./frontend/util/route_util.jsx");
-/* harmony import */ var _song_show_page_song_show_page__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./song_show_page/song_show_page */ "./frontend/components/song_show_page/song_show_page.jsx");
+/* harmony import */ var _song_show_page_song_show_page_container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./song_show_page/song_show_page_container */ "./frontend/components/song_show_page/song_show_page_container.jsx");
 
  // import ModalContainer from "./modal/modal_container";
 
@@ -424,7 +424,7 @@ var App = function App() {
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__["ProtectedRoute"], {
     exact: true,
     path: "/songs/:songId",
-    component: _song_show_page_song_show_page__WEBPACK_IMPORTED_MODULE_7__["default"]
+    component: _song_show_page_song_show_page_container__WEBPACK_IMPORTED_MODULE_7__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__["AuthRoute"], {
     exact: true,
     path: "/",
@@ -729,6 +729,8 @@ function (_React$Component) {
           className: "protected-page-outer-bar"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_bar_buttons_bar_buttons_container__WEBPACK_IMPORTED_MODULE_1__["default"], null));
       }
+
+      return null;
     }
   }]);
 
@@ -1492,13 +1494,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 
  // import SongShowPageContentContainer from "../song_show_page_content/song_show_page_content_container";
@@ -1509,74 +1511,151 @@ function (_React$Component) {
   _inherits(SongShowPage, _React$Component);
 
   function SongShowPage(props) {
-    var _this;
-
     _classCallCheck(this, SongShowPage);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(SongShowPage).call(this, props));
-    _this.state = {
-      song: null,
-      playing: null,
-      pos: null
-    };
-    _this.jump = _this.jump.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    return _this;
-  }
+    return _possibleConstructorReturn(this, _getPrototypeOf(SongShowPage).call(this, props)); // this.state = {
+    //   song: null,
+    //   playing: null,
+    //   pos: null,
+    // };
+    // this.jump = this.jump.bind(this);
+  } // togglePlaying() {
+  //   this.setState({
+  //     playing: !this.state.playing,
+  //   });
+  // }
+  //
+  // jump() {
+  //   return (e) => {
+  //     this.setState({
+  //       at: e.originalArgs[0], //??
+  //     });
+  //   };
+  // }
+
 
   _createClass(SongShowPage, [{
-    key: "togglePlaying",
-    value: function togglePlaying() {
-      this.setState({
-        playing: !this.state.playing
-      });
-    }
-  }, {
-    key: "jump",
-    value: function jump() {
-      var _this2 = this;
-
-      return function (e) {
-        _this2.setState({
-          at: e.originalArgs[0] //??
-
-        });
-      };
-    }
-  }, {
     key: "componentDidMount",
-    value: function componentDidMount() {}
+    value: function componentDidMount() {
+      var barCtx = document.createElement('canvas').getContext('2d');
+      var barBase = barCtx.createLinearGradient(0, 75, 0, 25);
+      barBase.addColorStop(0, "#f7ba0f");
+      barBase.addColorStop(1, "#f7530f");
+      var waveformBar = wavesurfer_js__WEBPACK_IMPORTED_MODULE_1___default.a.create({
+        container: "#waveform-bar",
+        wavecolor: barBase,
+        progressColor: "white",
+        barWidth: 2
+      });
+      var buttons = {
+        play: document.getElementById("play-button"),
+        pause: document.getElementById("pause-button"),
+        stop: document.getElementById("stop-button")
+      };
+      buttons.play.addEventListener("click", function () {
+        waveformBar.play();
+        buttons.play.disabled = true;
+        buttons.pause.disabled = false;
+        buttons.stop.disabled = false;
+      });
+      buttons.pause.addEventListener("click", function () {
+        waveformBar.pause();
+        buttons.play.disabled = false;
+        buttons.pause.disabled = true;
+        buttons.stop.disabled = false;
+      });
+      buttons.stop.addEventListener("click", function () {
+        waveformBar.stop();
+        buttons.play.disabled = false;
+        buttons.pause.disabled = true;
+        buttons.stop.disabled = true;
+      });
+      waveformBar.on("ready", function () {
+        buttons.play.disabled = false;
+      });
+      window.addEventListener("resize", function () {
+        var currentProgress = waveformBar.getCurrentTime() / waveformBar.getDuration();
+        waveformBar.empty();
+        waveformBar.drawBuffer();
+        waveformBar.seekTo(currentProgress);
+        buttons.play.disabled = false;
+        buttons.pause.disabled = true;
+        buttons.stop.disabled = false;
+      }, false);
+      waveformBar.load(this.props.song.audioURL);
+    }
   }, {
     key: "render",
     value: function render() {
+      debugger;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "show-page-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "banner-player-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "waveform"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, this.props.song.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, this.props.song.genre), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, this.props.song.description), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, this.props.song.availability));
+        id: "waveform-bar"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "button",
+        id: "play-button",
+        value: "Play",
+        disabled: "disabled"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "button",
+        id: "pause-button",
+        value: "Pause",
+        disabled: "disabled"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "button",
+        id: "stop-button",
+        value: "Stop",
+        disabled: "disabled"
+      })));
     }
   }]);
 
   return SongShowPage;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component); // <audio controls>
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component); // {this.props.song.title}
+// {this.props.song.genre}
+// {this.props.song.description}
+// {this.props.song.availability}
+// <audio controls>
 //   <source src="https://s3.amazonaws.com/acoustic-nimbus-fileupload-dev/AP6j3EYT7GuzuYYTtYobA5sw" type="audio/mpeg" />
 // </audio>
 
 
-/* harmony default export */ __webpack_exports__["default"] = (SongShowPage); // waveformPlayer () {
-//   let barsCtx = document.createElement('canvas').getContext('2d');
-//   let barsBase = barsCtx.createLinearGradient(0, 75, 0, 25);
-//   barsBase.addColorStop(0, "#f7ba0f");
-//   barsBase.addColorStop(1, "#f7530f");
-//   barsCtx.fillStyle = barBase;
-//   barsCtx.fillRect(0, 0, 100, 100);
-//   return (
-//     WaveSurfer.create({
+/* harmony default export */ __webpack_exports__["default"] = (SongShowPage);
+
+/***/ }),
+
+/***/ "./frontend/components/song_show_page/song_show_page_container.jsx":
+/*!*************************************************************************!*\
+  !*** ./frontend/components/song_show_page/song_show_page_container.jsx ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _song_show_page__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./song_show_page */ "./frontend/components/song_show_page/song_show_page.jsx");
+
+
+
+var msp = function msp(state) {
+  debugger;
+  return {
+    song: state.entities.currentSong.song,
+    playing: state.entities.currentSong.playing,
+    pos: state.entities.currentSong.pos
+  };
+}; // const mdp = (state) => {
+//   return {
 //
-//     });
-//   );
+//   }
 // }
+
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(msp)(_song_show_page__WEBPACK_IMPORTED_MODULE_1__["default"]));
 
 /***/ }),
 
@@ -1770,7 +1849,11 @@ function (_React$Component) {
       this.props.submitAction(songData).then(function (action) {
         _this4.props.setCurrentSong(action.song);
 
+        debugger;
+
         _this4.props.history.push("/songs/".concat(action.song.id));
+
+        debugger;
       });
     }
   }, {
@@ -1996,6 +2079,7 @@ var currentSongReducer = function currentSongReducer() {
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, newState);
 
     case _actions_current_song_actions__WEBPACK_IMPORTED_MODULE_0__["SET_CURRENT_SONG"]:
+      debugger;
       newState = {
         song: action.currentSong,
         playing: false,

@@ -10,6 +10,7 @@ class HeaderBar extends React.Component {
         </header>
       );
     }
+    return null;
   }
 }
 
