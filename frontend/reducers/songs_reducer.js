@@ -6,7 +6,7 @@ const songsReducer = (state = {}, action) => {
     case RECEIVE_SONG:
       return merge({}, state, { [action.song.id]: action.song });
     case RECEIVE_SONGS:
-      return merge({}, state, action.songs);
+      return merge({}, action.songs);
     default:
       return state;
   }

@@ -1,7 +1,28 @@
 class Api::SongsController < ApplicationController
+  helper_method :songs_by_release
+
   def index
     @songs = Song.all
+    # @songs_by_release_time = Song.all.reverse.take(30)
+    # @songs_by_release_time = Song.by_release_time
+    # @songs_by_playback_times = Song.by_playback_times
     render :index
+  end
+
+  def songs_by_release(songs)
+    by_release_hash = []
+    songs.reverse.take(30).each do |song|
+      song_hash = {}
+      song_hash[id] = song.id
+      song_hash[title] = song.title
+      song_hash[genre] = song.genre
+      song_hash[artist] = song.artist.username
+      song_hash[releaseTime] = song.created_at
+      song_hash[audioURL] = song.audio_url
+      song_hash[imageURL] = song.image_url
+
+      by_release_hash << song_hash
+    end
   end
 
   def show

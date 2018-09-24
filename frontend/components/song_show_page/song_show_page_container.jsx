@@ -1,12 +1,10 @@
 import { connect } from "react-redux";
 import SongShowPage from "./song_show_page";
 
-const msp = (state) => {
+const msp = (state, match) => {
   debugger
   return {
-    song: state.entities.currentSong.song,
-    playing: state.entities.currentSong.playing,
-    pos: state.entities.currentSong.pos,
+    song: state.entities.songs[match.params.songId],
   };
 };
 
@@ -16,4 +14,4 @@ const msp = (state) => {
 //   }
 // }
 
-export default connect(msp)(SongShowPage);
+export default connect(msp, null)(SongShowPage);

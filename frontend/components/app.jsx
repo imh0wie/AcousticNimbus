@@ -3,21 +3,20 @@ import { Switch } from "react-router-dom";
 // import ModalContainer from "./modal/modal_container";
 import HeaderBarContainer from "./common_components/header_bar/header_bar_container";
 import Homepage from "./homepage/homepage";
-import StreamPage from "./stream_page/stream_page";
-import SongManagementPage from "./song_management_page/song_management_page";
+import FeedPage from "./feed_page/feed_page";
+import SongMgmtPage from "./song_mgmt_page/song_mgmt_page";
 import { AuthRoute, ProtectedRoute } from "../util/route_util";
 import SongShowPageContainer from "./song_show_page/song_show_page_container";
 
 const App = () => {
   return (
     <div className="app">
-      <div className="page-header-container">
-      </div>
+
+      <HeaderBarContainer />
       <div>
-        <HeaderBarContainer />
         <Switch>
-          <ProtectedRoute exact path="/stream" component={StreamPage} />
-          <ProtectedRoute exact path="/upload" component={SongManagementPage} />
+          <ProtectedRoute exact path="/stream" component={FeedPage} />
+          <ProtectedRoute exact path="/upload" component={SongMgmtPage} />
           <ProtectedRoute exact path="/songs/:songId" component={SongShowPageContainer} />
           <AuthRoute exact path="/" component={Homepage} />
         </Switch>

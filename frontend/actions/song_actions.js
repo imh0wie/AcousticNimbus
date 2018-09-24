@@ -47,6 +47,7 @@ export const fetchSongs = () => {
 
 // What does it do? ==> reducer
 const receiveSong = ({ song }) => {
+  debugger
   return {
     type: RECEIVE_SONG,
     song: song,

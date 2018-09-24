@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 class BarButtons extends React.Component {
   constructor(props) {
@@ -33,16 +33,16 @@ class BarButtons extends React.Component {
     return (
       <div className="protected-page-inner-bar">
         <Link to="/stream" ><img className="stream-logo" src={window.barLogo} ></img></Link>
-        <Link to="/stream" className="bar-home">Home</Link>
-        <Link to="/you/collection" className="bar-collection">Collection</Link>
+        <button className="bar-home" onClick={() => this.props.history.push("/stream")}>Home</button>
+        <button className="bar-collection" onClick={() => this.props.history.push("/you/collection")}>Collection</button>
         <div className="search-bar-container">
           <input type="text" placeholder="Search" className="search-bar"></input>
         </div>
-        <Link to="/upload" className="upload-button">Upload</Link>
-        <Link to="" className="profile-dropdown">
+        <button className="upload-button" onClick={() => this.props.history.push("/upload")}>Upload</button>
+        <button className="profile-dropdown" onClick={() => this.props.history.push(`/users/${this.props.currentUser.id}`)}>
           <img className="profile-dropdown-img" src={window.default_avatar}></img>
           <p className="profile-dropdown-username">{this.props.currentUser.username}</p>
-        </Link>
+        </button>
         <button className="logout-button" onClick={() => this.props.logout()}>Sign Out</button>
       </div>
     );
@@ -58,7 +58,7 @@ class BarButtons extends React.Component {
   }
 }
 
-export default BarButtons;
+export default withRouter(BarButtons);
 
     // this.toggleForm = this.toggleForm.bind(this);
 

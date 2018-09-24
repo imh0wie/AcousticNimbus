@@ -1,5 +1,5 @@
 import React from "react";
-import ModalContainer from "../modal/modal_container";
+import ModalContainer from "../common_components/modal/modal_container";
 import BannerContainer from "./banner/banner_container";
 
 const Homepage = () => {

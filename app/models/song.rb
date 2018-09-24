@@ -1,6 +1,6 @@
 class Song < ApplicationRecord
   validates :title, :availability, :artist_id, :audio_url, presence: true
-  validates :availability, inclusion: { in: [true, false] }
+  # validates :availability, inclusion: { in: [true, false] }
   # validates_attachment_content_type :audio, content_type: ['audio/aiff', 'audio/wav', 'audio/flac',
   #                                                          'audio/alac', 'audio/ogg', 'audio/mp2',
   #                                                          'audio/mp3', 'audio/aac', 'audio/amr',
@@ -14,4 +14,8 @@ class Song < ApplicationRecord
   has_many :likes
   has_one_attached :audio
   has_one_attached :image
+
+  # def self.by_release_time
+  #   self.select("songs.*").order("songs.created_at", DESC).limit(30)
+  # end
 end
