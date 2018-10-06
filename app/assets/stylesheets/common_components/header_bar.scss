@@ -1,7 +1,7 @@
 .protected-page-outer-bar {
   position: fixed;
-  width: 100%;
   background: #333;
+  width: 100%;
   height: 45px;
   z-index: 3;
 }
@@ -25,6 +25,7 @@
   color: #ccc;
   border: 1px solid #111;
   padding: 13px 28px 10px 28px;
+  text-decoration: none !important;
 }
 
 .bar-collection {
@@ -33,6 +34,7 @@
   color: #ccc;
   border: 1px solid #111;
   padding: 13px 28px 10px 28px;
+  text-decoration: none !important;
 }
 
 .search-bar-container {
@@ -61,6 +63,7 @@
   width: 39px;
   padding: 12.5px 11px;
   font-size: 13px;
+  text-decoration: none !important;
 }
 
 .profile-dropdown {

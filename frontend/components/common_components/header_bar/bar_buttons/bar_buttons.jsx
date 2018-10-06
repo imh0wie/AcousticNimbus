@@ -33,12 +33,12 @@ class BarButtons extends React.Component {
     return (
       <div className="protected-page-inner-bar">
         <Link to="/stream" ><img className="stream-logo" src={window.barLogo} ></img></Link>
-        <button className="bar-home" onClick={() => this.props.history.push("/stream")}>Home</button>
-        <button className="bar-collection" onClick={() => this.props.history.push("/you/collection")}>Collection</button>
+        <Link to="/stream"><button className="bar-home">Home</button></Link>
+        <Link to="/you/collection"><button className="bar-collection" >Collection</button></Link>
         <div className="search-bar-container">
           <input type="text" placeholder="Search" className="search-bar"></input>
         </div>
-        <button className="upload-button" onClick={() => this.props.history.push("/upload")}>Upload</button>
+        <Link to="/upload"><button className="upload-button">Upload</button></Link>
         <button className="profile-dropdown" onClick={() => this.props.history.push(`/users/${this.props.currentUser.id}`)}>
           <img className="profile-dropdown-img" src={window.default_avatar}></img>
           <p className="profile-dropdown-username">{this.props.currentUser.username}</p>
@@ -46,8 +46,11 @@ class BarButtons extends React.Component {
         <button className="logout-button" onClick={() => this.props.logout()}>Sign Out</button>
       </div>
     );
-
   }
+  // onClick={() => this.props.history.push("/you/collection")}
+  // <ProtectedRoute exact path="/upload" component={SongMgmtPage} />
+  // <ProtectedRoute exact path="/songs/:songId" component={SongShowPageContainer} />
+
 
   render() {
     if (this.props.currentUser) {

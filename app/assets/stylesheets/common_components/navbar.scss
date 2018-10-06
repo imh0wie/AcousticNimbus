@@ -1,0 +1,65 @@
+.navbar-container {
+    position: fixed;
+    // background: white;
+    width: 820px;
+    height: 70px;
+    border-bottom: 1px solid #f2f2f2;
+  }
+
+.navbar {
+    display: flex;
+    margin: 0 auto;
+    width: 820px;
+    position: relative;
+    top: 20px;
+}
+
+.navbar-button-container {
+    margin-right: 20px;
+}
+.navbar-button-container clicked{
+    // margin-right: 20px;
+    border-bottom: 1px solid #ff5400;
+}
+
+.navbar-button-container clicked :hover{
+    // margin-right: 20px;
+    border-bottom: 1px solid #ff5400;
+}
+
+.navbar-button-container :hover{
+    // margin-right: 20px;
+    border-bottom: 1px solid inherit;
+}
+
+
+.navbar-button {
+    font-size: 24px;
+    text-decoration: none !important;
+    color: #000000;
+    // color: #ff5400;
+}
+
+.navbar-button:hover {
+    font-size: 24px;
+    text-decoration: underline;
+    color: #000000;
+    // font-size: 24px;
+    // text-decoration: none !important;
+    // color: #000000;
+    // color: #ff5400;
+}
+
+.clicked{
+    // font-size: 24px;
+    // text-decoration: none !important;
+    // color: "black";
+    color: #ff5400;
+}
+
+.clicked:hover{
+    // font-size: 24px;
+    // text-decoration: none !important;
+    // color: "black";
+    color: #ff5400;
+}

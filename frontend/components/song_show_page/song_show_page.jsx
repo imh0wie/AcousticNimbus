@@ -1,9 +1,24 @@
 import React from "react";
 import WaveformPlayer from "./waveform_player/waveform_player";
 
+const msp = (state, ownProps) => {
+//   return ({
+//     currentUser: state.session.currentUser,
+//     track: state.entities.tracks[ownProps.match.params.trackId],
+//     currentTrack: state.currentTrack,
+//     playing: state.currentTrack.playing,
+//     users: state.entities.users
+//   });
+};
+
 class SongShowPage extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      playButtonClass: 'show-play-button',
+    };
+    this.trackButtons = this.trackButtons.bind(this);
+    this.togglePlay = this.togglePlay.bind(this);
   }
 
   render() {

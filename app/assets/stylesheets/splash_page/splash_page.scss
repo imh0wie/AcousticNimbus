@@ -1,0 +1,54 @@
+.app {
+  margin: 0 auto;
+  background: #f2f2f2;
+}
+
+.homeage-container {
+  margin: 0 auto;
+  width: 1240px;
+  background-color: white;
+}
+
+.splash-page-header-bar {
+  margin: 0 auto;
+  width: 1240px;
+  border-top: 5px solid #f7530f;
+  background: image_url("slideshow-img1.jpg") no-repeat;
+  height: 450px;
+}
+
+.splash-page-search-bar {
+  display: flex;
+  margin: 40px auto;
+  width: 890px;
+}
+
+.search-box {
+  background-color: #f2f2f2;
+  width: 600px;
+  height: 50px;
+  border-radius: 5px;
+  padding: 0px 10px;
+}
+
+.search-box-separator {
+  margin: 15px 15px 0px 15px;
+}
+
+.splash-page-upload-button {
+  font-size: 16px;
+  color: white;
+  width: auto;
+  height: 50px;
+  background-color: #f7530f;
+  border-radius: 5px;
+  padding: 0px 20px;
+}
+
+.splash-page-content-header {
+  display: block;
+  font-size: 24px;
+  text-align: center;
+  padding-top: 20px;
+  margin-bottom: 30px;
+}

@@ -21,3 +21,12 @@ export const fetchSongs = () => (
     url: "/api/songs",
   })
 );
+
+export const latestTwelve = (songs) => {
+  const keys = Object.keys(songs).reverse().slice(0, 12);
+  let output = [];
+  keys.forEach((key) => {
+    output.push(songs[key]);
+  });
+  return output;
+};

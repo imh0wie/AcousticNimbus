@@ -6,10 +6,10 @@ const SongMgmtNavbar = () => {
     <div className="song-mgmt-navbar-container">
       <ul className="song-mgmt-navbar">
         <li className="song-mgmt-navbar-button-container">
-          <Link to="/upload"><h2 className="song-mgmt-navbar-button">Upload</h2></Link>
+          <Link to="/upload"><button className="song-mgmt-navbar-button">Upload</button></Link>
         </li>
         <li className="song-mgmt-navbar-button-container">
-          <Link to="/you/songs"><h2 className="song-mgmt-navbar-button">Your Tracks</h2></Link>
+          <Link to="/you/songs"><button className="song-mgmt-navbar-button">Your Tracks</button></Link>
         </li>
       </ul>
     </div>

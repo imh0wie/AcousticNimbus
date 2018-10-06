@@ -12,7 +12,6 @@ export const createSong = (songToServer) => {
         return dispatch(receiveSong(songFromServer));
       },
       (errors) => {
-
         return dispatch(receiveSongErrors(errors.responseJSON));
       }
     );
@@ -55,6 +54,7 @@ const receiveSong = ({ song }) => {
 };
 
 const receiveSongs = (songs) => {
+  debugger
   return {
     type: RECEIVE_SONGS,
     songs: songs,

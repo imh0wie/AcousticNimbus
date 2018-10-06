@@ -1,25 +1,38 @@
 .song-mgmt-page-container {
-  position: relative;
-  top: 45px;
-  width: 1240px;
-  min-height: 1000px;
-  margin: 0 auto;
-  background-color: white;
+  // position: relative;
+  // top: 45px;
+  // width: 1240px;
+  // min-height: 1000px;
+  // margin: 0 auto;
+  // background-color: white;
+}
+
+.song-mgmt-navbar-container {
+  height: 50px;
+  border-bottom: 1px solid #ccc;
 }
 
 .song-mgmt-navbar {
   display: flex;
-  border-bottom: 1px solid #ccc;
+  width: 1180px;
+  margin: 0 auto;
 }
 
 .song-mgmt-navbar-button-container {
-  padding: 15px 30px;
+  position: relative;
+  top: 30px;
+  margin: 0px 15px 0px 0px;
+  border-bottom: 1px solid #ff4d01;
+  font-size: 14px;
 }
 
 .song-mgmt-navbar-button {
-  border-bottom: 1px solid #ff4d01;
+  // position: relative;
+  // top: 30px;
+  // border-bottom: 1px solid #ff4d01;
   font-size: 14px;
-  padding: 15px 0px;
+  text-decoration: none !important;
+  // padding: 15px 0px;
 }
 
 
