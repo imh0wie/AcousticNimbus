@@ -2600,13 +2600,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 
 
@@ -2616,10 +2616,14 @@ function (_React$Component) {
   _inherits(SongsIndexItem, _React$Component);
 
   function SongsIndexItem(props) {
+    var _this;
+
     _classCallCheck(this, SongsIndexItem);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(SongsIndexItem).call(this, props)); // this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this); 
-    // this.togglePlay = this.togglePlay.bind(this);
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(SongsIndexItem).call(this, props));
+    _this.renderPlayPauseSign = _this.renderPlayPauseSign.bind(_assertThisInitialized(_assertThisInitialized(_this))); // this.togglePlay = this.togglePlay.bind(this);
+
+    return _this;
   } //   componentWillReceiveProps(newProps) {
   //     if (newProps.currentSong.song.id === newProps.song.id && newProps.currentSong.playing) {
   //     } else {
@@ -2639,24 +2643,30 @@ function (_React$Component) {
   //       this.props.pausePlayTrack(!this.props.currentSong.playing);
   //     }
   //   }
-  //   renderPlayPauseSign() {
-  //     if (!this.props.currentSong.playing) {
-  //         return (
-  // <div className="splash-page-songs-index-item-play-sign-container">
-  //     <img src={window.play_button} className="splash-page-songs-index-item-play-sign" onClick={this.togglePlay()} />
-  // </div>
-  //         );
-  //     } else {
-  //         return (
-  //             <div className="splash-page-songs-index-item-play-sign-continer">
-  //                 <img src={window.pause_button} className="splash-page-songs-index-item-pause-sign" onClick={this.togglePlay} />
-  //             </div>
-  //         );
-  //     }
-  //   }
 
 
   _createClass(SongsIndexItem, [{
+    key: "renderPlayPauseSign",
+    value: function renderPlayPauseSign() {
+      if (!this.props.currentSong.playing) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "splash-page-songs-index-item-play-sign-container"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.play_button,
+          className: "splash-page-songs-index-item-play-sign",
+          onClick: this.togglePlay()
+        }));
+      } else {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "splash-page-songs-index-item-play-sign-continer"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.pause_button,
+          className: "splash-page-songs-index-item-pause-sign",
+          onClick: this.togglePlay
+        }));
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       var song = this.props.song;

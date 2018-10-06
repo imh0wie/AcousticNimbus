@@ -3,7 +3,7 @@ import React from "react";
 class SongsIndexItem extends React.Component {
     constructor(props) {
         super(props);
-        // this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this); 
+        this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this); 
         // this.togglePlay = this.togglePlay.bind(this);
       }
     
@@ -30,21 +30,21 @@ class SongsIndexItem extends React.Component {
     //     }
     //   }
 
-    //   renderPlayPauseSign() {
-    //     if (!this.props.currentSong.playing) {
-    //         return (
-                // <div className="splash-page-songs-index-item-play-sign-container">
-                //     <img src={window.play_button} className="splash-page-songs-index-item-play-sign" onClick={this.togglePlay()} />
-                // </div>
-    //         );
-    //     } else {
-    //         return (
-    //             <div className="splash-page-songs-index-item-play-sign-continer">
-    //                 <img src={window.pause_button} className="splash-page-songs-index-item-pause-sign" onClick={this.togglePlay} />
-    //             </div>
-    //         );
-    //     }
-    //   }
+      renderPlayPauseSign() {
+        if (!this.props.currentSong.playing) {
+            return (
+                <div className="splash-page-songs-index-item-play-sign-container">
+                    <img src={window.play_button} className="splash-page-songs-index-item-play-sign" onClick={this.togglePlay()} />
+                </div>
+            );
+        } else {
+            return (
+                <div className="splash-page-songs-index-item-play-sign-continer">
+                    <img src={window.pause_button} className="splash-page-songs-index-item-pause-sign" onClick={this.togglePlay} />
+                </div>
+            );
+        }
+      }
     
       render () {
         const { song } = this.props;
