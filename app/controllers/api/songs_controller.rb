@@ -2,7 +2,7 @@ class Api::SongsController < ApplicationController
 
   def index
     @songs = Song.all
-    debugger
+    # debugger
     render :index
   end
   

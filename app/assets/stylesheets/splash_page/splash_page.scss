@@ -52,3 +52,37 @@
   padding-top: 20px;
   margin-bottom: 30px;
 }
+
+.splash-page-content {
+  margin: 0 auto;
+}
+
+.splash-page-songs-index {
+  display: flex;
+  flex-wrap: wrap;
+  // width: 1180px;
+}
+
+.splash-page-songs-index-item {
+  width: 180px;
+  height: 220px;
+  margin-left: 23px;
+  margin-bottom: 40px;
+}
+
+.splash-page-songs-index-item-img {
+  width: 180px;
+  height: 180px;
+}
+
+.splash-page-songs-index-item-play-sign-container {
+  display: none;
+  width: 180px;
+  height: 180px;
+}
+
+.splash-page-songs-index-item-play-sign-continer:hover {
+  // display: none;
+  // width: 180px;
+  // height: 180px;
+}
