@@ -166,21 +166,20 @@ var PAUSE_SONG = "PAUSE_SONG";
 var SET_CURRENT_SONG = "SET_CURRENT_SONG";
 var RECEIVE_CURRENT_SONG_ERRORS = "RECEIVE_CURRENT_SONG_ERRORS"; // What does it do? ==> reducer
 
-var playSong = function playSong(_ref) {
-  var song = _ref.song;
+var playSong = function playSong(song) {
   return {
     type: PLAY_SONG,
     song: song
   };
 };
-var pauseSong = function pauseSong(_ref2) {
-  var song = _ref2.song;
+var pauseSong = function pauseSong(song) {
   return {
     type: PAUSE_SONG,
     song: song
   };
 };
 var setCurrentSong = function setCurrentSong(song) {
+  debugger;
   return {
     type: SET_CURRENT_SONG,
     currentSong: song
@@ -2430,7 +2429,6 @@ function (_React$Component) {
     value: function render() {
       var _this = this;
 
-      debugger;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "splash-page-search-bar"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
@@ -2506,7 +2504,6 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 var msp = function msp(state) {
-  debugger;
   return {
     songs: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_5__["latestTwelve"])(state.entities.songs),
     currentUser: state.entities.users[state.session.id],
@@ -2515,7 +2512,6 @@ var msp = function msp(state) {
 };
 
 var mdp = function mdp(dispatch) {
-  debugger;
   return {
     fetchSongs: function fetchSongs() {
       return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["fetchSongs"])());
@@ -2546,7 +2542,6 @@ function (_React$Component) {
   _createClass(SongsIndex, [{
     key: "componentWillMount",
     value: function componentWillMount() {
-      debugger;
       this.props.fetchSongs();
     }
   }, {
@@ -2555,6 +2550,7 @@ function (_React$Component) {
       var _this = this;
 
       console.log("hi");
+      debugger;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "splash-page-content"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
@@ -2565,8 +2561,8 @@ function (_React$Component) {
           song: song,
           currentSong: _this.props.currentSong,
           setCurrentSong: _this.props.setCurrentSong,
-          playSong: _this.props.playTrack,
-          pauseSong: _this.props.pauseTrack
+          playSong: _this.props.playSong,
+          pauseSong: _this.props.pauseSong
         });
       })));
     }
@@ -2620,56 +2616,75 @@ function (_React$Component) {
 
     _classCallCheck(this, SongsIndexItem);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(SongsIndexItem).call(this, props));
-    _this.renderPlayPauseSign = _this.renderPlayPauseSign.bind(_assertThisInitialized(_assertThisInitialized(_this))); // this.togglePlay = this.togglePlay.bind(this);
+    debugger;
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(SongsIndexItem).call(this, props)); // this.state = {
+    //     song: null,
+    //     playing: null,
+    //     pos: null
+    // }
+    // debugger
 
+    _this.renderPlayPauseSign = _this.renderPlayPauseSign.bind(_assertThisInitialized(_assertThisInitialized(_this))); // debugger
+
+    _this.togglePlay = _this.togglePlay.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
-  } //   componentWillReceiveProps(newProps) {
-  //     if (newProps.currentSong.song.id === newProps.song.id && newProps.currentSong.playing) {
-  //     } else {
-  //       this.setState({ playing: false, playButtonClass: 'landing-play-button' });
-  //     }
-  //   }
-  //   togglePlay(song) {
-  //     if (!this.props.currentSong.song) {
-  //     }
-  //     if (this.props.currentSong.song.id === -1 ||
-  //       this.props.currentSong.song.id !== this.props.song.id) {
-  //       this.props.receiveCurrentTrack(this.props.song);
-  //     }
-  //     if (this.props.currentSong.song.id !== this.props.song.id &&
-  //       this.props.currentSong.playing) {
-  //     } else {
-  //       this.props.pausePlayTrack(!this.props.currentSong.playing);
-  //     }
-  //   }
+  } // componentWillReceiveProps(newProps) {
+  // }
 
 
   _createClass(SongsIndexItem, [{
+    key: "togglePlay",
+    value: function togglePlay(song) {
+      debugger;
+
+      if (!this.props.currentSong.song || song.id !== this.props.currentSong.song.id) {
+        debugger;
+        this.props.setCurrentSong(song);
+        this.props.playSong(song);
+      } else if (song.id === this.props.currentSong.song.id && this.props.currentSong.playing) {
+        debugger;
+        this.props.pauseSong(song);
+      } else if (song.id === this.props.currentSong.song.id && !this.props.currentSong.playing) {
+        debugger;
+        this.props.playSong(song);
+      }
+    }
+  }, {
     key: "renderPlayPauseSign",
-    value: function renderPlayPauseSign() {
-      if (!this.props.currentSong.playing) {
+    value: function renderPlayPauseSign(song) {
+      var _this2 = this;
+
+      debugger;
+
+      if (!this.props.currentSong.song || song.id !== this.props.currentSong.song.id || !this.props.currentSong.playing) {
+        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "splash-page-songs-index-item-play-sign-container"
+          className: "splash-page-songs-index-item-play-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.play_button,
           className: "splash-page-songs-index-item-play-sign",
-          onClick: this.togglePlay()
+          onClick: function onClick() {
+            return _this2.togglePlay(song);
+          }
         }));
-      } else {
+      } else if (song.id === this.props.currentSong.song.id && this.props.currentSong.playing) {
+        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "splash-page-songs-index-item-play-sign-continer"
+          className: "splash-page-songs-index-item-pause-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.pause_button,
           className: "splash-page-songs-index-item-pause-sign",
-          onClick: this.togglePlay
+          onClick: function onClick() {
+            return _this2.togglePlay(song);
+          }
         }));
       }
+
+      debugger;
     }
   }, {
     key: "render",
     value: function render() {
-      var song = this.props.song;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "splash-page-songs-index-item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -2677,16 +2692,11 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.dogs,
         className: "splash-page-songs-index-item-img"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "splash-page-songs-index-item-play-sign-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: window.play_button,
-        className: "splash-page-songs-index-item-play-sign"
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+      }), this.renderPlayPauseSign(this.props.song)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
         className: "splash-page-songs-index-item-title"
-      }, song.title.length >= 23 ? song.title.slice(0, 23) + "..." : song.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      }, this.props.song.title.length >= 23 ? this.props.song.title.slice(0, 23) + "..." : this.props.song.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "splash-page-songs-index-item-artist"
-      }, song.artist));
+      }, this.props.song.artist));
     }
   }]);
 
@@ -2765,28 +2775,34 @@ var currentSongReducer = function currentSongReducer() {
 
   switch (action.type) {
     case _actions_current_song_actions__WEBPACK_IMPORTED_MODULE_0__["SET_CURRENT_SONG"]:
-      debugger;
+      debugger; // newState = action.currentSong
+
       newState = {
         song: action.currentSong,
-        playing: true,
+        playing: false,
         pos: 0
       };
+      debugger;
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, newState);
 
     case _actions_current_song_actions__WEBPACK_IMPORTED_MODULE_0__["PAUSE_SONG"]:
+      // newState = action.song;
       newState = {
-        song: action.currentSong,
+        song: state.song,
         playing: false,
         pos: 0
       };
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, newState);
 
     case _actions_current_song_actions__WEBPACK_IMPORTED_MODULE_0__["PLAY_SONG"]:
+      debugger; // newState = action.song;
+
       newState = {
-        song: action.currentSong,
-        playing: false,
+        song: state.song,
+        playing: true,
         pos: 0
       };
+      debugger;
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, newState);
 
     default:
@@ -3288,7 +3304,6 @@ var createSong = function createSong(song) {
     method: "POST",
     url: "/api/songs",
     data: song,
-    //純粹match route
     contentType: false,
     processData: false
   });

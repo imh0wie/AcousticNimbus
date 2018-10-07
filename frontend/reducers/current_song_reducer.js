@@ -13,25 +13,31 @@ const currentSongReducer = (state = defaultState, action) => {
   switch (action.type) {
     case SET_CURRENT_SONG:
       debugger
+      // newState = action.currentSong
       newState = {
         song: action.currentSong,
-        playing: true,
+        playing: false,
         pos: 0,
-      };
+      }
+      debugger
       return merge({}, state, newState);
     case PAUSE_SONG:
+      // newState = action.song;
       newState = {
-        song: action.currentSong,
+        song: state.song,
         playing: false,
         pos: 0,
-      };
+      }
       return merge({}, state, newState);
     case PLAY_SONG:
+      debugger
+      // newState = action.song;
       newState = {
-        song: action.currentSong,
-        playing: false,
+        song: state.song,
+        playing: true,
         pos: 0,
-      };
+      }
+      debugger
       return merge({}, state, newState);
     default:
       return state;

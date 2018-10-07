@@ -2,7 +2,7 @@ export const createSong = (song) => {
   return $.ajax({
     method: "POST",
     url: "/api/songs",
-    data: song, //純粹match route
+    data: song,
     contentType: false,
     processData: false,
   });

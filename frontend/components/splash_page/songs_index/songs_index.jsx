@@ -7,7 +7,6 @@ import { latestTwelve } from "../../../util/song_api_util";
 import SongsIndexItem from "./songs_index_item";
 
 const msp = (state) => {
-    debugger;
     return {
       songs: latestTwelve(state.entities.songs),
       currentUser: state.entities.users[state.session.id],
@@ -16,7 +15,6 @@ const msp = (state) => {
 };
 
 const mdp = (dispatch) => {
-    debugger
     return ({
         fetchSongs: () => dispatch(fetchSongs()),
         setCurrentSong: (song) => dispatch(setCurrentSong(song)),
@@ -31,12 +29,12 @@ class SongsIndex extends React.Component {
     }
 
     componentWillMount() {
-        debugger
         this.props.fetchSongs();
     }
 
     render() {
         console.log("hi")
+        debugger
         return (
             <div className="splash-page-content">
                 <ul className="splash-page-songs-index">
@@ -47,8 +45,8 @@ class SongsIndex extends React.Component {
                     song={song}
                     currentSong={this.props.currentSong}
                     setCurrentSong={this.props.setCurrentSong}
-                    playSong={this.props.playTrack}
-                    pauseSong={this.props.pauseTrack}
+                    playSong={this.props.playSong}
+                    pauseSong={this.props.pauseSong}
                    />
                    );
                 })}

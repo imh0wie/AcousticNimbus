@@ -6,7 +6,6 @@ class SearchBar extends React.Component {
   }
   
   render() {
-    debugger
     return (
         <div className="splash-page-search-bar">
           <form className="search-box-container">

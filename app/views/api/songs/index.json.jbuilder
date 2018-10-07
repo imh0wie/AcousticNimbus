@@ -1,5 +1,6 @@
 @songs.each do |song|
   json.set! song.id do
+    json.id song.id
     json.title song.title
     json.genre song.genre
     json.description song.description

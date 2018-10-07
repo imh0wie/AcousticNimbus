@@ -80,12 +80,24 @@
   height: 180px;
 }
 
-.splash-page-songs-index-item-play-sign-container {
+.splash-page-songs-index-item-play-container {
   display: none;
   position: relative;
   bottom: 120px;
   /* width: 60px; */
   height: 60px;
+}
+
+.splash-page-songs-index-item-img:hover + .splash-page-songs-index-item-play-container {
+  display: block;
+  width: 180px;
+  height: 180px;
+}
+
+.splash-page-songs-index-item-play-container:hover {
+  display: block;
+  width: 180px;
+  height: 180px;
 }
 
 .splash-page-songs-index-item-play-sign {
@@ -94,14 +106,32 @@
   height: 60px;
 }
 
+.splash-page-songs-index-item-pause-container {
+  display: block;
+  position: relative;
+  bottom: 120px;
+  /* width: 60px; */
+  height: 60px;
+}
 
-.splash-page-songs-index-item-img:hover + .splash-page-songs-index-item-play-sign-container {
+.splash-page-songs-index-item-pause-sign {
+  position: relative;
+  top: 4px;
+  margin: 0 auto;
+  width: 52px;
+  height: 52px;
+}
+
+
+
+
+.splash-page-songs-index-item-img:hover + .splash-page-songs-index-item-pause-pause-container {
   display: block;
   width: 180px;
   height: 180px;
 }
 
-.splash-page-songs-index-item-play-sign-container:hover {
+.splash-page-songs-index-item-pause-sign-container:hover {
   display: block;
   width: 180px;
   height: 180px;
