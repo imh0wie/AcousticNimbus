@@ -20,7 +20,7 @@ export const pauseSong = ( song ) => {
 };
 
 export const setCurrentSong = ( song ) => {
-  debugger
+  // debugger
   return {
     type: SET_CURRENT_SONG,
     currentSong: song,
@@ -28,7 +28,7 @@ export const setCurrentSong = ( song ) => {
 };
 
 export const setElapsedTo = ( time ) => {
-  debugger
+  // debugger
   return {
     type: SET_ELAPSED_TO,
     time: time,

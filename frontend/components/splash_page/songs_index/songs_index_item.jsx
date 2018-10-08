@@ -2,16 +2,9 @@ import React from "react";
 
 class SongsIndexItem extends React.Component {
     constructor(props) {
-        debugger
+        // debugger
         super(props);
-        // this.state = {
-        //     song: null,
-        //     playing: null,
-        //     pos: null
-        // }
-        // debugger
         this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this); 
-        // debugger
         this.togglePlay = this.togglePlay.bind(this);
     }
     
@@ -19,31 +12,31 @@ class SongsIndexItem extends React.Component {
     // }
     
     togglePlay(song) {
-        debugger
+        // debugger
         if (!this.props.currentSong.song || song.id !== this.props.currentSong.song.id ) {
-            debugger
+            // debugger
             this.props.setCurrentSong(song);
             this.props.playSong(song);
         } else if (song.id === this.props.currentSong.song.id && this.props.currentSong.playing) {
-            debugger
+            // debugger
             this.props.pauseSong(song);
         } else if (song.id === this.props.currentSong.song.id && !this.props.currentSong.playing) {
-            debugger
+            // debugger
             this.props.playSong(song);
         }
     }
 
       renderPlayPauseSign(song) {
-        debugger
+        // debugger
         if (!this.props.currentSong.song || song.id !== this.props.currentSong.song.id || !this.props.currentSong.playing) {
-            debugger
+            // debugger
             return (
                 <div className="splash-page-songs-index-item-play-container">
                     <img src={window.play_button} className="splash-page-songs-index-item-play-sign" onClick={() => this.togglePlay(song)} />
                 </div>
             );
         } else if (song.id === this.props.currentSong.song.id && this.props.currentSong.playing) {
-            debugger
+            // debugger
             return (
                 <div className="splash-page-songs-index-item-pause-container">
                     <img src={window.pause_button} className="splash-page-songs-index-item-pause-sign" onClick={() => this.togglePlay(song)} />

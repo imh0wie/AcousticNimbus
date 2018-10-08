@@ -1,8 +1,165 @@
 .filter-bar-container {
   display: flex;
   justify-content: space-between;
+  margin: auto 30px;
+  margin-top: 30px;
 }
 
 .filters-message {
   font-size: 12px;
 }
+
+#orderSelector {
+  font-size: 14px;
+  color: #ff5400;
+  border: 1px solid #ff5400;
+  width: 175px;
+  height: 30px;
+}
+
+#orderSelector:hover {
+  font-size: 14px;
+  color: white;
+  background-color: #ff5400;
+  border: 1px solid #ff5400;
+  width: 175px;
+  height: 30px;
+}
+
+#genreFilters {
+  font-size: 14px;
+  color: #ff5400;
+  border: 1px solid #ff5400;
+  width: 220px;
+  height: 30px;
+}
+
+#genreFilters:hover {
+  font-size: 14px;
+  color: white;
+  background-color: #ff5400;
+  border: 1px solid #ff5400;
+  width: 220px;
+  height: 30px;
+}
+
+.filters-message {
+  font-size: 14px;
+  color: #999;
+  margin: 0 0 40px 30px;
+}
+
+.charts-songs-list-labels {
+  display: flex;
+  margin: 0 auto;
+  width: 820px;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.charts-songs-list-label {
+  font-size: 12px;
+  color: #999;
+  width: 150px;
+}
+
+.charts-songs-list-container {
+  margin-top: 10px;
+  margin-left: 30px;
+}
+
+.charts-songs-list {
+  margin-bottom: 10px;
+}
+
+.charts-songs-list-item {
+  display: flex;
+  height: 70px;
+  align-items: center;
+  // margin-bottom: 20px;
+}
+
+.charts-songs-list-item:hover {
+  display: flex;
+  height: 70px;
+  // margin-bottom: 20px;
+  background-color:#f2f2f2;
+}
+
+.charts-songs-list-item-rank {
+  font-size: 16px;
+  margin-top: 15px;
+  margin-right: 60px;
+}
+
+.double {
+  font-size: 16px;
+  margin-top: 15px;
+  margin-right: 50px;
+}
+
+.charts-songs-list-item-img-container {
+  width: 50px;
+  height: 50px;
+}
+
+.charts-songs-list-item-img {
+  width: 50px;
+  height: 50px;
+}
+
+.charts-songs-list-item-play-container {
+  display: none;
+  position: relative;
+  bottom: 40px;
+  height: 30px;
+}
+
+.charts-songs-list-item-img:hover + .charts-songs-list-item-play-container {
+  display: block;
+  position: relative;
+  bottom: 40px;
+  height: 30px;
+}
+
+.charts-songs-list-item-play-container:hover {
+  display: block;
+  position: relative;
+  bottom: 40px;
+  height: 30px;
+}
+
+.charts-songs-list-item-play-sign {
+  margin: 0 auto;
+  width: 30px;
+  height: 30px;
+}
+
+.charts-songs-list-item-pause-container {
+  display: block;
+  position: relative;
+  bottom: 38px;
+  height: 30px;
+}
+
+.charts-songs-list-item-pause-sign {
+  margin: 0 auto;
+  bottom: 40px;
+  width: 26px;
+  height: 26px;
+}
+
+.charts-songs-list-item-info-container {
+  margin-left: 20px;
+}
+
+.charts-songs-list-item-artist {
+  font-size: 12px;
+  color: #999;
+}
+
+.charts-songs-list-item-title {
+  position: relative;
+  bottom: 10px;
+  font-size: 14px;
+}
+

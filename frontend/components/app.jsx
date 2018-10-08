@@ -3,10 +3,10 @@ import { Switch, Route } from "react-router-dom";
 // import ModalContainer from "./modal/modal_container";
 import HeaderBarContainer from "./common_components/header_bar/header_bar_container";
 import SplashPage from "./splash_page/splash_page";
-import Homepage from "./page/homepage/homepage";
+import Homepage from "./homepage/homepage";
 import SongMgmtPage from "./song_mgmt_page/song_mgmt_page";
 import { AuthRoute, ProtectedRoute } from "../util/route_util";
-import SongShowPageContainer from "./song_show_page/song_show_page_container";
+import SongShowPage from "./song_show_page/song_show_page";
 import PlayerBar from "./common_components/player_bar/player_bar";
 
 const App = () => {
@@ -20,7 +20,7 @@ const App = () => {
           <ProtectedRoute path="/upload" component={SongMgmtPage} />
           <ProtectedRoute path="/you/collection" component={SongMgmtPage} />
           <AuthRoute exact path="/" component={SplashPage} />
-          <Route exact path="/songs/:songId" component={SongShowPageContainer} />
+          <Route exact path="/songs/:songId" component={SongShowPage} />
         </Switch>
       </div>
       <PlayerBar />

@@ -1,5 +1,7 @@
 import React from "react";
 import { FormGroup, FormControl } from 'react-bootstrap';
+import SongsList from "./songs_list/songs_list";
+
 
 class ChartsPage extends React.Component {
   constructor(props) {
@@ -10,7 +12,6 @@ class ChartsPage extends React.Component {
     };
     this.update = this.update.bind(this);
     this.renderFiltersMessage = this.renderFiltersMessage.bind(this);
-    this.renderList = this.renderList.bind(this);
   }
 
   update(field) {
@@ -20,18 +21,10 @@ class ChartsPage extends React.Component {
   }
 
   renderFiltersMessage() {
-    if (this.state.order === "Newest") {
+    if (this.state.order === "newest") {
       return <p className="filters-message">Newest & Hottest songs on AcousticNimbus</p>;
     } else {
       return <p className="filters-message">The most played songs on AcousticNimbus</p>;
-    }
-  }
-
-  renderList() {
-    if (this.state.order === "Newest") {
-      return ;
-    } else {
-      return ;
     }
   }
 
@@ -42,8 +35,8 @@ class ChartsPage extends React.Component {
           <div className="order-selector-container">
             <FormGroup controlId="orderSelector">
               <FormControl componentClass="select" placeholder="None" className="order-selector" onChange={this.update("order")}>
-                  <option value="Newest">Newest</option>
-                  <option value="Top30">Top 30</option>
+                  <option value="newest">Newest</option>
+                  <option value="topThirty">Top 30</option>
               </FormControl>
             </FormGroup>
           </div>
@@ -69,7 +62,15 @@ class ChartsPage extends React.Component {
             </FormGroup>
           </div>
         </div>
-        {this.renderFiltersMessage}
+        {this.renderFiltersMessage()}
+        <div className="charts-songs-list-labels">
+          <p className="charts-songs-list-label">#</p>
+          <p className="charts-songs-list-label">Song</p>
+        </div>
+        <SongsList
+          order={this.state.order}
+          genres={this.state.genres}
+        />
       </div>
     );
   }

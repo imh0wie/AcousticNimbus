@@ -6,24 +6,17 @@ class HomepageNavbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      stream: false,
-      charts: true,
-    };
-    // this.toggleState = this.toggleState.bind(this);
+      stream: true,
+      charts: false
+    }
   }
-
-  toggleState(tab) {
-    debugger
-    const tabs = ["stream", "charts"];
-    debugger 
-    const tabIndex = tabs.indexOf(tab);
-    debugger
-    if (this.state[tab]) {
-      debugger
-      return e => this.setState({
-        [tab]: true,
-        [tabs[(tabIndex + 1) % 2]]: false,
-      });
+  
+  switchTabFrom(tab) {
+    if ((tab === "stream" && !this.state.stream ) || (tab === "charts" && !this.state.charts)) {
+      this.setState({
+        stream: !this.state.stream,
+        charts: !this.state.charts,
+      })
     }
   }
 
@@ -32,10 +25,10 @@ class HomepageNavbar extends React.Component {
       <div className="navbar-container">
         <ul className="navbar">
           <li className={this.state.stream ? "navbar-button-container clicked" : "navbar-button-container"}>
-            <NavLink to="/stream" className={this.state.stream ? "navbar-button clicked" : "navbar-button"} onClick={this.toggleState("stream")}><h3>Stream</h3></Link> 
+            <NavLink to="/stream" className="navbar-button" activeClassName="active" onClick={() => this.switchTabFrom("stream")}><h3>Stream</h3></NavLink> 
           </li>
           <li className={this.state.charts ? "navbar-button-container clicked" : "navbar-button-container"}>
-            <NavLink to="/charts/top" className={this.state.charts ? "navbar-button clicked" : "navbar-button"} onClick={this.toggleState("charts")}><h3>Charts</h3></Link>
+            <NavLink to="/charts/top" className="navbar-button" activeClassName="active" onClick={() => this.switchTabFrom("charts")}><h3>Charts</h3></NavLink>
           </li>
         </ul>
       </div>

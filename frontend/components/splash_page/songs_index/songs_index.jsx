@@ -3,12 +3,12 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { fetchSongs } from "../../../actions/song_actions";
 import { setCurrentSong, playSong, pauseSong } from "../../../actions/current_song_actions";
-import { latestTwelve } from "../../../util/song_api_util";
+import { latest } from "../../../util/song_api_util";
 import SongsIndexItem from "./songs_index_item";
 
 const msp = (state) => {
     return {
-      songs: latestTwelve(state.entities.songs),
+      songs: latest(12, state.entities.songs),
       currentUser: state.entities.users[state.session.id],
       currentSong: state.ui.currentSong,
     };
@@ -33,7 +33,6 @@ class SongsIndex extends React.Component {
     }
 
     render() {
-        console.log("hi")
         return (
             <div className="splash-page-content">
                 <ul className="splash-page-songs-index">
