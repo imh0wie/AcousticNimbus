@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 // line 21: Should we pass in currentUser as props?
 
 class HomepageNavbar extends React.Component {
@@ -32,10 +32,10 @@ class HomepageNavbar extends React.Component {
       <div className="navbar-container">
         <ul className="navbar">
           <li className={this.state.stream ? "navbar-button-container clicked" : "navbar-button-container"}>
-            <Link to="/stream" className={this.state.stream ? "navbar-button clicked" : "navbar-button"} onClick={this.toggleState("stream")}><h3>Stream</h3></Link> 
+            <NavLink to="/stream" className={this.state.stream ? "navbar-button clicked" : "navbar-button"} onClick={this.toggleState("stream")}><h3>Stream</h3></Link> 
           </li>
           <li className={this.state.charts ? "navbar-button-container clicked" : "navbar-button-container"}>
-            <Link to="/charts/top" className={this.state.charts ? "navbar-button clicked" : "navbar-button"} onClick={this.toggleState("charts")}><h3>Charts</h3></Link>
+            <NavLink to="/charts/top" className={this.state.charts ? "navbar-button clicked" : "navbar-button"} onClick={this.toggleState("charts")}><h3>Charts</h3></Link>
           </li>
         </ul>
       </div>
@@ -57,4 +57,4 @@ class HomepageNavbar extends React.Component {
 // <iframe src="https://giphy.com/embed/wsWcsrfMXjJgk" width="480" height="264" frameBorder="0" className="giphy-embed" allowFullScreen></iframe>
 // <img src="slideshow-img1.jpg" alt="img1" className="header-background"></img>
 // <img src="images/header-background.gif" alt="header-background" className="header-background"></img>
-export default HomepageNavbar;
+export default withRouter(HomepageNavbar);

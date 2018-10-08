@@ -61,7 +61,7 @@ class PlayerBar extends React.Component {
     handlePrevious(currentSong) {
         let songs = this.props.latestTwelve;
         debugger
-        if (shuffle) {
+        if (this.state.shuffle) {
             songs = this.props.shuffled;
         }
         const songsIdx = songs.map((song, i) => i);
@@ -80,7 +80,7 @@ class PlayerBar extends React.Component {
     handleNext(currentSong) {
         let songs = this.props.latestTwelve;
         debugger
-        if (shuffle) {
+        if (this.state.shuffle) {
             songs = this.props.shuffled;
         }
         debugger

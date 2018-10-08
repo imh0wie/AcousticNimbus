@@ -1040,7 +1040,7 @@ function (_React$Component) {
       var songs = this.props.latestTwelve;
       debugger;
 
-      if (_util_song_api_util__WEBPACK_IMPORTED_MODULE_6__["shuffle"]) {
+      if (this.state.shuffle) {
         songs = this.props.shuffled;
       }
 
@@ -1064,7 +1064,7 @@ function (_React$Component) {
       var songs = this.props.latestTwelve;
       debugger;
 
-      if (_util_song_api_util__WEBPACK_IMPORTED_MODULE_6__["shuffle"]) {
+      if (this.state.shuffle) {
         songs = this.props.shuffled;
       }
 
