@@ -1,0 +1,27 @@
+.player-bar-container {
+    position: fixed;
+    top: 740px;
+    width: 1440px;
+    height: 50px;
+    background-color: #f2f2f2;
+    border-top: 1px solid #cecece;
+}
+
+.player-bar {
+    display: flex;
+    margin: 0 auto;
+    width: 1240px;
+}
+
+.player-controls-container {
+    display: flex;
+}
+
+.player-control {
+    width: 20px;
+    height: 20px;
+    margin: 13px 10px;
+}
+
+
+

@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
 /*!**************************************************!*\
   !*** ./frontend/actions/current_song_actions.js ***!
   \**************************************************/
-/*! exports provided: PLAY_SONG, PAUSE_SONG, SET_CURRENT_SONG, RECEIVE_CURRENT_SONG_ERRORS, playSong, pauseSong, setCurrentSong, receiveCurrentSongErrors */
+/*! exports provided: PLAY_SONG, PAUSE_SONG, SET_CURRENT_SONG, SET_ELAPSED_TO, RECEIVE_CURRENT_SONG_ERRORS, playSong, pauseSong, setCurrentSong, setElapsedTo, receiveCurrentSongErrors */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -156,14 +156,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PLAY_SONG", function() { return PLAY_SONG; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PAUSE_SONG", function() { return PAUSE_SONG; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_CURRENT_SONG", function() { return SET_CURRENT_SONG; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_ELAPSED_TO", function() { return SET_ELAPSED_TO; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_CURRENT_SONG_ERRORS", function() { return RECEIVE_CURRENT_SONG_ERRORS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "playSong", function() { return playSong; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "pauseSong", function() { return pauseSong; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCurrentSong", function() { return setCurrentSong; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setElapsedTo", function() { return setElapsedTo; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveCurrentSongErrors", function() { return receiveCurrentSongErrors; });
 var PLAY_SONG = "PLAY_SONG";
 var PAUSE_SONG = "PAUSE_SONG";
 var SET_CURRENT_SONG = "SET_CURRENT_SONG";
+var SET_ELAPSED_TO = "SET_ELAPSED_TO";
 var RECEIVE_CURRENT_SONG_ERRORS = "RECEIVE_CURRENT_SONG_ERRORS"; // What does it do? ==> reducer
 
 var playSong = function playSong(song) {
@@ -183,6 +186,13 @@ var setCurrentSong = function setCurrentSong(song) {
   return {
     type: SET_CURRENT_SONG,
     currentSong: song
+  };
+};
+var setElapsedTo = function setElapsedTo(time) {
+  debugger;
+  return {
+    type: SET_ELAPSED_TO,
+    time: time
   };
 };
 var receiveCurrentSongErrors = function receiveCurrentSongErrors(errors) {
@@ -393,14 +403,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var _splash_page_splash_page__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./splash_page/splash_page */ "./frontend/components/splash_page/splash_page.jsx");
-/* harmony import */ var _page_homepage_homepage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./page/homepage/homepage */ "./frontend/components/page/homepage/homepage.jsx");
-/* harmony import */ var _song_mgmt_page_song_mgmt_page__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./song_mgmt_page/song_mgmt_page */ "./frontend/components/song_mgmt_page/song_mgmt_page.jsx");
-/* harmony import */ var _util_route_util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../util/route_util */ "./frontend/util/route_util.jsx");
-/* harmony import */ var _song_show_page_song_show_page_container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./song_show_page/song_show_page_container */ "./frontend/components/song_show_page/song_show_page_container.jsx");
-/* harmony import */ var _common_components_header_bar_header_bar_container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./common_components/header_bar/header_bar_container */ "./frontend/components/common_components/header_bar/header_bar_container.jsx");
+/* harmony import */ var _common_components_header_bar_header_bar_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./common_components/header_bar/header_bar_container */ "./frontend/components/common_components/header_bar/header_bar_container.jsx");
+/* harmony import */ var _splash_page_splash_page__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./splash_page/splash_page */ "./frontend/components/splash_page/splash_page.jsx");
+/* harmony import */ var _page_homepage_homepage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./page/homepage/homepage */ "./frontend/components/page/homepage/homepage.jsx");
+/* harmony import */ var _song_mgmt_page_song_mgmt_page__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./song_mgmt_page/song_mgmt_page */ "./frontend/components/song_mgmt_page/song_mgmt_page.jsx");
+/* harmony import */ var _util_route_util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../util/route_util */ "./frontend/util/route_util.jsx");
+/* harmony import */ var _song_show_page_song_show_page_container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./song_show_page/song_show_page_container */ "./frontend/components/song_show_page/song_show_page_container.jsx");
+/* harmony import */ var _common_components_player_bar_player_bar__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./common_components/player_bar/player_bar */ "./frontend/components/common_components/player_bar/player_bar.jsx");
 
  // import ModalContainer from "./modal/modal_container";
+
 
 
 
@@ -412,29 +424,29 @@ __webpack_require__.r(__webpack_exports__);
 var App = function App() {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "app"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_header_bar_header_bar_container__WEBPACK_IMPORTED_MODULE_7__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_header_bar_header_bar_container__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "page-container"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_5__["ProtectedRoute"], {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__["ProtectedRoute"], {
     path: "/stream",
-    component: _page_homepage_homepage__WEBPACK_IMPORTED_MODULE_3__["default"]
+    component: _page_homepage_homepage__WEBPACK_IMPORTED_MODULE_4__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: "/charts",
-    component: _page_homepage_homepage__WEBPACK_IMPORTED_MODULE_3__["default"]
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_5__["ProtectedRoute"], {
+    component: _page_homepage_homepage__WEBPACK_IMPORTED_MODULE_4__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__["ProtectedRoute"], {
     path: "/upload",
-    component: _song_mgmt_page_song_mgmt_page__WEBPACK_IMPORTED_MODULE_4__["default"]
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_5__["ProtectedRoute"], {
+    component: _song_mgmt_page_song_mgmt_page__WEBPACK_IMPORTED_MODULE_5__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__["ProtectedRoute"], {
     path: "/you/collection",
-    component: _song_mgmt_page_song_mgmt_page__WEBPACK_IMPORTED_MODULE_4__["default"]
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_5__["AuthRoute"], {
+    component: _song_mgmt_page_song_mgmt_page__WEBPACK_IMPORTED_MODULE_5__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__["AuthRoute"], {
     exact: true,
     path: "/",
-    component: _splash_page_splash_page__WEBPACK_IMPORTED_MODULE_2__["default"]
+    component: _splash_page_splash_page__WEBPACK_IMPORTED_MODULE_3__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     exact: true,
     path: "/songs/:songId",
-    component: _song_show_page_song_show_page_container__WEBPACK_IMPORTED_MODULE_6__["default"]
-  }))));
+    component: _song_show_page_song_show_page_container__WEBPACK_IMPORTED_MODULE_7__["default"]
+  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_player_bar_player_bar__WEBPACK_IMPORTED_MODULE_8__["default"], null));
 }; // Move back when user page exists:
 // <Route exact path="/users/:userId" component={SongMgmtPage} />
 // <HeaderBarContainer />
@@ -904,6 +916,17 @@ var mdp = function mdp(dispatch) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(msp, mdp)(_modal__WEBPACK_IMPORTED_MODULE_2__["default"]));
+
+/***/ }),
+
+/***/ "./frontend/components/common_components/player_bar/player_bar.jsx":
+/*!*************************************************************************!*\
+  !*** ./frontend/components/common_components/player_bar/player_bar.jsx ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/howiechan/Codes/projects/AcousticNimbus/frontend/components/common_components/player_bar/player_bar.jsx: Unexpected token, expected \",\" (13:19)\n\n\u001b[0m \u001b[90m 11 | \u001b[39m        byOrder\u001b[33m:\u001b[39m latestTwelve(state\u001b[33m.\u001b[39mentities\u001b[33m.\u001b[39msongs)\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 12 | \u001b[39m        shuffled\u001b[33m:\u001b[39m \u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 13 | \u001b[39m        currentSong\u001b[33m:\u001b[39m state\u001b[33m.\u001b[39mui\u001b[33m.\u001b[39mcurrentSong\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    | \u001b[39m                   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 14 | \u001b[39m    }\u001b[0m\n\u001b[0m \u001b[90m 15 | \u001b[39m}\u001b[0m\n\u001b[0m \u001b[90m 16 | \u001b[39m\u001b[0m\n    at _class.raise (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:3938:15)\n    at _class.unexpected (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5247:16)\n    at _class.expect (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5235:28)\n    at _class.parseObj (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:6635:14)\n    at _class.parseExprAtom (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:6293:21)\n    at _class.parseExprAtom (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:3634:52)\n    at _class.parseExprSubscripts (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5923:21)\n    at _class.parseMaybeUnary (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5902:21)\n    at _class.parseExprOps (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5811:21)\n    at _class.parseMaybeConditional (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5783:21)\n    at _class.parseMaybeAssign (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5730:21)\n    at _class.parseExpression (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5683:21)\n    at _class.parseReturnStatement (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7496:28)\n    at _class.parseStatementContent (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7178:21)\n    at _class.parseStatement (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7144:17)\n    at _class.parseBlockOrModuleBlockBody (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7695:23)\n    at _class.parseBlockBody (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7682:10)\n    at _class.parseBlock (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7671:10)\n    at _class.parseFunctionBody (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:6924:24)\n    at _class.parseArrowExpression (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:6876:10)\n    at _class.parseParenAndDistinguishExpression (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:6492:12)\n    at _class.parseExprAtom (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:6283:21)\n    at _class.parseExprAtom (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:3634:52)\n    at _class.parseExprSubscripts (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5923:21)\n    at _class.parseMaybeUnary (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5902:21)\n    at _class.parseExprOps (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5811:21)\n    at _class.parseMaybeConditional (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5783:21)\n    at _class.parseMaybeAssign (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5730:21)\n    at _class.parseVar (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7764:26)\n    at _class.parseVarStatement (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7594:10)");
 
 /***/ }),
 
@@ -2550,7 +2573,6 @@ function (_React$Component) {
       var _this = this;
 
       console.log("hi");
-      debugger;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "splash-page-content"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
@@ -2704,9 +2726,6 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (SongsIndexItem);
-{}
-/* <img className="splash-page-songs-index-item-img" src={song.album_url} alt="album-cover"/> */
-// onClick={this.togglePlay()}
 
 /***/ }),
 
@@ -2764,7 +2783,7 @@ __webpack_require__.r(__webpack_exports__);
 var defaultState = {
   song: null,
   playing: null,
-  pos: null
+  elapsed: null
 };
 
 var currentSongReducer = function currentSongReducer() {
@@ -2780,7 +2799,7 @@ var currentSongReducer = function currentSongReducer() {
       newState = {
         song: action.currentSong,
         playing: false,
-        pos: 0
+        elapsed: 0
       };
       debugger;
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, newState);
@@ -2790,7 +2809,7 @@ var currentSongReducer = function currentSongReducer() {
       newState = {
         song: state.song,
         playing: false,
-        pos: 0
+        elapsed: state.elapsed
       };
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, newState);
 
@@ -2800,9 +2819,17 @@ var currentSongReducer = function currentSongReducer() {
       newState = {
         song: state.song,
         playing: true,
-        pos: 0
+        elapsed: state.elapsed
       };
       debugger;
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, newState);
+
+    case _actions_current_song_actions__WEBPACK_IMPORTED_MODULE_0__["SET_ELAPSED_TO"]:
+      newState = {
+        song: state.song,
+        playing: state.playing,
+        elapsed: action.time
+      };
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, newState);
 
     default:

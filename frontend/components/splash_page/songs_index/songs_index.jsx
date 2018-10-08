@@ -34,7 +34,6 @@ class SongsIndex extends React.Component {
 
     render() {
         console.log("hi")
-        debugger
         return (
             <div className="splash-page-content">
                 <ul className="splash-page-songs-index">

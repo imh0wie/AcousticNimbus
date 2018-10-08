@@ -6,7 +6,7 @@
     json.description song.description
     json.availability song.availability
     json.artist song.artist.username
-    json.image_url song.image_url
-    json.audio_url song.audio_url
+    json.imageURL song.image_url
+    json.audioURL song.audio_url
   end 
 end 

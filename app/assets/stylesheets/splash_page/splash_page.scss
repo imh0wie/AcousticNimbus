@@ -3,10 +3,14 @@
   background: #f2f2f2;
 }
 
-.homeage-container {
+.page-container {
+  // display: flex;
+  position: relative;
+  // top: 45px;
   margin: 0 auto;
-  width: 1240px;
   background-color: white;
+  width: 1240px;
+  // height: 3000px;
 }
 
 .splash-page-header-bar {

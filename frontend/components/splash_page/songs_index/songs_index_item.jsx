@@ -71,5 +71,3 @@ class SongsIndexItem extends React.Component {
 }
 
 export default SongsIndexItem;
-{/* <img className="splash-page-songs-index-item-img" src={song.album_url} alt="album-cover"/> */}
-// onClick={this.togglePlay()} 
