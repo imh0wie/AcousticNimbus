@@ -4,12 +4,12 @@ import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import { fetchSongs } from "../../../actions/song_actions";
 import { setCurrentSong, playSong, pauseSong } from "../../../actions/current_song_actions";
-import { latestTwelve } from "../../../util/song_api_util";
+import { latestTwelve, shuffle } from "../../../util/song_api_util";
 
 const msp = (state) => {
     return {
-        byOrder: latestTwelve(state.entities.songs),
-        shuffled: 
+        latestTwelve: latestTwelve(state.entities.songs),
+        shuffled: shuffle(state.entities.songs),
         currentSong: state.ui.currentSong,
     }
 }
@@ -33,7 +33,7 @@ class PlayerBar extends React.Component {
             muted: true,
             volume: 0.60,
             shuffle: false,
-            loop: this.repeat[0]
+            loop: this.repeat[0],
         };
         this.renderPlayPauseButton = this.renderPlayPauseButton.bind(this);
         this.handlePause = this.handlePause.bind(this);
@@ -59,42 +59,48 @@ class PlayerBar extends React.Component {
     }
 
     handlePrevious(currentSong) {
-        const songsIdx = this.props.songs.map((song, i) => i);
+        let songs = this.props.latestTwelve;
+        debugger
+        if (shuffle) {
+            songs = this.props.shuffled;
+        }
+        const songsIdx = songs.map((song, i) => i);
         debugger
         let currentSongIdx = songsIdx.find((idx) => {
-           const song = this.props.songs[idx];
+           const song = songs[idx];
            return song.id === currentSong.id
         });
-        const nextSongIdx = (currentSongIdx - 1) < 0 ? this.props.songs.length - 1 : currentSongIdx - 1;
-        const nextSong = this.props.songs[nextSongIdx];
+        const nextSongIdx = (currentSongIdx - 1) < 0 ? songs.length - 1 : currentSongIdx - 1;
+        const nextSong = songs[nextSongIdx];
         debugger
         this.props.setCurrentSong(nextSong);
         this.props.playSong(nextSong);
     }
 
     handleNext(currentSong) {
-        const songsIdx = this.props.songs.map((song, i) => i);
+        let songs = this.props.latestTwelve;
+        debugger
+        if (shuffle) {
+            songs = this.props.shuffled;
+        }
+        debugger
+        const songsIdx = songs.map((song, i) => i);
         debugger
         let currentSongIdx = songsIdx.find((idx) => {
-           const song = this.props.songs[idx];
+           const song = songs[idx];
            return song.id === currentSong.id
         });
-        const nextSongIdx = (currentSongIdx + 1) === this.props.songs.length ? 0 : currentSongIdx + 1;
-        const nextSong = this.props.songs[nextSongIdx];
+        const nextSongIdx = (currentSongIdx + 1) === songs.length ? 0 : currentSongIdx + 1;
+        const nextSong = songs[nextSongIdx];
         debugger
         this.props.setCurrentSong(nextSong);
         this.props.playSong(nextSong);
     }
 
     handleShuffle() {
-        debugger
-        for (let i = this.props.songs.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            // debugger
-            [this.props.songs[i], this.props.songs[j]] = [this.props.songs[j], this.props.songs[i]];
-        }
-        debugger
-        return this.props.songs;
+        this.setState({
+            shuffle: !this.state.shuffle
+        });
     }
     
     handleLoop() {
@@ -105,9 +111,9 @@ class PlayerBar extends React.Component {
         this.player = player;
       }
      
-    renderTime(elapsedTime) {
-      while (elapsedTime)
-    }
+    // renderTime(elapsedTime) {
+    //   while (elapsedTime)
+    // }
 //   getDuration(src) {
 //     let audio = new Audio(src);
 //     const audioLength = audio.getDuration();
@@ -157,13 +163,13 @@ class PlayerBar extends React.Component {
                 </div>
                 <div className="song-progress-tracker-container">
                     <div className="song-progress-container">
-                        {this.renderTime(Math.round(this.state.elapsed * this.ref))}
+                        {/* {this.renderTime(Math.round(this.state.elapsed * this.ref))} */}
                     </div>
                     <div className="song-progress-slider">
                     </div>
                 </div>
                 <div className="song-length-container">
-                    {this.formatTime(Math.round(this.state.lengthTrack))}
+                    {/* {this.formatTime(Math.round(this.state.lengthTrack))} */}
                 </div>
             </div>
                 
