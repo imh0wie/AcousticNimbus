@@ -1775,6 +1775,7 @@ function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1795,6 +1796,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 
+
 var SongsListItem =
 /*#__PURE__*/
 function (_React$Component) {
@@ -1806,11 +1808,16 @@ function (_React$Component) {
     _classCallCheck(this, SongsListItem);
 
     debugger;
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(SongsListItem).call(this, props));
-    _this.renderPlayPauseSign = _this.renderPlayPauseSign.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(SongsListItem).call(this, props)); // this.redirectToShowPage = this.redirectToShowPage.bind(this);
+
     _this.togglePlay = _this.togglePlay.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.renderPlayPauseSign = _this.renderPlayPauseSign.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   } // componentWillReceiveProps(newProps) {
+  // }
+  // redirectToShowPage(song) {
+  //     debugger
+  //     this.props.setCurrentSong(song).then(this.props.history.push(`/songs/${action.song.id}`));
   // }
 
 
@@ -1878,7 +1885,8 @@ function (_React$Component) {
         className: "charts-songs-list-item-info-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "charts-songs-list-item-artist"
-      }, this.props.song.artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+      }, this.props.song.artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/songs/".concat(this.props.song.id),
         className: "charts-songs-list-item-title"
       }, this.props.song.title.length >= 23 ? this.props.song.title.slice(0, 23) + "..." : this.props.song.title)));
     }
@@ -2593,8 +2601,6 @@ var mdp = function mdp(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _waveform_player_waveform_player__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./waveform_player/waveform_player */ "./frontend/components/song_show_page/waveform_player/waveform_player.jsx");
-/* harmony import */ var _waveform_player_waveform_player__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_waveform_player_waveform_player__WEBPACK_IMPORTED_MODULE_1__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2613,17 +2619,16 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-
-
-
-var msp = function msp(state, ownProps) {//   return ({
-  //     currentUser: state.session.currentUser,
-  //     track: state.entities.tracks[ownProps.match.params.trackId],
-  //     currentTrack: state.currentTrack,
-  //     playing: state.currentTrack.playing,
-  //     users: state.entities.users
-  //   });
-};
+ // import WaveformPlayer from "./waveform_player/waveform_player";
+// const msp = (state, ownProps) => {
+//   return ({
+//     currentUser: state.session.currentUser,
+//     track: state.entities.tracks[ownProps.match.params.trackId],
+//     currentTrack: state.currentTrack,
+//     playing: state.currentTrack.playing,
+//     users: state.entities.users
+//   });
+// };
 
 var SongShowPage =
 /*#__PURE__*/
@@ -2652,7 +2657,7 @@ function (_React$Component) {
         className: "show-page-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "banner-player-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_waveform_player_waveform_player__WEBPACK_IMPORTED_MODULE_1___default.a, {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(WaveformPlayer, {
         song: this.props.song
       })));
     }
@@ -2669,113 +2674,6 @@ function (_React$Component) {
 
 
 /* harmony default export */ __webpack_exports__["default"] = (SongShowPage);
-
-/***/ }),
-
-/***/ "./frontend/components/song_show_page/waveform_player/waveform_player.jsx":
-/*!********************************************************************************!*\
-  !*** ./frontend/components/song_show_page/waveform_player/waveform_player.jsx ***!
-  \********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// import React from "react";
-// import WaveSurfer from "wavesurfer.js";
-//
-// class WaveformPlayer extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     // this.state = {
-//     //   song: null,
-//     //   playing: null,
-//     //   pos: null,
-//     // };
-//   }
-//
-//   componentDidMount() {
-//     const barCtx = document.getElementById("waveform-player").getContext("2d");
-//     const barBase = barCtx.createLinearGradient(0, 75, 0, 25);
-//     barBase.addColorStop(0, "#f7ba0f");
-//     barBase.addColorStop(1, "#f7530f");
-//     const waveformBar = WaveSurfer.create({
-//       container: "#waveform-player",
-//       wavecolor: barBase,
-//       progressColor: "white",
-//       barWidth: 2,
-//     });
-//     const buttons = {
-//       play: document.getElementById("play-button"),
-//       pause: document.getElementById("pause-button"),
-//       stop: document.getElementById("stop-button"),
-//     };
-//
-//     buttons.play.addEventListener("click", () => {
-//       waveformBar.play();
-//       buttons.play.disabled = true;
-//       buttons.pause.disabled = false;
-//       buttons.stop.disabled = false;
-//     });
-//
-//     buttons.pause.addEventListener("click", () => {
-//       waveformBar.pause();
-//       buttons.play.disabled = false;
-//       buttons.pause.disabled = true;
-//       buttons.stop.disabled = false;
-//     });
-//
-//     buttons.stop.addEventListener("click", () => {
-//       waveformBar.stop();
-//       buttons.play.disabled = false;
-//       buttons.pause.disabled = true;
-//       buttons.stop.disabled = true;
-//     });
-//
-//     waveformBar.on("ready", () => {
-//       buttons.play.disabled = false;
-//     });
-//
-//     window.addEventListener("resize", () => {
-//       const currentProgress = waveformBar.getCurrentTime() / waveformBar.getDuration();
-//       waveformBar.empty();
-//       waveformBar.drawBuffer();
-//       waveformBar.seekTo(currentProgress);
-//       buttons.play.disabled = false;
-//       buttons.pause.disabled = true;
-//       buttons.stop.disabled = false;
-//     }, false);
-//
-//     waveformBar.load(this.props.song.audioURL);
-//   }
-//
-//   render() {
-//     return (
-//       <div className="waveform-player-container">
-//         <div id="waveform-player">
-//         </div>
-//         <input type="button" id="play-button" value="Play" disabled="disabled" />
-//         <input type="button" id="pause-button" value="Pause" disabled="disabled" />
-//         <input type="button" id="stop-button" value="Stop" disabled="disabled" />
-//       </div>
-//     );
-//   }
-//
-// };
-//
-// export default WaveformPlayer;
-//
-//   // togglePlaying() {
-//   //   this.setState({
-//   //     playing: !this.state.playing,
-//   //   });
-//   // }
-//   //
-//   // jump() {
-//   //   return (e) => {
-//   //     this.setState({
-//   //       at: e.originalArgs[0], //??
-//   //     });
-//   //   };
-//   // }
 
 /***/ }),
 

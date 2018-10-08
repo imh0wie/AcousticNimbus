@@ -1,7 +1,7 @@
 import React from "react";
-import WaveformPlayer from "./waveform_player/waveform_player";
+// import WaveformPlayer from "./waveform_player/waveform_player";
 
-const msp = (state, ownProps) => {
+// const msp = (state, ownProps) => {
 //   return ({
 //     currentUser: state.session.currentUser,
 //     track: state.entities.tracks[ownProps.match.params.trackId],
@@ -9,7 +9,7 @@ const msp = (state, ownProps) => {
 //     playing: state.currentTrack.playing,
 //     users: state.entities.users
 //   });
-};
+// };
 
 class SongShowPage extends React.Component {
   constructor(props) {

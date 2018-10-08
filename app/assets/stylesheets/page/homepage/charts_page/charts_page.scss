@@ -161,5 +161,17 @@
   position: relative;
   bottom: 10px;
   font-size: 14px;
+  color: black;
+  cursor: pointer;
+  text-decoration: none !important,
+}
+
+.charts-songs-list-item-title:hover {
+  position: relative;
+  bottom: 10px;
+  font-size: 14px;
+  color: #999;
+  cursor: pointer;
+  text-decoration: none !important,
 }
 
