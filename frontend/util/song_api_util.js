@@ -8,12 +8,13 @@ export const createSong = (song) => {
   });
 };
 
-export const fetchSong = (song) => (
-  $.ajax({
+export const fetchSong = (id) => {
+  debugger
+  return $.ajax({
     method: "GET",
-    url: `/api/songs/${song.id}`,
-  })
-);
+    url: `/api/songs/${id}`,
+  });
+};
 
 export const fetchSongs = () => (
   $.ajax({

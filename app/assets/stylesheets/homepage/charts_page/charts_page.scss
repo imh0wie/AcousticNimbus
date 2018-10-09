@@ -149,29 +149,47 @@
 }
 
 .charts-songs-list-item-info-container {
-  margin-left: 20px;
+  margin-top: 5px;
+    margin-left: 20px;
 }
 
 .charts-songs-list-item-artist {
+  display: block;
+  position: relative;
+  bottom: 10px;
   font-size: 12px;
   color: #999;
+  cursor: pointer;
+  text-decoration: none !important,
+}
+
+.charts-songs-list-item-artist:hover {
+  display: block;
+  position: relative;
+  bottom: 10px;
+  font-size: 12px;
+  color: #333;
+  cursor: pointer;
+  text-decoration: none !important,
 }
 
 .charts-songs-list-item-title {
+  display: block;
   position: relative;
   bottom: 10px;
   font-size: 14px;
-  color: black;
+  color: #333;
   cursor: pointer;
   text-decoration: none !important,
 }
 
 .charts-songs-list-item-title:hover {
+  display: block;
   position: relative;
   bottom: 10px;
   font-size: 14px;
   color: #999;
   cursor: pointer;
-  text-decoration: none !important,
+  text-decoration: none !important;
 }
 

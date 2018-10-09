@@ -7,6 +7,7 @@ import Homepage from "./homepage/homepage";
 import SongMgmtPage from "./song_mgmt_page/song_mgmt_page";
 import { AuthRoute, ProtectedRoute } from "../util/route_util";
 import SongShowPage from "./song_show_page/song_show_page";
+import UserShowPage from "./user_show_page/user_show_page";
 import PlayerBar from "./common_components/player_bar/player_bar";
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
           <ProtectedRoute path="/you/collection" component={SongMgmtPage} />
           <AuthRoute exact path="/" component={SplashPage} />
           <Route exact path="/songs/:songId" component={SongShowPage} />
+          <Route exact path="/users/:userId" component={UserShowPage} />
         </Switch>
       </div>
       <PlayerBar />

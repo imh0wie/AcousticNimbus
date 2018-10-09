@@ -62,7 +62,7 @@ class SongsListItem extends React.Component {
             {this.renderPlayPauseSign(this.props.song)}
         </div>
         <div className="charts-songs-list-item-info-container">
-            <p className="charts-songs-list-item-artist">{this.props.song.artist}</p>
+            <Link to={`/users/${this.props.song.artist.id}`} className="charts-songs-list-item-artist">{this.props.song.artist}</Link>
             <Link to={`/songs/${this.props.song.id}`} className="charts-songs-list-item-title">
                 {this.props.song.title.length >= 23 ? this.props.song.title.slice(0, 23) + "..." : this.props.song.title}
             </Link>
