@@ -35,13 +35,13 @@ class SongShowPage extends React.Component {
     this.togglePlay = this.togglePlay.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.fetchSong(this.props.onPageSongId);
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.onPageSongId !== nextProps.songId) {
-      this.props.fetchTrack(nextProps.songId);
+      this.props.fetchSong(nextProps.songId);
     }
   }
 
@@ -87,7 +87,7 @@ class SongShowPage extends React.Component {
               {this.renderPlayPauseSign(this.props.onPageSong)}
               {/* <WaveformPlayer song={this.props.song} /> */}
               <div className="song-show-page-song-info-container">
-                <Link to={`/users/${this.props.artist.id}`} className="song-show-page-song-artist">{this.props.onPageSong.artist}</Link>
+                <Link to={`/users/${this.props.onPageSong.artistId}`} className="song-show-page-song-artist">{this.props.onPageSong.artist}</Link>
                 <h2 className="song-show-page-song-title">{this.props.onPageSong.title}</h2>
               </div>
             </div>

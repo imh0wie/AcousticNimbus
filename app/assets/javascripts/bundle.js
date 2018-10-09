@@ -2687,15 +2687,15 @@ function (_React$Component) {
   }
 
   _createClass(SongShowPage, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
+    key: "componentWillMount",
+    value: function componentWillMount() {
       this.props.fetchSong(this.props.onPageSongId);
     }
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
       if (this.props.onPageSongId !== nextProps.songId) {
-        this.props.fetchTrack(nextProps.songId);
+        this.props.fetchSong(nextProps.songId);
       }
     }
   }, {
@@ -2757,7 +2757,7 @@ function (_React$Component) {
       }, this.renderPlayPauseSign(this.props.onPageSong), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "song-show-page-song-info-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-        to: "/users/".concat(this.props.artist.id),
+        to: "/users/".concat(this.props.onPageSong.artistId),
         className: "song-show-page-song-artist"
       }, this.props.onPageSong.artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
         className: "song-show-page-song-title"
