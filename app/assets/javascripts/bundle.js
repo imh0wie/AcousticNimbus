@@ -339,11 +339,15 @@ var createSong = function createSong(songToServer) {
     });
   };
 };
-var fetchSong = function fetchSong(songToServer) {
+var fetchSong = function fetchSong(songToServerId) {
+  debugger;
   return function (dispatch) {
-    return _util_song_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchSong"](songToServer).then(function (songFromServer) {
+    debugger;
+    return _util_song_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchSong"](songToServerId).then(function (songFromServer) {
+      debugger;
       return dispatch(receiveSong(songFromServer));
     }, function (errors) {
+      debugger;
       return dispatch(receiveSongErrors(errors.responseJSON));
     });
   };
@@ -361,7 +365,7 @@ var fetchSongs = function fetchSongs() {
 
 var receiveSong = function receiveSong(_ref) {
   var song = _ref.song;
-  // debugger
+  debugger;
   return {
     type: RECEIVE_SONG,
     song: song
@@ -971,9 +975,10 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 var msp = function msp(state) {
-  // debugger
+  debugger;
   return {
     latestTwelve: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_6__["latest"])(12, state.entities.songs),
+    latestTwenty: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_6__["latest"])(20, state.entities.songs),
     shuffled: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_6__["shuffle"])(12, state.entities.songs),
     currentSong: state.ui.currentSong
   };
@@ -1025,14 +1030,12 @@ function (_React$Component) {
     _this.handleShuffle = _this.handleShuffle.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleLoop = _this.handleLoop.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
-  }
+  } // componentDidMount() {
+  //     this.props.fetchSongs();
+  // }
+
 
   _createClass(PlayerBar, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      this.props.fetchSongs();
-    }
-  }, {
     key: "handlePause",
     value: function handlePause(song) {
       this.props.pauseSong(song);
@@ -1152,16 +1155,8 @@ function (_React$Component) {
           className: "player-bar-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "player-bar"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_player__WEBPACK_IMPORTED_MODULE_1___default.a, {
-          url: this.props.currentSong.audioURL,
-          ref: this.ref,
-          playing: this.props.currentSong.playing,
-          volume: this.state.volume,
-          width: "0px",
-          height: "0px",
-          onProgress: this.onProgress,
-          onDuration: this.onDuration,
-          onEnded: this.onEnded
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          id: "waveform"
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "player-controls-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -1189,10 +1184,19 @@ function (_React$Component) {
             return _this3.handleLoop();
           }
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "song-current-progress-container"
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-progress-tracker-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-progress-container"
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          id: "slider",
+          type: "range",
+          min: "1",
+          max: "200",
+          value: "1",
+          style: "width: 100%"
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-progress-slider"
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-length-container"
@@ -2636,7 +2640,6 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
  // import { latest } from "../../util/song_api_util";
-// import WaveformPlayer from "./waveform_player/waveform_player";
 
 var msp = function msp(state, ownProps) {
   debugger;
@@ -2644,7 +2647,7 @@ var msp = function msp(state, ownProps) {
     onPageSongId: ownProps.match.params.songId,
     onPageSong: state.entities.songs[ownProps.match.params.songId],
     currentSong: state.ui.currentSong,
-    currentUser: state.session.currentUser,
+    currentUser: state.entities.users[state.session.id],
     users: state.entities.users
   };
 };
@@ -2687,42 +2690,44 @@ function (_React$Component) {
   }
 
   _createClass(SongShowPage, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      debugger;
       this.props.fetchSong(this.props.onPageSongId);
-    }
-  }, {
-    key: "componentWillReceiveProps",
-    value: function componentWillReceiveProps(nextProps) {
-      if (this.props.onPageSongId !== nextProps.songId) {
-        this.props.fetchSong(nextProps.songId);
-      }
-    }
+    } // componentWillReceiveProps(nextProps) {
+    //   debugger
+    //   if (nextProps.songId !== this.props.onPageSongId) {
+    //     this.props.fetchSong(nextProps.songId);
+    //   }
+    // }
+
   }, {
     key: "renderPlayPauseSign",
     value: function renderPlayPauseSign(song) {
       var _this2 = this;
 
       if (!this.props.currentSong.song || song.id !== this.props.currentSong.song.id || !this.props.currentSong.playing) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "banner-player-play-container"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.play_button,
-          className: "banner-player-play-sign",
-          onClick: function onClick() {
-            return _this2.togglePlay(song);
-          }
-        }));
+        return (// <div className="banner-player-play-container">
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+            src: window.play_button,
+            className: "banner-player-play-sign",
+            onClick: function onClick() {
+              return _this2.togglePlay(song);
+            }
+          }) // </div>
+
+        );
       } else if (song.id === this.props.currentSong.song.id && this.props.currentSong.playing) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "banner-player-pause-container"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.pause_button,
-          className: "banner-player-pause-sign",
-          onClick: function onClick() {
-            return _this2.togglePlay(song);
-          }
-        }));
+        return (// <div className="banner-player-pause-container">
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+            src: window.pause_button,
+            className: "banner-player-pause-sign",
+            onClick: function onClick() {
+              return _this2.togglePlay(song);
+            }
+          }) // </div>
+
+        );
       }
 
       debugger;
@@ -2745,81 +2750,106 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      debugger;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "song-show-page-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "banner-player-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "banner-player"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "banner-player-left"
-      }, this.renderPlayPauseSign(this.props.onPageSong), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "song-show-page-song-info-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-        to: "/users/".concat(this.props.onPageSong.artistId),
-        className: "song-show-page-song-artist"
-      }, this.props.onPageSong.artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
-        className: "song-show-page-song-title"
-      }, this.props.onPageSong.title))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "banner-player-right"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
-        className: "song-show-page-song-upload-time"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
-        className: "song-show-page-song-genre"
-      }, "#", this.props.onPageSong.title))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: this.props.onPageSong.imageURL ? this.props.onPageSong.imageURL : window.default_avatar,
-        className: "song-show-page-song-img"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "song-show-page-content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "song-show-page-social-els-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "song-show-page-comment-box-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: this.props.currentUser.imageURL ? this.props.currentUser.imageURL : window.default_avatar,
-        className: "song-show-page-comment-box-img"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "song-show-page-comment-box-wrapper"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
-        name: "comment"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "submit",
-        style: "position: absolute; left: -9999px; width: 1px; height: 1px;",
-        tabindex: "-1"
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "song-show-page-social-els"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "song-show-page-social-els-left"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "song-show-page-like-button"
-      }, "Like")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "song-show-page-social-els-right"
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "song-show-page-main-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "song-show-page-artist-info-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: this.props.onPageSong.artist.imageURL
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.onPageSong.artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "song-show-page-artist-follows-container"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "song-show-page-follow-button"
-      }, "Follow")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "song-show-page-description-comments"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "song-show-page-description-container"
-      }, this.props.onPageSong.description), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "song-show-page-comments-container"
-      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "song-show-page-sidebar"
-      })));
+      if (!this.props.onPageSong) {
+        debugger;
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.loading,
+          className: "loading"
+        });
+      } else {
+        debugger;
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "song-show-page-container"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "banner-player-container"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "banner-player"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "banner-player-left"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "banner-player-left-top"
+        }, this.renderPlayPauseSign(this.props.onPageSong), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "song-show-page-song-info-container"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+          to: "/users/".concat(this.props.onPageSong.artistId),
+          className: "song-show-page-song-artist"
+        }, this.props.onPageSong.artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+          className: "song-show-page-song-title"
+        }, this.props.onPageSong.title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "banner-player-waveform-container"
+        }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "banner-player-right"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+          className: "song-show-page-song-upload-time"
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+          className: "song-show-page-song-genre"
+        }, "#", this.props.onPageSong.title))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: this.props.onPageSong.imageURL ? this.props.onPageSong.imageURL : window.default_avatar,
+          className: "song-show-page-song-img"
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "song-show-page-content"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "song-show-page-social-els-container"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "song-show-page-comment-box-container"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "song-show-page-comment-box-wrapper"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: this.props.currentUser.imageURL ? this.props.currentUser.imageURL : window.default_avatar,
+          className: "song-show-page-comment-box-img"
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          type: "text",
+          name: "comment",
+          placeholder: "Write a comment",
+          className: "song-show-page-comment-box"
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          type: "submit",
+          className: "song-show-page-comment-submit-button",
+          tabIndex: "-1"
+        }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "song-show-page-social-els"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "song-show-page-social-els-left"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "song-show-page-like-button"
+        }, "Like")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "song-show-page-social-els-right"
+        }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "song-show-page-main-container"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "song-show-page-artist-info-container"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: this.props.onPageSong.artist.imageURL ? this.props.onPageSong.artist.imageURL : window.default_avatar,
+          className: "song-show-page-artist-img"
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+          to: "/users/".concat(this.props.onPageSong.artistId),
+          className: "song-show-page-artist"
+        }, this.props.onPageSong.artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "song-show-page-artist-follows-container"
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "song-show-page-follow-button"
+        }, "Follow")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "song-show-page-description-comments"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "song-show-page-description-container"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: "song-show-page-description"
+        }, this.props.onPageSong.description)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "song-show-page-comments-container"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "song-show-page-comments-header-container"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: "song-show-page-comments-header"
+        }, "N comments")))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "song-show-page-sidebar"
+        })));
+      }
     }
   }]);
 
   return SongShowPage;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component); // style={{position: absolute; left: -9999px; width: 1px; height: 1px;}}
+
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, mdp)(SongShowPage)));
 
@@ -3331,7 +3361,7 @@ var msp = function msp(state, ownProps) {
     onPageUserId: ownProps.match.params.songId,
     onPageUser: state.entities.songs[ownProps.match.params.songId],
     currentSong: state.ui.currentSong,
-    currentUser: state.session.currentUser,
+    currentUser: state.entities.users[session.id],
     users: state.entities.users
   };
 };
@@ -3781,6 +3811,7 @@ var songsReducer = function songsReducer() {
 
   switch (action.type) {
     case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_SONG"]:
+      debugger;
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, _defineProperty({}, action.song.id, action.song));
 
     case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_SONGS"]:

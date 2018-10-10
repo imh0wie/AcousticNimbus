@@ -8,7 +8,7 @@ const msp = (state, ownProps) => {
       onPageUserId: ownProps.match.params.songId,
       onPageUser: state.entities.songs[ownProps.match.params.songId],
       currentSong: state.ui.currentSong,
-      currentUser: state.session.currentUser,
+      currentUser: state.entities.users[session.id],
       users: state.entities.users,
     });
   };

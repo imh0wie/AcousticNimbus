@@ -7,9 +7,10 @@ import { setCurrentSong, playSong, pauseSong } from "../../../actions/current_so
 import { latest, shuffle } from "../../../util/song_api_util";
 
 const msp = (state) => {
-    // debugger
+    debugger
     return {
         latestTwelve: latest(12, state.entities.songs),
+        latestTwenty: latest(20, state.entities.songs),
         shuffled: shuffle(12, state.entities.songs),
         currentSong: state.ui.currentSong,
     }
@@ -46,9 +47,9 @@ class PlayerBar extends React.Component {
         this.handleLoop = this.handleLoop.bind(this);
     }
 
-    componentWillMount() {
-        this.props.fetchSongs();
-    }
+    // componentDidMount() {
+    //     this.props.fetchSongs();
+    // }
     
 
     handlePause(song) {
@@ -143,17 +144,7 @@ class PlayerBar extends React.Component {
         return (
         <div className="player-bar-container">
             <div className="player-bar">
-                <ReactPlayer 
-                    url={this.props.currentSong.audioURL}
-                    ref={this.ref}
-                    playing={this.props.currentSong.playing}
-                    volume={this.state.volume}
-                    width="0px"
-                    height="0px"
-                    onProgress={this.onProgress}
-                    onDuration={this.onDuration}
-                    onEnded={this.onEnded}
-                />
+                <div id="waveform"></div>
                 <div className="player-controls-container">
                     <img src={window.play_bar_previous} className="player-control" onClick={() => this.handlePrevious(this.props.currentSong.song)}></img>
                     {this.renderPlayPauseButton()}
@@ -161,10 +152,15 @@ class PlayerBar extends React.Component {
                     <img src={window.play_bar_shuffle} className="player-control" onClick={() => this.handleShuffle()}></img>
                     <img src={window.play_bar_loop} className="player-control" onClick={() => this.handleLoop()}></img>
                 </div>
+                <div className="song-current-progress-container">
+
+                </div>
                 <div className="song-progress-tracker-container">
                     <div className="song-progress-container">
+                        <input id="slider" type="range" min="1" max="200" value="1" style="width: 100%" />
                     </div>
                     <div className="song-progress-slider">
+
                     </div>
                 </div>
                 <div className="song-length-container">
