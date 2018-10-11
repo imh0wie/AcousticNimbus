@@ -2,15 +2,12 @@ import React from "react";
 import BarButtonsContainer from "./bar_buttons/bar_buttons_container";
 // line 21: Should we pass in currentUser as props?
 class HeaderBar extends React.Component {
-  render () {
-    if (this.props.currentUser) {
-      return (
-        <header className="protected-page-outer-bar">
-          <BarButtonsContainer />
-        </header>
-      );
-    }
-    return null;
+  render() {
+    debugger
+    return (
+      
+        <BarButtonsContainer />
+    );
   }
 }
 

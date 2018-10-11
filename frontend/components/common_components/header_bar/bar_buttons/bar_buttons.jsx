@@ -12,39 +12,41 @@ class BarButtons extends React.Component {
   }
 
   beforeLogin() {
-    return ;
-      // <div className="protected-page-inner-bar">
-      //   <Link to="/" ><img className="stream-logo" src={window.barLogo} ></img></Link>
-      //   <Link to="/" className="bar-home">Home</Link>
-      //   <Link to="/charts/top" className="bar-collection">Charts</Link>
-      //   <div className="search-bar-container">
-      //     <input type="text" placeholder="Search" className="search-bar"></input>
-      //   </div>
-      //   <Link to="/upload" className="upload-button">Upload</Link>
-      //   <Link to="" className="profile-dropdown">
-      //     <img className="profile-dropdown-img" src={window.default_avatar}></img>
-      //     <p className="profile-dropdown-username">{this.props.currentUser.username}</p>
-      //   </Link>
-      //   <button className="logout-button" onClick={() => this.props.logout()}>Sign Out</button>
-      // </div>
+    return null;
+    //   <div className="page-inner-bar">
+    //     <Link to="/stream" ><img className="stream-logo" src={window.barLogo} ></img></Link>
+    //     <Link to="/stream"><button className="bar-home">Home</button></Link>
+    //     <Link to="/you/collection"><button className="bar-collection" >Collection</button></Link>
+    //     <div className="search-bar-container">
+    //       <input type="text" placeholder="Search" className="search-bar"></input>
+    //     </div>
+    //     <Link to="/upload"><button className="upload-button">Upload</button></Link>
+    //     <button className="profile-dropdown" onClick={() => this.props.history.push(`/users/${this.props.currentUser.id}`)}>
+    //       <img className="profile-dropdown-img" src={window.default_avatar}></img>
+    //       <p className="profile-dropdown-username">{this.props.currentUser.username}</p>
+    //     </button>
+    //     <button className="logout-button" onClick={() => this.props.logout()}>Sign Out</button>
+    // </div>
   }
 
   afterLogin() {
     return (
-      <div className="protected-page-inner-bar">
-        <Link to="/stream" ><img className="stream-logo" src={window.barLogo} ></img></Link>
-        <Link to="/stream"><button className="bar-home">Home</button></Link>
-        <Link to="/you/collection"><button className="bar-collection" >Collection</button></Link>
-        <div className="search-bar-container">
-          <input type="text" placeholder="Search" className="search-bar"></input>
+      <header className="page-outer-bar">
+        <div className="page-inner-bar">
+          <Link to="/stream" ><img className="stream-logo" src={window.barLogo} ></img></Link>
+          <Link to="/stream"><button className="bar-home">Home</button></Link>
+          <Link to="/you/collection"><button className="bar-collection" >Collection</button></Link>
+          <div className="search-bar-container">
+            <input type="text" placeholder="Search" className="search-bar"></input>
+          </div>
+          <Link to="/upload"><button className="upload-button">Upload</button></Link>
+          <button className="profile-dropdown" onClick={() => this.props.history.push(`/users/${this.props.currentUser.id}`)}>
+            <img className="profile-dropdown-img" src={window.default_avatar}></img>
+            <p className="profile-dropdown-username">{this.props.currentUser.username}</p>
+          </button>
+          <button className="logout-button" onClick={() => this.props.logout()}>Sign Out</button>
         </div>
-        <Link to="/upload"><button className="upload-button">Upload</button></Link>
-        <button className="profile-dropdown" onClick={() => this.props.history.push(`/users/${this.props.currentUser.id}`)}>
-          <img className="profile-dropdown-img" src={window.default_avatar}></img>
-          <p className="profile-dropdown-username">{this.props.currentUser.username}</p>
-        </button>
-        <button className="logout-button" onClick={() => this.props.logout()}>Sign Out</button>
-      </div>
+      </header>
     );
   }
   // onClick={() => this.props.history.push("/you/collection")}

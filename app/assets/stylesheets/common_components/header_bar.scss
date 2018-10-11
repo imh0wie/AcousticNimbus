@@ -1,12 +1,12 @@
-.protected-page-outer-bar {
+.page-outer-bar {
   position: fixed;
   background: #333;
   width: 100%;
   height: 45px;
-  z-index: 3;
+  right: 0px;
 }
 
-.protected-page-inner-bar {
+.page-inner-bar {
   display: flex;
   margin: 0 auto;
   width: 1240px;

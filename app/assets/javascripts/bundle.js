@@ -431,13 +431,14 @@ __webpack_require__.r(__webpack_exports__);
 var App = function App() {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "app"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_header_bar_header_bar_container__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "page-container"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__["ProtectedRoute"], {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_header_bar_header_bar_container__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__["AuthRoute"], {
+    exact: true,
+    path: "/",
+    component: _splash_page_splash_page__WEBPACK_IMPORTED_MODULE_3__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__["ProtectedRoute"], {
     path: "/stream",
-    component: _homepage_homepage__WEBPACK_IMPORTED_MODULE_4__["default"]
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-    path: "/charts",
     component: _homepage_homepage__WEBPACK_IMPORTED_MODULE_4__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__["ProtectedRoute"], {
     path: "/upload",
@@ -445,11 +446,10 @@ var App = function App() {
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__["ProtectedRoute"], {
     path: "/you/collection",
     component: _song_mgmt_page_song_mgmt_page__WEBPACK_IMPORTED_MODULE_5__["default"]
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__["AuthRoute"], {
-    exact: true,
-    path: "/",
-    component: _splash_page_splash_page__WEBPACK_IMPORTED_MODULE_3__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    path: "/charts/top",
+    component: _homepage_homepage__WEBPACK_IMPORTED_MODULE_4__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__["ProtectedRoute"], {
     exact: true,
     path: "/songs/:songId",
     component: _song_show_page_song_show_page__WEBPACK_IMPORTED_MODULE_7__["default"]
@@ -532,19 +532,19 @@ function (_React$Component) {
   _createClass(BarButtons, [{
     key: "beforeLogin",
     value: function beforeLogin() {
-      return; // <div className="protected-page-inner-bar">
-      //   <Link to="/" ><img className="stream-logo" src={window.barLogo} ></img></Link>
-      //   <Link to="/" className="bar-home">Home</Link>
-      //   <Link to="/charts/top" className="bar-collection">Charts</Link>
-      //   <div className="search-bar-container">
-      //     <input type="text" placeholder="Search" className="search-bar"></input>
-      //   </div>
-      //   <Link to="/upload" className="upload-button">Upload</Link>
-      //   <Link to="" className="profile-dropdown">
-      //     <img className="profile-dropdown-img" src={window.default_avatar}></img>
-      //     <p className="profile-dropdown-username">{this.props.currentUser.username}</p>
-      //   </Link>
-      //   <button className="logout-button" onClick={() => this.props.logout()}>Sign Out</button>
+      return null; //   <div className="page-inner-bar">
+      //     <Link to="/stream" ><img className="stream-logo" src={window.barLogo} ></img></Link>
+      //     <Link to="/stream"><button className="bar-home">Home</button></Link>
+      //     <Link to="/you/collection"><button className="bar-collection" >Collection</button></Link>
+      //     <div className="search-bar-container">
+      //       <input type="text" placeholder="Search" className="search-bar"></input>
+      //     </div>
+      //     <Link to="/upload"><button className="upload-button">Upload</button></Link>
+      //     <button className="profile-dropdown" onClick={() => this.props.history.push(`/users/${this.props.currentUser.id}`)}>
+      //       <img className="profile-dropdown-img" src={window.default_avatar}></img>
+      //       <p className="profile-dropdown-username">{this.props.currentUser.username}</p>
+      //     </button>
+      //     <button className="logout-button" onClick={() => this.props.logout()}>Sign Out</button>
       // </div>
     }
   }, {
@@ -552,8 +552,10 @@ function (_React$Component) {
     value: function afterLogin() {
       var _this2 = this;
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "protected-page-inner-bar"
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
+        className: "page-outer-bar"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "page-inner-bar"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/stream"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -592,7 +594,7 @@ function (_React$Component) {
         onClick: function onClick() {
           return _this2.props.logout();
         }
-      }, "Sign Out"));
+      }, "Sign Out")));
     } // onClick={() => this.props.history.push("/you/collection")}
     // <ProtectedRoute exact path="/upload" component={SongMgmtPage} />
     // <ProtectedRoute exact path="/songs/:songId" component={SongShowPageContainer} />
@@ -764,13 +766,8 @@ function (_React$Component) {
   _createClass(HeaderBar, [{
     key: "render",
     value: function render() {
-      if (this.props.currentUser) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
-          className: "protected-page-outer-bar"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_bar_buttons_bar_buttons_container__WEBPACK_IMPORTED_MODULE_1__["default"], null));
-      }
-
-      return null;
+      debugger;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_bar_buttons_bar_buttons_container__WEBPACK_IMPORTED_MODULE_1__["default"], null);
     }
   }]);
 
@@ -799,6 +796,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var msp = function msp(state) {
+  debugger;
   return {
     currentUser: state.entities.users[state.session.id]
   };
@@ -997,6 +995,9 @@ var mdp = function mdp(dispatch) {
     },
     pauseSong: function pauseSong(song) {
       return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["pauseSong"])(song));
+    },
+    setElapsedTo: function setElapsedTo(time) {
+      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["setElapsedTo"])(time));
     }
   };
 };
@@ -1016,19 +1017,27 @@ function (_React$Component) {
     _this.state = {
       playing: _this.props.currentSong.playing,
       elapsed: _this.props.currentSong.elapsed,
+      sliding: false,
       muted: true,
+      duration: null,
       volume: 0.60,
       shuffle: false,
       loop: _this.repeat[0]
     };
+    _this.ref = _this.ref.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.renderPlayPauseButton = _this.renderPlayPauseButton.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handlePause = _this.handlePause.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handlePlay = _this.handlePlay.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleProgress = _this.handleProgress.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleDuration = _this.handleDuration.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleOver = _this.handleOver.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handlePlayPause = _this.handlePlayPause.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handlePrevious = _this.handlePrevious.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleNext = _this.handleNext.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.ref = _this.ref.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleShuffle = _this.handleShuffle.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleLoop = _this.handleLoop.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.showTime = _this.showTime.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleSlide = _this.handleSlide.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleUnslide = _this.handleUnslide.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   } // componentDidMount() {
   //     this.props.fetchSongs();
@@ -1036,14 +1045,49 @@ function (_React$Component) {
 
 
   _createClass(PlayerBar, [{
-    key: "handlePause",
-    value: function handlePause(song) {
-      this.props.pauseSong(song);
+    key: "ref",
+    value: function ref(player) {
+      this.player = player;
     }
   }, {
-    key: "handlePlay",
-    value: function handlePlay(song) {
-      this.props.playSong(song);
+    key: "handleProgress",
+    value: function handleProgress(options) {
+      if (!this.state.sliding) {
+        this.setState({
+          elapsed: options.played
+        });
+        this.props.setElapsedTo(this.state.elapsed);
+      }
+    }
+  }, {
+    key: "handleDuration",
+    value: function handleDuration(duration) {
+      this.setState({
+        duration: duration
+      });
+    }
+  }, {
+    key: "handleOver",
+    value: function handleOver() {
+      this.handleNext(this.props.currentSong);
+    } // handlePause(song) {
+    //     this.props.pauseSong(song);
+    // }
+
+  }, {
+    key: "handlePlayPause",
+    value: function handlePlayPause(currentSong) {
+      debugger;
+      this.props.setCurrentSong(currentSong);
+
+      if (!currentSong.song) {
+        this.props.setCurrentSong(currentSong.song);
+        this.props.playSong(currentSong.song);
+      } else if (currentSong.playing) {
+        this.props.pauseSong(currentSong.song);
+      } else {
+        this.props.playSong(currentSong.song);
+      }
     }
   }, {
     key: "handlePrevious",
@@ -1106,20 +1150,36 @@ function (_React$Component) {
       this.repeat.push(this.repeat.shift());
     }
   }, {
-    key: "ref",
-    value: function ref(player) {
-      this.player = player;
-    } // renderTime(elapsedTime) {
-    //   while (elapsedTime)
-    // }
-    //   getDuration(src) {
-    //     let audio = new Audio(src);
-    //     const audioLength = audio.getDuration();
-    //     return audioLength;
-    //   }   
-    //   getPlayed(src) {
-    //   }
-
+    key: "showTime",
+    value: function showTime(secs) {
+      var date = new Date(null);
+      date.setSeconds(secs);
+      debugger;
+      return date.toTimeString().slice(4, 8);
+    }
+  }, {
+    key: "handleSlide",
+    value: function handleSlide() {
+      this.setState({
+        sliding: true
+      });
+    }
+  }, {
+    key: "handleUnslide",
+    value: function handleUnslide(e) {
+      this.setState({
+        sliding: false
+      });
+      this.player.seekTo(e.currentTarget.value);
+    }
+  }, {
+    key: "handleChange",
+    value: function handleChange(e) {
+      this.setState({
+        elapsed: parseFloat(e.currentTarget.value)
+      });
+      this.props.setElapsedTo(e.currentTarget.value);
+    }
   }, {
     key: "renderPlayPauseButton",
     value: function renderPlayPauseButton() {
@@ -1128,17 +1188,19 @@ function (_React$Component) {
       if (this.props.currentSong.playing) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.play_bar_pause,
-          className: "player-control",
+          className: "player-control" // onChange={() => this.handlePlayPause(this.props.currentSong)}
+          ,
           onClick: function onClick() {
-            return _this2.handlePause(_this2.props.currentSong.song);
+            return _this2.handlePlayPause(_this2.props.currentSong);
           }
         });
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.play_bar_play,
-          className: "player-control",
+          className: "player-control" // onChange={() => this.handlePlayPause(this.props.currentSong)}
+          ,
           onClick: function onClick() {
-            return _this2.handlePlay(_this2.props.currentSong.song);
+            return _this2.handlePlayPause(_this2.props.currentSong);
           }
         });
       }
@@ -1151,12 +1213,24 @@ function (_React$Component) {
       // debugger
       if (this.props.currentSong.song) {
         // debugger
+        // console.log(this.props.currentSong.playing);
+        // console.log(this.props.currentSong)
+        // console.log(ReactPlayer)
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "player-bar-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "player-bar"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          id: "waveform"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_player__WEBPACK_IMPORTED_MODULE_1___default.a, {
+          url: this.props.currentSong.song.audioURL,
+          controls: true,
+          ref: this.ref,
+          playing: this.props.currentSong.playing,
+          volume: this.state.volume,
+          width: "0px",
+          height: "0px",
+          onProgress: this.handleProgress,
+          onDuration: this.handleDuration,
+          onEnded: this.handleOver
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "player-controls-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -1185,22 +1259,32 @@ function (_React$Component) {
           }
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-current-progress-container"
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        }, this.showTime(Math.round(this.state.duration * this.state.elapsed))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-progress-tracker-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-progress-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-          id: "slider",
+          className: "song-progress",
           type: "range",
-          min: "1",
-          max: "200",
-          value: "1",
-          style: "width: 100%"
-        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "song-progress-slider"
-        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          min: 0,
+          max: 1,
+          step: "any",
+          value: this.state.elapsed,
+          onMouseUp: this.handleUnslide,
+          onMouseDown: this.handleSlide,
+          onChange: this.handleChange
+        }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-length-container"
-        })));
+        }, this.showTime(Math.round(this.state.duration))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "player-bar-song-info-container"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: this.props.currentSong.imageURL ? this.props.currentSong.imageURL : window.default_avatar,
+          className: "player-bar-song-img"
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: "player-bar-song-artist"
+        }, this.props.currentSong.artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: "player-bar-song-title"
+        }, this.props.currentSong.title)))));
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
       }
@@ -1890,7 +1974,7 @@ function (_React$Component) {
       }, this.props.idx + 1), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "charts-songs-list-item-img-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: window.dogs,
+        src: this.props.song.imageURL,
         className: "charts-songs-list-item-img"
       }), this.renderPlayPauseSign(this.props.song)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "charts-songs-list-item-info-container"
@@ -1922,42 +2006,92 @@ function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var _util_route_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../util/route_util */ "./frontend/util/route_util.jsx");
-/* harmony import */ var _homepage_navbar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./homepage_navbar */ "./frontend/components/homepage/homepage_navbar.jsx");
-/* harmony import */ var _stream_page_stream_page__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./stream_page/stream_page */ "./frontend/components/homepage/stream_page/stream_page.jsx");
-/* harmony import */ var _charts_page_charts_page__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./charts_page/charts_page */ "./frontend/components/homepage/charts_page/charts_page.jsx");
- // import { connect } from "react-redux";
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var _util_route_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../util/route_util */ "./frontend/util/route_util.jsx");
+/* harmony import */ var _homepage_navbar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./homepage_navbar */ "./frontend/components/homepage/homepage_navbar.jsx");
+/* harmony import */ var _stream_page_stream_page__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./stream_page/stream_page */ "./frontend/components/homepage/stream_page/stream_page.jsx");
+/* harmony import */ var _charts_page_charts_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./charts_page/charts_page */ "./frontend/components/homepage/charts_page/charts_page.jsx");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 
 
 
 
- // const msp = (state) => {
-//   currentUser: state.entities.users[state.session.id],
-// }
 
-var Homepage = function Homepage() {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "homepage-container"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "homepage-content-container"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_homepage_navbar__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["ProtectedRoute"], {
-    path: "/stream",
-    component: _stream_page_stream_page__WEBPACK_IMPORTED_MODULE_4__["default"]
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-    path: "/charts/top",
-    component: _charts_page_charts_page__WEBPACK_IMPORTED_MODULE_5__["default"]
-  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "sidebar-container"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "sidebar-liked-songs"
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "sidebar-history"
-  })));
+
+
+
+var msp = function msp(state) {
+  return {
+    currentUser: state.entities.users[state.session.id]
+  };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Homepage);
+var Homepage =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Homepage, _React$Component);
+
+  function Homepage(props) {
+    var _this;
+
+    _classCallCheck(this, Homepage);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Homepage).call(this, props));
+    _this.renderNavbar = _this.renderNavbar.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    return _this;
+  }
+
+  _createClass(Homepage, [{
+    key: "renderNavbar",
+    value: function renderNavbar() {
+      if (this.props.currentUser) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_homepage_navbar__WEBPACK_IMPORTED_MODULE_4__["default"], null);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "homepage-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "homepage-content-container"
+      }, this.renderNavbar(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__["ProtectedRoute"], {
+        path: "/stream",
+        component: _stream_page_stream_page__WEBPACK_IMPORTED_MODULE_5__["default"]
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        path: "/charts/top",
+        component: _charts_page_charts_page__WEBPACK_IMPORTED_MODULE_6__["default"]
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "sidebar-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "sidebar-liked-songs"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "sidebar-history"
+      })));
+    }
+  }]);
+
+  return Homepage;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+;
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, null)(Homepage)));
 
 /***/ }),
 
@@ -2007,7 +2141,11 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(HomepageNavbar).call(this, props));
     _this.state = {
       stream: true,
-      charts: false
+      charts: false // this.state = {
+      //   stream: false,
+      //   charts: true
+      // }
+
     };
     return _this;
   }
@@ -2032,7 +2170,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "navbar"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: this.state.stream ? "navbar-button-container clicked" : "navbar-button-container"
+        className: "navbar-button-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
         to: "/stream",
         className: "navbar-button",
@@ -2041,7 +2179,7 @@ function (_React$Component) {
           return _this2.switchTabFrom("stream");
         }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Stream"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: this.state.charts ? "navbar-button-container clicked" : "navbar-button-container"
+        className: "navbar-button-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
         to: "/charts/top",
         className: "navbar-button",
@@ -2149,17 +2287,17 @@ var SongMgmtNavbar = function SongMgmtNavbar() {
     className: "song-mgmt-navbar"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
     className: "song-mgmt-navbar-button-container"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-    to: "/upload"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    className: "song-mgmt-navbar-button"
-  }, "Upload"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+    to: "/upload",
+    className: "song-mgmt-navbar-button",
+    activeClassName: "on"
+  }, "Upload")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
     className: "song-mgmt-navbar-button-container"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-    to: "/you/songs"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    className: "song-mgmt-navbar-button"
-  }, "Your Tracks")))));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+    to: "/you/songs",
+    className: "song-mgmt-navbar-button",
+    activeClassName: "on"
+  }, "Your Tracks"))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(SongMgmtNavbar));
@@ -2196,7 +2334,7 @@ var SongMgmtPage = function SongMgmtPage() {
     component: _upload_form_upload_form_container__WEBPACK_IMPORTED_MODULE_4__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["ProtectedRoute"], {
     exact: true,
-    path: "/charts/top",
+    path: "/you/songs",
     component: _upload_form_upload_form_container__WEBPACK_IMPORTED_MODULE_4__["default"]
   }))));
 };
@@ -3261,12 +3399,13 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      debugger;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "splash-page-songs-index-item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "splash-page-songs-index-item-img-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: window.dogs,
+        src: this.props.song.imageURL,
         className: "splash-page-songs-index-item-img"
       }), this.renderPlayPauseSign(this.props.song)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
         className: "splash-page-songs-index-item-title"
@@ -4053,7 +4192,6 @@ var createSong = function createSong(song) {
   });
 };
 var fetchSong = function fetchSong(id) {
-  debugger;
   return $.ajax({
     method: "GET",
     url: "/api/songs/".concat(id)
@@ -4075,9 +4213,7 @@ var isEmpty = function isEmpty(obj) {
 };
 
 var latest = function latest(n, songs) {
-  debugger;
   if (isEmpty(songs)) return [];
-  debugger;
   var keys = Object.keys(songs).reverse().slice(0, n);
   var output = [];
   keys.forEach(function (key) {
@@ -4086,7 +4222,6 @@ var latest = function latest(n, songs) {
   return output;
 };
 var shuffle = function shuffle(n, songs) {
-  debugger;
   var songsToShuffle = latest(n, songs);
 
   for (var i = songsToShuffle.length - 1; i > 0; i--) {
@@ -4097,7 +4232,6 @@ var shuffle = function shuffle(n, songs) {
     songsToShuffle[j] = _ref[1];
   }
 
-  debugger;
   return songsToShuffle;
 };
 

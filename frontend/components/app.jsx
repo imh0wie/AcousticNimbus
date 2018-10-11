@@ -13,15 +13,15 @@ import PlayerBar from "./common_components/player_bar/player_bar";
 const App = () => {
   return (
     <div className="app">
-      <HeaderBarContainer />
       <div className="page-container">
+        <HeaderBarContainer />
         <Switch>
+          <AuthRoute exact path="/" component={SplashPage} />
           <ProtectedRoute path="/stream" component={Homepage} />
-          <Route path="/charts" component={Homepage} />
           <ProtectedRoute path="/upload" component={SongMgmtPage} />
           <ProtectedRoute path="/you/collection" component={SongMgmtPage} />
-          <AuthRoute exact path="/" component={SplashPage} />
-          <Route exact path="/songs/:songId" component={SongShowPage} />
+          <Route path="/charts/top" component={Homepage} />
+          <ProtectedRoute exact path="/songs/:songId" component={SongShowPage} />
           <Route exact path="/users/:userId" component={UserShowPage} />
         </Switch>
       </div>

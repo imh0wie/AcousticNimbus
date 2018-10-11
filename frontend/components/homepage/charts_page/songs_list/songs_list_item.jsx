@@ -58,7 +58,7 @@ class SongsListItem extends React.Component {
       <li className="charts-songs-list-item">
         <p className={(this.props.idx + 1 >= 10) ? "double" : "charts-songs-list-item-rank"}>{this.props.idx + 1}</p> 
         <div className="charts-songs-list-item-img-container">
-            <img src={window.dogs} className="charts-songs-list-item-img" />
+            <img src={this.props.song.imageURL} className="charts-songs-list-item-img" />
             {this.renderPlayPauseSign(this.props.song)}
         </div>
         <div className="charts-songs-list-item-info-container">

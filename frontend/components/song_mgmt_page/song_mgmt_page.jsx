@@ -11,7 +11,7 @@ const SongMgmtPage = () => {
       <div>
         <Switch>
           <ProtectedRoute exact path="/upload" component={UploadFormContainer} />
-          <ProtectedRoute exact path="/charts/top" component={UploadFormContainer} />
+          <ProtectedRoute exact path="/you/songs" component={UploadFormContainer} />
         </Switch>
       </div>
     </div>

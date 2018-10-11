@@ -1,7 +1,8 @@
 .player-bar-container {
     position: fixed;
     top: 919px;
-    width: 1440px;
+    // top: 740px;
+    width: 1920px;
     height: 50px;
     background-color: #f2f2f2;
     border-top: 1px solid #cecece;
@@ -23,5 +24,32 @@
     margin: 13px 10px;
 }
 
+.player-bar-song-img {
+    width: 30px;
+    height: 30px;
+}
 
+.song-current-progress-container {
+    margin: 13px 10px;
+}
+
+.song-progress-tracker-container {
+    margin: 15px 10px;
+    width: 520px;
+}
+
+.song-length-container {
+    margin: 13px 20px 0px 0px;
+}
+
+input[type=range]:focus {
+    width: 100%;
+    height: 2px;
+    cursor: pointer;
+    animate: 0.2s;
+    box-shadow: 1px 1px 1px #000000;
+    background: #FFFFFF;
+    border-radius: 5px;
+    border: 1px solid #000000;
+  }
 
