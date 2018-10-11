@@ -438,6 +438,9 @@ var App = function App() {
     path: "/",
     component: _splash_page_splash_page__WEBPACK_IMPORTED_MODULE_3__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__["ProtectedRoute"], {
+    path: "/charts/top",
+    component: _homepage_homepage__WEBPACK_IMPORTED_MODULE_4__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__["ProtectedRoute"], {
     path: "/stream",
     component: _homepage_homepage__WEBPACK_IMPORTED_MODULE_4__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__["ProtectedRoute"], {
@@ -446,9 +449,6 @@ var App = function App() {
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__["ProtectedRoute"], {
     path: "/you/collection",
     component: _song_mgmt_page_song_mgmt_page__WEBPACK_IMPORTED_MODULE_5__["default"]
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-    path: "/charts/top",
-    component: _homepage_homepage__WEBPACK_IMPORTED_MODULE_4__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__["ProtectedRoute"], {
     exact: true,
     path: "/songs/:songId",
@@ -2881,13 +2881,17 @@ function (_React$Component) {
       } else if (song.id === this.props.currentSong.song.id && !this.props.currentSong.playing) {
         this.props.playSong(song);
       }
-    }
+    } // handleLike() {
+    // }
+
   }, {
     key: "renderLikeButton",
     value: function renderLikeButton() {}
   }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+
       if (!this.props.onPageSong) {
         debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -2949,7 +2953,10 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-show-page-social-els-left"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          className: "song-show-page-like-button"
+          className: "song-show-page-like-button",
+          onClick: function onClick() {
+            return _this3.handleLike();
+          }
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           class: "fas fa-heart"
         }), " Like")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

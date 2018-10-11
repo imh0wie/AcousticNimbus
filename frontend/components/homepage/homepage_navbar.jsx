@@ -32,7 +32,6 @@ class HomepageNavbar extends React.Component {
             <NavLink to="/stream" className="navbar-button" activeClassName="active" onClick={() => this.switchTabFrom("stream")}><h3>Stream</h3></NavLink> 
           </li>
           <li className="navbar-button-container">
-          {/* <li className={"navbar-button-container"}> */}
             <NavLink to="/charts/top" className="navbar-button" activeClassName="active" onClick={() => this.switchTabFrom("charts")}><h3>Charts</h3></NavLink>
           </li>
         </ul>

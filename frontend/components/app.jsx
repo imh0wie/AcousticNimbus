@@ -17,10 +17,10 @@ const App = () => {
         <HeaderBarContainer />
         <Switch>
           <AuthRoute exact path="/" component={SplashPage} />
+          <ProtectedRoute path="/charts/top" component={Homepage} />
           <ProtectedRoute path="/stream" component={Homepage} />
           <ProtectedRoute path="/upload" component={SongMgmtPage} />
           <ProtectedRoute path="/you/collection" component={SongMgmtPage} />
-          <Route path="/charts/top" component={Homepage} />
           <ProtectedRoute exact path="/songs/:songId" component={SongShowPage} />
           <Route exact path="/users/:userId" component={UserShowPage} />
         </Switch>
