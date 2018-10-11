@@ -29,7 +29,7 @@ class Homepage extends React.Component {
           {this.renderNavbar()}
           <Switch>
             <ProtectedRoute path="/stream" component={StreamPage} />
-            <Route path="/charts/top" component={ChartsPage} />
+            <ProtectedRoute path="/charts/top" component={ChartsPage} />
           </Switch>
         </div>
         <div className="sidebar-container">

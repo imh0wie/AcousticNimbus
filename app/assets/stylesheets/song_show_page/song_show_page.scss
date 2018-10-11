@@ -114,7 +114,7 @@
 
 .song-show-page-comment-box-container {
     width: 820px;
-    height: 70px;
+    height: 80px;
     border-bottom: 1px solid #f2f2f2;
 }
 
@@ -151,8 +151,12 @@
 }
 
 .song-show-page-like-button {
-    width: 70px;
-    height: 25px
+    width: auto;
+    height: 25px;
+    border: 1px solid #f2f2f2;
+    border-radius: 3px;
+    margin: 5px 0px;
+    padding: 0px 10px 0px 7px;
 }
 
 .song-show-page-main-container {

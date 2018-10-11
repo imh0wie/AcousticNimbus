@@ -73,7 +73,11 @@ class SongShowPage extends React.Component {
     } else if (song.id === this.props.currentSong.song.id && !this.props.currentSong.playing) {
         this.props.playSong(song);
     }
-}
+  }
+
+  // handleLike() {
+
+  // }
 
   renderLikeButton() {
 
@@ -123,7 +127,7 @@ class SongShowPage extends React.Component {
                 </div>
                 <div className="song-show-page-social-els">
                   <div className="song-show-page-social-els-left">
-                    <button className="song-show-page-like-button">Like</button>
+                    <button className="song-show-page-like-button" onClick={() => this.handleLike()}><i class="fas fa-heart"></i> Like</button>
                   </div>
                   <div className="song-show-page-social-els-right">
                   </div>
