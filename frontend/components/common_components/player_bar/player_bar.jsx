@@ -245,10 +245,10 @@ class PlayerBar extends React.Component {
                     {this.showTime(Math.round(this.state.duration))}
                 </div>
                 <div className="player-bar-song-info-container">
-                    <img src={this.props.currentSong.imageURL ? this.props.currentSong.imageURL : window.default_avatar} className="player-bar-song-img"></img>
-                    <div>
-                        <p className="player-bar-song-artist">{this.props.currentSong.artist}</p>
-                        <p className="player-bar-song-title">{this.props.currentSong.title}</p>
+                    <img src={this.props.currentSong.song.imageURL ? this.props.currentSong.song.imageURL : window.default_avatar} className="player-bar-song-img"></img>
+                    <div className="player-bar-song-info">
+                        <p className="player-bar-song-artist">{this.props.currentSong.song.artist}</p>
+                        <p className="player-bar-song-title">{this.props.currentSong.song.title}</p>
                     </div>
                 </div>
             </div>

@@ -1278,13 +1278,15 @@ function (_React$Component) {
         }, this.showTime(Math.round(this.state.duration))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "player-bar-song-info-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: this.props.currentSong.imageURL ? this.props.currentSong.imageURL : window.default_avatar,
+          src: this.props.currentSong.song.imageURL ? this.props.currentSong.song.imageURL : window.default_avatar,
           className: "player-bar-song-img"
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "player-bar-song-info"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "player-bar-song-artist"
-        }, this.props.currentSong.artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        }, this.props.currentSong.song.artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "player-bar-song-title"
-        }, this.props.currentSong.title)))));
+        }, this.props.currentSong.song.title)))));
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
       }

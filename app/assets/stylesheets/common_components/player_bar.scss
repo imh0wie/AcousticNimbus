@@ -1,8 +1,8 @@
 .player-bar-container {
     position: fixed;
-    top: 919px;
+    bottom: 0px;
     // top: 740px;
-    width: 1920px;
+    width: 1440px;
     height: 50px;
     background-color: #f2f2f2;
     border-top: 1px solid #cecece;
@@ -22,11 +22,6 @@
     width: 20px;
     height: 20px;
     margin: 13px 10px;
-}
-
-.player-bar-song-img {
-    width: 30px;
-    height: 30px;
 }
 
 .song-current-progress-container {
@@ -51,5 +46,45 @@ input[type=range]:focus {
     background: #FFFFFF;
     border-radius: 5px;
     border: 1px solid #000000;
-  }
+}
 
+.player-bar-song-info-container {
+    display: flex;
+}
+
+.player-bar-song-img {
+    position: relative;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.player-bar-song-info {
+    position: relative;
+    top: 10px;
+}
+
+.player-bar-song-artist {
+    font-size: 11px;
+    color: #999;
+    margin: 0px;
+}
+
+.player-bar-song-artist:hover {
+    font-size: 11px;
+    color: black;
+    margin: 0px;
+}
+
+.player-bar-song-title {
+    font-size: 11px;
+    color: #333;
+    margin: 0px;
+}
+
+.player-bar-song-title:hover {
+    font-size: 11px;
+    color: black;
+    margin: 0px;
+}
