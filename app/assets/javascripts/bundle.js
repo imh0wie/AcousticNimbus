@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
 /*!**************************************************!*\
   !*** ./frontend/actions/current_song_actions.js ***!
   \**************************************************/
-/*! exports provided: PLAY_SONG, PAUSE_SONG, SET_CURRENT_SONG, SET_ELAPSED_TO, RECEIVE_CURRENT_SONG_ERRORS, playSong, pauseSong, setCurrentSong, setElapsedTo, receiveCurrentSongErrors */
+/*! exports provided: PLAY_SONG, PAUSE_SONG, SET_CURRENT_SONG, SET_ELAPSED_TO, MUTE_SONG, UNMUTE_SONG, RECEIVE_CURRENT_SONG_ERRORS, playSong, pauseSong, setCurrentSong, setElapsedTo, muteSong, unmuteSong, receiveCurrentSongErrors */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -157,16 +157,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PAUSE_SONG", function() { return PAUSE_SONG; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_CURRENT_SONG", function() { return SET_CURRENT_SONG; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_ELAPSED_TO", function() { return SET_ELAPSED_TO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MUTE_SONG", function() { return MUTE_SONG; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UNMUTE_SONG", function() { return UNMUTE_SONG; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_CURRENT_SONG_ERRORS", function() { return RECEIVE_CURRENT_SONG_ERRORS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "playSong", function() { return playSong; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "pauseSong", function() { return pauseSong; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCurrentSong", function() { return setCurrentSong; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setElapsedTo", function() { return setElapsedTo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "muteSong", function() { return muteSong; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unmuteSong", function() { return unmuteSong; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveCurrentSongErrors", function() { return receiveCurrentSongErrors; });
 var PLAY_SONG = "PLAY_SONG";
 var PAUSE_SONG = "PAUSE_SONG";
 var SET_CURRENT_SONG = "SET_CURRENT_SONG";
 var SET_ELAPSED_TO = "SET_ELAPSED_TO";
+var MUTE_SONG = "MUTE_SONG";
+var UNMUTE_SONG = "UNMUTE_SONG";
 var RECEIVE_CURRENT_SONG_ERRORS = "RECEIVE_CURRENT_SONG_ERRORS"; // What does it do? ==> reducer
 
 var playSong = function playSong(song) {
@@ -185,7 +191,7 @@ var setCurrentSong = function setCurrentSong(song) {
   // debugger
   return {
     type: SET_CURRENT_SONG,
-    currentSong: song
+    song: song
   };
 };
 var setElapsedTo = function setElapsedTo(time) {
@@ -193,6 +199,16 @@ var setElapsedTo = function setElapsedTo(time) {
   return {
     type: SET_ELAPSED_TO,
     time: time
+  };
+};
+var muteSong = function muteSong() {
+  return {
+    type: MUTE_SONG
+  };
+};
+var unmuteSong = function unmuteSong() {
+  return {
+    type: UNMUTE_SONG
   };
 };
 var receiveCurrentSongErrors = function receiveCurrentSongErrors(errors) {
@@ -998,6 +1014,12 @@ var mdp = function mdp(dispatch) {
     },
     setElapsedTo: function setElapsedTo(time) {
       return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["setElapsedTo"])(time));
+    },
+    muteSong: function muteSong() {
+      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["muteSong"])());
+    },
+    unmuteSong: function unmuteSong() {
+      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["unmuteSong"])());
     }
   };
 };
@@ -1018,7 +1040,7 @@ function (_React$Component) {
       playing: _this.props.currentSong.playing,
       elapsed: _this.props.currentSong.elapsed,
       sliding: false,
-      muted: true,
+      // muted: false,
       duration: null,
       volume: 0.60,
       shuffle: false,
@@ -1026,6 +1048,7 @@ function (_React$Component) {
     };
     _this.ref = _this.ref.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.renderPlayPauseButton = _this.renderPlayPauseButton.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.renderVolume = _this.renderVolume.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleProgress = _this.handleProgress.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleDuration = _this.handleDuration.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleOver = _this.handleOver.bind(_assertThisInitialized(_assertThisInitialized(_this)));
@@ -1069,24 +1092,18 @@ function (_React$Component) {
   }, {
     key: "handleOver",
     value: function handleOver() {
-      this.handleNext(this.props.currentSong);
+      this.handleNext(this.props.currentSong.song);
     } // handlePause(song) {
     //     this.props.pauseSong(song);
     // }
 
   }, {
     key: "handlePlayPause",
-    value: function handlePlayPause(currentSong) {
-      debugger;
-      this.props.setCurrentSong(currentSong);
-
-      if (!currentSong.song) {
-        this.props.setCurrentSong(currentSong.song);
-        this.props.playSong(currentSong.song);
-      } else if (currentSong.playing) {
-        this.props.pauseSong(currentSong.song);
+    value: function handlePlayPause(song) {
+      if (this.props.currentSong.playing) {
+        this.props.pauseSong(song);
       } else {
-        this.props.playSong(currentSong.song);
+        this.props.playSong(song);
       }
     }
   }, {
@@ -1095,7 +1112,7 @@ function (_React$Component) {
       var songs = this.props.latestTwelve;
 
       if (this.state.shuffle) {
-        songs = Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_6__["shuffle"])(songs);
+        songs = this.props.shuffled;
       }
 
       var songsIdx = songs.map(function (song, i) {
@@ -1106,8 +1123,7 @@ function (_React$Component) {
         return song.id === currentSong.id;
       });
       var nextSongIdx = currentSongIdx - 1 < 0 ? songs.length - 1 : currentSongIdx - 1;
-      var nextSong = songs[nextSongIdx]; // debugger
-
+      var nextSong = songs[nextSongIdx];
       this.props.setCurrentSong(nextSong);
       this.props.playSong(nextSong);
     }
@@ -1124,8 +1140,7 @@ function (_React$Component) {
       debugger;
       var songsIdx = songs.map(function (song, i) {
         return i;
-      }); // debugger
-
+      });
       var currentSongIdx = songsIdx.find(function (idx) {
         var song = songs[idx];
         return song.id === currentSong.id;
@@ -1181,6 +1196,15 @@ function (_React$Component) {
       this.props.setElapsedTo(e.currentTarget.value);
     }
   }, {
+    key: "handleVolume",
+    value: function handleVolume() {
+      if (this.props.currentSong.muted) {
+        this.props.unmuteSong();
+      } else {
+        this.props.muteSong();
+      }
+    }
+  }, {
     key: "renderPlayPauseButton",
     value: function renderPlayPauseButton() {
       var _this2 = this;
@@ -1191,7 +1215,7 @@ function (_React$Component) {
           className: "player-control" // onChange={() => this.handlePlayPause(this.props.currentSong)}
           ,
           onClick: function onClick() {
-            return _this2.handlePlayPause(_this2.props.currentSong);
+            return _this2.handlePlayPause(_this2.props.currentSong.song);
           }
         });
       } else {
@@ -1200,7 +1224,30 @@ function (_React$Component) {
           className: "player-control" // onChange={() => this.handlePlayPause(this.props.currentSong)}
           ,
           onClick: function onClick() {
-            return _this2.handlePlayPause(_this2.props.currentSong);
+            return _this2.handlePlayPause(_this2.props.currentSong.song);
+          }
+        });
+      }
+    }
+  }, {
+    key: "renderVolume",
+    value: function renderVolume() {
+      var _this3 = this;
+
+      if (this.props.currentSong.muted) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.volume_off,
+          className: "player-control",
+          onClick: function onClick() {
+            return _this3.handleVolume();
+          }
+        });
+      } else {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.volume_on,
+          className: "player-control",
+          onClick: function onClick() {
+            return _this3.handleVolume();
           }
         });
       }
@@ -1208,7 +1255,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       // debugger
       if (this.props.currentSong.song) {
@@ -1226,6 +1273,7 @@ function (_React$Component) {
           ref: this.ref,
           playing: this.props.currentSong.playing,
           volume: this.state.volume,
+          muted: this.props.currentSong.muted,
           width: "0px",
           height: "0px",
           onProgress: this.handleProgress,
@@ -1237,25 +1285,25 @@ function (_React$Component) {
           src: window.play_bar_previous,
           className: "player-control",
           onClick: function onClick() {
-            return _this3.handlePrevious(_this3.props.currentSong.song);
+            return _this4.handlePrevious(_this4.props.currentSong.song);
           }
         }), this.renderPlayPauseButton(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.play_bar_next,
           className: "player-control",
           onClick: function onClick() {
-            return _this3.handleNext(_this3.props.currentSong.song);
+            return _this4.handleNext(_this4.props.currentSong.song);
           }
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.play_bar_shuffle,
           className: "player-control",
           onClick: function onClick() {
-            return _this3.handleShuffle();
+            return _this4.handleShuffle();
           }
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.play_bar_loop,
           className: "player-control",
           onClick: function onClick() {
-            return _this3.handleLoop();
+            return _this4.handleLoop();
           }
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-current-progress-container"
@@ -1276,6 +1324,8 @@ function (_React$Component) {
         }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-length-container"
         }, this.showTime(Math.round(this.state.duration))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "song-volume-controls-container"
+        }, this.renderVolume()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "player-bar-song-info-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: this.props.currentSong.song.imageURL ? this.props.currentSong.song.imageURL : window.default_avatar,
@@ -1286,7 +1336,11 @@ function (_React$Component) {
           className: "player-bar-song-artist"
         }, this.props.currentSong.song.artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "player-bar-song-title"
-        }, this.props.currentSong.song.title)))));
+        }, this.props.currentSong.song.title))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "player-bar-song-actions-container"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fas fa-heart"
+        }))));
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
       }
@@ -3648,7 +3702,8 @@ __webpack_require__.r(__webpack_exports__);
 var defaultState = {
   song: null,
   playing: null,
-  elapsed: null
+  elapsed: null,
+  muted: false
 };
 
 var currentSongReducer = function currentSongReducer() {
@@ -3662,9 +3717,10 @@ var currentSongReducer = function currentSongReducer() {
       debugger; // newState = action.currentSong
 
       newState = {
-        song: action.currentSong,
+        song: action.song,
         playing: false,
-        elapsed: 0
+        elapsed: 0,
+        muted: state.muted
       };
       debugger;
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, newState);
@@ -3674,7 +3730,8 @@ var currentSongReducer = function currentSongReducer() {
       newState = {
         song: state.song,
         playing: false,
-        elapsed: state.elapsed
+        elapsed: state.elapsed,
+        muted: state.muted
       };
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, newState);
 
@@ -3684,7 +3741,8 @@ var currentSongReducer = function currentSongReducer() {
       newState = {
         song: state.song,
         playing: true,
-        elapsed: state.elapsed
+        elapsed: state.elapsed,
+        muted: state.muted
       };
       debugger;
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, newState);
@@ -3693,7 +3751,26 @@ var currentSongReducer = function currentSongReducer() {
       newState = {
         song: state.song,
         playing: state.playing,
-        elapsed: action.time
+        elapsed: action.time,
+        muted: state.muted
+      };
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, newState);
+
+    case _actions_current_song_actions__WEBPACK_IMPORTED_MODULE_0__["MUTE_SONG"]:
+      newState = {
+        song: state.song,
+        playing: state.playing,
+        elapsed: state.elapsed,
+        muted: true
+      };
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, newState);
+
+    case _actions_current_song_actions__WEBPACK_IMPORTED_MODULE_0__["UNMUTE_SONG"]:
+      newState = {
+        song: state.song,
+        playing: state.playing,
+        elapsed: state.elapsed,
+        muted: false
       };
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, newState);
 

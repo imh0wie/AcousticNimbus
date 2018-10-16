@@ -50,6 +50,7 @@ input[type=range]:focus {
 
 .player-bar-song-info-container {
     display: flex;
+    margin-right: 210px;
 }
 
 .player-bar-song-img {
@@ -87,4 +88,9 @@ input[type=range]:focus {
     font-size: 11px;
     color: black;
     margin: 0px;
+}
+
+.player-bar-song-actions-container {
+    position: relative;
+    top: 15px
 }

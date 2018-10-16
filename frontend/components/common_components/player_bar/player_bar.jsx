@@ -3,7 +3,7 @@ import ReactPlayer from "react-player";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import { fetchSongs } from "../../../actions/song_actions";
-import { setCurrentSong, playSong, pauseSong, setElapsedTo } from "../../../actions/current_song_actions";
+import { setCurrentSong, playSong, pauseSong, setElapsedTo, muteSong, unmuteSong } from "../../../actions/current_song_actions";
 import { latest, shuffle } from "../../../util/song_api_util";
 
 const msp = (state) => {
@@ -23,6 +23,8 @@ const mdp = (dispatch) => {
         playSong: (song) => dispatch(playSong(song)),
         pauseSong: (song) => dispatch(pauseSong(song)),
         setElapsedTo: (time) => dispatch(setElapsedTo(time)),
+        muteSong: () => dispatch(muteSong()),
+        unmuteSong: () => dispatch(unmuteSong()),
     });
 }
 
@@ -34,7 +36,7 @@ class PlayerBar extends React.Component {
             playing: this.props.currentSong.playing,
             elapsed: this.props.currentSong.elapsed,
             sliding: false,
-            muted: true,
+            // muted: false,
             duration: null,
             volume: 0.60,
             shuffle: false,
@@ -42,6 +44,7 @@ class PlayerBar extends React.Component {
         };
         this.ref = this.ref.bind(this);
         this.renderPlayPauseButton = this.renderPlayPauseButton.bind(this);
+        this.renderVolume = this.renderVolume.bind(this);
         this.handleProgress = this.handleProgress.bind(this);
         this.handleDuration = this.handleDuration.bind(this);
         this.handleOver = this.handleOver.bind(this);
@@ -79,31 +82,25 @@ class PlayerBar extends React.Component {
     }
 
     handleOver() {
-        this.handleNext(this.props.currentSong);
+        this.handleNext(this.props.currentSong.song);
     }
 
     // handlePause(song) {
     //     this.props.pauseSong(song);
     // }
 
-    handlePlayPause(currentSong) {
-        debugger
-        this.props.setCurrentSong(currentSong)
-        if (!currentSong.song) {
-            this.props.setCurrentSong(currentSong.song);
-            this.props.playSong(currentSong.song);
-
-        } else if (currentSong.playing) { 
-            this.props.pauseSong(currentSong.song)
+    handlePlayPause(song) {
+        if (this.props.currentSong.playing) { 
+            this.props.pauseSong(song)
         } else {
-            this.props.playSong(currentSong.song);
+            this.props.playSong(song);
         }
     }
 
     handlePrevious(currentSong) {
         let songs = this.props.latestTwelve;
         if (this.state.shuffle) {
-            songs = shuffle(songs);
+            songs = this.props.shuffled;
         }
         const songsIdx = songs.map((song, i) => i);
         let currentSongIdx = songsIdx.find((idx) => {
@@ -112,7 +109,6 @@ class PlayerBar extends React.Component {
         });
         const nextSongIdx = (currentSongIdx - 1) < 0 ? songs.length - 1 : currentSongIdx - 1;
         const nextSong = songs[nextSongIdx];
-        // debugger
         this.props.setCurrentSong(nextSong);
         this.props.playSong(nextSong);
     }
@@ -125,7 +121,6 @@ class PlayerBar extends React.Component {
         }
         debugger
         const songsIdx = songs.map((song, i) => i);
-        // debugger
         let currentSongIdx = songsIdx.find((idx) => {
             const song = songs[idx];
             return song.id === currentSong.id
@@ -177,19 +172,41 @@ class PlayerBar extends React.Component {
         this.props.setElapsedTo(e.currentTarget.value);
     }
 
+    handleVolume() {
+        if (this.props.currentSong.muted) {
+            this.props.unmuteSong();
+        } else {
+            this.props.muteSong();
+        }
+    }
+
     renderPlayPauseButton() {
         if (this.props.currentSong.playing) {
             return (
                 <img src={window.play_bar_pause} className="player-control" 
                 // onChange={() => this.handlePlayPause(this.props.currentSong)}
-                onClick={() => this.handlePlayPause(this.props.currentSong)}>
+                onClick={() => this.handlePlayPause(this.props.currentSong.song)}>
                 </img>
             );
         } else {
             return (
                 <img src={window.play_bar_play} className="player-control" 
                 // onChange={() => this.handlePlayPause(this.props.currentSong)}
-                onClick={() => this.handlePlayPause(this.props.currentSong)}>
+                onClick={() => this.handlePlayPause(this.props.currentSong.song)}>
+                </img>
+            );
+        }
+    }
+
+    renderVolume() {
+        if (this.props.currentSong.muted) {
+            return (
+                <img src={window.volume_off} className="player-control" onClick={() => this.handleVolume()}>
+                </img>
+            );
+        } else {
+            return (
+                <img src={window.volume_on} className="player-control" onClick={() => this.handleVolume()}>
                 </img>
             );
         }
@@ -211,6 +228,7 @@ class PlayerBar extends React.Component {
                     ref={this.ref}
                     playing={this.props.currentSong.playing}
                     volume={this.state.volume}
+                    muted={this.props.currentSong.muted}
                     width="0px"
                     height="0px"
                     onProgress={this.handleProgress}
@@ -244,12 +262,18 @@ class PlayerBar extends React.Component {
                 <div className="song-length-container">
                     {this.showTime(Math.round(this.state.duration))}
                 </div>
+                <div className="song-volume-controls-container">
+                    {this.renderVolume()}
+                </div>
                 <div className="player-bar-song-info-container">
                     <img src={this.props.currentSong.song.imageURL ? this.props.currentSong.song.imageURL : window.default_avatar} className="player-bar-song-img"></img>
                     <div className="player-bar-song-info">
                         <p className="player-bar-song-artist">{this.props.currentSong.song.artist}</p>
                         <p className="player-bar-song-title">{this.props.currentSong.song.title}</p>
                     </div>
+                </div>
+                <div className="player-bar-song-actions-container">
+                    <i className="fas fa-heart"></i>
                 </div>
             </div>
                 
