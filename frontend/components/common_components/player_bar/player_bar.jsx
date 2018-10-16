@@ -269,11 +269,12 @@ class PlayerBar extends React.Component {
                     <img src={this.props.currentSong.song.imageURL ? this.props.currentSong.song.imageURL : window.default_avatar} className="player-bar-song-img"></img>
                     <div className="player-bar-song-info">
                         <p className="player-bar-song-artist">{this.props.currentSong.song.artist}</p>
-                        <p className="player-bar-song-title">{this.props.currentSong.song.title}</p>
+                        <p className="player-bar-song-title">{this.props.currentSong.song.title.length < 41 ? this.props.currentSong.song.title : this.props.currentSong.song.title.slice(0,40)}</p>
                     </div>
                 </div>
                 <div className="player-bar-song-actions-container">
-                    <i className="fas fa-heart"></i>
+                    <i className="fas fa-heart player-bar-heart"></i>
+                    <img src={window.playlist} className="player-bar-playlist"></img>
                 </div>
             </div>
                 

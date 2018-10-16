@@ -50,7 +50,8 @@ input[type=range]:focus {
 
 .player-bar-song-info-container {
     display: flex;
-    margin-right: 210px;
+    // width: 100%;
+    // margin-right: 210px;
 }
 
 .player-bar-song-img {
@@ -91,6 +92,21 @@ input[type=range]:focus {
 }
 
 .player-bar-song-actions-container {
+    display: flex;
+    position: absolute;
+    top: 12px;
+    right: 105px;
+    width: 50px;
+    justify-content: space-between;
+}
+
+.player-bar-heart {
     position: relative;
-    top: 15px
+    top: 5px;
+}
+
+.player-bar-playlist {
+    width: 25px;
+    height: 25px;
+    margin: 0;
 }

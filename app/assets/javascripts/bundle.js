@@ -1336,10 +1336,13 @@ function (_React$Component) {
           className: "player-bar-song-artist"
         }, this.props.currentSong.song.artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "player-bar-song-title"
-        }, this.props.currentSong.song.title))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        }, this.props.currentSong.song.title.length < 41 ? this.props.currentSong.song.title : this.props.currentSong.song.title.slice(0, 40)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "player-bar-song-actions-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-          className: "fas fa-heart"
+          className: "fas fa-heart player-bar-heart"
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.playlist,
+          className: "player-bar-playlist"
         }))));
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
