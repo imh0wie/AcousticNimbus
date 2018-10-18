@@ -4,7 +4,6 @@ import { setCurrentSong } from "../../../actions/current_song_actions";
 import UploadForm from "./upload_form";
 
 const msp = (state) => {
-  debugger
   return {
     currentUser: state.entities.users[state.session.id],
     // songs: state.entities.songs,

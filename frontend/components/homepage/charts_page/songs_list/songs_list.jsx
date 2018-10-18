@@ -18,8 +18,8 @@ const mdp = (dispatch) => {
   return ({
       fetchSongs: () => dispatch(fetchSongs()),
       setCurrentSong: (song) => dispatch(setCurrentSong(song)),
-      playSong: (song) => dispatch(playSong(song)),
-      pauseSong: (song) => dispatch(pauseSong(song)),
+      playSong: () => dispatch(playSong()),
+      pauseSong: () => dispatch(pauseSong()),
   });
 };
 
@@ -37,7 +37,6 @@ class SongsList extends React.Component {
     if (this.props.order === "topTwenty") {
       return <div></div>;
     }
-    debugger
     return (
       <div className="charts-songs-list-container">
         <ul className="charts-songs-list">

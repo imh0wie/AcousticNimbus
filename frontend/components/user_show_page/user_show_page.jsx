@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 
 const msp = (state, ownProps) => {
-    debugger
     return ({
       onPageUserId: ownProps.match.params.songId,
       onPageUser: state.entities.songs[ownProps.match.params.songId],
@@ -18,8 +17,8 @@ return ({
     fetchSongs: () => dispatch(fetchSongs()),
     fetchSong: (id) => dispatch(fetchSong(id)),
     setCurrentSong: (song) => dispatch(setCurrentSong(song)),
-    playSong: (song) => dispatch(playSong(song)),
-    pauseSong: (song) => dispatch(pauseSong(song)),
+    playSong: () => dispatch(playSong()),
+    pauseSong: () => dispatch(pauseSong()),
 });
 };
 

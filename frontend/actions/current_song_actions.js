@@ -7,17 +7,17 @@ export const UNMUTE_SONG = "UNMUTE_SONG";
 export const RECEIVE_CURRENT_SONG_ERRORS = "RECEIVE_CURRENT_SONG_ERRORS";
 
 // What does it do? ==> reducer
-export const playSong = ( song ) => {
+export const playSong = () => {
   return {
     type: PLAY_SONG,
-    song: song,
+    // song: song,
   };
 };
 
-export const pauseSong = ( song ) => {
+export const pauseSong = () => {
   return {
     type: PAUSE_SONG,
-    song: song,
+    // song: song,
   };
 };
 

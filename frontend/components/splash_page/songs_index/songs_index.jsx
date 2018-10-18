@@ -18,8 +18,8 @@ const mdp = (dispatch) => {
     return ({
         fetchSongs: () => dispatch(fetchSongs()),
         setCurrentSong: (song) => dispatch(setCurrentSong(song)),
-        playSong: (song) => dispatch(playSong(song)),
-        pauseSong: (song) => dispatch(pauseSong(song)),
+        playSong: () => dispatch(playSong()),
+        pauseSong: () => dispatch(pauseSong()),
     });
 };
 

@@ -7,7 +7,6 @@ import { setCurrentSong, playSong, pauseSong, setElapsedTo, muteSong, unmuteSong
 import { latest, shuffle } from "../../../util/song_api_util";
 
 const msp = (state) => {
-    debugger
     return {
         latestTwelve: latest(12, state.entities.songs),
         latestTwenty: latest(20, state.entities.songs),
@@ -20,8 +19,8 @@ const mdp = (dispatch) => {
     return ({
         fetchSongs: () => dispatch(fetchSongs()),
         setCurrentSong: (song) => dispatch(setCurrentSong(song)),
-        playSong: (song) => dispatch(playSong(song)),
-        pauseSong: (song) => dispatch(pauseSong(song)),
+        playSong: () => dispatch(playSong()),
+        pauseSong: () => dispatch(pauseSong()),
         setElapsedTo: (time) => dispatch(setElapsedTo(time)),
         muteSong: () => dispatch(muteSong()),
         unmuteSong: () => dispatch(unmuteSong()),
@@ -33,7 +32,6 @@ class PlayerBar extends React.Component {
         super(props);
         this.repeat = ["none", "all", "single"];
         this.state = {
-            playing: this.props.currentSong.playing,
             elapsed: this.props.currentSong.elapsed,
             sliding: false,
             // muted: false,
@@ -89,11 +87,11 @@ class PlayerBar extends React.Component {
     //     this.props.pauseSong(song);
     // }
 
-    handlePlayPause(song) {
+    handlePlayPause() {
         if (this.props.currentSong.playing) { 
-            this.props.pauseSong(song)
+            this.props.pauseSong()
         } else {
-            this.props.playSong(song);
+            this.props.playSong();
         }
     }
 
@@ -102,7 +100,7 @@ class PlayerBar extends React.Component {
         if (this.state.shuffle) {
             songs = this.props.shuffled;
         }
-        const songsIdx = songs.map((song, i) => i);
+        const songsIdx = songs.map((s, i) => i);
         let currentSongIdx = songsIdx.find((idx) => {
             const song = songs[idx];
             return song.id === currentSong.id
@@ -110,30 +108,26 @@ class PlayerBar extends React.Component {
         const nextSongIdx = (currentSongIdx - 1) < 0 ? songs.length - 1 : currentSongIdx - 1;
         const nextSong = songs[nextSongIdx];
         this.props.setCurrentSong(nextSong);
-        this.props.playSong(nextSong);
+        this.props.playSong();
     }
     
     handleNext(currentSong) {
         let songs = this.props.latestTwelve;
-        debugger
         if (this.state.shuffle) {
             songs = this.props.shuffled;
         }
-        debugger
-        const songsIdx = songs.map((song, i) => i);
+        const songsIdx = songs.map((s, i) => i);
         let currentSongIdx = songsIdx.find((idx) => {
             const song = songs[idx];
             return song.id === currentSong.id
         });
         const nextSongIdx = (currentSongIdx + 1) === songs.length ? 0 : currentSongIdx + 1;
         const nextSong = songs[nextSongIdx];
-        // debugger
         this.props.setCurrentSong(nextSong);
-        this.props.playSong(nextSong);
+        this.props.playSong();
     }
 
     handleShuffle() {
-        debugger
         this.setState({
             shuffle: !this.state.shuffle
         });
@@ -146,7 +140,6 @@ class PlayerBar extends React.Component {
     showTime(secs) {
         let date = new Date(null);
         date.setSeconds(secs);
-        debugger
         return (
           date.toTimeString().slice(4, 8)
         );
@@ -213,9 +206,7 @@ class PlayerBar extends React.Component {
     }
 
     render(){
-    // debugger
     if (this.props.currentSong.song) {
-        // debugger
         // console.log(this.props.currentSong.playing);
         // console.log(this.props.currentSong)
         // console.log(ReactPlayer)

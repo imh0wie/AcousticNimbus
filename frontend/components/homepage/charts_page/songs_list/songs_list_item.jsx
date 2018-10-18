@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 class SongsListItem extends React.Component {
     constructor(props) {
-        debugger
         super(props);
         // this.redirectToShowPage = this.redirectToShowPage.bind(this);
         this.togglePlay = this.togglePlay.bind(this);
@@ -23,13 +22,13 @@ class SongsListItem extends React.Component {
         if (!this.props.currentSong.song || song.id !== this.props.currentSong.song.id ) {
             // debugger
             this.props.setCurrentSong(song);
-            this.props.playSong(song);
+            this.props.playSong();
         } else if (song.id === this.props.currentSong.song.id && this.props.currentSong.playing) {
             // debugger
-            this.props.pauseSong(song);
+            this.props.pauseSong();
         } else if (song.id === this.props.currentSong.song.id && !this.props.currentSong.playing) {
             // debugger
-            this.props.playSong(song);
+            this.props.playSong();
         }
     }
 
@@ -50,7 +49,6 @@ class SongsListItem extends React.Component {
             </div>
         );
     }
-    debugger
   }
 
   render() {

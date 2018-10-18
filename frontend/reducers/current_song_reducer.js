@@ -13,7 +13,6 @@ const currentSongReducer = (state = defaultState, action) => {
   let newState;
   switch (action.type) {
     case SET_CURRENT_SONG:
-      debugger
       // newState = action.currentSong
       newState = {
         song: action.song,
@@ -21,7 +20,6 @@ const currentSongReducer = (state = defaultState, action) => {
         elapsed: 0,
         muted: state.muted,
       }
-      debugger
       return merge({}, state, newState);
     case PAUSE_SONG:
       // newState = action.song;
@@ -33,7 +31,6 @@ const currentSongReducer = (state = defaultState, action) => {
       }
       return merge({}, state, newState);
     case PLAY_SONG:
-      debugger
       // newState = action.song;
       newState = {
         song: state.song,
@@ -41,7 +38,6 @@ const currentSongReducer = (state = defaultState, action) => {
         elapsed: state.elapsed,
         muted: state.muted,
       }
-      debugger
       return merge({}, state, newState);
     case SET_ELAPSED_TO:
       newState = {

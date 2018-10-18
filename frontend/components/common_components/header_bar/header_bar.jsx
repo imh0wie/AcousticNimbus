@@ -3,9 +3,7 @@ import BarButtonsContainer from "./bar_buttons/bar_buttons_container";
 // line 21: Should we pass in currentUser as props?
 class HeaderBar extends React.Component {
   render() {
-    debugger
     return (
-      
         <BarButtonsContainer />
     );
   }

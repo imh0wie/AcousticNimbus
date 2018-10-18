@@ -4,7 +4,6 @@ import { openModal } from "../../../actions/modal_actions";
 import SearchBar from "./search_bar";
 
 const mdp = (dispatch) => {
-  debugger
   return {
     login: (user) => dispatch(login(user)),
     openModal: (modal) => dispatch(openModal(modal)),
