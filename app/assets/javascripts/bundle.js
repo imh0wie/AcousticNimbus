@@ -356,14 +356,10 @@ var createSong = function createSong(songToServer) {
   };
 };
 var fetchSong = function fetchSong(songToServerId) {
-  debugger;
   return function (dispatch) {
-    debugger;
     return _util_song_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchSong"](songToServerId).then(function (songFromServer) {
-      debugger;
       return dispatch(receiveSong(songFromServer));
     }, function (errors) {
-      debugger;
       return dispatch(receiveSongErrors(errors.responseJSON));
     });
   };
@@ -371,7 +367,6 @@ var fetchSong = function fetchSong(songToServerId) {
 var fetchSongs = function fetchSongs() {
   return function (dispatch) {
     return _util_song_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchSongs"]().then(function (songsFromServer) {
-      debugger;
       return dispatch(receiveSongs(songsFromServer));
     }, function (errors) {
       return dispatch(receiveSongsErrors(errors.responseJSON));
@@ -381,7 +376,6 @@ var fetchSongs = function fetchSongs() {
 
 var receiveSong = function receiveSong(_ref) {
   var song = _ref.song;
-  debugger;
   return {
     type: RECEIVE_SONG,
     song: song
@@ -2826,7 +2820,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 var msp = function msp(state, ownProps) {
   return {
     // songs: latest()
-    onPageSongId: ownProps.match.params.songId,
+    onPageSongId: parseInt(ownProps.match.params.songId),
     onPageSong: state.entities.songs[ownProps.match.params.songId],
     currentSong: state.ui.currentSong,
     currentUser: state.entities.users[state.session.id],
@@ -2866,14 +2860,15 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SongShowPage).call(this, props));
     _this.renderPlayPauseSign = _this.renderPlayPauseSign.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.togglePlay = _this.togglePlay.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.togglePlayPause = _this.togglePlayPause.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
   _createClass(SongShowPage, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchSong(this.props.onPageSongId);
+      // this.props.fetchSong(this.props.onPageSongId);
+      this.props.fetchSongs();
     } // componentWillReceiveProps(nextProps) {
     //   debugger
     //   if (nextProps.songId !== this.props.onPageSongId) {
@@ -2886,46 +2881,41 @@ function (_React$Component) {
     value: function renderPlayPauseSign(song) {
       var _this2 = this;
 
-      if (song.id === this.props.currentSong.song.id && !this.props.currentSong.playing) {
-        return (// <div className="banner-player-play-container">
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-            src: window.play_button,
-            className: "banner-player-play-sign",
-            onClick: function onClick() {
-              return _this2.props.playSong();
-            }
-          }) // </div>
-
-        );
-      } else if (song.id === this.props.currentSong.song.id && this.props.currentSong.playing) {
-        return (// <div className="banner-player-pause-container">
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-            src: window.pause_button,
-            className: "banner-player-pause-sign",
-            onClick: function onClick() {
-              return _this2.props.pauseSong();
-            }
-          }) // </div>
-
-        );
-      } else if (song.id !== this.props.currentSong.song.id) {
-        return (// <div className="banner-player-pause-container">
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-            src: window.play_button,
-            className: "banner-player-play-sign",
-            onClick: function onClick() {
-              return _this2.togglePlay(song);
-            }
-          }) // </div>
-
-        );
+      if (!this.props.currentSong.song || this.props.onPageSongId !== this.props.currentSong.song.id) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.play_button,
+          className: "banner-player-play-sign",
+          onClick: function onClick() {
+            return _this2.togglePlayPause(song);
+          }
+        });
+      } else if (this.props.onPageSongId === this.props.currentSong.song.id && this.props.currentSong.playing) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.pause_button,
+          className: "banner-player-pause-sign",
+          onClick: function onClick() {
+            return _this2.togglePlayPause(song);
+          }
+        });
+      } else if (this.props.onPageSongId === this.props.currentSong.song.id && !this.props.currentSong.playing) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.play_button,
+          className: "banner-player-play-sign",
+          onClick: function onClick() {
+            return _this2.togglePlayPause(song);
+          }
+        });
       }
     }
   }, {
-    key: "togglePlay",
-    value: function togglePlay(song) {
-      this.props.setCurrentSong(song);
-      this.props.playSong();
+    key: "togglePlayPause",
+    value: function togglePlayPause(song) {
+      if (!this.props.currentSong.song || this.props.onPageSongId !== this.props.currentSong.song.id) {
+        this.props.setCurrentSong(song);
+        this.props.playSong();
+      } else if (this.props.onPageSongId === this.props.currentSong.song.id) {
+        this.props.currentSong.playing ? this.props.pauseSong() : this.props.playSong();
+      }
     } // handleLike() {
     // }
 
@@ -2943,6 +2933,7 @@ function (_React$Component) {
           className: "loading"
         });
       } else {
+        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-show-page-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -2950,9 +2941,9 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "banner-player"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "banner-player-left"
+          className: "banner-player-top"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "banner-player-left-top"
+          className: "banner-player-top-left"
         }, this.renderPlayPauseSign(this.props.onPageSong), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-show-page-song-info-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
@@ -2960,18 +2951,19 @@ function (_React$Component) {
           className: "song-show-page-song-artist"
         }, this.props.onPageSong.artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
           className: "song-show-page-song-title"
-        }, this.props.onPageSong.title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "banner-player-waveform-container"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_waveform__WEBPACK_IMPORTED_MODULE_5__["default"], {
-          onPageSong: this.props.onPageSong,
-          currentSong: this.props.currentSong
-        })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "banner-player-right"
+        }, this.props.onPageSong.title))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "banner-player-top-right"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
           className: "song-show-page-song-upload-time"
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
           className: "song-show-page-song-genre"
-        }, "#", this.props.onPageSong.title))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        }, "#", this.props.onPageSong.genre))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "banner-player-waveform-container"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_waveform__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          onPageSong: this.props.onPageSong,
+          onPageSongId: this.props.onPageSongId,
+          currentSong: this.props.currentSong
+        }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: this.props.onPageSong.imageURL ? this.props.onPageSong.imageURL : window.default_avatar,
           className: "song-show-page-song-img"
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -3004,7 +2996,7 @@ function (_React$Component) {
             return _this3.handleLike();
           }
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-          class: "fas fa-heart"
+          className: "fas fa-heart"
         }), " Like")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-show-page-social-els-right"
         }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -3096,8 +3088,8 @@ var msp = function msp(state) {
   return {
     latestTwelve: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_6__["latest"])(12, state.entities.songs),
     latestTwenty: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_6__["latest"])(20, state.entities.songs),
-    shuffled: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_6__["shuffle"])(12, state.entities.songs),
-    currentSong: state.ui.currentSong
+    shuffled: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_6__["shuffle"])(12, state.entities.songs) // currentSong: state.ui.currentSong,
+
   };
 };
 
@@ -3141,102 +3133,135 @@ function (_React$Component) {
 
     _classCallCheck(this, Waveform);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Waveform).call(this, props)); // this.state = {
-    //   song: null,
-    //   playing: null,
-    //   pos: null,
-    // };
-
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Waveform).call(this, props));
+    _this.state = {
+      playing: null,
+      elapsed: null
+    };
     _this.onReady = _this.onReady.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.onProgress = _this.onProgress.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
   _createClass(Waveform, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var ctx = document.createElement("waveform").getContext("2d");
-      var gradient = ctx.createLinearGradient(0, 50, 0, 200);
-      gradient.addColorStop(0.5, 'white');
-      gradient.addColorStop(0.5, '#999');
+      // const ctx = document.createElement("waveform").getContext("2d");
+      // const gradient = ctx.createLinearGradient(0, 50, 0, 200);
+      // gradient.addColorStop(0.5, 'white');
+      // gradient.addColorStop(0.5, '#999');
       this.waveform = wavesurfer_js__WEBPACK_IMPORTED_MODULE_1___default.a.create({
-        container: "banner-player-waveform",
-        waveColor: gradient,
+        container: "#banner-player-waveform",
+        waveColor: "#999",
         progressColor: "#FF5400",
         // width: 820,
-        height: 75,
+        height: 150,
         barWidth: 2,
         normalize: true,
         // normalize by the maximum peak instead of 1.0
         interact: true,
         // Whether the mouse interaction will be enabled at initialization
-        responsive: true // resize the waveform when the window is resized
+        responsive: true,
+        // resize the waveform when the window is resized
+        fillParent: true // ignore container's size
+        // maxCanvasWidth: 820,
 
       });
-      this.waveform.load(this.props.onPageSong.audioURL);
-      this.waveform.on("loading", function (loaded) {
-        document.getElementById("banner-player-waveform-progress").value = loaded / 100;
-      });
-      this.waveform.on("ready", this.onReady()); // this.waveform.on("seek", )
+      this.waveform.load(this.props.onPageSong.audioURL); // this.waveform.on("loading", (loaded) => {
+      //   document.getElementById("banner-player-waveform-progress").value = loaded / 100;
+      // });
+
+      this.waveform.on("ready", this.onReady());
+      this.waveform.on("audioprocess", this.onProgress()); // this.waveform.on("seek", )
     }
   }, {
     key: "onReady",
     value: function onReady() {
-      document.getElementById('progress').style.display = 'none';
+      // document.getElementById('progress').style.display = 'none';
       this.waveform.setMute(true);
+      debugger;
 
-      if (this.props.onPageSong.id === this.props.currentSong.song.id) {
-        this.waveform.seekTo(this.props.currentSong.elapsed);
-        this.props.currentSong.playing ? this.waveform.play() : this.waveform.pause();
-      } else {
-        this.waveform.seekTo(0);
+      if (!this.props.currentSong.song) {
+        this.setState = {
+          elapsed: 0
+        };
+        this.waveform.seekTo(this.state.elapsed);
+      } else if (this.props.onPageSongId === this.props.currentSong.song.id) {
+        this.setState = {
+          playing: this.props.currentSong.playing,
+          elapsed: this.props.currentSong.elapsed
+        };
+        this.waveform.seekTo(this.state.elapsed);
+        this.state.playing ? this.waveform.play() : this.waveform.pause();
       }
-    } // componentDidMount() {
-    //   const barCtx = document.getElementById("waveform-player").getContext("2d");
-    //   const barBase = barCtx.createLinearGradient(0, 75, 0, 25);
-    //   barBase.addColorStop(0, "#f7ba0f");
-    //   barBase.addColorStop(1, "#f7530f");
-    //   const waveformBar = WaveSurfer.create({
-    //     container: "#waveform-player",
-    //     wavecolor: barBase,
-    //     progressColor: "white",
-    //     barWidth: 2,
-    //   });
-    //   const buttons = {
-    //     play: document.getElementById("play-button"),
-    //     pause: document.getElementById("pause-button"),
-    //     stop: document.getElementById("stop-button"),
-    //   };
-    //   buttons.play.addEventListener("click", () => {
-    //     waveformBar.play();
-    //     buttons.play.disabled = true;
-    //     buttons.pause.disabled = false;
-    //     buttons.stop.disabled = false;
-    //   });
-    //   buttons.pause.addEventListener("click", () => {
-    //     waveformBar.pause();
-    //     buttons.play.disabled = false;
-    //     buttons.pause.disabled = true;
-    //     buttons.stop.disabled = false;
-    //   });
-    //   buttons.stop.addEventListener("click", () => {
-    //     waveformBar.stop();
-    //     buttons.play.disabled = false;
-    //     buttons.pause.disabled = true;
-    //     buttons.stop.disabled = true;
-    //   });
-    //   waveformBar.on("ready", () => {
-    //     buttons.play.disabled = false;
-    //   });
-    //   window.addEventListener("resize", () => {
-    //     const currentProgress = waveformBar.getCurrentTime() / waveformBar.getDuration();
-    //     waveformBar.empty();
-    //     waveformBar.drawBuffer();
-    //     waveformBar.seekTo(currentProgress);
-    //     buttons.play.disabled = false;
-    //     buttons.pause.disabled = true;
-    //     buttons.stop.disabled = false;
-    //   }, false);
-    //   waveformBar.load(this.props.song.audioURL);
+    }
+  }, {
+    key: "onProgress",
+    value: function onProgress() {
+      if (!this.props.currentSong.song) {
+        this.setState = {
+          elapsed: 0
+        };
+        this.waveform.seekTo(this.state.elapsed);
+      } else if (this.props.onPageSongId === this.props.currentSong.song.id && this.state.elapsed !== this.props.currentSong.elpased) {
+        this.setState = {
+          elapsed: this.props.currentSong.elapsed
+        };
+        this.waveform.seekTo(this.state.elapsed);
+      }
+    }
+  }, {
+    key: "onSeek",
+    value: function onSeek() {} // componentDidMount() {
+    // this.waveform = WaveSurfer.create({
+    //   container: "#banner-player-waveform",
+    //   waveColor: "#999",
+    //   progressColor: "#FF5400",
+    //   // width: 820,
+    //   height: 150,
+    //   barWidth: 2,
+    //   normalize: true, // normalize by the maximum peak instead of 1.0
+    //   interact: true, // Whether the mouse interaction will be enabled at initialization
+    //   responsive: true, // resize the waveform when the window is resized
+    //   fillParent: true, // ignore container's size
+    //   // maxCanvasWidth: 820,
+    // });
+    // this.waveform.load(this.props.onPageSong.audioURL);
+    // this.waveform.setMute(true);
+    // const buttons = {
+    //   play: document.getElementById("banner-player-play-sign"),
+    //   pause: document.getElementById("banner-player-pause-sign"),
+    // };
+    // buttons.play.addEventListener("click", () => {
+    //   waveformBar.play();
+    // buttons.play.disabled = true;
+    // buttons.pause.disabled = false;
+    // buttons.stop.disabled = false;
+    // });
+    // buttons.pause.addEventListener("click", () => {
+    // waveformBar.pause();
+    // buttons.play.disabled = false;
+    // buttons.pause.disabled = true;
+    // buttons.stop.disabled = false;
+    // });
+    // buttons.stop.addEventListener("click", () => {
+    // waveformBar.stop();
+    // buttons.play.disabled = false;
+    // buttons.pause.disabled = true;
+    // buttons.stop.disabled = true;
+    // });
+    // waveformBar.on("ready", () => {
+    // buttons.play.disabled = false;
+    // });
+    // window.addEventListener("resize", () => {
+    // const currentProgress = waveformBar.getCurrentTime() / waveformBar.getDuration();
+    // waveformBar.empty();
+    // waveformBar.drawBuffer();
+    // waveformBar.seekTo(currentProgress);
+    // buttons.play.disabled = false;
+    // buttons.pause.disabled = true;
+    // buttons.stop.disabled = false;
+    // }, false);
     // }
 
   }, {
@@ -3244,12 +3269,7 @@ function (_React$Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "banner-player-waveform"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("progress", {
-        id: "progress",
-        className: "banner-player-waveform-progress",
-        value: "0",
-        max: "1"
-      }));
+      });
     }
   }]);
 

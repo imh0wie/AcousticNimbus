@@ -19,16 +19,12 @@ export const createSong = (songToServer) => {
 };
 
 export const fetchSong = (songToServerId) => {
-  debugger
   return dispatch => {
-    debugger
     return SongAPIUtil.fetchSong(songToServerId).then(
       (songFromServer) => {
-        debugger
         return dispatch(receiveSong(songFromServer));
       },
       (errors) => {
-        debugger
         return dispatch(receiveSongErrors(errors.responseJSON));
       }
     );
@@ -39,7 +35,6 @@ export const fetchSongs = () => {
   return (dispatch) => {
     return SongAPIUtil.fetchSongs().then(
       (songsFromServer) => {
-        debugger
         return dispatch(receiveSongs(songsFromServer));
       },
       (errors) => {
@@ -51,7 +46,6 @@ export const fetchSongs = () => {
 
 // What does it do? ==> reducer
 const receiveSong = ({ song }) => {
-  debugger
   return {
     type: RECEIVE_SONG,
     song: song,

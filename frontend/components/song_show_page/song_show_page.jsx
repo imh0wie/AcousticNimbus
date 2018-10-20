@@ -9,7 +9,7 @@ import Waveform from "./waveform";
 const msp = (state, ownProps) => {
   return ({
     // songs: latest()
-    onPageSongId: ownProps.match.params.songId,
+    onPageSongId: parseInt(ownProps.match.params.songId),
     onPageSong: state.entities.songs[ownProps.match.params.songId],
     currentSong: state.ui.currentSong,
     currentUser: state.entities.users[state.session.id],
@@ -31,11 +31,12 @@ class SongShowPage extends React.Component {
   constructor(props) {
     super(props);
     this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this);
-    this.togglePlay = this.togglePlay.bind(this);
+    this.togglePlayPause = this.togglePlayPause.bind(this);
   }
 
   componentDidMount() {
-    this.props.fetchSong(this.props.onPageSongId);
+    // this.props.fetchSong(this.props.onPageSongId);
+    this.props.fetchSongs();
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -46,30 +47,28 @@ class SongShowPage extends React.Component {
   // }
 
   renderPlayPauseSign(song) {
-    if (song.id === this.props.currentSong.song.id && !this.props.currentSong.playing) {
+    if (!this.props.currentSong.song || this.props.onPageSongId !== this.props.currentSong.song.id) {
       return (
-          // <div className="banner-player-play-container">
-        <img src={window.play_button} className="banner-player-play-sign" onClick={() => this.props.playSong()} />          
-          // </div>
+        <img src={window.play_button} className="banner-player-play-sign" onClick={() => this.togglePlayPause(song)} />       
       );
-    } else if (song.id === this.props.currentSong.song.id && this.props.currentSong.playing) {
+    } else if (this.props.onPageSongId === this.props.currentSong.song.id && this.props.currentSong.playing) {
       return (
-          // <div className="banner-player-pause-container">
-        <img src={window.pause_button} className="banner-player-pause-sign" onClick={() => this.props.pauseSong()} />
-          // </div>
+        <img src={window.pause_button} className="banner-player-pause-sign" onClick={() => this.togglePlayPause(song)} />
       );
-    } else if (song.id !== this.props.currentSong.song.id) {
+    } else if (this.props.onPageSongId === this.props.currentSong.song.id && !this.props.currentSong.playing) {
       return (
-        // <div className="banner-player-pause-container">
-        <img src={window.play_button} className="banner-player-play-sign" onClick={() => this.togglePlay(song)} />          
-        // </div>
+        <img src={window.play_button} className="banner-player-play-sign" onClick={() => this.togglePlayPause(song)} />          
       );
     }
   }
 
-  togglePlay(song) {
-    this.props.setCurrentSong(song);
-    this.props.playSong();
+  togglePlayPause(song) {
+    if (!this.props.currentSong.song || this.props.onPageSongId !== this.props.currentSong.song.id) {
+      this.props.setCurrentSong(song);
+      this.props.playSong();
+    } else if (this.props.onPageSongId === this.props.currentSong.song.id) {
+      this.props.currentSong.playing ? this.props.pauseSong() : this.props.playSong() ;
+    }
   }
 
   // handleLike() {
@@ -86,25 +85,30 @@ class SongShowPage extends React.Component {
         <img src={window.loading} className="loading"></img>
       );
     } else {
+      debugger
       return (
         <div className="song-show-page-container">
           <div className="banner-player-container">
             <div className="banner-player">
-              <div className="banner-player-left">
-                <div className="banner-player-left-top">
+              <div className="banner-player-top">
+                <div className="banner-player-top-left">
                   {this.renderPlayPauseSign(this.props.onPageSong)}
                   <div className="song-show-page-song-info-container">
                     <Link to={`/users/${this.props.onPageSong.artistId}`} className="song-show-page-song-artist">{this.props.onPageSong.artist}</Link>
                     <h2 className="song-show-page-song-title">{this.props.onPageSong.title}</h2>
                   </div>
-                  <div className="banner-player-waveform-container">
-                    <Waveform onPageSong={this.props.onPageSong} currentSong={this.props.currentSong}/>
-                  </div>
+                </div>
+                <div className="banner-player-top-right">
+                  <h4 className="song-show-page-song-upload-time"></h4>
+                  <h4 className="song-show-page-song-genre">#{this.props.onPageSong.genre}</h4>
                 </div>
               </div>
-              <div className="banner-player-right">
-                <h4 className="song-show-page-song-upload-time"></h4>
-                <h4 className="song-show-page-song-genre">#{this.props.onPageSong.title}</h4>
+              <div className="banner-player-waveform-container">
+                <Waveform 
+                  onPageSong={this.props.onPageSong}
+                  onPageSongId={this.props.onPageSongId}
+                  currentSong={this.props.currentSong}
+                />
               </div>
             </div>
             <img src={this.props.onPageSong.imageURL ? this.props.onPageSong.imageURL : window.default_avatar} className="song-show-page-song-img"></img>        
@@ -122,7 +126,7 @@ class SongShowPage extends React.Component {
                 </div>
                 <div className="song-show-page-social-els">
                   <div className="song-show-page-social-els-left">
-                    <button className="song-show-page-like-button" onClick={() => this.handleLike()}><i class="fas fa-heart"></i> Like</button>
+                    <button className="song-show-page-like-button" onClick={() => this.handleLike()}><i className="fas fa-heart"></i> Like</button>
                   </div>
                   <div className="song-show-page-social-els-right">
                   </div>

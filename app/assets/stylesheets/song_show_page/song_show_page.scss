@@ -21,14 +21,28 @@
 }
 
 .banner-player {
-    display: flex;
-    justify-content: space-between;
     margin: 20px 30px;
     width: 800px;
 }
 
-.banner-player-left-top {
+.banner-player-top {
     display: flex;
+    justify-content: space-between;
+    width: 820px;
+}
+
+.banner-player-top-left {
+    display: flex;
+}
+
+.banner-player-waveform-container {
+    display: block;
+    position: relative;
+    top: 125px;
+}
+
+.banner-player-waveform-container {
+    height: 200px;
 }
 
 .banner-player-play-sign {
