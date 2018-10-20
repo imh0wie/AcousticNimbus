@@ -1,6 +1,4 @@
 .song-mgmt-page-container {
-  position: relative;
-  top: 45px;
   height: 100vh;
   // width: 1240px;
   // min-height: 1000px;
@@ -9,6 +7,8 @@
 }
 
 .song-mgmt-navbar-container {
+  position: relative;
+  top: 45px;
   height: 50px;
   border-bottom: 1px solid #ccc;
 }
@@ -79,7 +79,6 @@
 .upload-form-content {
   display: flex;
   margin: 0 auto;
-  margin-top: 90px;
   padding: 30px;
   width: 800px;
   border: 1px solid #ccc;

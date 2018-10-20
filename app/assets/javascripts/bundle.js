@@ -2356,7 +2356,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _util_route_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../util/route_util */ "./frontend/util/route_util.jsx");
 /* harmony import */ var _song_mgmt_navbar_song_mgmt_navbar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./song_mgmt_navbar/song_mgmt_navbar */ "./frontend/components/song_mgmt_page/song_mgmt_navbar/song_mgmt_navbar.jsx");
-/* harmony import */ var _upload_form_upload_form_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./upload_form/upload_form_container */ "./frontend/components/song_mgmt_page/upload_form/upload_form_container.jsx");
+/* harmony import */ var _upload_form__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./upload_form */ "./frontend/components/song_mgmt_page/upload_form.jsx");
 
 
 
@@ -2369,11 +2369,11 @@ var SongMgmtPage = function SongMgmtPage() {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_song_mgmt_navbar_song_mgmt_navbar__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["ProtectedRoute"], {
     exact: true,
     path: "/upload",
-    component: _upload_form_upload_form_container__WEBPACK_IMPORTED_MODULE_4__["default"]
+    component: _upload_form__WEBPACK_IMPORTED_MODULE_4__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["ProtectedRoute"], {
     exact: true,
     path: "/you/songs",
-    component: _upload_form_upload_form_container__WEBPACK_IMPORTED_MODULE_4__["default"]
+    component: _upload_form__WEBPACK_IMPORTED_MODULE_4__["default"]
   }))));
 };
 
@@ -2427,10 +2427,10 @@ var SongMgmtPage = function SongMgmtPage() {
 
 /***/ }),
 
-/***/ "./frontend/components/song_mgmt_page/upload_form/upload_form.jsx":
-/*!************************************************************************!*\
-  !*** ./frontend/components/song_mgmt_page/upload_form/upload_form.jsx ***!
-  \************************************************************************/
+/***/ "./frontend/components/song_mgmt_page/upload_form.jsx":
+/*!************************************************************!*\
+  !*** ./frontend/components/song_mgmt_page/upload_form.jsx ***!
+  \************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2438,10 +2438,13 @@ var SongMgmtPage = function SongMgmtPage() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
-/* harmony import */ var react_audio_player__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-audio-player */ "./node_modules/react-audio-player/dist/bundle.js");
-/* harmony import */ var react_audio_player__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_audio_player__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_song_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/song_actions */ "./frontend/actions/song_actions.js");
+/* harmony import */ var _actions_current_song_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/current_song_actions */ "./frontend/actions/current_song_actions.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
+/* harmony import */ var react_audio_player__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-audio-player */ "./node_modules/react-audio-player/dist/bundle.js");
+/* harmony import */ var react_audio_player__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_audio_player__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -2466,6 +2469,27 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 
+
+
+
+
+var msp = function msp(state) {
+  return {
+    currentUser: state.entities.users[state.session.id],
+    errors: state.errors.songs
+  };
+};
+
+var mdp = function mdp(dispatch) {
+  return {
+    submitAction: function submitAction(song) {
+      return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_2__["createSong"])(song));
+    },
+    setCurrentSong: function setCurrentSong(song) {
+      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_3__["setCurrentSong"])(song));
+    }
+  };
+};
 
 var UploadForm =
 /*#__PURE__*/
@@ -2599,7 +2623,7 @@ function (_React$Component) {
         src: this.state.imageURL,
         className: "song-image-preview"
       }) : null;
-      var audioPreview = this.state.audioURL ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_audio_player__WEBPACK_IMPORTED_MODULE_2___default.a, {
+      var audioPreview = this.state.audioURL ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_audio_player__WEBPACK_IMPORTED_MODULE_5___default.a, {
         src: this.state.audioURL,
         className: "upload-audio-preview",
         autoPlay: true,
@@ -2633,22 +2657,22 @@ function (_React$Component) {
         onChange: this.handleImage
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "upload-form-right"
-      }, this.renderErrors, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], {
+      }, this.renderErrors, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["FormGroup"], {
         controlId: "uploadFormTitle",
         validationState: this.getValidationState()
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["ControlLabel"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["ControlLabel"], {
         className: "upload-form-data-name"
-      }, "Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["FormControl"], {
+      }, "Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["FormControl"], {
         type: "text",
         value: this.state.title,
         placeholder: "Enter a title with minimum length of 3",
         className: "upload-form-title",
         onChange: this.update("title")
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["FormControl"].Feedback, null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["FormControl"].Feedback, null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["FormGroup"], {
         controlId: "uploadFormGenre"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["ControlLabel"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["ControlLabel"], {
         className: "upload-form-data-name"
-      }, "Genre"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["FormControl"], {
+      }, "Genre"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["FormControl"], {
         componentClass: "select",
         placeholder: "None",
         className: "upload-form-genre",
@@ -2681,25 +2705,25 @@ function (_React$Component) {
         value: "Rock"
       }, "Rock"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "World"
-      }, "World"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], {
+      }, "World"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["FormGroup"], {
         controlId: "uploadFormDescription"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["ControlLabel"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["ControlLabel"], {
         className: "upload-form-data-name"
-      }, "Description"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["FormControl"], {
+      }, "Description"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["FormControl"], {
         componentClass: "textarea",
         placeholder: "Description is optional.",
         className: "upload-form-description",
         onChange: this.update("description")
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["FormGroup"], {
         controlId: "uploadFormAvailability",
         onChange: this.updateAvailability
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["ControlLabel"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["ControlLabel"], {
         className: "upload-form-data-name"
-      }, "Availability"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Radio"], {
+      }, "Availability"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Radio"], {
         name: "radioGroup",
         value: "Public",
         defaultChecked: true
-      }, "Public"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Radio"], {
+      }, "Public"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Radio"], {
         name: "radioGroup",
         value: "Private"
       }, "Private")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -2729,49 +2753,7 @@ function (_React$Component) {
   return UploadForm;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["withRouter"])(UploadForm));
-
-/***/ }),
-
-/***/ "./frontend/components/song_mgmt_page/upload_form/upload_form_container.jsx":
-/*!**********************************************************************************!*\
-  !*** ./frontend/components/song_mgmt_page/upload_form/upload_form_container.jsx ***!
-  \**********************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_song_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../actions/song_actions */ "./frontend/actions/song_actions.js");
-/* harmony import */ var _actions_current_song_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/current_song_actions */ "./frontend/actions/current_song_actions.js");
-/* harmony import */ var _upload_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./upload_form */ "./frontend/components/song_mgmt_page/upload_form/upload_form.jsx");
-
-
-
-
-
-var msp = function msp(state) {
-  return {
-    currentUser: state.entities.users[state.session.id],
-    // songs: state.entities.songs,
-    errors: state.errors.songs
-  }; // errors.session (Array)
-};
-
-var mdp = function mdp(dispatch) {
-  return {
-    submitAction: function submitAction(song) {
-      return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_1__["createSong"])(song));
-    },
-    setCurrentSong: function setCurrentSong(song) {
-      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_2__["setCurrentSong"])(song));
-    }
-  };
-}; // addCurrentSong: (song) => dispatch(createCurrentSong(song)),
-
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(msp, mdp)(_upload_form__WEBPACK_IMPORTED_MODULE_3__["default"]));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, mdp)(UploadForm)));
 
 /***/ }),
 

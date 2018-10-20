@@ -2,7 +2,7 @@ import React from "react";
 import { Switch, withRouter } from "react-router-dom";
 import { ProtectedRoute } from "../../util/route_util";
 import SongMgmtNavbar from "./song_mgmt_navbar/song_mgmt_navbar";
-import UploadFormContainer from "./upload_form/upload_form_container";
+import UploadForm from "./upload_form";
 
 const SongMgmtPage = () => {
   return (
@@ -10,8 +10,8 @@ const SongMgmtPage = () => {
       <SongMgmtNavbar />
       <div>
         <Switch>
-          <ProtectedRoute exact path="/upload" component={UploadFormContainer} />
-          <ProtectedRoute exact path="/you/songs" component={UploadFormContainer} />
+          <ProtectedRoute exact path="/upload" component={UploadForm} />
+          <ProtectedRoute exact path="/you/songs" component={UploadForm} />
         </Switch>
       </div>
     </div>

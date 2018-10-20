@@ -1,7 +1,24 @@
 import React from "react";
+import { connect } from "react-redux";
+import { createSong } from "../../actions/song_actions";
+import { setCurrentSong } from "../../actions/current_song_actions";
 import { FormGroup, ControlLabel, FormControl, Radio } from 'react-bootstrap';
 import ReactAudioPlayer from 'react-audio-player';
 import { Link, withRouter } from "react-router-dom";
+
+const msp = (state) => {
+  return {
+    currentUser: state.entities.users[state.session.id],
+    errors: state.errors.songs,
+  };
+};
+
+const mdp = (dispatch) => {
+  return {
+    submitAction: (song) => dispatch(createSong(song)),
+    setCurrentSong: (song) => dispatch(setCurrentSong(song)),
+  };
+};
 
 class UploadForm extends React.Component {
   constructor(props) {
@@ -189,8 +206,6 @@ class UploadForm extends React.Component {
       </form>
     );
   }
-
-
 }
 
-export default withRouter(UploadForm);
+export default withRouter(connect(msp, mdp)(UploadForm));
