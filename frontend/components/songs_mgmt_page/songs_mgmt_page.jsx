@@ -1,13 +1,14 @@
 import React from "react";
 import { Switch, withRouter } from "react-router-dom";
 import { ProtectedRoute } from "../../util/route_util";
-import SongMgmtNavbar from "./song_mgmt_navbar/song_mgmt_navbar";
+import SongsMgmtNavbar from "./songs_mgmt_navbar";
 import UploadForm from "./upload_form";
+// import PersonalSongs from "./edit_page/personal_songs";
 
-const SongMgmtPage = () => {
+const SongsMgmtPage = () => {
   return (
     <div className="song-mgmt-page-container">
-      <SongMgmtNavbar />
+      <SongsMgmtNavbar />
       <div>
         <Switch>
           <ProtectedRoute exact path="/upload" component={UploadForm} />
@@ -18,7 +19,7 @@ const SongMgmtPage = () => {
   );
 };
 
-export default withRouter(SongMgmtPage);
+export default withRouter(SongsMgmtPage);
 // class SongManagementPage extends React.Component {
 //   constructor(props) {
 //     super(props);

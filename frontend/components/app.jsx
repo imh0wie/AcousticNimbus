@@ -4,7 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import HeaderBarContainer from "./common_components/header_bar/header_bar_container";
 import SplashPage from "./splash_page/splash_page";
 import Homepage from "./homepage/homepage";
-import SongMgmtPage from "./song_mgmt_page/song_mgmt_page";
+import SongsMgmtPage from "./songs_mgmt_page/songs_mgmt_page";
 import { AuthRoute, ProtectedRoute } from "../util/route_util";
 import SongShowPage from "./song_show_page/song_show_page";
 import UserShowPage from "./user_show_page/user_show_page";
@@ -19,8 +19,8 @@ const App = () => {
           <AuthRoute exact path="/" component={SplashPage} />
           <ProtectedRoute path="/charts/top" component={Homepage} />
           <ProtectedRoute path="/stream" component={Homepage} />
-          <ProtectedRoute path="/upload" component={SongMgmtPage} />
-          <ProtectedRoute path="/you/collection" component={SongMgmtPage} />
+          <ProtectedRoute path="/upload" component={SongsMgmtPage} />
+          <ProtectedRoute path="/you/collection" component={SongsMgmtPage} />
           <ProtectedRoute exact path="/songs/:songId" component={SongShowPage} />
           <Route exact path="/users/:userId" component={UserShowPage} />
         </Switch>
