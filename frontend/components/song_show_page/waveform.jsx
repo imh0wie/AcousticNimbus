@@ -76,7 +76,6 @@ class Waveform extends React.Component {
   onReady() {
     // document.getElementById('progress').style.display = 'none';
     this.waveform.setMute(true);
-    debugger
     if (!this.props.currentSong.song) {
       this.setState = ({
         elapsed: 0,

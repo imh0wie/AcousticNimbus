@@ -1,12 +1,13 @@
 class Api::LikesController < ApplicationController
+  def index
+    @likes = Like.all
+    render "api/likes/index"
+  end
+  
   def create
-    @like = Like.new({
-      liker_id: current_user.id,
-      likeable_id: params[:likeable_id],
-      likeable_type: params[:likeable_type]
-    })
+    @like = current_user.likes.new(like_params)
     if @like.save
-      render "api/songs/show"
+      render "api/likes/show"
     else
       render @like.errors.full_messages, status: 401
     end
@@ -15,9 +16,15 @@ class Api::LikesController < ApplicationController
   def delete
     @like = Like.find(params[:id])
     if @like.destroy
-      render "api/songs/show"
+      render "api/likes/show"
     else
       render @like.errors.full_messages, status: 401
     end
+  end
+
+  private
+
+  def like_params
+    params.require(:like).permit(:likeable_id, :likeable_type)
   end
 end

@@ -3,17 +3,19 @@ import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { fetchSongs, fetchSong } from "../../actions/song_actions";
 import { setCurrentSong, playSong, pauseSong } from "../../actions/current_song_actions";
-// import { latest } from "../../util/song_api_util";
+import { fetchLikes } from "../../actions/like_actions";
+import { likesOf, liked } from "../../util/like_api_util";
 import Waveform from "./waveform";
 
 const msp = (state, ownProps) => {
   return ({
     // songs: latest()
-    onPageSongId: parseInt(ownProps.match.params.songId),
     onPageSong: state.entities.songs[ownProps.match.params.songId],
+    onPageSongId: parseInt(ownProps.match.params.songId),
+    onPageSongLikes: likesOf("song", parseInt(ownProps.match.params.songId), state.entities.likes),
+    onPageSongLiked: liked(state.entities.users[state.session.id], likesOf("song", parseInt(ownProps.match.params.songId), state.entities.likes)),
     currentSong: state.ui.currentSong,
     currentUser: state.entities.users[state.session.id],
-    users: state.entities.users,
   });
 };
 
@@ -24,6 +26,7 @@ const mdp = (dispatch) => {
       setCurrentSong: (song) => dispatch(setCurrentSong(song)),
       playSong: () => dispatch(playSong()),
       pauseSong: () => dispatch(pauseSong()),
+      fetchLikes: () => dispatch(fetchLikes()),
   });
 };
 
@@ -31,12 +34,14 @@ class SongShowPage extends React.Component {
   constructor(props) {
     super(props);
     this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this);
+    this.renderLikeButton = this.renderLikeButton.bind(this);
     this.togglePlayPause = this.togglePlayPause.bind(this);
   }
 
   componentDidMount() {
     // this.props.fetchSong(this.props.onPageSongId);
     this.props.fetchSongs();
+    this.props.fetchLikes();
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -76,7 +81,9 @@ class SongShowPage extends React.Component {
   // }
 
   renderLikeButton() {
-
+    return (
+      <button className="song-show-page-like-button" onClick={() => this.handleLike()}><i className="fas fa-heart"></i> Like</button>
+    );
   }
 
   render() {
@@ -126,7 +133,7 @@ class SongShowPage extends React.Component {
                 </div>
                 <div className="song-show-page-social-els">
                   <div className="song-show-page-social-els-left">
-                    <button className="song-show-page-like-button" onClick={() => this.handleLike()}><i className="fas fa-heart"></i> Like</button>
+                    {this.renderLikeButton()}
                   </div>
                   <div className="song-show-page-social-els-right">
                   </div>

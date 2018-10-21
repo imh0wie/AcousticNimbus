@@ -220,6 +220,40 @@ var receiveCurrentSongErrors = function receiveCurrentSongErrors(errors) {
 
 /***/ }),
 
+/***/ "./frontend/actions/like_actions.js":
+/*!******************************************!*\
+  !*** ./frontend/actions/like_actions.js ***!
+  \******************************************/
+/*! exports provided: RECEIVE_LIKES, fetchLikes */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_LIKES", function() { return RECEIVE_LIKES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchLikes", function() { return fetchLikes; });
+/* harmony import */ var _util_like_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/like_api_util */ "./frontend/util/like_api_util.js");
+
+var RECEIVE_LIKES = "RECEIVE_LIKES";
+var fetchLikes = function fetchLikes() {
+  return function (dispatch) {
+    return _util_like_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchLikes"]().then(function (likesFromServer) {
+      return dispatch(receiveLikes(likesFromServer));
+    });
+  };
+};
+
+var receiveLikes = function receiveLikes(likes) {
+  return {
+    type: RECEIVE_LIKES,
+    likes: likes
+  };
+}; // ,
+//         (errors) => {
+//           return dispatch(receiveLikesErrors(errors.responseJSON));
+//         },
+
+/***/ }),
+
 /***/ "./frontend/actions/modal_actions.js":
 /*!*******************************************!*\
   !*** ./frontend/actions/modal_actions.js ***!
@@ -2318,7 +2352,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _actions_song_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/song_actions */ "./frontend/actions/song_actions.js");
 /* harmony import */ var _actions_current_song_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/current_song_actions */ "./frontend/actions/current_song_actions.js");
-/* harmony import */ var _waveform__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./waveform */ "./frontend/components/song_show_page/waveform.jsx");
+/* harmony import */ var _actions_like_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/like_actions */ "./frontend/actions/like_actions.js");
+/* harmony import */ var _util_like_api_util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../util/like_api_util */ "./frontend/util/like_api_util.js");
+/* harmony import */ var _waveform__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./waveform */ "./frontend/components/song_show_page/waveform.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2341,18 +2377,20 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 
- // import { latest } from "../../util/song_api_util";
+
+
 
 
 
 var msp = function msp(state, ownProps) {
   return {
     // songs: latest()
-    onPageSongId: parseInt(ownProps.match.params.songId),
     onPageSong: state.entities.songs[ownProps.match.params.songId],
+    onPageSongId: parseInt(ownProps.match.params.songId),
+    onPageSongLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likesOf"])("song", parseInt(ownProps.match.params.songId), state.entities.likes),
+    onPageSongLiked: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["liked"])(state.entities.users[state.session.id], Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likesOf"])("song", parseInt(ownProps.match.params.songId), state.entities.likes)),
     currentSong: state.ui.currentSong,
-    currentUser: state.entities.users[state.session.id],
-    users: state.entities.users
+    currentUser: state.entities.users[state.session.id]
   };
 };
 
@@ -2372,6 +2410,9 @@ var mdp = function mdp(dispatch) {
     },
     pauseSong: function pauseSong() {
       return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_4__["pauseSong"])());
+    },
+    fetchLikes: function fetchLikes() {
+      return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_5__["fetchLikes"])());
     }
   };
 };
@@ -2388,6 +2429,7 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SongShowPage).call(this, props));
     _this.renderPlayPauseSign = _this.renderPlayPauseSign.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.renderLikeButton = _this.renderLikeButton.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.togglePlayPause = _this.togglePlayPause.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
@@ -2397,6 +2439,7 @@ function (_React$Component) {
     value: function componentDidMount() {
       // this.props.fetchSong(this.props.onPageSongId);
       this.props.fetchSongs();
+      this.props.fetchLikes();
     } // componentWillReceiveProps(nextProps) {
     //   debugger
     //   if (nextProps.songId !== this.props.onPageSongId) {
@@ -2449,12 +2492,21 @@ function (_React$Component) {
 
   }, {
     key: "renderLikeButton",
-    value: function renderLikeButton() {}
+    value: function renderLikeButton() {
+      var _this3 = this;
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "song-show-page-like-button",
+        onClick: function onClick() {
+          return _this3.handleLike();
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-heart"
+      }), " Like");
+    }
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
-
       if (!this.props.onPageSong) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loading,
@@ -2487,7 +2539,7 @@ function (_React$Component) {
           className: "song-show-page-song-genre"
         }, "#", this.props.onPageSong.genre))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "banner-player-waveform-container"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_waveform__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_waveform__WEBPACK_IMPORTED_MODULE_7__["default"], {
           onPageSong: this.props.onPageSong,
           onPageSongId: this.props.onPageSongId,
           currentSong: this.props.currentSong
@@ -2518,14 +2570,7 @@ function (_React$Component) {
           className: "song-show-page-social-els"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-show-page-social-els-left"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          className: "song-show-page-like-button",
-          onClick: function onClick() {
-            return _this3.handleLike();
-          }
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-          className: "fas fa-heart"
-        }), " Like")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        }, this.renderLikeButton()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-show-page-social-els-right"
         }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-show-page-main-container"
@@ -2707,7 +2752,6 @@ function (_React$Component) {
     value: function onReady() {
       // document.getElementById('progress').style.display = 'none';
       this.waveform.setMute(true);
-      debugger;
 
       if (!this.props.currentSong.song) {
         this.setState = {
@@ -4010,12 +4054,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _users_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./users_reducer */ "./frontend/reducers/users_reducer.js");
 /* harmony import */ var _songs_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./songs_reducer */ "./frontend/reducers/songs_reducer.js");
+/* harmony import */ var _likes_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./likes_reducer */ "./frontend/reducers/likes_reducer.js");
+
 
 
 
 var entitiesReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   users: _users_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
-  songs: _songs_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
+  songs: _songs_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
+  likes: _likes_reducer__WEBPACK_IMPORTED_MODULE_3__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (entitiesReducer);
 
@@ -4041,6 +4088,39 @@ var errorsReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"]
   songs: _songs_errors_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (errorsReducer);
+
+/***/ }),
+
+/***/ "./frontend/reducers/likes_reducer.js":
+/*!********************************************!*\
+  !*** ./frontend/reducers/likes_reducer.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_like_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/like_actions */ "./frontend/actions/like_actions.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+var likesReducer = function likesReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_like_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_LIKES"]:
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, action.likes);
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (likesReducer);
 
 /***/ }),
 
@@ -4353,6 +4433,72 @@ var configureStore = function configureStore() {
 
 /***/ }),
 
+/***/ "./frontend/util/general_api_util.js":
+/*!*******************************************!*\
+  !*** ./frontend/util/general_api_util.js ***!
+  \*******************************************/
+/*! exports provided: isEmpty */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isEmpty", function() { return isEmpty; });
+var isEmpty = function isEmpty(obj) {
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) return false;
+  }
+
+  return true;
+};
+
+/***/ }),
+
+/***/ "./frontend/util/like_api_util.js":
+/*!****************************************!*\
+  !*** ./frontend/util/like_api_util.js ***!
+  \****************************************/
+/*! exports provided: fetchLikes, likesOf, liked */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchLikes", function() { return fetchLikes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "likesOf", function() { return likesOf; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "liked", function() { return liked; });
+/* harmony import */ var _general_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./general_api_util */ "./frontend/util/general_api_util.js");
+
+var fetchLikes = function fetchLikes() {
+  return $.ajax({
+    method: "GET",
+    url: "/api/likes"
+  });
+};
+var likesOf = function likesOf(likeableType, likeableId, likes) {
+  debugger;
+  if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(likes)) return [];
+  var likeIds = Object.keys(likes).reverse;
+  var output = [];
+  debugger;
+  likeIds.forEach(function (likeId) {
+    if (likes.likeId.likeableType === likeableType || likes.likeId.likeableId === likeableId) {
+      output.push(likes[likeId]);
+    }
+  });
+  return output;
+};
+var liked = function liked(currentUser, likes) {
+  likes.forEach(function (like) {
+    if (like.likerId === currentUser.id) {
+      debugger;
+      return true;
+    }
+  });
+  debugger;
+  return false;
+};
+
+/***/ }),
+
 /***/ "./frontend/util/route_util.jsx":
 /*!**************************************!*\
   !*** ./frontend/util/route_util.jsx ***!
@@ -4483,6 +4629,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchSongs", function() { return fetchSongs; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "latest", function() { return latest; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "shuffle", function() { return shuffle; });
+/* harmony import */ var _general_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./general_api_util */ "./frontend/util/general_api_util.js");
+
 var createSong = function createSong(song) {
   return $.ajax({
     method: "POST",
@@ -4504,21 +4652,12 @@ var fetchSongs = function fetchSongs() {
     url: "/api/songs"
   });
 };
-
-var isEmpty = function isEmpty(obj) {
-  for (var key in obj) {
-    if (obj.hasOwnProperty(key)) return false;
-  }
-
-  return true;
-};
-
 var latest = function latest(n, songs) {
-  if (isEmpty(songs)) return [];
-  var keys = Object.keys(songs).reverse().slice(0, n);
+  if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(songs)) return [];
+  var songIds = Object.keys(songs).reverse().slice(0, n);
   var output = [];
-  keys.forEach(function (key) {
-    output.push(songs[key]);
+  songIds.forEach(function (songId) {
+    output.push(songs[songId]);
   });
   return output;
 };
@@ -4534,7 +4673,12 @@ var shuffle = function shuffle(n, songs) {
   }
 
   return songsToShuffle;
-};
+}; // const isEmpty = (obj) => {
+//   for (let key in obj) {
+//       if (obj.hasOwnProperty(key)) return false;
+//   }
+//   return true;
+// }
 
 /***/ }),
 
