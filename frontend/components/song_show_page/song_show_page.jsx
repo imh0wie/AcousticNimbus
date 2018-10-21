@@ -81,9 +81,15 @@ class SongShowPage extends React.Component {
   // }
 
   renderLikeButton() {
-    return (
-      <button className="song-show-page-like-button" onClick={() => this.handleLike()}><i className="fas fa-heart"></i> Like</button>
-    );
+    if (this.props.onPageSongLiked) {
+      return (
+        <button className="song-show-page-liked-button" onClick={() => this.handleLike()}><i className="fas fa-heart"></i> Liked</button>
+      );
+    } else {
+      return (
+        <button className="song-show-page-like-button" onClick={() => this.handleLike()}><i className="fas fa-heart"></i> Like</button>
+      );
+    }
   }
 
   render() {

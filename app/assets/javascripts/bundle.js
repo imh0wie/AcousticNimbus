@@ -2495,14 +2495,25 @@ function (_React$Component) {
     value: function renderLikeButton() {
       var _this3 = this;
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "song-show-page-like-button",
-        onClick: function onClick() {
-          return _this3.handleLike();
-        }
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-heart"
-      }), " Like");
+      if (this.props.onPageSongLiked) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "song-show-page-liked-button",
+          onClick: function onClick() {
+            return _this3.handleLike();
+          }
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fas fa-heart"
+        }), " Liked");
+      } else {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "song-show-page-like-button",
+          onClick: function onClick() {
+            return _this3.handleLike();
+          }
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fas fa-heart"
+        }), " Like");
+      }
     }
   }, {
     key: "render",
