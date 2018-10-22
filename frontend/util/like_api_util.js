@@ -1,5 +1,14 @@
 import { isEmpty } from "./general_api_util";
 
+export const createLike = (like) => {
+    debugger
+    return $.ajax({
+      method: "POST",
+      url: "/api/likes",
+      data: like,
+    });
+  };
+
 export const fetchLikes = () => {
     return $.ajax({
         method: "GET",

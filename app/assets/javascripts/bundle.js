@@ -224,19 +224,28 @@ var receiveCurrentSongErrors = function receiveCurrentSongErrors(errors) {
 /*!******************************************!*\
   !*** ./frontend/actions/like_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_LIKES, fetchLikes */
+/*! exports provided: RECEIVE_LIKES, createLike, fetchLikes */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_LIKES", function() { return RECEIVE_LIKES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createLike", function() { return createLike; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchLikes", function() { return fetchLikes; });
 /* harmony import */ var _util_like_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/like_api_util */ "./frontend/util/like_api_util.js");
 
 var RECEIVE_LIKES = "RECEIVE_LIKES";
+var createLike = function createLike(likeToServer) {
+  return function (dispatch) {
+    return _util_like_api_util__WEBPACK_IMPORTED_MODULE_0__["createLike"](likeToServer).then(function (likesFromServer) {
+      return dispatch(receiveLikes(likesFromServer));
+    });
+  };
+};
 var fetchLikes = function fetchLikes() {
   return function (dispatch) {
     return _util_like_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchLikes"]().then(function (likesFromServer) {
+      debugger;
       return dispatch(receiveLikes(likesFromServer));
     });
   };
@@ -2411,6 +2420,9 @@ var mdp = function mdp(dispatch) {
     pauseSong: function pauseSong() {
       return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_4__["pauseSong"])());
     },
+    createLike: function createLike(like) {
+      return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_5__["createLike"])(like));
+    },
     fetchLikes: function fetchLikes() {
       return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_5__["fetchLikes"])());
     }
@@ -2428,9 +2440,16 @@ function (_React$Component) {
     _classCallCheck(this, SongShowPage);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SongShowPage).call(this, props));
-    _this.renderPlayPauseSign = _this.renderPlayPauseSign.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.state = {
+      likeableType: "song",
+      likeableId: _this.props.onPageSongId,
+      likerId: _this.props.currentUser.id
+    };
+    _this.renderPlayPauseSign = _this.renderPlayPauseSign.bind(_assertThisInitialized(_assertThisInitialized(_this))); // this.renderLike = this.renderLike.bind(this);
+
     _this.renderLikeButton = _this.renderLikeButton.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.togglePlayPause = _this.togglePlayPause.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleLike = _this.handleLike.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
@@ -2438,6 +2457,7 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       // this.props.fetchSong(this.props.onPageSongId);
+      debugger;
       this.props.fetchSongs();
       this.props.fetchLikes();
     } // componentWillReceiveProps(nextProps) {
@@ -2487,7 +2507,31 @@ function (_React$Component) {
       } else if (this.props.onPageSongId === this.props.currentSong.song.id) {
         this.props.currentSong.playing ? this.props.pauseSong() : this.props.playSong();
       }
-    } // handleLike() {
+    }
+  }, {
+    key: "handleLike",
+    value: function handleLike(e) {
+      e.preventDefault();
+      debugger; // let likeData = new FormData();
+
+      var like = {
+        like: {
+          likeable_type: this.state.likeableType,
+          likeable_id: this.state.likeableId,
+          liker_id: this.state.likerId
+        } // likeData.append('like[likeable_type]', this.state.likeableType);
+        // likeData.append('like[likeable_id]', this.state.likeableId);
+        // likeData.append('like[liker_id]', this.state.likerId);
+
+      };
+      debugger;
+      this.props.createLike(like);
+    } // renderLike() {
+    //   if (this.props.onPageSongLiked) {
+    //     return <span><i className="fas fa-heart"></i> Liked</span>;
+    //   } else {
+    //     return <span><i className="fas fa-heart"></i> Like</span>;
+    //   }
     // }
 
   }, {
@@ -2498,8 +2542,8 @@ function (_React$Component) {
       if (this.props.onPageSongLiked) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "song-show-page-liked-button",
-          onClick: function onClick() {
-            return _this3.handleLike();
+          onClick: function onClick(e) {
+            return _this3.handleLike(e);
           }
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           className: "fas fa-heart"
@@ -2507,8 +2551,8 @@ function (_React$Component) {
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "song-show-page-like-button",
-          onClick: function onClick() {
-            return _this3.handleLike();
+          onClick: function onClick(e) {
+            return _this3.handleLike(e);
           }
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           className: "fas fa-heart"
@@ -2581,7 +2625,7 @@ function (_React$Component) {
           className: "song-show-page-social-els"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-show-page-social-els-left"
-        }, this.renderLikeButton()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, this.renderLikeButton())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-show-page-social-els-right"
         }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-show-page-main-container"
@@ -4116,14 +4160,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
 
 
+var defaultState = {
+  id: null,
+  likeableType: null,
+  likeableId: null,
+  likerId: null
+};
 
 var likesReducer = function likesReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
 
   switch (action.type) {
     case _actions_like_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_LIKES"]:
+      debugger;
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, action.likes);
 
     default:
@@ -4456,7 +4507,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isEmpty", function() { return isEmpty; });
 var isEmpty = function isEmpty(obj) {
   for (var key in obj) {
-    if (obj.hasOwnProperty(key)) return false;
+    if (!obj[key]) {
+      continue;
+    } else if (obj.hasOwnProperty(key)) {
+      return false;
+    }
   }
 
   return true;
@@ -4468,16 +4523,25 @@ var isEmpty = function isEmpty(obj) {
 /*!****************************************!*\
   !*** ./frontend/util/like_api_util.js ***!
   \****************************************/
-/*! exports provided: fetchLikes, likesOf, liked */
+/*! exports provided: createLike, fetchLikes, likesOf, liked */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createLike", function() { return createLike; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchLikes", function() { return fetchLikes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "likesOf", function() { return likesOf; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "liked", function() { return liked; });
 /* harmony import */ var _general_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./general_api_util */ "./frontend/util/general_api_util.js");
 
+var createLike = function createLike(like) {
+  debugger;
+  return $.ajax({
+    method: "POST",
+    url: "/api/likes",
+    data: like
+  });
+};
 var fetchLikes = function fetchLikes() {
   return $.ajax({
     method: "GET",

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { fetchSongs, fetchSong } from "../../actions/song_actions";
 import { setCurrentSong, playSong, pauseSong } from "../../actions/current_song_actions";
-import { fetchLikes } from "../../actions/like_actions";
+import { createLike, fetchLikes } from "../../actions/like_actions";
 import { likesOf, liked } from "../../util/like_api_util";
 import Waveform from "./waveform";
 
@@ -26,6 +26,7 @@ const mdp = (dispatch) => {
       setCurrentSong: (song) => dispatch(setCurrentSong(song)),
       playSong: () => dispatch(playSong()),
       pauseSong: () => dispatch(pauseSong()),
+      createLike: (like) => dispatch(createLike(like)),
       fetchLikes: () => dispatch(fetchLikes()),
   });
 };
@@ -33,13 +34,21 @@ const mdp = (dispatch) => {
 class SongShowPage extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      likeableType: "song",
+      likeableId: this.props.onPageSongId,
+      likerId: this.props.currentUser.id,
+    }
     this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this);
+    // this.renderLike = this.renderLike.bind(this);
     this.renderLikeButton = this.renderLikeButton.bind(this);
     this.togglePlayPause = this.togglePlayPause.bind(this);
+    this.handleLike = this.handleLike.bind(this);
   }
 
   componentDidMount() {
     // this.props.fetchSong(this.props.onPageSongId);
+    debugger
     this.props.fetchSongs();
     this.props.fetchLikes();
   }
@@ -76,18 +85,40 @@ class SongShowPage extends React.Component {
     }
   }
 
-  // handleLike() {
+  handleLike(e) {
+    e.preventDefault();
+    debugger
+    // let likeData = new FormData();
+    const like = {
+      like: {
+        likeable_type: this.state.likeableType,
+        likeable_id: this.state.likeableId,
+        liker_id: this.state.likerId,
+      },
+    }
+    // likeData.append('like[likeable_type]', this.state.likeableType);
+    // likeData.append('like[likeable_id]', this.state.likeableId);
+    // likeData.append('like[liker_id]', this.state.likerId);
+    debugger
+    this.props.createLike(like);
+  }
 
+  // renderLike() {
+  //   if (this.props.onPageSongLiked) {
+  //     return <span><i className="fas fa-heart"></i> Liked</span>;
+  //   } else {
+  //     return <span><i className="fas fa-heart"></i> Like</span>;
+  //   }
   // }
 
   renderLikeButton() {
     if (this.props.onPageSongLiked) {
       return (
-        <button className="song-show-page-liked-button" onClick={() => this.handleLike()}><i className="fas fa-heart"></i> Liked</button>
+        <button className="song-show-page-liked-button" onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> Liked</button>
       );
     } else {
       return (
-        <button className="song-show-page-like-button" onClick={() => this.handleLike()}><i className="fas fa-heart"></i> Like</button>
+        <button className="song-show-page-like-button" onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> Like</button>
       );
     }
   }
@@ -139,7 +170,9 @@ class SongShowPage extends React.Component {
                 </div>
                 <div className="song-show-page-social-els">
                   <div className="song-show-page-social-els-left">
+                  <form>
                     {this.renderLikeButton()}
+                  </form>
                   </div>
                   <div className="song-show-page-social-els-right">
                   </div>
