@@ -7,8 +7,10 @@ class Api::LikesController < ApplicationController
   def create
     debugger
     @like = Like.new(like_params)
+    # @like = Like.new(like_params)
     debugger
     if @like.save
+      debugger
       @likes = Like.all
       debugger
       render :index

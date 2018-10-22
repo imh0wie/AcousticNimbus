@@ -2515,11 +2515,11 @@ function (_React$Component) {
       debugger; // let likeData = new FormData();
 
       var like = {
-        like: {
-          likeable_type: this.state.likeableType,
-          likeable_id: this.state.likeableId,
-          liker_id: this.state.likerId
-        } // likeData.append('like[likeable_type]', this.state.likeableType);
+        // like: {
+        likeable_type: this.state.likeableType,
+        likeable_id: this.state.likeableId,
+        liker_id: this.state.likerId // },
+        // likeData.append('like[likeable_type]', this.state.likeableType);
         // likeData.append('like[likeable_id]', this.state.likeableId);
         // likeData.append('like[liker_id]', this.state.likerId);
 
@@ -4539,7 +4539,11 @@ var createLike = function createLike(like) {
   return $.ajax({
     method: "POST",
     url: "/api/likes",
-    data: like
+    data: {
+      like: like
+    } // contentType: false,
+    // processData: false,
+
   });
 };
 var fetchLikes = function fetchLikes() {

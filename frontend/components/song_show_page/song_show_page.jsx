@@ -90,11 +90,11 @@ class SongShowPage extends React.Component {
     debugger
     // let likeData = new FormData();
     const like = {
-      like: {
+      // like: {
         likeable_type: this.state.likeableType,
         likeable_id: this.state.likeableId,
         liker_id: this.state.likerId,
-      },
+      // },
     }
     // likeData.append('like[likeable_type]', this.state.likeableType);
     // likeData.append('like[likeable_id]', this.state.likeableId);

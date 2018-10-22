@@ -8,10 +8,14 @@ class Song < ApplicationRecord
 
   # validates_attachment_content_type content_type: ['image/jpg', 'image/png']
 
-  belongs_to :artist,
+  belongs_to :artist, {
     foreign_key: :artist_id,
     class_name: :User
-  has_many :likes
+  }
+  has_many :likes, {
+    :as => :likeable, 
+    :dependent => :destroy,
+  }
   has_one_attached :audio
   has_one_attached :image
 

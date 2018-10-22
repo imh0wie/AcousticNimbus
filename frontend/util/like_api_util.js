@@ -3,9 +3,11 @@ import { isEmpty } from "./general_api_util";
 export const createLike = (like) => {
     debugger
     return $.ajax({
-      method: "POST",
-      url: "/api/likes",
-      data: like,
+        method: "POST",
+        url: "/api/likes",
+        data: { like },
+        // contentType: false,
+        // processData: false,
     });
   };
 
