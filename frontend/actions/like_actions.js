@@ -6,7 +6,6 @@ export const createLike = (likeToServer) => {
   return dispatch => {
     return LikeAPIUtil.createLike(likeToServer).then(
       (likesFromServer) => {
-        debugger
         return dispatch(receiveLikes(likesFromServer));
       }
     );
@@ -27,7 +26,6 @@ export const fetchLikes = () => {
     return (dispatch) => {
       return LikeAPIUtil.fetchLikes().then(
         (likesFromServer) => {
-          debugger
           return dispatch(receiveLikes(likesFromServer));
         }
       );
@@ -40,8 +38,3 @@ const receiveLikes = (likes) => {
       likes: likes,
     };
 };
-// ,
-//         (errors) => {
-//           return dispatch(receiveLikesErrors(errors.responseJSON));
-//         },
-

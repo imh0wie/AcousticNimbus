@@ -239,7 +239,6 @@ var RECEIVE_LIKES = "RECEIVE_LIKES";
 var createLike = function createLike(likeToServer) {
   return function (dispatch) {
     return _util_like_api_util__WEBPACK_IMPORTED_MODULE_0__["createLike"](likeToServer).then(function (likesFromServer) {
-      debugger;
       return dispatch(receiveLikes(likesFromServer));
     });
   };
@@ -254,7 +253,6 @@ var removeLike = function removeLike(idToServer) {
 var fetchLikes = function fetchLikes() {
   return function (dispatch) {
     return _util_like_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchLikes"]().then(function (likesFromServer) {
-      debugger;
       return dispatch(receiveLikes(likesFromServer));
     });
   };
@@ -265,10 +263,7 @@ var receiveLikes = function receiveLikes(likes) {
     type: RECEIVE_LIKES,
     likes: likes
   };
-}; // ,
-//         (errors) => {
-//           return dispatch(receiveLikesErrors(errors.responseJSON));
-//         },
+};
 
 /***/ }),
 
