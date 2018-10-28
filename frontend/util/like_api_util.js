@@ -1,15 +1,20 @@
 import { isEmpty } from "./general_api_util";
 
 export const createLike = (like) => {
-    debugger
     return $.ajax({
         method: "POST",
         url: "/api/likes",
         data: { like },
-        // contentType: false,
-        // processData: false,
     });
 };
+
+export const removeLike = (id) => {
+    debugger
+    return $.ajax({
+        method: "DELETE",
+        url: `/api/likes/${id}`,
+    });
+}
 
 export const fetchLikes = () => {
     debugger
@@ -18,6 +23,14 @@ export const fetchLikes = () => {
         url: "/api/likes",
     });
 };
+
+export const likeOf = (liker, likes) => {
+    for (let i = 0; i < likes.length; i++ ) {
+        const like = likes[i];
+        if (like.likerId === liker.id) return like;
+    }
+    return null;
+}
 
 export const likesOf = (likeableType, likeableId, likes) => {
     debugger

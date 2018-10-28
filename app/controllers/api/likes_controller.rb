@@ -15,12 +15,15 @@ class Api::LikesController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
     @like = Like.find(params[:id])
+    # debugger
     if @like.destroy
+      # debugger
       @likes = Like.all
       render :index
     else
+      # debugger
       render @like.errors.full_messages, status: 401
     end
   end

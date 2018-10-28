@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { fetchSongs, fetchSong } from "../../actions/song_actions";
 import { setCurrentSong, playSong, pauseSong } from "../../actions/current_song_actions";
-import { createLike, fetchLikes } from "../../actions/like_actions";
-import { likesOf, liked } from "../../util/like_api_util";
+import { createLike, removeLike, fetchLikes } from "../../actions/like_actions";
+import { likeOf, likesOf, liked } from "../../util/like_api_util";
 import Waveform from "./waveform";
 
 const msp = (state, ownProps) => {
@@ -12,10 +12,10 @@ const msp = (state, ownProps) => {
   return ({ 
     onPageSong: state.entities.songs[ownProps.match.params.songId],
     onPageSongId: parseInt(ownProps.match.params.songId),
-    // onPageSongLikes: likesOf("Song", parseInt(ownProps.match.params.songId), state.entities.likes),
     onPageSongLiked: liked(state.entities.users[state.session.id], likesOf("Song", parseInt(ownProps.match.params.songId), state.entities.likes)),
     currentSong: state.ui.currentSong,
     currentUser: state.entities.users[state.session.id],
+    currentLike: likeOf(state.entities.users[state.session.id], likesOf("Song", parseInt(ownProps.match.params.songId), state.entities.likes)),
   });
 };
 
@@ -27,6 +27,7 @@ const mdp = (dispatch) => {
       playSong: () => dispatch(playSong()),
       pauseSong: () => dispatch(pauseSong()),
       createLike: (like) => dispatch(createLike(like)),
+      removeLike: (id) => dispatch(removeLike(id)),
       fetchLikes: () => dispatch(fetchLikes()),
   });
 };
@@ -52,13 +53,6 @@ class SongShowPage extends React.Component {
     this.props.fetchSongs()
     this.props.fetchLikes();
   }
-
-  // componentWillReceiveProps(nextProps) {
-  //   debugger
-  //   if (nextProps.songId !== this.props.onPageSongId) {
-  //     this.props.fetchSong(nextProps.songId);
-  //   }
-  // }
 
   renderPlayPauseSign(song) {
     if (!this.props.currentSong.song || this.props.onPageSongId !== this.props.currentSong.song.id) {
@@ -87,18 +81,16 @@ class SongShowPage extends React.Component {
 
   handleLike(e) {
     e.preventDefault();
-    // let likeData = new FormData();
-    const like = {
-      // like: {
+    if (this.props.onPageSongLiked) {
+      this.props.removeLike(this.props.currentLike.id);
+    } else {
+      const like = {
         likeable_type: this.state.likeableType,
         likeable_id: this.state.likeableId,
         liker_id: this.state.likerId,
-      // },
+      }
+      this.props.createLike(like);
     }
-    // likeData.append('like[likeable_type]', this.state.likeableType);
-    // likeData.append('like[likeable_id]', this.state.likeableId);
-    // likeData.append('like[liker_id]', this.state.likerId);
-    this.props.createLike(like);
   }
 
   // renderLike() {

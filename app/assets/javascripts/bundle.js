@@ -224,13 +224,14 @@ var receiveCurrentSongErrors = function receiveCurrentSongErrors(errors) {
 /*!******************************************!*\
   !*** ./frontend/actions/like_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_LIKES, createLike, fetchLikes */
+/*! exports provided: RECEIVE_LIKES, createLike, removeLike, fetchLikes */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_LIKES", function() { return RECEIVE_LIKES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createLike", function() { return createLike; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeLike", function() { return removeLike; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchLikes", function() { return fetchLikes; });
 /* harmony import */ var _util_like_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/like_api_util */ "./frontend/util/like_api_util.js");
 
@@ -239,6 +240,13 @@ var createLike = function createLike(likeToServer) {
   return function (dispatch) {
     return _util_like_api_util__WEBPACK_IMPORTED_MODULE_0__["createLike"](likeToServer).then(function (likesFromServer) {
       debugger;
+      return dispatch(receiveLikes(likesFromServer));
+    });
+  };
+};
+var removeLike = function removeLike(idToServer) {
+  return function (dispatch) {
+    return _util_like_api_util__WEBPACK_IMPORTED_MODULE_0__["removeLike"](idToServer).then(function (likesFromServer) {
       return dispatch(receiveLikes(likesFromServer));
     });
   };
@@ -253,7 +261,6 @@ var fetchLikes = function fetchLikes() {
 };
 
 var receiveLikes = function receiveLikes(likes) {
-  debugger;
   return {
     type: RECEIVE_LIKES,
     likes: likes
@@ -2397,10 +2404,10 @@ var msp = function msp(state, ownProps) {
   return {
     onPageSong: state.entities.songs[ownProps.match.params.songId],
     onPageSongId: parseInt(ownProps.match.params.songId),
-    // onPageSongLikes: likesOf("Song", parseInt(ownProps.match.params.songId), state.entities.likes),
     onPageSongLiked: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["liked"])(state.entities.users[state.session.id], Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likesOf"])("Song", parseInt(ownProps.match.params.songId), state.entities.likes)),
     currentSong: state.ui.currentSong,
-    currentUser: state.entities.users[state.session.id]
+    currentUser: state.entities.users[state.session.id],
+    currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(state.entities.users[state.session.id], Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likesOf"])("Song", parseInt(ownProps.match.params.songId), state.entities.likes))
   };
 };
 
@@ -2423,6 +2430,9 @@ var mdp = function mdp(dispatch) {
     },
     createLike: function createLike(like) {
       return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_5__["createLike"])(like));
+    },
+    removeLike: function removeLike(id) {
+      return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_5__["removeLike"])(id));
     },
     fetchLikes: function fetchLikes() {
       return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_5__["fetchLikes"])());
@@ -2461,13 +2471,7 @@ function (_React$Component) {
       debugger;
       this.props.fetchSongs();
       this.props.fetchLikes();
-    } // componentWillReceiveProps(nextProps) {
-    //   debugger
-    //   if (nextProps.songId !== this.props.onPageSongId) {
-    //     this.props.fetchSong(nextProps.songId);
-    //   }
-    // }
-
+    }
   }, {
     key: "renderPlayPauseSign",
     value: function renderPlayPauseSign(song) {
@@ -2512,19 +2516,18 @@ function (_React$Component) {
   }, {
     key: "handleLike",
     value: function handleLike(e) {
-      e.preventDefault(); // let likeData = new FormData();
+      e.preventDefault();
 
-      var like = {
-        // like: {
-        likeable_type: this.state.likeableType,
-        likeable_id: this.state.likeableId,
-        liker_id: this.state.likerId // },
-        // likeData.append('like[likeable_type]', this.state.likeableType);
-        // likeData.append('like[likeable_id]', this.state.likeableId);
-        // likeData.append('like[liker_id]', this.state.likerId);
-
-      };
-      this.props.createLike(like);
+      if (this.props.onPageSongLiked) {
+        this.props.removeLike(this.props.currentLike.id);
+      } else {
+        var like = {
+          likeable_type: this.state.likeableType,
+          likeable_id: this.state.likeableId,
+          liker_id: this.state.likerId
+        };
+        this.props.createLike(like);
+      }
     } // renderLike() {
     //   if (this.props.onPageSongLiked) {
     //     return <span><i className="fas fa-heart"></i> Liked</span>;
@@ -4522,27 +4525,33 @@ var isEmpty = function isEmpty(obj) {
 /*!****************************************!*\
   !*** ./frontend/util/like_api_util.js ***!
   \****************************************/
-/*! exports provided: createLike, fetchLikes, likesOf, liked */
+/*! exports provided: createLike, removeLike, fetchLikes, likeOf, likesOf, liked */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createLike", function() { return createLike; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeLike", function() { return removeLike; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchLikes", function() { return fetchLikes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "likeOf", function() { return likeOf; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "likesOf", function() { return likesOf; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "liked", function() { return liked; });
 /* harmony import */ var _general_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./general_api_util */ "./frontend/util/general_api_util.js");
 
 var createLike = function createLike(like) {
-  debugger;
   return $.ajax({
     method: "POST",
     url: "/api/likes",
     data: {
       like: like
-    } // contentType: false,
-    // processData: false,
-
+    }
+  });
+};
+var removeLike = function removeLike(id) {
+  debugger;
+  return $.ajax({
+    method: "DELETE",
+    url: "/api/likes/".concat(id)
   });
 };
 var fetchLikes = function fetchLikes() {
@@ -4551,6 +4560,14 @@ var fetchLikes = function fetchLikes() {
     method: "GET",
     url: "/api/likes"
   });
+};
+var likeOf = function likeOf(liker, likes) {
+  for (var i = 0; i < likes.length; i++) {
+    var like = likes[i];
+    if (like.likerId === liker.id) return like;
+  }
+
+  return null;
 };
 var likesOf = function likesOf(likeableType, likeableId, likes) {
   debugger;

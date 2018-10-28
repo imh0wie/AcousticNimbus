@@ -13,6 +13,16 @@ export const createLike = (likeToServer) => {
   };
 };
 
+export const removeLike = (idToServer) => {
+  return dispatch => {
+    return LikeAPIUtil.removeLike(idToServer).then(
+      (likesFromServer) => {
+        return dispatch(receiveLikes(likesFromServer));
+      }
+    )
+  }
+}
+
 export const fetchLikes = () => {
     return (dispatch) => {
       return LikeAPIUtil.fetchLikes().then(
@@ -25,7 +35,6 @@ export const fetchLikes = () => {
 };
 
 const receiveLikes = (likes) => {
-  debugger
     return {
       type: RECEIVE_LIKES,
       likes: likes,
