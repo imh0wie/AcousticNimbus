@@ -5,8 +5,14 @@ class User < ApplicationRecord
 
   has_many :songs
   has_many :likes
-  has_many :followers
-  has_many :followings
+  has_many :followers, {
+    foreign_key: :followed_user_id,
+    class: :Follow,
+  }
+  has_many :followings, {
+    foreign_key: :follower_id,
+    class: :Follow,
+  }
   
   after_initialize :ensure_session_token!
   attr_reader :password

@@ -1,22 +1,32 @@
 class Api::FollowsController < ApplicationController
+  def index
+    @follows = Follow.all
+    render :index
+  end
+  
   def create
-    @follow = Follow.new({
-      follower_id: current_user.id,
-      following_id: params[:following_id],
-    })
+    @follow = Follow.new(like_params)
     if @follow.save
-      render "api/songs/show"
+      @follows = Follow.all
+      render :index
     else
       render @follow.errors.full_messages, status: 401
     end
   end
 
-  def delete
+  def destroy
     @follow = Follow.find(params[:id])
     if @follow.destroy
-      render "api/songs/show"
+      @follows = Follow.all
+      render :index
     else
       render @follow.errors.full_messages, status: 401
     end
+  end
+
+  private
+
+  def like_params
+    params.require(:follow).permit(:likeable_type, :likeable_id, :liker_id)
   end
 end
