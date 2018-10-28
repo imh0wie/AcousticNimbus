@@ -24,45 +24,6 @@ class ApplicationController < ActionController::Base
     @current_user = nil
   end
 
-  # songs filtering methods
-
-  # def songs_by_release(songs, n)
-  #   by_release_hashes = []
-  #   songs.reverse.take(n).each do |song|
-  #     song_hash = {}
-  #     song_hash[id] = song.id
-  #     song_hash[title] = song.title
-  #     song_hash[genre] = song.genre
-  #     song_hash[artist] = song.artist.username
-  #     song_hash[releaseTime] = song.created_at
-  #     song_hash[audioURL] = song.audio_url
-  #     song_hash[imageURL] = song.image_url
-
-  #     by_release_hashes << song_hash
-  #   end
-
-  #   return by_release_hashes
-  # end
-
-  # def songs_by_playback_count(songs, n)
-  #   by_playback_hashes = []
-
-  #   songs.sort_by! { |song| song[:playback_count] }.take(n).each do |song|
-  #     song_hash = {}
-  #     song_hash[id] = song.id
-  #     song_hash[title] = song.title
-  #     song_hash[genre] = song.genre
-  #     song_hash[artist] = song.artist.username
-  #     song_hash[releaseTime] = song.created_at
-  #     song_hash[audioURL] = song.audio_url
-  #     song_hash[imageURL] = song.image_url
-
-  #     by_playback_hashes.unsihft(song_hash)
-  #   end
-
-  #   return by_playback_hashes
-  # end
-
   private
 
   def require_login

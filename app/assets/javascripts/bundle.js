@@ -220,6 +220,56 @@ var receiveCurrentSongErrors = function receiveCurrentSongErrors(errors) {
 
 /***/ }),
 
+/***/ "./frontend/actions/follow_actions.js":
+/*!********************************************!*\
+  !*** ./frontend/actions/follow_actions.js ***!
+  \********************************************/
+/*! exports provided: RECEIVE_FOLLOWS, createFollow, removeFollow, fetchFollows */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_FOLLOWS", function() { return RECEIVE_FOLLOWS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createFollow", function() { return createFollow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeFollow", function() { return removeFollow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchFollows", function() { return fetchFollows; });
+/* harmony import */ var _util_follow_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/follow_api_util */ "./frontend/util/follow_api_util.js");
+
+var RECEIVE_FOLLOWS = "RECEIVE_FOLLOWS";
+var createFollow = function createFollow(followToServer) {
+  return function (dispatch) {
+    return _util_follow_api_util__WEBPACK_IMPORTED_MODULE_0__["createFollow"](followToServer).then(function (followsFromServer) {
+      debugger;
+      return dispatch(receiveFollows(followsFromServer));
+    });
+  };
+};
+var removeFollow = function removeFollow(idToServer) {
+  return function (dispatch) {
+    return _util_follow_api_util__WEBPACK_IMPORTED_MODULE_0__["removeFollow"](idToServer).then(function (followsFromServer) {
+      debugger;
+      return dispatch(receiveFollows(followsFromServer));
+    });
+  };
+};
+var fetchFollows = function fetchFollows() {
+  return function (dispatch) {
+    return _util_follow_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchFollows"]().then(function (followsFromServer) {
+      debugger;
+      return dispatch(receiveFollows(followsFromServer));
+    });
+  };
+};
+
+var receiveFollows = function receiveFollows(follows) {
+  return {
+    type: RECEIVE_FOLLOWS,
+    follows: follows
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/actions/like_actions.js":
 /*!******************************************!*\
   !*** ./frontend/actions/like_actions.js ***!
@@ -447,6 +497,62 @@ var receiveSongsErrors = function receiveSongsErrors(errors) {
   return {
     type: RECEIVE_SONGS_ERRORS,
     errors: errors
+  };
+};
+
+/***/ }),
+
+/***/ "./frontend/actions/user_actions.js":
+/*!******************************************!*\
+  !*** ./frontend/actions/user_actions.js ***!
+  \******************************************/
+/*! exports provided: RECEIVE_USER, RECEIVE_USERS, fetchUsers, fetchUser, editUser, receiveUser, receiveUsers */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_USER", function() { return RECEIVE_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_USERS", function() { return RECEIVE_USERS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUsers", function() { return fetchUsers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUser", function() { return fetchUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editUser", function() { return editUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveUser", function() { return receiveUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveUsers", function() { return receiveUsers; });
+/* harmony import */ var _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/user_api_util */ "./frontend/util/user_api_util.js");
+
+var RECEIVE_USER = 'RECEIVE_USER';
+var RECEIVE_USERS = 'RECEIVE_USERS';
+var fetchUsers = function fetchUsers() {
+  return function (dispatch) {
+    return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchUsers"]().then(function (usersFromServer) {
+      return dispatch(receiveUsers(usersFromServer));
+    });
+  };
+};
+var fetchUser = function fetchUser(userId) {
+  return function (dispatch) {
+    return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchUser"](userId).then(function (userFromServer) {
+      return dispatch(receiveUser(userFromServer));
+    });
+  };
+};
+var editUser = function editUser(userToServer, userId) {
+  return function (dispatch) {
+    return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__["editUser"](userToServer, userId).then(function (userFromServer) {
+      return dispatch(receiveUser(userFromServer));
+    });
+  };
+};
+var receiveUser = function receiveUser(user) {
+  return {
+    type: RECEIVE_USER,
+    user: user
+  };
+};
+var receiveUsers = function receiveUsers(users) {
+  return {
+    type: RECEIVE_USERS,
+    users: users
   };
 };
 
@@ -2362,11 +2468,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var _actions_song_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/song_actions */ "./frontend/actions/song_actions.js");
-/* harmony import */ var _actions_current_song_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/current_song_actions */ "./frontend/actions/current_song_actions.js");
-/* harmony import */ var _actions_like_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/like_actions */ "./frontend/actions/like_actions.js");
-/* harmony import */ var _util_like_api_util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../util/like_api_util */ "./frontend/util/like_api_util.js");
-/* harmony import */ var _waveform__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./waveform */ "./frontend/components/song_show_page/waveform.jsx");
+/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
+/* harmony import */ var _actions_song_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/song_actions */ "./frontend/actions/song_actions.js");
+/* harmony import */ var _actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/current_song_actions */ "./frontend/actions/current_song_actions.js");
+/* harmony import */ var _actions_like_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../actions/like_actions */ "./frontend/actions/like_actions.js");
+/* harmony import */ var _actions_follow_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../actions/follow_actions */ "./frontend/actions/follow_actions.js");
+/* harmony import */ var _util_like_api_util__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../util/like_api_util */ "./frontend/util/like_api_util.js");
+/* harmony import */ var _waveform__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./waveform */ "./frontend/components/song_show_page/waveform.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2394,43 +2502,57 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 
+
+
 var msp = function msp(state, ownProps) {
+  var songId = ownProps.match.params.songId;
+  var onPageSong = state.entities.songs[songId];
   debugger;
   return {
-    onPageSong: state.entities.songs[ownProps.match.params.songId],
-    onPageSongId: parseInt(ownProps.match.params.songId),
-    onPageSongLiked: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["liked"])(state.entities.users[state.session.id], Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likesOf"])("Song", parseInt(ownProps.match.params.songId), state.entities.likes)),
+    onPageSong: onPageSong,
+    onPageSongId: parseInt(songId),
+    onPageSongLiked: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_8__["liked"])(state.entities.users[state.session.id], Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_8__["likesOf"])("Song", parseInt(songId), state.entities.likes)),
+    onPageSongArtistFollowed: state.entities.users[onPageSong.artistId],
     currentSong: state.ui.currentSong,
     currentUser: state.entities.users[state.session.id],
-    currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(state.entities.users[state.session.id], Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likesOf"])("Song", parseInt(ownProps.match.params.songId), state.entities.likes))
+    currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_8__["likeOf"])(state.entities.users[state.session.id], Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_8__["likesOf"])("Song", parseInt(songId), state.entities.likes))
   };
 };
 
 var mdp = function mdp(dispatch) {
   return {
     fetchSongs: function fetchSongs() {
-      return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["fetchSongs"])());
+      return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_4__["fetchSongs"])());
     },
     fetchSong: function fetchSong(id) {
-      return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["fetchSong"])(id));
+      return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_4__["fetchSong"])(id));
     },
     setCurrentSong: function setCurrentSong(song) {
-      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_4__["setCurrentSong"])(song));
+      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["setCurrentSong"])(song));
     },
     playSong: function playSong() {
-      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_4__["playSong"])());
+      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["playSong"])());
     },
     pauseSong: function pauseSong() {
-      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_4__["pauseSong"])());
+      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["pauseSong"])());
     },
     createLike: function createLike(like) {
-      return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_5__["createLike"])(like));
+      return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_6__["createLike"])(like));
     },
     removeLike: function removeLike(id) {
-      return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_5__["removeLike"])(id));
+      return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_6__["removeLike"])(id));
     },
     fetchLikes: function fetchLikes() {
-      return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_5__["fetchLikes"])());
+      return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_6__["fetchLikes"])());
+    },
+    createFollow: function createFollow(follow) {
+      return dispatch(Object(_actions_follow_actions__WEBPACK_IMPORTED_MODULE_7__["createFollow"])(follow));
+    },
+    removeFollow: function removeFollow(id) {
+      return dispatch(Object(_actions_follow_actions__WEBPACK_IMPORTED_MODULE_7__["removeFollow"])(id));
+    },
+    fetchFollows: function fetchFollows() {
+      return dispatch(Object(_actions_follow_actions__WEBPACK_IMPORTED_MODULE_7__["fetchFollows"])());
     }
   };
 };
@@ -2466,6 +2588,7 @@ function (_React$Component) {
       debugger;
       this.props.fetchSongs();
       this.props.fetchLikes();
+      this.props.fetchUsers();
     }
   }, {
     key: "renderPlayPauseSign",
@@ -2561,6 +2684,9 @@ function (_React$Component) {
       }
     }
   }, {
+    key: "renderFollowButton",
+    value: function renderFollowButton() {}
+  }, {
     key: "render",
     value: function render() {
       if (!this.props.onPageSong) {
@@ -2595,7 +2721,7 @@ function (_React$Component) {
           className: "song-show-page-song-genre"
         }, "#", this.props.onPageSong.genre))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "banner-player-waveform-container"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_waveform__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_waveform__WEBPACK_IMPORTED_MODULE_9__["default"], {
           onPageSong: this.props.onPageSong,
           onPageSongId: this.props.onPageSongId,
           currentSong: this.props.currentSong
@@ -2640,9 +2766,7 @@ function (_React$Component) {
           className: "song-show-page-artist"
         }, this.props.onPageSong.artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-show-page-artist-follows-container"
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          className: "song-show-page-follow-button"
-        }, "Follow")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-show-page-description-comments"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-show-page-description-container"
@@ -4108,6 +4232,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _users_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./users_reducer */ "./frontend/reducers/users_reducer.js");
 /* harmony import */ var _songs_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./songs_reducer */ "./frontend/reducers/songs_reducer.js");
 /* harmony import */ var _likes_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./likes_reducer */ "./frontend/reducers/likes_reducer.js");
+/* harmony import */ var _follows_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./follows_reducer */ "./frontend/reducers/follows_reducer.js");
+
 
 
 
@@ -4115,7 +4241,8 @@ __webpack_require__.r(__webpack_exports__);
 var entitiesReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   users: _users_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
   songs: _songs_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
-  likes: _likes_reducer__WEBPACK_IMPORTED_MODULE_3__["default"]
+  likes: _likes_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
+  follows: _follows_reducer__WEBPACK_IMPORTED_MODULE_4__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (entitiesReducer);
 
@@ -4141,6 +4268,44 @@ var errorsReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"]
   songs: _songs_errors_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (errorsReducer);
+
+/***/ }),
+
+/***/ "./frontend/reducers/follows_reducer.js":
+/*!**********************************************!*\
+  !*** ./frontend/reducers/follows_reducer.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_follow_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/follow_actions */ "./frontend/actions/follow_actions.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var defaultState = {
+  id: null,
+  followedUserId: null,
+  followerId: null
+};
+
+var followsReducer = function followsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_follow_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_FOLLOWS"]:
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, action.follows);
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (followsReducer);
 
 /***/ }),
 
@@ -4438,10 +4603,12 @@ var uiReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/user_actions */ "./frontend/actions/user_actions.js");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -4452,8 +4619,11 @@ var usersReducer = function usersReducer() {
   Object.freeze(state);
 
   switch (action.type) {
-    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
-      return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, _defineProperty({}, action.currentUser.id, action.currentUser));
+    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_USERS"]:
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, state, action.users);
+
+    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_CURRENT_USER"]:
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, state, _defineProperty({}, action.currentUser.id, action.currentUser));
 
     default:
       return state;
@@ -4489,6 +4659,45 @@ var configureStore = function configureStore() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (configureStore);
+
+/***/ }),
+
+/***/ "./frontend/util/follow_api_util.js":
+/*!******************************************!*\
+  !*** ./frontend/util/follow_api_util.js ***!
+  \******************************************/
+/*! exports provided: createFollow, removeFollow, fetchFollows */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createFollow", function() { return createFollow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeFollow", function() { return removeFollow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchFollows", function() { return fetchFollows; });
+var createFollow = function createFollow(follow) {
+  debugger;
+  return $.ajax({
+    method: "POST",
+    url: "/api/follows",
+    data: {
+      follow: follow
+    }
+  });
+};
+var removeFollow = function removeFollow(id) {
+  debugger;
+  return $.ajax({
+    method: "DELETE",
+    url: "/api/follows/".concat(id)
+  });
+};
+var fetchFollows = function fetchFollows() {
+  debugger;
+  return $.ajax({
+    method: "GET",
+    url: "/api/follows"
+  });
+};
 
 /***/ }),
 
@@ -4772,6 +4981,35 @@ var shuffle = function shuffle(n, songs) {
 //   }
 //   return true;
 // }
+
+/***/ }),
+
+/***/ "./frontend/util/user_api_util.js":
+/*!****************************************!*\
+  !*** ./frontend/util/user_api_util.js ***!
+  \****************************************/
+/*! exports provided: fetchUser, editUser */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUser", function() { return fetchUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editUser", function() { return editUser; });
+var fetchUser = function fetchUser(userId) {
+  return $.ajax({
+    method: 'GET',
+    url: "/api/users/".concat(userId)
+  });
+};
+var editUser = function editUser(user, userId) {
+  return $.ajax({
+    method: 'PATCH',
+    url: "/api/users/".concat(userId),
+    data: user,
+    contentType: false,
+    processData: false
+  });
+};
 
 /***/ }),
 

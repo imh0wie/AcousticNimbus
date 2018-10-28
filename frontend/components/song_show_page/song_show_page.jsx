@@ -1,21 +1,26 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
+import { fetchUsers } from "../../actions/user_actions";
 import { fetchSongs, fetchSong } from "../../actions/song_actions";
 import { setCurrentSong, playSong, pauseSong } from "../../actions/current_song_actions";
 import { createLike, removeLike, fetchLikes } from "../../actions/like_actions";
+import { createFollow, removeFollow, fetchFollows } from "../../actions/follow_actions";
 import { likeOf, likesOf, liked } from "../../util/like_api_util";
 import Waveform from "./waveform";
 
 const msp = (state, ownProps) => {
+  const songId = ownProps.match.params.songId;
+  const onPageSong = state.entities.songs[songId];
   debugger
   return ({ 
-    onPageSong: state.entities.songs[ownProps.match.params.songId],
-    onPageSongId: parseInt(ownProps.match.params.songId),
-    onPageSongLiked: liked(state.entities.users[state.session.id], likesOf("Song", parseInt(ownProps.match.params.songId), state.entities.likes)),
+    onPageSong: onPageSong,
+    onPageSongId: parseInt(songId),
+    onPageSongLiked: liked(state.entities.users[state.session.id], likesOf("Song", parseInt(songId), state.entities.likes)),
+    onPageSongArtistFollowed: state.entities.users[onPageSong.artistId],
     currentSong: state.ui.currentSong,
     currentUser: state.entities.users[state.session.id],
-    currentLike: likeOf(state.entities.users[state.session.id], likesOf("Song", parseInt(ownProps.match.params.songId), state.entities.likes)),
+    currentLike: likeOf(state.entities.users[state.session.id], likesOf("Song", parseInt(songId), state.entities.likes)),
   });
 };
 
@@ -29,6 +34,9 @@ const mdp = (dispatch) => {
       createLike: (like) => dispatch(createLike(like)),
       removeLike: (id) => dispatch(removeLike(id)),
       fetchLikes: () => dispatch(fetchLikes()),
+      createFollow: (follow) => dispatch(createFollow(follow)),
+      removeFollow: (id) => dispatch(removeFollow(id)),
+      fetchFollows: () => dispatch(fetchFollows()),
   });
 };
 
@@ -50,8 +58,9 @@ class SongShowPage extends React.Component {
   componentDidMount() {
     // this.props.fetchSong(this.props.onPageSongId);
     debugger
-    this.props.fetchSongs()
+    this.props.fetchSongs();
     this.props.fetchLikes();
+    this.props.fetchUsers();
   }
 
   renderPlayPauseSign(song) {
@@ -116,6 +125,10 @@ class SongShowPage extends React.Component {
     }
   }
 
+  renderFollowButton() {
+
+  }
+
   render() {
     if (!this.props.onPageSong) {
       return (
@@ -177,7 +190,7 @@ class SongShowPage extends React.Component {
                   <Link to={`/users/${this.props.onPageSong.artistId}`} className="song-show-page-artist">{this.props.onPageSong.artist}</Link>
                   <div className="song-show-page-artist-follows-container">
                   </div>
-                  <button className="song-show-page-follow-button">Follow</button>
+
                 </div>
                 <div className="song-show-page-description-comments">
                   <div className="song-show-page-description-container">
