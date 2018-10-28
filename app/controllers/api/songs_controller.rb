@@ -13,9 +13,7 @@ class Api::SongsController < ApplicationController
   def create
     @song = Song.new(song_params)
     # @song.artist_id = current_user.id
-    debugger
     if @song.save
-      debugger
       render :show
     else
       render json: @song.errors.full_messages, status: 401

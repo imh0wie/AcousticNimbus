@@ -5,14 +5,10 @@ class Api::LikesController < ApplicationController
   end
   
   def create
-    debugger
     @like = Like.new(like_params)
     # @like = Like.new(like_params)
-    debugger
     if @like.save
-      debugger
       @likes = Like.all
-      debugger
       render :index
     else
       render @like.errors.full_messages, status: 401

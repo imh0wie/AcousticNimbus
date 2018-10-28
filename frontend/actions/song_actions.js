@@ -53,7 +53,6 @@ const receiveSong = ({ song }) => {
 };
 
 const receiveSongs = (songs) => {
-  // debugger
   return {
     type: RECEIVE_SONGS,
     songs: songs,

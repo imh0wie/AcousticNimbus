@@ -8,12 +8,12 @@ import { likesOf, liked } from "../../util/like_api_util";
 import Waveform from "./waveform";
 
 const msp = (state, ownProps) => {
-  return ({
-    // songs: latest()
+  debugger
+  return ({ 
     onPageSong: state.entities.songs[ownProps.match.params.songId],
     onPageSongId: parseInt(ownProps.match.params.songId),
-    onPageSongLikes: likesOf("song", parseInt(ownProps.match.params.songId), state.entities.likes),
-    onPageSongLiked: liked(state.entities.users[state.session.id], likesOf("song", parseInt(ownProps.match.params.songId), state.entities.likes)),
+    // onPageSongLikes: likesOf("Song", parseInt(ownProps.match.params.songId), state.entities.likes),
+    onPageSongLiked: liked(state.entities.users[state.session.id], likesOf("Song", parseInt(ownProps.match.params.songId), state.entities.likes)),
     currentSong: state.ui.currentSong,
     currentUser: state.entities.users[state.session.id],
   });
@@ -35,9 +35,9 @@ class SongShowPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      likeableType: "song",
-      likeableId: this.props.onPageSongId,
-      likerId: this.props.currentUser.id,
+      likeableType: "Song",
+      likeableId: parseInt(this.props.onPageSongId),
+      likerId: parseInt(this.props.currentUser.id),
     }
     this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this);
     // this.renderLike = this.renderLike.bind(this);
@@ -49,7 +49,7 @@ class SongShowPage extends React.Component {
   componentDidMount() {
     // this.props.fetchSong(this.props.onPageSongId);
     debugger
-    this.props.fetchSongs();
+    this.props.fetchSongs()
     this.props.fetchLikes();
   }
 
@@ -87,7 +87,6 @@ class SongShowPage extends React.Component {
 
   handleLike(e) {
     e.preventDefault();
-    debugger
     // let likeData = new FormData();
     const like = {
       // like: {
@@ -99,7 +98,6 @@ class SongShowPage extends React.Component {
     // likeData.append('like[likeable_type]', this.state.likeableType);
     // likeData.append('like[likeable_id]', this.state.likeableId);
     // likeData.append('like[liker_id]', this.state.likerId);
-    debugger
     this.props.createLike(like);
   }
 
@@ -112,11 +110,14 @@ class SongShowPage extends React.Component {
   // }
 
   renderLikeButton() {
+    debugger
     if (this.props.onPageSongLiked) {
+      debugger
       return (
         <button className="song-show-page-liked-button" onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> Liked</button>
       );
     } else {
+      debugger
       return (
         <button className="song-show-page-like-button" onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> Like</button>
       );

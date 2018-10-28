@@ -238,6 +238,7 @@ var RECEIVE_LIKES = "RECEIVE_LIKES";
 var createLike = function createLike(likeToServer) {
   return function (dispatch) {
     return _util_like_api_util__WEBPACK_IMPORTED_MODULE_0__["createLike"](likeToServer).then(function (likesFromServer) {
+      debugger;
       return dispatch(receiveLikes(likesFromServer));
     });
   };
@@ -252,6 +253,7 @@ var fetchLikes = function fetchLikes() {
 };
 
 var receiveLikes = function receiveLikes(likes) {
+  debugger;
   return {
     type: RECEIVE_LIKES,
     likes: likes
@@ -426,7 +428,6 @@ var receiveSong = function receiveSong(_ref) {
 };
 
 var receiveSongs = function receiveSongs(songs) {
-  // debugger
   return {
     type: RECEIVE_SONGS,
     songs: songs
@@ -2392,12 +2393,12 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 var msp = function msp(state, ownProps) {
+  debugger;
   return {
-    // songs: latest()
     onPageSong: state.entities.songs[ownProps.match.params.songId],
     onPageSongId: parseInt(ownProps.match.params.songId),
-    onPageSongLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likesOf"])("song", parseInt(ownProps.match.params.songId), state.entities.likes),
-    onPageSongLiked: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["liked"])(state.entities.users[state.session.id], Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likesOf"])("song", parseInt(ownProps.match.params.songId), state.entities.likes)),
+    // onPageSongLikes: likesOf("Song", parseInt(ownProps.match.params.songId), state.entities.likes),
+    onPageSongLiked: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["liked"])(state.entities.users[state.session.id], Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likesOf"])("Song", parseInt(ownProps.match.params.songId), state.entities.likes)),
     currentSong: state.ui.currentSong,
     currentUser: state.entities.users[state.session.id]
   };
@@ -2441,9 +2442,9 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SongShowPage).call(this, props));
     _this.state = {
-      likeableType: "song",
-      likeableId: _this.props.onPageSongId,
-      likerId: _this.props.currentUser.id
+      likeableType: "Song",
+      likeableId: parseInt(_this.props.onPageSongId),
+      likerId: parseInt(_this.props.currentUser.id)
     };
     _this.renderPlayPauseSign = _this.renderPlayPauseSign.bind(_assertThisInitialized(_assertThisInitialized(_this))); // this.renderLike = this.renderLike.bind(this);
 
@@ -2511,8 +2512,7 @@ function (_React$Component) {
   }, {
     key: "handleLike",
     value: function handleLike(e) {
-      e.preventDefault();
-      debugger; // let likeData = new FormData();
+      e.preventDefault(); // let likeData = new FormData();
 
       var like = {
         // like: {
@@ -2524,7 +2524,6 @@ function (_React$Component) {
         // likeData.append('like[liker_id]', this.state.likerId);
 
       };
-      debugger;
       this.props.createLike(like);
     } // renderLike() {
     //   if (this.props.onPageSongLiked) {
@@ -2539,7 +2538,10 @@ function (_React$Component) {
     value: function renderLikeButton() {
       var _this3 = this;
 
+      debugger;
+
       if (this.props.onPageSongLiked) {
+        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "song-show-page-liked-button",
           onClick: function onClick(e) {
@@ -2549,6 +2551,7 @@ function (_React$Component) {
           className: "fas fa-heart"
         }), " Liked");
       } else {
+        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "song-show-page-like-button",
           onClick: function onClick(e) {
@@ -3777,13 +3780,10 @@ function (_React$Component) {
           }
         }));
       }
-
-      debugger;
     }
   }, {
     key: "render",
     value: function render() {
-      debugger;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "splash-page-songs-index-item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -4174,7 +4174,6 @@ var likesReducer = function likesReducer() {
 
   switch (action.type) {
     case _actions_like_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_LIKES"]:
-      debugger;
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, action.likes);
 
     default:
@@ -4547,6 +4546,7 @@ var createLike = function createLike(like) {
   });
 };
 var fetchLikes = function fetchLikes() {
+  debugger;
   return $.ajax({
     method: "GET",
     url: "/api/likes"
@@ -4555,25 +4555,27 @@ var fetchLikes = function fetchLikes() {
 var likesOf = function likesOf(likeableType, likeableId, likes) {
   debugger;
   if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(likes)) return [];
-  var likeIds = Object.keys(likes).reverse;
+  var likeIds = Object.keys(likes).reverse();
   var output = [];
   debugger;
   likeIds.forEach(function (likeId) {
-    if (likes.likeId.likeableType === likeableType || likes.likeId.likeableId === likeableId) {
+    var id = parseInt(likeId);
+    var like = likes[id];
+    debugger;
+
+    if (like.likeableType === likeableType && like.likeableId === likeableId) {
+      debugger;
       output.push(likes[likeId]);
     }
   });
+  debugger;
   return output;
 };
 var liked = function liked(currentUser, likes) {
-  likes.forEach(function (like) {
-    if (like.likerId === currentUser.id) {
-      debugger;
-      return true;
-    }
-  });
   debugger;
-  return false;
+  return likes.some(function (like) {
+    return like.likerId === currentUser.id;
+  });
 };
 
 /***/ }),

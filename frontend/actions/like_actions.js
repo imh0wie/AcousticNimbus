@@ -3,14 +3,15 @@ import * as LikeAPIUtil from "../util/like_api_util";
 export const RECEIVE_LIKES = "RECEIVE_LIKES";
 
 export const createLike = (likeToServer) => {
-    return dispatch => {
-      return LikeAPIUtil.createLike(likeToServer).then(
-        (likesFromServer) => {
-          return dispatch(receiveLikes(likesFromServer));
-        }
-      );
-    };
+  return dispatch => {
+    return LikeAPIUtil.createLike(likeToServer).then(
+      (likesFromServer) => {
+        debugger
+        return dispatch(receiveLikes(likesFromServer));
+      }
+    );
   };
+};
 
 export const fetchLikes = () => {
     return (dispatch) => {
@@ -24,6 +25,7 @@ export const fetchLikes = () => {
 };
 
 const receiveLikes = (likes) => {
+  debugger
     return {
       type: RECEIVE_LIKES,
       likes: likes,
