@@ -2585,6 +2585,7 @@ function (_React$Component) {
       followedUserId: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_9__["artistIdOf"])(_this.props.onPageSong),
       followerId: _this.props.currentUser.id
     };
+    debugger;
     _this.renderPlayPauseSign = _this.renderPlayPauseSign.bind(_assertThisInitialized(_assertThisInitialized(_this))); // this.renderLike = this.renderLike.bind(this);
 
     _this.renderLikeButton = _this.renderLikeButton.bind(_assertThisInitialized(_assertThisInitialized(_this)));
@@ -2602,7 +2603,17 @@ function (_React$Component) {
       debugger;
       this.props.fetchSongs();
       this.props.fetchLikes();
+      this.props.fetchFollows();
       this.props.fetchUsers();
+    }
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      if (Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_9__["artistIdOf"])(nextProps.onPageSong) !== this.state.followedUserId) {
+        this.setState({
+          followedUserId: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_9__["artistIdOf"])(nextProps.onPageSong)
+        });
+      }
     }
   }, {
     key: "renderPlayPauseSign",
@@ -2667,14 +2678,17 @@ function (_React$Component) {
     key: "handleFollow",
     value: function handleFollow(e) {
       e.preventDefault();
+      debugger;
 
       if (this.props.currentFollow) {
         this.props.removeFollow(this.props.currentFollow.id);
       } else {
+        debugger;
         var follow = {
           followed_user_id: this.state.followedUserId,
           follower_id: this.state.followerId
         };
+        debugger;
         this.props.createFollow(follow);
       }
     }
@@ -2711,6 +2725,7 @@ function (_React$Component) {
       var _this4 = this;
 
       debugger;
+      if (this.props.onPageSong.artistId === this.props.currentUser.id) return;
 
       if (this.props.currentFollow) {
         debugger;
@@ -4746,20 +4761,23 @@ var fetchFollows = function fetchFollows() {
   });
 };
 var artistIdOf = function artistIdOf(onPageSong) {
-  onPageSong ? onPageSong.artistId : null; // const songIds = Object.keys(songs);
-  // for (let i = 0; i < songIds.length; i++) {
-  //     const songId = songIds[i];
-  //     const song = songs[songId];
-  //     if (song.id === onPageSong.id) {
-  //         return onPageSong.artistId;
-  //     }
-  // }
+  debugger; // onPageSong ? onPageSong.artistId : null;
+
+  if (onPageSong) {
+    debugger;
+    return onPageSong.artistId;
+  } else {
+    debugger;
+    return null;
+  }
 };
 var followOf = function followOf(followedUserId, followerId, follows) {
   if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(follows)) return null;
+  var followIds = Object.keys(follows);
 
-  for (var i = 0; i < follows.length; i++) {
-    var follow = follows[i];
+  for (var i = 0; i < followIds.length; i++) {
+    var followId = followIds[i];
+    var follow = follows[followId];
     if (follow.followedUserId === followedUserId && follow.followerId === followerId) return follow;
   }
 
@@ -4818,7 +4836,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _general_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./general_api_util */ "./frontend/util/general_api_util.js");
 
 var createLike = function createLike(like) {
-  debugger;
   return $.ajax({
     method: "POST",
     url: "/api/likes",
@@ -4828,7 +4845,6 @@ var createLike = function createLike(like) {
   });
 };
 var removeLike = function removeLike(id) {
-  debugger;
   return $.ajax({
     method: "DELETE",
     url: "/api/likes/".concat(id)
@@ -4857,7 +4873,6 @@ var fetchLikes = function fetchLikes() {
 
 var likeOf = function likeOf(likeableType, likeableId, liker, likes) {
   if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(likes)) return null;
-  debugger;
   var likeIds = Object.keys(likes);
 
   for (var i = 0; i < likeIds.length; i++) {
@@ -4867,7 +4882,6 @@ var likeOf = function likeOf(likeableType, likeableId, liker, likes) {
     if (like.likeableType === likeableType && like.likeableId === likeableId && like.likerId === liker.id) return like;
   }
 
-  debugger;
   return null;
 }; // export const liked = (currentUser, likes) => {
 //     return likes.some((like) => {

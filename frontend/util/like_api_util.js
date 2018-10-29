@@ -1,7 +1,6 @@
 import { isEmpty } from "./general_api_util";
 
 export const createLike = (like) => {
-    debugger
     return $.ajax({
         method: "POST",
         url: "/api/likes",
@@ -10,7 +9,6 @@ export const createLike = (like) => {
 };
 
 export const removeLike = (id) => {
-    debugger
     return $.ajax({
         method: "DELETE",
         url: `/api/likes/${id}`,
@@ -42,7 +40,6 @@ export const fetchLikes = () => {
 
 export const likeOf = (likeableType, likeableId, liker, likes) => {
     if (isEmpty(likes)) return null;
-    debugger
     const likeIds = Object.keys(likes);
     for (let i = 0; i < likeIds.length; i++ ) {
         const likeId = likeIds[i];
@@ -50,7 +47,6 @@ export const likeOf = (likeableType, likeableId, liker, likes) => {
         debugger
         if (like.likeableType === likeableType && like.likeableId === likeableId && like.likerId === liker.id) return like;
     }
-    debugger
     return null;
 }
 

@@ -26,21 +26,23 @@ export const fetchFollows = () => {
 };
 
 export const artistIdOf = (onPageSong) => {
-    onPageSong ? onPageSong.artistId : null;
-    // const songIds = Object.keys(songs);
-    // for (let i = 0; i < songIds.length; i++) {
-    //     const songId = songIds[i];
-    //     const song = songs[songId];
-    //     if (song.id === onPageSong.id) {
-    //         return onPageSong.artistId;
-    //     }
-    // }
+    debugger
+    // onPageSong ? onPageSong.artistId : null;
+    if (onPageSong) {
+        debugger
+        return onPageSong.artistId;
+    } else {
+        debugger
+        return null;
+    }
 }
 
 export const followOf = (followedUserId, followerId, follows) => {
     if (isEmpty(follows)) return null;
-    for (let i = 0; i < follows.length; i++ ) {
-        const follow = follows[i];
+    const followIds = Object.keys(follows);
+    for (let i = 0; i < followIds.length; i++ ) {
+        const followId = followIds[i];
+        const follow = follows[followId];
         if (follow.followedUserId === followedUserId && follow.followerId === followerId) return follow;
     }
     return null;

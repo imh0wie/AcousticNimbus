@@ -57,6 +57,7 @@ class SongShowPage extends React.Component {
       followedUserId: artistIdOf(this.props.onPageSong),
       followerId: this.props.currentUser.id,
     }
+    debugger
     this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this);
     // this.renderLike = this.renderLike.bind(this);
     this.renderLikeButton = this.renderLikeButton.bind(this);
@@ -71,7 +72,16 @@ class SongShowPage extends React.Component {
     debugger
     this.props.fetchSongs();
     this.props.fetchLikes();
+    this.props.fetchFollows();
     this.props.fetchUsers();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (artistIdOf(nextProps.onPageSong) !== this.state.followedUserId) {
+      this.setState({
+        followedUserId: artistIdOf(nextProps.onPageSong),
+      });
+    }
   }
 
   renderPlayPauseSign(song) {
@@ -117,13 +127,16 @@ class SongShowPage extends React.Component {
 
   handleFollow(e) {
     e.preventDefault();
+    debugger
     if (this.props.currentFollow) {
       this.props.removeFollow(this.props.currentFollow.id);
     } else {
+      debugger
       const follow = {
         followed_user_id: this.state.followedUserId,
         follower_id: this.state.followerId,
       }
+      debugger
       this.props.createFollow(follow);
     }
   }
@@ -143,6 +156,7 @@ class SongShowPage extends React.Component {
 
   renderFollowButton() {
     debugger
+    if (this.props.onPageSong.artistId === this.props.currentUser.id) return;
     if (this.props.currentFollow) {
       debugger
       return (
