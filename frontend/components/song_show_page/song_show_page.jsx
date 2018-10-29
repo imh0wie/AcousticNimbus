@@ -129,6 +129,7 @@ class SongShowPage extends React.Component {
     e.preventDefault();
     debugger
     if (this.props.currentFollow) {
+      debugger
       this.props.removeFollow(this.props.currentFollow.id);
     } else {
       debugger

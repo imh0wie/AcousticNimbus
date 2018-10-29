@@ -6,11 +6,8 @@ class Api::FollowsController < ApplicationController
   
   def create
     @follow = Follow.new(follow_params)
-    debugger
     if @follow.save
-      debugger
       @follows = Follow.all
-      debugger
       render :index
     else
       render @follow.errors.full_messages, status: 401
@@ -19,11 +16,8 @@ class Api::FollowsController < ApplicationController
 
   def destroy
     @follow = Follow.find(params[:id])
-    debugger
     if @follow.destroy
-      debugger
       @follows = Follow.all
-      debugger
       render :index
     else
       render @follow.errors.full_messages, status: 401

@@ -9,6 +9,7 @@ export const createLike = (like) => {
 };
 
 export const removeLike = (id) => {
+    debugger
     return $.ajax({
         method: "DELETE",
         url: `/api/likes/${id}`,

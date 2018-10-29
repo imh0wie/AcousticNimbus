@@ -2681,6 +2681,7 @@ function (_React$Component) {
       debugger;
 
       if (this.props.currentFollow) {
+        debugger;
         this.props.removeFollow(this.props.currentFollow.id);
       } else {
         debugger;
@@ -4845,6 +4846,7 @@ var createLike = function createLike(like) {
   });
 };
 var removeLike = function removeLike(id) {
+  debugger;
   return $.ajax({
     method: "DELETE",
     url: "/api/likes/".concat(id)
