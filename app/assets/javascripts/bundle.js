@@ -2509,14 +2509,16 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 var msp = function msp(state, ownProps) {
   var songId = ownProps.match.params.songId;
   var onPageSong = state.entities.songs[songId];
-  var currentUser = state.entites.users[state.session.id];
+  var currentUser = state.entities.users[state.session.id];
   var likes = state.entities.likes;
+  var follows = state.entities.follows;
   debugger;
   return {
     onPageSong: onPageSong,
     onPageSongId: parseInt(songId),
-    onPageSongLiked: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_8__["liked"])(currentUser, Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_8__["likesOf"])("Song", parseInt(songId), likes)),
-    onPageArtist: state.entities.users[Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_9__["artistIdOf"])(onPageSong)],
+    // onPageSongLiked: liked(currentUser, likesOf("Song", parseInt(songId), likes)),
+    // onPageArtist: state.entities.users[artistIdOf(onPageSong)],
+    onPageArtistFollowed: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_9__["followed"])(Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_9__["artistIdOf"])(onPageSong), state.session.id, follows),
     currentSong: state.ui.currentSong,
     currentUser: currentUser,
     currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_8__["likeOf"])(currentUser, Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_8__["likesOf"])("Song", parseInt(songId), likes))
@@ -2583,6 +2585,7 @@ function (_React$Component) {
     _this.renderPlayPauseSign = _this.renderPlayPauseSign.bind(_assertThisInitialized(_assertThisInitialized(_this))); // this.renderLike = this.renderLike.bind(this);
 
     _this.renderLikeButton = _this.renderLikeButton.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.renderFollowButton = _this.renderFollowButton.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.togglePlayPause = _this.togglePlayPause.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleLike = _this.handleLike.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
@@ -2643,7 +2646,7 @@ function (_React$Component) {
     value: function handleLike(e) {
       e.preventDefault();
 
-      if (this.props.onPageSongLiked) {
+      if (this.props.currentLike) {
         this.props.removeLike(this.props.currentLike.id);
       } else {
         var like = {
@@ -2653,23 +2656,13 @@ function (_React$Component) {
         };
         this.props.createLike(like);
       }
-    } // renderLike() {
-    //   if (this.props.onPageSongLiked) {
-    //     return <span><i className="fas fa-heart"></i> Liked</span>;
-    //   } else {
-    //     return <span><i className="fas fa-heart"></i> Like</span>;
-    //   }
-    // }
-
+    }
   }, {
     key: "renderLikeButton",
     value: function renderLikeButton() {
       var _this3 = this;
 
-      debugger;
-
-      if (this.props.onPageSongLiked) {
-        debugger;
+      if (this.props.currentLike) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "song-show-page-liked-button",
           onClick: function onClick(e) {
@@ -2679,7 +2672,6 @@ function (_React$Component) {
           className: "fas fa-heart"
         }), " Liked");
       } else {
-        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "song-show-page-like-button",
           onClick: function onClick(e) {
@@ -2692,11 +2684,34 @@ function (_React$Component) {
     }
   }, {
     key: "renderFollowButton",
-    value: function renderFollowButton() {}
+    value: function renderFollowButton() {
+      var _this4 = this;
+
+      debugger;
+
+      if (this.props.onPageArtistFollowed) {
+        debugger;
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "song-show-page-follow-button",
+          onClick: function onClick(e) {
+            return _this4.handleFollow(e);
+          }
+        }, "Following");
+      } else {
+        debugger;
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "song-show-page-follow-button",
+          onClick: function onClick(e) {
+            return _this4.handleFollow(e);
+          }
+        }, "Follow");
+      }
+    }
   }, {
     key: "render",
     value: function render() {
       if (!this.props.onPageSong) {
+        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loading,
           className: "loading"
@@ -2773,7 +2788,7 @@ function (_React$Component) {
           className: "song-show-page-artist"
         }, this.props.onPageSong.artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-show-page-artist-follows-container"
-        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, this.renderFollowButton())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-show-page-description-comments"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-show-page-description-container"
@@ -4291,15 +4306,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
 
-
-var defaultState = {
-  id: null,
-  followedUserId: null,
-  followerId: null
-};
+ // const defaultState = {
+//   id: null,
+//   followedUserId: null,
+//   followerId: null,
+// };
 
 var followsReducer = function followsReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
 
@@ -4329,16 +4343,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
 
-
-var defaultState = {
-  id: null,
-  likeableType: null,
-  likeableId: null,
-  likerId: null
-};
+ // const defaultState = {
+//   id: null,
+//   likeableType: null,
+//   likeableId: null,
+//   likerId: null,
+// };
 
 var likesReducer = function likesReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
 
@@ -4673,7 +4686,7 @@ var configureStore = function configureStore() {
 /*!******************************************!*\
   !*** ./frontend/util/follow_api_util.js ***!
   \******************************************/
-/*! exports provided: createFollow, removeFollow, fetchFollows, artistIdOf */
+/*! exports provided: createFollow, removeFollow, fetchFollows, artistIdOf, followed */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4682,6 +4695,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeFollow", function() { return removeFollow; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchFollows", function() { return fetchFollows; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "artistIdOf", function() { return artistIdOf; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "followed", function() { return followed; });
 /* harmony import */ var _general_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./general_api_util */ "./frontend/util/general_api_util.js");
 
 var createFollow = function createFollow(follow) {
@@ -4717,6 +4731,17 @@ var artistIdOf = function artistIdOf(onPageSong) {
   //         return onPageSong.artistId;
   //     }
   // }
+};
+var followed = function followed(artistId, currentUserId, follows) {
+  debugger;
+  if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(follows)) return null;
+  var followIds = Object.keys(follows);
+  debugger;
+  followIds.some(function (followId) {
+    var follow = follows[followId];
+    debugger;
+    return followed_user_id === artistId && follower_id === currentUserId;
+  });
 };
 
 /***/ }),
@@ -4779,13 +4804,14 @@ var removeLike = function removeLike(id) {
   });
 };
 var fetchLikes = function fetchLikes() {
-  debugger;
   return $.ajax({
     method: "GET",
     url: "/api/likes"
   });
 };
 var likeOf = function likeOf(liker, likes) {
+  if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(likes)) return null;
+
   for (var i = 0; i < likes.length; i++) {
     var like = likes[i];
     if (like.likerId === liker.id) return like;
@@ -4794,11 +4820,9 @@ var likeOf = function likeOf(liker, likes) {
   return null;
 };
 var likesOf = function likesOf(likeableType, likeableId, likes) {
-  debugger;
   if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(likes)) return [];
   var likeIds = Object.keys(likes).reverse();
   var output = [];
-  debugger;
   likeIds.forEach(function (likeId) {
     var id = parseInt(likeId);
     var like = likes[id];
@@ -4809,11 +4833,9 @@ var likesOf = function likesOf(likeableType, likeableId, likes) {
       output.push(likes[likeId]);
     }
   });
-  debugger;
   return output;
 };
 var liked = function liked(currentUser, likes) {
-  debugger;
   return likes.some(function (like) {
     return like.likerId === currentUser.id;
   });

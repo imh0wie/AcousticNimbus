@@ -36,3 +36,15 @@ export const artistIdOf = (onPageSong) => {
     //     }
     // }
 }
+
+export const followed = (artistId, currentUserId, follows) => {
+    debugger
+    if (isEmpty(follows)) return null;
+    const followIds = Object.keys(follows);
+    debugger
+    followIds.some((followId) => {
+        const follow = follows[followId];
+        debugger
+        return followed_user_id === artistId && follower_id === currentUserId;
+    })
+}

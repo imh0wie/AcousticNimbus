@@ -7,20 +7,22 @@ import { setCurrentSong, playSong, pauseSong } from "../../actions/current_song_
 import { createLike, removeLike, fetchLikes } from "../../actions/like_actions";
 import { createFollow, removeFollow, fetchFollows } from "../../actions/follow_actions";
 import { likeOf, likesOf, liked } from "../../util/like_api_util";
-import { artistIdOf } from "../../util/follow_api_util";
+import { artistIdOf, followed } from "../../util/follow_api_util";
 import Waveform from "./waveform";
 
 const msp = (state, ownProps) => {
   const songId = ownProps.match.params.songId;
   const onPageSong = state.entities.songs[songId];
-  const currentUser = state.entites.users[state.session.id];
+  const currentUser = state.entities.users[state.session.id];
   const likes = state.entities.likes;
+  const follows = state.entities.follows;
   debugger
   return ({ 
     onPageSong: onPageSong,
     onPageSongId: parseInt(songId),
-    onPageSongLiked: liked(currentUser, likesOf("Song", parseInt(songId), likes)),
-    onPageArtist: state.entities.users[artistIdOf(onPageSong)],
+    // onPageSongLiked: liked(currentUser, likesOf("Song", parseInt(songId), likes)),
+    // onPageArtist: state.entities.users[artistIdOf(onPageSong)],
+    onPageArtistFollowed: followed(artistIdOf(onPageSong), state.session.id, follows),
     currentSong: state.ui.currentSong,
     currentUser: currentUser,
     currentLike: likeOf(currentUser, likesOf("Song", parseInt(songId), likes)),
@@ -55,6 +57,7 @@ class SongShowPage extends React.Component {
     this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this);
     // this.renderLike = this.renderLike.bind(this);
     this.renderLikeButton = this.renderLikeButton.bind(this);
+    this.renderFollowButton = this.renderFollowButton.bind(this);
     this.togglePlayPause = this.togglePlayPause.bind(this);
     this.handleLike = this.handleLike.bind(this);
   }
@@ -94,7 +97,7 @@ class SongShowPage extends React.Component {
 
   handleLike(e) {
     e.preventDefault();
-    if (this.props.onPageSongLiked) {
+    if (this.props.currentLike) {
       this.props.removeLike(this.props.currentLike.id);
     } else {
       const like = {
@@ -106,23 +109,12 @@ class SongShowPage extends React.Component {
     }
   }
 
-  // renderLike() {
-  //   if (this.props.onPageSongLiked) {
-  //     return <span><i className="fas fa-heart"></i> Liked</span>;
-  //   } else {
-  //     return <span><i className="fas fa-heart"></i> Like</span>;
-  //   }
-  // }
-
   renderLikeButton() {
-    debugger
-    if (this.props.onPageSongLiked) {
-      debugger
+    if (this.props.currentLike) {
       return (
         <button className="song-show-page-liked-button" onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> Liked</button>
       );
     } else {
-      debugger
       return (
         <button className="song-show-page-like-button" onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> Like</button>
       );
@@ -130,11 +122,23 @@ class SongShowPage extends React.Component {
   }
 
   renderFollowButton() {
-
+    debugger
+    if (this.props.onPageArtistFollowed) {
+      debugger
+      return (
+        <button className="song-show-page-follow-button" onClick={(e) => this.handleFollow(e)}>Following</button>
+      );
+    } else {
+      debugger
+      return (
+        <button className="song-show-page-follow-button" onClick={(e) => this.handleFollow(e)}>Follow</button>
+      );
+    }
   }
 
   render() {
     if (!this.props.onPageSong) {
+      debugger
       return (
         <img src={window.loading} className="loading"></img>
       );
@@ -194,7 +198,9 @@ class SongShowPage extends React.Component {
                   <Link to={`/users/${this.props.onPageSong.artistId}`} className="song-show-page-artist">{this.props.onPageSong.artist}</Link>
                   <div className="song-show-page-artist-follows-container">
                   </div>
-
+                  <form>
+                    {this.renderFollowButton()}
+                  </form>
                 </div>
                 <div className="song-show-page-description-comments">
                   <div className="song-show-page-description-container">
