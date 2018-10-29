@@ -5,17 +5,25 @@ class User < ApplicationRecord
 
   has_many :songs
   has_many :likes
-  has_many :followers
-  # , 
-  #   foreign_key: :followed_user_id,
-  #   class: :Follow
 
-  has_many :followings
-  # , 
-  #   foreign_key: :follower_id,
-  #   class: :Follow,
-  
-  
+  has_many :attention, {
+    foreign_key: :followed_user_id,
+    class: :Follow,
+  }
+  has_many :followers, {
+    through: :attention,
+    source: :User
+  }
+
+  has_many :interests, {
+    foreign_key: :follower_id,
+    class: :Follow,
+  }
+  has_many :followings, {
+    through: :interests,
+    source: :User
+  }
+
   after_initialize :ensure_session_token!
   attr_reader :password
 

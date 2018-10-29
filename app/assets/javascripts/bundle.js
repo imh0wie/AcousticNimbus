@@ -4988,13 +4988,20 @@ var shuffle = function shuffle(n, songs) {
 /*!****************************************!*\
   !*** ./frontend/util/user_api_util.js ***!
   \****************************************/
-/*! exports provided: fetchUser, editUser */
+/*! exports provided: fetchUsers, fetchUser, editUser */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUsers", function() { return fetchUsers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUser", function() { return fetchUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editUser", function() { return editUser; });
+var fetchUsers = function fetchUsers() {
+  return $.ajax({
+    method: "GET",
+    url: "/api/users"
+  });
+};
 var fetchUser = function fetchUser(userId) {
   return $.ajax({
     method: 'GET',
