@@ -5,7 +5,7 @@ class Api::FollowsController < ApplicationController
   end
   
   def create
-    @follow = Follow.new(like_params)
+    @follow = Follow.new(follow_params)
     debugger
     if @follow.save
       debugger
@@ -32,7 +32,7 @@ class Api::FollowsController < ApplicationController
 
   private
 
-  def like_params
-    params.require(:follow).permit(:likeable_type, :likeable_id, :liker_id)
+  def follow_params
+    params.require(:follow).permit(:followed_user_id, :follower_id)
   end
 end

@@ -1,6 +1,7 @@
 import { isEmpty } from "./general_api_util";
 
 export const createLike = (like) => {
+    debugger
     return $.ajax({
         method: "POST",
         url: "/api/likes",
@@ -23,33 +24,38 @@ export const fetchLikes = () => {
     });
 };
 
-export const likeOf = (liker, likes) => {
+// export const likesOf = (likeableType, likeableId, likes) => {
+//     if (isEmpty(likes)) return [];
+//     const likeIds = Object.keys(likes).reverse();
+//     let output = [];
+//     likeIds.forEach((likeId) => {
+//         const id = parseInt(likeId);
+//         const like = likes[id];
+//         debugger
+//         if (like.likeableType === likeableType && like.likeableId === likeableId) {
+//             debugger
+//             output.push(likes[likeId]);
+//         }
+//     })
+//     return output;
+// }
+
+export const likeOf = (likeableType, likeableId, liker, likes) => {
     if (isEmpty(likes)) return null;
-    for (let i = 0; i < likes.length; i++ ) {
-        const like = likes[i];
-        if (like.likerId === liker.id) return like;
+    debugger
+    const likeIds = Object.keys(likes);
+    for (let i = 0; i < likeIds.length; i++ ) {
+        const likeId = likeIds[i];
+        const like = likes[likeId];
+        debugger
+        if (like.likeableType === likeableType && like.likeableId === likeableId && like.likerId === liker.id) return like;
     }
+    debugger
     return null;
 }
 
-export const likesOf = (likeableType, likeableId, likes) => {
-    if (isEmpty(likes)) return [];
-    const likeIds = Object.keys(likes).reverse();
-    let output = [];
-    likeIds.forEach((likeId) => {
-        const id = parseInt(likeId);
-        const like = likes[id];
-        debugger
-        if (like.likeableType === likeableType && like.likeableId === likeableId) {
-            debugger
-            output.push(likes[likeId]);
-        }
-    })
-    return output;
-}
-
-export const liked = (currentUser, likes) => {
-    return likes.some((like) => {
-        return like.likerId === currentUser.id;
-    })
-}
+// export const liked = (currentUser, likes) => {
+//     return likes.some((like) => {
+//         return like.likerId === currentUser.id;
+//     })
+// }

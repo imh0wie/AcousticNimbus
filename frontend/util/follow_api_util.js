@@ -37,14 +37,23 @@ export const artistIdOf = (onPageSong) => {
     // }
 }
 
-export const followed = (artistId, currentUserId, follows) => {
-    debugger
+export const followOf = (followedUserId, followerId, follows) => {
     if (isEmpty(follows)) return null;
-    const followIds = Object.keys(follows);
-    debugger
-    followIds.some((followId) => {
-        const follow = follows[followId];
-        debugger
-        return followed_user_id === artistId && follower_id === currentUserId;
-    })
+    for (let i = 0; i < follows.length; i++ ) {
+        const follow = follows[i];
+        if (follow.followedUserId === followedUserId && follow.followerId === followerId) return follow;
+    }
+    return null;
 }
+
+// export const followed = (artistId, currentUserId, follows) => {
+//     debugger
+//     if (isEmpty(follows)) return null;
+//     const followIds = Object.keys(follows);
+//     debugger
+//     followIds.some((followId) => {
+//         const follow = follows[followId];
+//         debugger
+//         return followed_user_id === artistId && follower_id === currentUserId;
+//     })
+// }
