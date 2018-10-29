@@ -8,20 +8,22 @@ class User < ApplicationRecord
 
   has_many :attention, {
     foreign_key: :followed_user_id,
-    class: :Follow,
+    class_name: :Follow
   }
+
   has_many :followers, {
     through: :attention,
-    source: :User
-  }
+    source: :follower
+}
 
   has_many :interests, {
     foreign_key: :follower_id,
-    class: :Follow,
+    class_name: :Follow
   }
+  
   has_many :followings, {
     through: :interests,
-    source: :User
+    source: :followed_user_id
   }
 
   after_initialize :ensure_session_token!

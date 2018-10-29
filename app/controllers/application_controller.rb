@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  helper_method :current_user, :logged_in?, :songs_by_release, :songs_by_playback_count
+  helper_method :current_user, :logged_in?
 
   def login!(user)
     user.reset_session_token!

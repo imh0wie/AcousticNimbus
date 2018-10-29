@@ -1,3 +1,5 @@
+import { isEmpty } from "./general_api_util";
+
 export const createFollow = (follow) => {
     debugger
     return $.ajax({
@@ -22,3 +24,15 @@ export const fetchFollows = () => {
         url: "/api/follows",
     });
 };
+
+export const artistIdOf = (onPageSong) => {
+    onPageSong ? onPageSong.artistId : null;
+    // const songIds = Object.keys(songs);
+    // for (let i = 0; i < songIds.length; i++) {
+    //     const songId = songIds[i];
+    //     const song = songs[songId];
+    //     if (song.id === onPageSong.id) {
+    //         return onPageSong.artistId;
+    //     }
+    // }
+}

@@ -7,20 +7,23 @@ import { setCurrentSong, playSong, pauseSong } from "../../actions/current_song_
 import { createLike, removeLike, fetchLikes } from "../../actions/like_actions";
 import { createFollow, removeFollow, fetchFollows } from "../../actions/follow_actions";
 import { likeOf, likesOf, liked } from "../../util/like_api_util";
+import { artistIdOf } from "../../util/follow_api_util";
 import Waveform from "./waveform";
 
 const msp = (state, ownProps) => {
   const songId = ownProps.match.params.songId;
   const onPageSong = state.entities.songs[songId];
+  const currentUser = state.entites.users[state.session.id];
+  const likes = state.entities.likes;
   debugger
   return ({ 
     onPageSong: onPageSong,
     onPageSongId: parseInt(songId),
-    onPageSongLiked: liked(state.entities.users[state.session.id], likesOf("Song", parseInt(songId), state.entities.likes)),
-    onPageSongArtistFollowed: state.entities.users[onPageSong.artistId],
+    onPageSongLiked: liked(currentUser, likesOf("Song", parseInt(songId), likes)),
+    onPageArtist: state.entities.users[artistIdOf(onPageSong)],
     currentSong: state.ui.currentSong,
-    currentUser: state.entities.users[state.session.id],
-    currentLike: likeOf(state.entities.users[state.session.id], likesOf("Song", parseInt(songId), state.entities.likes)),
+    currentUser: currentUser,
+    currentLike: likeOf(currentUser, likesOf("Song", parseInt(songId), likes)),
   });
 };
 
@@ -37,6 +40,7 @@ const mdp = (dispatch) => {
       createFollow: (follow) => dispatch(createFollow(follow)),
       removeFollow: (id) => dispatch(removeFollow(id)),
       fetchFollows: () => dispatch(fetchFollows()),
+      fetchUsers: () => dispatch(fetchUsers()),
   });
 };
 
