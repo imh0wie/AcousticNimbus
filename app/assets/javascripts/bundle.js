@@ -4870,7 +4870,7 @@ var fetchComments = function fetchComments() {
   });
 };
 var commentsOf = function commentsOf(songId, comments) {
-  if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(songs)) return [];
+  if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(comments)) return [];
   var output = [];
   var commentIds = Object.keys(comments);
 

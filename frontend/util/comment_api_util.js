@@ -23,7 +23,7 @@ export const fetchComments = () => {
 }
 
 export const commentsOf = (songId, comments) => {
-    if (isEmpty(songs)) return [];
+    if (isEmpty(comments)) return [];
     const output = [];
     const commentIds = Object.keys(comments);
     for (let i = 0; i < commentIds.length; i++) {
