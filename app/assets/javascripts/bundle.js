@@ -2512,9 +2512,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/current_song_actions */ "./frontend/actions/current_song_actions.js");
 /* harmony import */ var _actions_like_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../actions/like_actions */ "./frontend/actions/like_actions.js");
 /* harmony import */ var _actions_follow_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../actions/follow_actions */ "./frontend/actions/follow_actions.js");
-/* harmony import */ var _util_like_api_util__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../util/like_api_util */ "./frontend/util/like_api_util.js");
-/* harmony import */ var _util_follow_api_util__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../util/follow_api_util */ "./frontend/util/follow_api_util.js");
-/* harmony import */ var _waveform__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./waveform */ "./frontend/components/song_show_page/waveform.jsx");
+/* harmony import */ var _actions_comment_actions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../actions/comment_actions */ "./frontend/actions/comment_actions.js");
+/* harmony import */ var _util_like_api_util__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../util/like_api_util */ "./frontend/util/like_api_util.js");
+/* harmony import */ var _util_follow_api_util__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../util/follow_api_util */ "./frontend/util/follow_api_util.js");
+/* harmony import */ var _util_comment_api_util__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../util/comment_api_util */ "./frontend/util/comment_api_util.js");
+/* harmony import */ var _waveform__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./waveform */ "./frontend/components/song_show_page/waveform.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2545,12 +2547,15 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 
+
+
 var msp = function msp(state, ownProps) {
   var songId = ownProps.match.params.songId;
   var onPageSong = state.entities.songs[songId];
   var currentUser = state.entities.users[state.session.id];
   var likes = state.entities.likes;
   var follows = state.entities.follows;
+  var comments = state.entities.comments;
   debugger;
   return {
     onPageSong: onPageSong,
@@ -2560,8 +2565,9 @@ var msp = function msp(state, ownProps) {
     // onPageArtistFollowed: followed(artistIdOf(onPageSong), state.session.id, follows),
     currentSong: state.ui.currentSong,
     currentUser: currentUser,
-    currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_8__["likeOf"])("Song", parseInt(songId), currentUser, likes),
-    currentFollow: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_9__["followOf"])(Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_9__["artistIdOf"])(onPageSong), currentUser.id, follows)
+    currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_9__["likeOf"])("Song", parseInt(songId), currentUser, likes),
+    currentFollow: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_10__["followOf"])(Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_10__["artistIdOf"])(onPageSong), currentUser.id, follows),
+    currentComments: Object(_util_comment_api_util__WEBPACK_IMPORTED_MODULE_11__["commentsOf"])()
   };
 };
 
@@ -2600,6 +2606,15 @@ var mdp = function mdp(dispatch) {
     fetchFollows: function fetchFollows() {
       return dispatch(Object(_actions_follow_actions__WEBPACK_IMPORTED_MODULE_7__["fetchFollows"])());
     },
+    createComment: function createComment(comment) {
+      return dispatch(Object(_actions_comment_actions__WEBPACK_IMPORTED_MODULE_8__["createComment"])(comment));
+    },
+    removeComment: function removeComment(id) {
+      return dispatch(Object(_actions_comment_actions__WEBPACK_IMPORTED_MODULE_8__["removeComment"])(id));
+    },
+    fetchComments: function fetchComments() {
+      return dispatch(Object(_actions_comment_actions__WEBPACK_IMPORTED_MODULE_8__["fetchComments"])());
+    },
     fetchUsers: function fetchUsers() {
       return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_3__["fetchUsers"])());
     }
@@ -2621,7 +2636,7 @@ function (_React$Component) {
       likeableType: "Song",
       likeableId: _this.props.onPageSongId,
       likerId: _this.props.currentUser.id,
-      followedUserId: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_9__["artistIdOf"])(_this.props.onPageSong),
+      followedUserId: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_10__["artistIdOf"])(_this.props.onPageSong),
       followerId: _this.props.currentUser.id
     };
     debugger;
@@ -2643,14 +2658,15 @@ function (_React$Component) {
       this.props.fetchSongs();
       this.props.fetchLikes();
       this.props.fetchFollows();
+      this.props.fetchComments();
       this.props.fetchUsers();
     }
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
-      if (Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_9__["artistIdOf"])(nextProps.onPageSong) !== this.state.followedUserId) {
+      if (Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_10__["artistIdOf"])(nextProps.onPageSong) !== this.state.followedUserId) {
         this.setState({
-          followedUserId: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_9__["artistIdOf"])(nextProps.onPageSong)
+          followedUserId: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_10__["artistIdOf"])(nextProps.onPageSong)
         });
       }
     }
@@ -2821,7 +2837,7 @@ function (_React$Component) {
           className: "song-show-page-song-genre"
         }, "#", this.props.onPageSong.genre))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "banner-player-waveform-container"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_waveform__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_waveform__WEBPACK_IMPORTED_MODULE_12__["default"], {
           onPageSong: this.props.onPageSong,
           onPageSongId: this.props.onPageSongId,
           currentSong: this.props.currentSong
@@ -4801,7 +4817,7 @@ var configureStore = function configureStore() {
 /*!*******************************************!*\
   !*** ./frontend/util/comment_api_util.js ***!
   \*******************************************/
-/*! exports provided: createComment, removeComment, fetchComments */
+/*! exports provided: createComment, removeComment, fetchComments, commentsOf */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4809,6 +4825,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createComment", function() { return createComment; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeComment", function() { return removeComment; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchComments", function() { return fetchComments; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "commentsOf", function() { return commentsOf; });
+/* harmony import */ var _general_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./general_api_util */ "./frontend/util/general_api_util.js");
+
 var createComment = function createComment(comment) {
   return $.ajax({
     method: "POST",
@@ -4829,6 +4848,19 @@ var fetchComments = function fetchComments() {
     method: "GET",
     url: "/api/comments"
   });
+};
+var commentsOf = function commentsOf(songId, comments) {
+  if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(songs)) return null;
+  var output = [];
+  var commentIds = Object.keys(comments);
+
+  for (var i = 0; i < commentIds.length; i++) {
+    var commentId = commentIds[i];
+    var comment = comments[commentId];
+    if (comment.songId === songId) output.push(comment);
+  }
+
+  return output;
 };
 
 /***/ }),

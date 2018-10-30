@@ -1,3 +1,5 @@
+import { isEmpty } from "./general_api_util";
+
 export const createComment = (comment) => {
     return $.ajax({
         method: "POST",
@@ -18,4 +20,16 @@ export const fetchComments = () => {
         method: "GET",
         url: "/api/comments"
     })
+}
+
+export const commentsOf = (songId, comments) => {
+    if (isEmpty(songs)) return null;
+    const output = [];
+    const commentIds = Object.keys(comments);
+    for (let i = 0; i < commentIds.length; i++) {
+        const commentId = commentIds[i];
+        const comment = comments[commentId];
+        if (comment.songId === songId) output.push(comment);
+    }
+    return output
 }

@@ -6,8 +6,10 @@ import { fetchSongs, fetchSong } from "../../actions/song_actions";
 import { setCurrentSong, playSong, pauseSong } from "../../actions/current_song_actions";
 import { createLike, removeLike, fetchLikes } from "../../actions/like_actions";
 import { createFollow, removeFollow, fetchFollows } from "../../actions/follow_actions";
+import { createComment, removeComment, fetchComments } from "../../actions/comment_actions";
 import { likeOf } from "../../util/like_api_util";
 import { artistIdOf, followOf } from "../../util/follow_api_util";
+import { commentsOf } from "../../util/comment_api_util";
 import Waveform from "./waveform";
 
 const msp = (state, ownProps) => {
@@ -16,6 +18,7 @@ const msp = (state, ownProps) => {
   const currentUser = state.entities.users[state.session.id];
   const likes = state.entities.likes;
   const follows = state.entities.follows;
+  const comments = state.entities.comments;
   debugger
   return ({ 
     onPageSong: onPageSong,
@@ -27,6 +30,7 @@ const msp = (state, ownProps) => {
     currentUser: currentUser,
     currentLike: likeOf("Song", parseInt(songId), currentUser, likes),
     currentFollow: followOf(artistIdOf(onPageSong), currentUser.id, follows),
+    currentComments: commentsOf()
   });
 };
 
@@ -43,6 +47,9 @@ const mdp = (dispatch) => {
       createFollow: (follow) => dispatch(createFollow(follow)),
       removeFollow: (id) => dispatch(removeFollow(id)),
       fetchFollows: () => dispatch(fetchFollows()),
+      createComment: (comment) => dispatch(createComment(comment)),
+      removeComment: (id) => dispatch(removeComment(id)),
+      fetchComments: () => dispatch(fetchComments()),
       fetchUsers: () => dispatch(fetchUsers()),
   });
 };
@@ -73,6 +80,7 @@ class SongShowPage extends React.Component {
     this.props.fetchSongs();
     this.props.fetchLikes();
     this.props.fetchFollows();
+    this.props.fetchComments();
     this.props.fetchUsers();
   }
 
