@@ -23,7 +23,7 @@ export const fetchComments = () => {
 }
 
 export const commentsOf = (songId, comments) => {
-    if (isEmpty(songs)) return null;
+    if (isEmpty(songs)) return [];
     const output = [];
     const commentIds = Object.keys(comments);
     for (let i = 0; i < commentIds.length; i++) {
@@ -31,5 +31,5 @@ export const commentsOf = (songId, comments) => {
         const comment = comments[commentId];
         if (comment.songId === songId) output.push(comment);
     }
-    return output
+    return output;
 }

@@ -3,32 +3,32 @@ class User < ApplicationRecord
   validates :username, :session_token, uniqueness: true
   validates :password, length: { minimum: 6 }, allow_nil: true
 
-  has_many :songs, dependent: destroy
-  has_many :likes, dependent: destroy
-  has_many :comments, dependent: destroy
+  has_many :songs, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   has_many :attention, {
     foreign_key: :followed_user_id,
     class_name: :Follow,
-    dependent: destroy,
+    dependent: :destroy,
   }
 
   has_many :followers, {
     through: :attention,
     source: :follower,
-    dependent: destroy,
+    dependent: :destroy,
   }
 
   has_many :interests, {
     foreign_key: :follower_id,
     class_name: :Follow,
-    dependent: destroy,
+    dependent: :destroy,
   }
   
   has_many :followings, {
     through: :interests,
     source: :followed_user_id,
-    dependent: destroy,
+    dependent: :destroy,
   }
 
   after_initialize :ensure_session_token!

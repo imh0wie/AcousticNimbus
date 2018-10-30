@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
 /*!*********************************************!*\
   !*** ./frontend/actions/comment_actions.js ***!
   \*********************************************/
-/*! exports provided: RECEIVE_COMMENTS, createComment, removeComment */
+/*! exports provided: RECEIVE_COMMENTS, createComment, removeComment, fetchComments */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -156,6 +156,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_COMMENTS", function() { return RECEIVE_COMMENTS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createComment", function() { return createComment; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeComment", function() { return removeComment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchComments", function() { return fetchComments; });
 /* harmony import */ var _util_comment_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/comment_api_util */ "./frontend/util/comment_api_util.js");
 
 var RECEIVE_COMMENTS = "RECEIVE_COMMENTS";
@@ -169,6 +170,13 @@ var createComment = function createComment(commentToServer) {
 var removeComment = function removeComment(idToServer) {
   return function (dispatch) {
     return _util_comment_api_util__WEBPACK_IMPORTED_MODULE_0__["removeComment"](idToServer).then(function (commentsFromServer) {
+      return dispatch(receiveComments(commentsFromServer));
+    });
+  };
+};
+var fetchComments = function fetchComments() {
+  return function (dispatch) {
+    return _util_comment_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchComments"]().then(function (commentsFromServer) {
       return dispatch(receiveComments(commentsFromServer));
     });
   };
@@ -2644,6 +2652,7 @@ function (_React$Component) {
 
     _this.renderLikeButton = _this.renderLikeButton.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.renderFollowButton = _this.renderFollowButton.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.renderCommentsSection = _this.renderCommentsSection.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.togglePlayPause = _this.togglePlayPause.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleLike = _this.handleLike.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleFollow = _this.handleFollow.bind(_assertThisInitialized(_assertThisInitialized(_this)));
@@ -2802,6 +2811,24 @@ function (_React$Component) {
       }
     }
   }, {
+    key: "renderCommentsSection",
+    value: function renderCommentsSection() {
+      if (this.props.currentComments.length === 0) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.message
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Seems a little quiet over here"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Be the first to comment on this song"));
+      } else {
+        var commentsHeader = this.props.currentComments.length > 1 ? "".concat(this.props.currentComments.length, " comments") : "1 comment";
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "song-show-page-comments-container"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "song-show-page-comments-header-container"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: "song-show-page-comments-header"
+        }, commentsHeader)));
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       if (!this.props.onPageSong) {
@@ -2888,13 +2915,7 @@ function (_React$Component) {
           className: "song-show-page-description-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "song-show-page-description"
-        }, this.props.onPageSong.description)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "song-show-page-comments-container"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "song-show-page-comments-header-container"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-          className: "song-show-page-comments-header"
-        }, "N comments")))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        }, this.props.onPageSong.description)), this.renderCommentsSection()))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-show-page-sidebar"
         })));
       }
@@ -4263,8 +4284,7 @@ var commentsReducer = function commentsReducer() {
 
   switch (action.type) {
     case _actions_comment_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_COMMENTS"]:
-      return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, action.likes);
-      break;
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, action.comments);
 
     default:
       break;
@@ -4850,7 +4870,7 @@ var fetchComments = function fetchComments() {
   });
 };
 var commentsOf = function commentsOf(songId, comments) {
-  if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(songs)) return null;
+  if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(songs)) return [];
   var output = [];
   var commentIds = Object.keys(comments);
 

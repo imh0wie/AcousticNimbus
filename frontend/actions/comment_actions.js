@@ -8,8 +8,8 @@ export const createComment = (commentToServer) => {
                 dispatch(receiveLikes(commentsFromServer));
             }
         );
-    }
-}
+    };
+};
 
 export const removeComment = (idToServer) => {
     return dispatch => {
@@ -18,12 +18,22 @@ export const removeComment = (idToServer) => {
                 return dispatch(receiveComments(commentsFromServer));
             }
         );
-    }
-}
+    };
+};
+
+export const fetchComments = () => {
+    return dispatch => {
+        return CommentAPIUtil.fetchComments().then(
+            (commentsFromServer) => {
+                return dispatch(receiveComments(commentsFromServer));
+            }
+        );
+    };
+};
 
 const receiveComments = (comments) => {
     return {
         type: RECEIVE_COMMENTS,
         comments: comments
-    }
-}
+    };
+};

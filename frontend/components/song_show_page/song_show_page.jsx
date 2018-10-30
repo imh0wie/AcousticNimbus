@@ -69,6 +69,7 @@ class SongShowPage extends React.Component {
     // this.renderLike = this.renderLike.bind(this);
     this.renderLikeButton = this.renderLikeButton.bind(this);
     this.renderFollowButton = this.renderFollowButton.bind(this);
+    this.renderCommentsSection = this.renderCommentsSection.bind(this);
     this.togglePlayPause = this.togglePlayPause.bind(this);
     this.handleLike = this.handleLike.bind(this);
     this.handleFollow = this.handleFollow.bind(this);
@@ -179,6 +180,27 @@ class SongShowPage extends React.Component {
     }
   }
 
+  renderCommentsSection() {
+    if (this.props.currentComments.length === 0) {
+      return (
+        <div>
+          <img src={window.message}></img>
+          <h3>Seems a little quiet over here</h3>
+          <h4>Be the first to comment on this song</h4>
+        </div>
+      );
+    } else {
+      const commentsHeader = this.props.currentComments.length > 1 ? `${this.props.currentComments.length} comments` : "1 comment";
+      return (
+        <div className="song-show-page-comments-container">
+          <div className="song-show-page-comments-header-container">
+            <p className="song-show-page-comments-header">{commentsHeader}</p>
+          </div>
+        </div>
+      );
+    }
+  }
+
   render() {
     if (!this.props.onPageSong) {
       debugger
@@ -249,12 +271,7 @@ class SongShowPage extends React.Component {
                   <div className="song-show-page-description-container">
                     <p className="song-show-page-description">{this.props.onPageSong.description}</p>
                   </div>
-                  <div className="song-show-page-comments-container">
-                    <div className="song-show-page-comments-header-container">
-                      <p className="song-show-page-comments-header">N comments</p>
-                    </div>
-  
-                  </div>
+                  {this.renderCommentsSection()}
                 </div>
               </div>
             </div>
