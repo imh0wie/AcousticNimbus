@@ -2527,6 +2527,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _waveform__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./waveform */ "./frontend/components/song_show_page/waveform.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -2645,7 +2647,11 @@ function (_React$Component) {
       likeableId: _this.props.onPageSongId,
       likerId: _this.props.currentUser.id,
       followedUserId: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_10__["artistIdOf"])(_this.props.onPageSong),
-      followerId: _this.props.currentUser.id
+      followerId: _this.props.currentUser.id,
+      body: "",
+      songId: _this.props.onPageSongId,
+      songProgress: null,
+      commenterId: _this.props.currentUser.id
     };
     debugger;
     _this.renderPlayPauseSign = _this.renderPlayPauseSign.bind(_assertThisInitialized(_assertThisInitialized(_this))); // this.renderLike = this.renderLike.bind(this);
@@ -2656,6 +2662,8 @@ function (_React$Component) {
     _this.togglePlayPause = _this.togglePlayPause.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleLike = _this.handleLike.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleFollow = _this.handleFollow.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleComment = _this.handleComment.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.update = _this.update.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
@@ -2758,9 +2766,34 @@ function (_React$Component) {
       }
     }
   }, {
+    key: "handleComment",
+    value: function handleComment(e) {
+      e.preventDefault();
+      var elapsed = this.props.currentSong.id === this.props.onPageSongId ? this.props.currentSong.elapsed : 0;
+      this.setState({
+        songProgress: elapsed
+      });
+      var comment = {
+        body: this.state.body,
+        songId: this.state.songId,
+        songProgress: this.state.songProgress,
+        commenterId: this.props.currentUser.id
+      };
+      this.props.createComment(comment);
+    }
+  }, {
+    key: "update",
+    value: function update(field) {
+      var _this3 = this;
+
+      return function (e) {
+        _this3.setState(_defineProperty({}, field, e.currentTarget.value));
+      };
+    }
+  }, {
     key: "renderLikeButton",
     value: function renderLikeButton() {
-      var _this3 = this;
+      var _this4 = this;
 
       debugger;
 
@@ -2768,7 +2801,7 @@ function (_React$Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "song-show-page-liked-button",
           onClick: function onClick(e) {
-            return _this3.handleLike(e);
+            return _this4.handleLike(e);
           }
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           className: "fas fa-heart"
@@ -2777,7 +2810,7 @@ function (_React$Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "song-show-page-like-button",
           onClick: function onClick(e) {
-            return _this3.handleLike(e);
+            return _this4.handleLike(e);
           }
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           className: "fas fa-heart"
@@ -2787,7 +2820,7 @@ function (_React$Component) {
   }, {
     key: "renderFollowButton",
     value: function renderFollowButton() {
-      var _this4 = this;
+      var _this5 = this;
 
       debugger;
       if (this.props.onPageSong.artistId === this.props.currentUser.id) return;
@@ -2797,7 +2830,7 @@ function (_React$Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "song-show-page-follow-button",
           onClick: function onClick(e) {
-            return _this4.handleFollow(e);
+            return _this5.handleFollow(e);
           }
         }, "Following");
       } else {
@@ -2805,7 +2838,7 @@ function (_React$Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "song-show-page-follow-button",
           onClick: function onClick(e) {
-            return _this4.handleFollow(e);
+            return _this5.handleFollow(e);
           }
         }, "Follow");
       }
@@ -2833,6 +2866,8 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this6 = this;
+
       if (!this.props.onPageSong) {
         debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -2888,11 +2923,15 @@ function (_React$Component) {
           type: "text",
           name: "comment",
           placeholder: "Write a comment",
-          className: "song-show-page-comment-box"
+          className: "song-show-page-comment-box",
+          onChange: this.update("body")
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
           type: "submit",
           className: "song-show-page-comment-submit-button",
-          tabIndex: "-1"
+          tabIndex: "-1",
+          onClick: function onClick(e) {
+            return _this6.handleComment(e);
+          }
         }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-show-page-social-els"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

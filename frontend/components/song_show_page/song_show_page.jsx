@@ -63,6 +63,10 @@ class SongShowPage extends React.Component {
       likerId: this.props.currentUser.id,
       followedUserId: artistIdOf(this.props.onPageSong),
       followerId: this.props.currentUser.id,
+      body: "",
+      songId: this.props.onPageSongId,
+      songProgress: null,
+      commenterId: this.props.currentUser.id,
     }
     debugger
     this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this);
@@ -73,6 +77,8 @@ class SongShowPage extends React.Component {
     this.togglePlayPause = this.togglePlayPause.bind(this);
     this.handleLike = this.handleLike.bind(this);
     this.handleFollow = this.handleFollow.bind(this);
+    this.handleComment = this.handleComment.bind(this);
+    this.update = this.update.bind(this);
   }
 
   componentDidMount() {
@@ -149,6 +155,25 @@ class SongShowPage extends React.Component {
       debugger
       this.props.createFollow(follow);
     }
+  }
+
+  handleComment(e) {
+    e.preventDefault();
+    const elapsed = this.props.currentSong.id === this.props.onPageSongId ? this.props.currentSong.elapsed : 0;
+    this.setState({ songProgress: elapsed});
+    const comment = {
+      body: this.state.body,
+      songId: this.state.songId,
+      songProgress: this.state.songProgress,
+      commenterId: this.props.currentUser.id,
+    }
+    this.props.createComment(comment);
+  }
+
+  update(field) {
+    return (e) => {
+      this.setState({ [field]: e.currentTarget.value });
+    };
   }
 
   renderLikeButton() {
@@ -243,8 +268,8 @@ class SongShowPage extends React.Component {
                 <div className="song-show-page-comment-box-wrapper">
                   <img src={this.props.currentUser.imageURL ? this.props.currentUser.imageURL : window.default_avatar} className="song-show-page-comment-box-img"></img>
                   <form>
-                    <input type="text" name="comment" placeholder="Write a comment" className="song-show-page-comment-box" />
-                    <input type="submit" className="song-show-page-comment-submit-button" tabIndex="-1" />
+                    <input type="text" name="comment" placeholder="Write a comment" className="song-show-page-comment-box" onChange={this.update("body")} />
+                    <input type="submit" className="song-show-page-comment-submit-button" tabIndex="-1" onClick={(e) => this.handleComment(e)}/>
                   </form>
                 </div>
                 <div className="song-show-page-social-els">
