@@ -13,7 +13,7 @@ import { commentsOf } from "../../util/comment_api_util";
 import Waveform from "./waveform";
 
 const msp = (state, ownProps) => {
-  const songId = ownProps.match.params.songId;
+  const songId = parseInt(ownProps.match.params.songId);
   const onPageSong = state.entities.songs[songId];
   const currentUser = state.entities.users[state.session.id];
   const likes = state.entities.likes;
@@ -22,15 +22,15 @@ const msp = (state, ownProps) => {
   debugger
   return ({ 
     onPageSong: onPageSong,
-    onPageSongId: parseInt(songId),
+    onPageSongId: songId,
     // onPageSongLiked: liked(currentUser, likesOf("Song", parseInt(songId), likes)),
     // onPageArtist: state.entities.users[artistIdOf(onPageSong)],
     // onPageArtistFollowed: followed(artistIdOf(onPageSong), state.session.id, follows),
     currentSong: state.ui.currentSong,
     currentUser: currentUser,
-    currentLike: likeOf("Song", parseInt(songId), currentUser, likes),
+    currentLike: likeOf("Song", songId, currentUser, likes),
     currentFollow: followOf(artistIdOf(onPageSong), currentUser.id, follows),
-    currentComments: commentsOf()
+    currentComments: commentsOf(songId, comments),
   });
 };
 

@@ -2550,7 +2550,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 var msp = function msp(state, ownProps) {
-  var songId = ownProps.match.params.songId;
+  var songId = parseInt(ownProps.match.params.songId);
   var onPageSong = state.entities.songs[songId];
   var currentUser = state.entities.users[state.session.id];
   var likes = state.entities.likes;
@@ -2559,15 +2559,15 @@ var msp = function msp(state, ownProps) {
   debugger;
   return {
     onPageSong: onPageSong,
-    onPageSongId: parseInt(songId),
+    onPageSongId: songId,
     // onPageSongLiked: liked(currentUser, likesOf("Song", parseInt(songId), likes)),
     // onPageArtist: state.entities.users[artistIdOf(onPageSong)],
     // onPageArtistFollowed: followed(artistIdOf(onPageSong), state.session.id, follows),
     currentSong: state.ui.currentSong,
     currentUser: currentUser,
-    currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_9__["likeOf"])("Song", parseInt(songId), currentUser, likes),
+    currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_9__["likeOf"])("Song", songId, currentUser, likes),
     currentFollow: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_10__["followOf"])(Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_10__["artistIdOf"])(onPageSong), currentUser.id, follows),
-    currentComments: Object(_util_comment_api_util__WEBPACK_IMPORTED_MODULE_11__["commentsOf"])()
+    currentComments: Object(_util_comment_api_util__WEBPACK_IMPORTED_MODULE_11__["commentsOf"])(songId, comments)
   };
 };
 
