@@ -6,7 +6,7 @@ export const createComment = (comment) => {
     });
 }
 
-export const deleteComment = (id) => {
+export const removeComment = (id) => {
     return $.ajax({
         method: "DELETE",
         url: `/api/comments/${id}`,
