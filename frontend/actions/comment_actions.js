@@ -5,7 +5,7 @@ export const createComment = (commentToServer) => {
     return dispatch => {
         return CommentAPIUtil.createComment(commentToServer).then(
             (commentsFromServer) => {
-                dispatch(receiveLikes(commentsFromServer));
+                dispatch(receiveComments(commentsFromServer));
             }
         );
     };

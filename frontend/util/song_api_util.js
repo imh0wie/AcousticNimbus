@@ -18,6 +18,7 @@ export const fetchSong = (id) => {
 };
 
 export const fetchSongs = () => {
+  debugger
   return $.ajax({
     method: "GET",
     url: "/api/songs",

@@ -7,7 +7,7 @@ const commentsReducer = (state = {}, action) => {
         case RECEIVE_COMMENTS:
             return merge({}, state, action.comments); 
         default:
-            break;
+            return state;
     }
 }
 

@@ -163,7 +163,7 @@ var RECEIVE_COMMENTS = "RECEIVE_COMMENTS";
 var createComment = function createComment(commentToServer) {
   return function (dispatch) {
     return _util_comment_api_util__WEBPACK_IMPORTED_MODULE_0__["createComment"](commentToServer).then(function (commentsFromServer) {
-      dispatch(receiveLikes(commentsFromServer));
+      dispatch(receiveComments(commentsFromServer));
     });
   };
 };
@@ -516,7 +516,7 @@ var fetchSongs = function fetchSongs() {
       return dispatch(receiveSongsErrors(errors.responseJSON));
     });
   };
-}; // What does it do? ==> reducer
+};
 
 var receiveSong = function receiveSong(_ref) {
   var song = _ref.song;
@@ -4287,7 +4287,7 @@ var commentsReducer = function commentsReducer() {
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, action.comments);
 
     default:
-      break;
+      return state;
   }
 };
 
@@ -5205,6 +5205,7 @@ var fetchSong = function fetchSong(id) {
   });
 };
 var fetchSongs = function fetchSongs() {
+  debugger;
   return $.ajax({
     method: "GET",
     url: "/api/songs"
