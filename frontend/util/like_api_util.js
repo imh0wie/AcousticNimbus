@@ -9,7 +9,6 @@ export const createLike = (like) => {
 };
 
 export const removeLike = (id) => {
-    debugger
     return $.ajax({
         method: "DELETE",
         url: `/api/likes/${id}`,
@@ -45,7 +44,6 @@ export const likeOf = (likeableType, likeableId, liker, likes) => {
     for (let i = 0; i < likeIds.length; i++ ) {
         const likeId = likeIds[i];
         const like = likes[likeId];
-        debugger
         if (like.likeableType === likeableType && like.likeableId === likeableId && like.likerId === liker.id) return like;
     }
     return null;

@@ -10,19 +10,16 @@ export const RECEIVE_CURRENT_SONG_ERRORS = "RECEIVE_CURRENT_SONG_ERRORS";
 export const playSong = () => {
   return {
     type: PLAY_SONG,
-    // song: song,
   };
 };
 
 export const pauseSong = () => {
   return {
     type: PAUSE_SONG,
-    // song: song,
   };
 };
 
 export const setCurrentSong = ( song ) => {
-  // debugger
   return {
     type: SET_CURRENT_SONG,
     song: song,
@@ -30,7 +27,6 @@ export const setCurrentSong = ( song ) => {
 };
 
 export const setElapsedTo = ( time ) => {
-  // debugger
   return {
     type: SET_ELAPSED_TO,
     time: time,

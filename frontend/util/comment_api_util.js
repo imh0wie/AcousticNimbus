@@ -29,7 +29,7 @@ export const commentsOf = (songId, comments) => {
     for (let i = 0; i < commentIds.length; i++) {
         const commentId = commentIds[i];
         const comment = comments[commentId];
-        if (comment.songId === songId) output.push(comment);
+        if (comment.songId === songId) output.unshift(comment);
     }
     return output;
 }

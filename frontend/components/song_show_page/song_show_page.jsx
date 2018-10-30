@@ -10,6 +10,7 @@ import { createComment, removeComment, fetchComments } from "../../actions/comme
 import { likeOf } from "../../util/like_api_util";
 import { artistIdOf, followOf } from "../../util/follow_api_util";
 import { commentsOf } from "../../util/comment_api_util";
+import CommentsListItem from "./comments_list_item";
 import Waveform from "./waveform";
 
 const msp = (state, ownProps) => {
@@ -19,7 +20,7 @@ const msp = (state, ownProps) => {
   const likes = state.entities.likes;
   const follows = state.entities.follows;
   const comments = state.entities.comments;
-  debugger
+  // debugger
   return ({ 
     onPageSong: onPageSong,
     onPageSongId: songId,
@@ -31,6 +32,7 @@ const msp = (state, ownProps) => {
     currentLike: likeOf("Song", songId, currentUser, likes),
     currentFollow: followOf(artistIdOf(onPageSong), currentUser.id, follows),
     currentComments: commentsOf(songId, comments),
+    allUsers: state.entities.users,
   });
 };
 
@@ -68,7 +70,7 @@ class SongShowPage extends React.Component {
       songProgress: null,
       commenterId: this.props.currentUser.id,
     }
-    debugger
+    // debugger
     this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this);
     // this.renderLike = this.renderLike.bind(this);
     this.renderLikeButton = this.renderLikeButton.bind(this);
@@ -96,6 +98,14 @@ class SongShowPage extends React.Component {
       this.setState({
         followedUserId: artistIdOf(nextProps.onPageSong),
       });
+    }
+    if (this.props.currentComments.length !== nextProps.currentComments.length) {
+      this.setState({
+        body: "",
+        songId: this.props.onPageSongId,
+        songProgress: null,
+        commenterId: this.props.currentUser.id,
+      })
     }
   }
 
@@ -159,25 +169,29 @@ class SongShowPage extends React.Component {
 
   handleComment(e) {
     e.preventDefault();
-    const elapsed = this.props.currentSong.id === this.props.onPageSongId ? this.props.currentSong.elapsed : 0;
-    this.setState({ songProgress: elapsed});
+    // const elapsed = this.props.currentSong.id === this.props.onPageSongId ? this.props.currentSong.elapsed : 0;    
+    // this.setState({ songProgress: elapsed});
+    debugger
     const comment = {
       body: this.state.body,
-      songId: this.state.songId,
-      songProgress: this.state.songProgress,
-      commenterId: this.props.currentUser.id,
+      song_id: this.state.songId,
+      song_progress: this.state.songProgress,
+      commenter_id: this.props.currentUser.id,
     }
     this.props.createComment(comment);
   }
 
   update(field) {
+    const elapsed = this.props.currentSong.id === this.props.onPageSongId ? this.props.currentSong.elapsed : 0;
     return (e) => {
-      this.setState({ [field]: e.currentTarget.value });
+      this.setState({ 
+        [field]: e.currentTarget.value,
+        songProgress: elapsed,
+       });
     };
   }
 
   renderLikeButton() {
-    debugger
     if (this.props.currentLike) {
       return (
         <button className="song-show-page-liked-button" onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> Liked</button>
@@ -190,15 +204,12 @@ class SongShowPage extends React.Component {
   }
 
   renderFollowButton() {
-    debugger
     if (this.props.onPageSong.artistId === this.props.currentUser.id) return;
     if (this.props.currentFollow) {
-      debugger
       return (
         <button className="song-show-page-follow-button" onClick={(e) => this.handleFollow(e)}>Following</button>
       );
     } else {
-      debugger
       return (
         <button className="song-show-page-follow-button" onClick={(e) => this.handleFollow(e)}>Follow</button>
       );
@@ -221,6 +232,23 @@ class SongShowPage extends React.Component {
           <div className="song-show-page-comments-header-container">
             <p className="song-show-page-comments-header">{commentsHeader}</p>
           </div>
+          <div className="song-show-page-comments">
+            <ul className="song-show-page-comments-list">
+            {this.props.currentComments.map((comment) => {
+                return (
+                <CommentsListItem
+                key={comment.id}
+                comment={comment}
+                commenter={this.props.allUsers[comment.commenterId]}
+                currentSong={this.props.currentSong}
+                currentUser={this.props.currentUser}
+                onPageSong={this.props.onPageSong}
+                removeComment={this.props.removeComment}
+                />
+                );
+            })}
+            </ul>
+          </div>
         </div>
       );
     }
@@ -228,12 +256,12 @@ class SongShowPage extends React.Component {
 
   render() {
     if (!this.props.onPageSong) {
-      debugger
+      // debugger
       return (
         <img src={window.loading} className="loading"></img>
       );
     } else {
-      debugger
+      // debugger
       return (
         <div className="song-show-page-container">
           <div className="banner-player-container">
@@ -268,7 +296,7 @@ class SongShowPage extends React.Component {
                 <div className="song-show-page-comment-box-wrapper">
                   <img src={this.props.currentUser.imageURL ? this.props.currentUser.imageURL : window.default_avatar} className="song-show-page-comment-box-img"></img>
                   <form>
-                    <input type="text" name="comment" placeholder="Write a comment" className="song-show-page-comment-box" onChange={this.update("body")} />
+                    <input type="text" value={this.state.body} name="comment" placeholder="Write a comment" className="song-show-page-comment-box" onChange={this.update("body")} />
                     <input type="submit" className="song-show-page-comment-submit-button" tabIndex="-1" onClick={(e) => this.handleComment(e)}/>
                   </form>
                 </div>

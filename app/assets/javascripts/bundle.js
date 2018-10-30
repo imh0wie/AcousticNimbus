@@ -224,25 +224,21 @@ var RECEIVE_CURRENT_SONG_ERRORS = "RECEIVE_CURRENT_SONG_ERRORS"; // What does it
 
 var playSong = function playSong() {
   return {
-    type: PLAY_SONG // song: song,
-
+    type: PLAY_SONG
   };
 };
 var pauseSong = function pauseSong() {
   return {
-    type: PAUSE_SONG // song: song,
-
+    type: PAUSE_SONG
   };
 };
 var setCurrentSong = function setCurrentSong(song) {
-  // debugger
   return {
     type: SET_CURRENT_SONG,
     song: song
   };
 };
 var setElapsedTo = function setElapsedTo(time) {
-  // debugger
   return {
     type: SET_ELAPSED_TO,
     time: time
@@ -286,7 +282,6 @@ var RECEIVE_FOLLOWS = "RECEIVE_FOLLOWS";
 var createFollow = function createFollow(followToServer) {
   return function (dispatch) {
     return _util_follow_api_util__WEBPACK_IMPORTED_MODULE_0__["createFollow"](followToServer).then(function (followsFromServer) {
-      debugger;
       return dispatch(receiveFollows(followsFromServer));
     });
   };
@@ -294,7 +289,6 @@ var createFollow = function createFollow(followToServer) {
 var removeFollow = function removeFollow(idToServer) {
   return function (dispatch) {
     return _util_follow_api_util__WEBPACK_IMPORTED_MODULE_0__["removeFollow"](idToServer).then(function (followsFromServer) {
-      debugger;
       return dispatch(receiveFollows(followsFromServer));
     });
   };
@@ -302,7 +296,6 @@ var removeFollow = function removeFollow(idToServer) {
 var fetchFollows = function fetchFollows() {
   return function (dispatch) {
     return _util_follow_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchFollows"]().then(function (followsFromServer) {
-      debugger;
       return dispatch(receiveFollows(followsFromServer));
     });
   };
@@ -2502,6 +2495,157 @@ var Root = function Root(_ref) {
 
 /***/ }),
 
+/***/ "./frontend/components/song_show_page/comments_list_item.jsx":
+/*!*******************************************************************!*\
+  !*** ./frontend/components/song_show_page/comments_list_item.jsx ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+
+
+var CommentsListItem =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(CommentsListItem, _React$Component);
+
+  function CommentsListItem(props) {
+    var _this;
+
+    _classCallCheck(this, CommentsListItem);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(CommentsListItem).call(this, props));
+    _this.handleRemove = _this.handleRemove.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.renderUsername = _this.renderUsername.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.renderCreationTime = _this.renderCommentCreationTime.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.renderDeleteButton = _this.renderDeleteButton.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    return _this;
+  }
+
+  _createClass(CommentsListItem, [{
+    key: "handleRemove",
+    value: function handleRemove(id) {
+      this.props.removeComment(id);
+    }
+  }, {
+    key: "renderUsername",
+    value: function renderUsername() {
+      debugger;
+      var username = this.props.comment.commenterId === this.props.currentUser.id ? "You" : this.props.commenter.username;
+      debugger;
+      var audio = new Audio();
+      audio.src = this.props.onPageSong.audioURL;
+      var audioDuration = audio.duration;
+      debugger;
+
+      if (this.props.currentSong.song && this.props.onPageSong.id === this.props.currentSong.song.id) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "username"
+        }, username), " at ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "time"
+        }, this.props.currentSong.elapsed * audioDuration), ":");
+      } else {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "username"
+        }, username), " at ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "time"
+        }, "0:00"), ":");
+      }
+    }
+  }, {
+    key: "renderCommentCreationTime",
+    value: function renderCommentCreationTime(date) {
+      var commentLife = Math.abs(new Date() - new Date(date)) / 1000;
+
+      if (commentLife < 60) {
+        var unit = Math.floor(commentLife) > 1 ? "seconds" : "second";
+        return "".concat(Math.floor(commentLife), " ").concat(unit, " ago");
+      } else if (commentLife < 3600) {
+        var _unit = Math.floor(commentLife / 60) > 1 ? "minutes" : "minute";
+
+        return "".concat(Math.floor(commentLife / 60), " ").concat(_unit, " ago");
+      } else if (commentLife < 86400) {
+        var _unit2 = Math.floor(commentLife / 3600) > 1 ? "hours" : "hour";
+
+        return "".concat(Math.floor(commentLife / 3600), " ").concat(_unit2, " ago");
+      } else if (commentLife < 604800) {
+        var _unit3 = Math.floor(commentLife / 86400) > 1 ? "days" : "day";
+
+        return "".concat(Math.floor(commentLife / 86400), " ").concat(_unit3, " ago"); // } else if (commentLife < 2592000) {
+        //     return `${Math.floor(commentLife / 604800)}w ago`;
+      } else if (commentLife < 31104000) {
+        var _unit4 = Math.floor(commentLife / 2592000) > 1 ? "months" : "month";
+
+        return "".concat(Math.floor(commentLife / 2592000), " ").concat(_unit4, " ago");
+      } else {
+        var _unit5 = Math.floor(commentLife / 31104000) > 1 ? "years" : "year";
+
+        return "".concat(Math.floor(commentLife / 31104000), " ").concat(_unit5, " ago");
+      }
+    }
+  }, {
+    key: "renderDeleteButton",
+    value: function renderDeleteButton() {
+      var _this2 = this;
+
+      if (this.props.commenter.id === this.props.currentUser.id || this.props.onPageSong.artistId === this.props.currentUser.id) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "delete",
+          onClick: function onClick() {
+            return _this2.handleRemove(_this2.props.comment.id);
+          }
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          class: "fas fa-trash"
+        }));
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "song-show-page-comments-index-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "comments-list-item-commenter-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: this.props.commenter.imageURL ? this.props.commenter.imageURL : window.default_avatar,
+        className: "comments-list-item-commenter-img"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.renderUsername(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.comment.body))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "date-delete"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "date"
+      }, this.renderCommentCreationTime(this.props.comment.createdAt)), this.renderDeleteButton()));
+    }
+  }]);
+
+  return CommentsListItem;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (CommentsListItem);
+
+/***/ }),
+
 /***/ "./frontend/components/song_show_page/song_show_page.jsx":
 /*!***************************************************************!*\
   !*** ./frontend/components/song_show_page/song_show_page.jsx ***!
@@ -2524,7 +2668,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _util_like_api_util__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../util/like_api_util */ "./frontend/util/like_api_util.js");
 /* harmony import */ var _util_follow_api_util__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../util/follow_api_util */ "./frontend/util/follow_api_util.js");
 /* harmony import */ var _util_comment_api_util__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../util/comment_api_util */ "./frontend/util/comment_api_util.js");
-/* harmony import */ var _waveform__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./waveform */ "./frontend/components/song_show_page/waveform.jsx");
+/* harmony import */ var _comments_list_item__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./comments_list_item */ "./frontend/components/song_show_page/comments_list_item.jsx");
+/* harmony import */ var _waveform__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./waveform */ "./frontend/components/song_show_page/waveform.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -2559,14 +2704,15 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 
+
 var msp = function msp(state, ownProps) {
   var songId = parseInt(ownProps.match.params.songId);
   var onPageSong = state.entities.songs[songId];
   var currentUser = state.entities.users[state.session.id];
   var likes = state.entities.likes;
   var follows = state.entities.follows;
-  var comments = state.entities.comments;
-  debugger;
+  var comments = state.entities.comments; // debugger
+
   return {
     onPageSong: onPageSong,
     onPageSongId: songId,
@@ -2577,7 +2723,8 @@ var msp = function msp(state, ownProps) {
     currentUser: currentUser,
     currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_9__["likeOf"])("Song", songId, currentUser, likes),
     currentFollow: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_10__["followOf"])(Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_10__["artistIdOf"])(onPageSong), currentUser.id, follows),
-    currentComments: Object(_util_comment_api_util__WEBPACK_IMPORTED_MODULE_11__["commentsOf"])(songId, comments)
+    currentComments: Object(_util_comment_api_util__WEBPACK_IMPORTED_MODULE_11__["commentsOf"])(songId, comments),
+    allUsers: state.entities.users
   };
 };
 
@@ -2651,9 +2798,9 @@ function (_React$Component) {
       body: "",
       songId: _this.props.onPageSongId,
       songProgress: null,
-      commenterId: _this.props.currentUser.id
+      commenterId: _this.props.currentUser.id // debugger
+
     };
-    debugger;
     _this.renderPlayPauseSign = _this.renderPlayPauseSign.bind(_assertThisInitialized(_assertThisInitialized(_this))); // this.renderLike = this.renderLike.bind(this);
 
     _this.renderLikeButton = _this.renderLikeButton.bind(_assertThisInitialized(_assertThisInitialized(_this)));
@@ -2684,6 +2831,15 @@ function (_React$Component) {
       if (Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_10__["artistIdOf"])(nextProps.onPageSong) !== this.state.followedUserId) {
         this.setState({
           followedUserId: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_10__["artistIdOf"])(nextProps.onPageSong)
+        });
+      }
+
+      if (this.props.currentComments.length !== nextProps.currentComments.length) {
+        this.setState({
+          body: "",
+          songId: this.props.onPageSongId,
+          songProgress: null,
+          commenterId: this.props.currentUser.id
         });
       }
     }
@@ -2768,16 +2924,15 @@ function (_React$Component) {
   }, {
     key: "handleComment",
     value: function handleComment(e) {
-      e.preventDefault();
-      var elapsed = this.props.currentSong.id === this.props.onPageSongId ? this.props.currentSong.elapsed : 0;
-      this.setState({
-        songProgress: elapsed
-      });
+      e.preventDefault(); // const elapsed = this.props.currentSong.id === this.props.onPageSongId ? this.props.currentSong.elapsed : 0;    
+      // this.setState({ songProgress: elapsed});
+
+      debugger;
       var comment = {
         body: this.state.body,
-        songId: this.state.songId,
-        songProgress: this.state.songProgress,
-        commenterId: this.props.currentUser.id
+        song_id: this.state.songId,
+        song_progress: this.state.songProgress,
+        commenter_id: this.props.currentUser.id
       };
       this.props.createComment(comment);
     }
@@ -2786,16 +2941,17 @@ function (_React$Component) {
     value: function update(field) {
       var _this3 = this;
 
+      var elapsed = this.props.currentSong.id === this.props.onPageSongId ? this.props.currentSong.elapsed : 0;
       return function (e) {
-        _this3.setState(_defineProperty({}, field, e.currentTarget.value));
+        var _this3$setState;
+
+        _this3.setState((_this3$setState = {}, _defineProperty(_this3$setState, field, e.currentTarget.value), _defineProperty(_this3$setState, "songProgress", elapsed), _this3$setState));
       };
     }
   }, {
     key: "renderLikeButton",
     value: function renderLikeButton() {
       var _this4 = this;
-
-      debugger;
 
       if (this.props.currentLike) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -2822,11 +2978,9 @@ function (_React$Component) {
     value: function renderFollowButton() {
       var _this5 = this;
 
-      debugger;
       if (this.props.onPageSong.artistId === this.props.currentUser.id) return;
 
       if (this.props.currentFollow) {
-        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "song-show-page-follow-button",
           onClick: function onClick(e) {
@@ -2834,7 +2988,6 @@ function (_React$Component) {
           }
         }, "Following");
       } else {
-        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "song-show-page-follow-button",
           onClick: function onClick(e) {
@@ -2846,6 +2999,8 @@ function (_React$Component) {
   }, {
     key: "renderCommentsSection",
     value: function renderCommentsSection() {
+      var _this6 = this;
+
       if (this.props.currentComments.length === 0) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-show-page-comments-container"
@@ -2860,22 +3015,36 @@ function (_React$Component) {
           className: "song-show-page-comments-header-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "song-show-page-comments-header"
-        }, commentsHeader)));
+        }, commentsHeader)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "song-show-page-comments"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+          className: "song-show-page-comments-list"
+        }, this.props.currentComments.map(function (comment) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_comments_list_item__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            key: comment.id,
+            comment: comment,
+            commenter: _this6.props.allUsers[comment.commenterId],
+            currentSong: _this6.props.currentSong,
+            currentUser: _this6.props.currentUser,
+            onPageSong: _this6.props.onPageSong,
+            removeComment: _this6.props.removeComment
+          });
+        }))));
       }
     }
   }, {
     key: "render",
     value: function render() {
-      var _this6 = this;
+      var _this7 = this;
 
       if (!this.props.onPageSong) {
-        debugger;
+        // debugger
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loading,
           className: "loading"
         });
       } else {
-        debugger;
+        // debugger
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-show-page-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -2901,7 +3070,7 @@ function (_React$Component) {
           className: "song-show-page-song-genre"
         }, "#", this.props.onPageSong.genre))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "banner-player-waveform-container"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_waveform__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_waveform__WEBPACK_IMPORTED_MODULE_13__["default"], {
           onPageSong: this.props.onPageSong,
           onPageSongId: this.props.onPageSongId,
           currentSong: this.props.currentSong
@@ -2921,6 +3090,7 @@ function (_React$Component) {
           className: "song-show-page-comment-box-img"
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
           type: "text",
+          value: this.state.body,
           name: "comment",
           placeholder: "Write a comment",
           className: "song-show-page-comment-box",
@@ -2930,7 +3100,7 @@ function (_React$Component) {
           className: "song-show-page-comment-submit-button",
           tabIndex: "-1",
           onClick: function onClick(e) {
-            return _this6.handleComment(e);
+            return _this7.handleComment(e);
           }
         }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-show-page-social-els"
@@ -4918,7 +5088,7 @@ var commentsOf = function commentsOf(songId, comments) {
   for (var i = 0; i < commentIds.length; i++) {
     var commentId = commentIds[i];
     var comment = comments[commentId];
-    if (comment.songId === songId) output.push(comment);
+    if (comment.songId === songId) output.unshift(comment);
   }
 
   return output;
@@ -4943,7 +5113,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _general_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./general_api_util */ "./frontend/util/general_api_util.js");
 
 var createFollow = function createFollow(follow) {
-  debugger;
   return $.ajax({
     method: "POST",
     url: "/api/follows",
@@ -4953,29 +5122,23 @@ var createFollow = function createFollow(follow) {
   });
 };
 var removeFollow = function removeFollow(id) {
-  debugger;
   return $.ajax({
     method: "DELETE",
     url: "/api/follows/".concat(id)
   });
 };
 var fetchFollows = function fetchFollows() {
-  debugger;
   return $.ajax({
     method: "GET",
     url: "/api/follows"
   });
 };
 var artistIdOf = function artistIdOf(onPageSong) {
-  debugger; // onPageSong ? onPageSong.artistId : null;
-
-  if (onPageSong) {
-    debugger;
-    return onPageSong.artistId;
-  } else {
-    debugger;
-    return null;
-  }
+  onPageSong ? onPageSong.artistId : null; // if (onPageSong) {
+  //     return onPageSong.artistId;
+  // } else {
+  //     return null;
+  // }
 };
 var followOf = function followOf(followedUserId, followerId, follows) {
   if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(follows)) return null;
@@ -5051,7 +5214,6 @@ var createLike = function createLike(like) {
   });
 };
 var removeLike = function removeLike(id) {
-  debugger;
   return $.ajax({
     method: "DELETE",
     url: "/api/likes/".concat(id)
@@ -5085,7 +5247,6 @@ var likeOf = function likeOf(likeableType, likeableId, liker, likes) {
   for (var i = 0; i < likeIds.length; i++) {
     var likeId = likeIds[i];
     var like = likes[likeId];
-    debugger;
     if (like.likeableType === likeableType && like.likeableId === likeableId && like.likerId === liker.id) return like;
   }
 
@@ -5246,7 +5407,6 @@ var fetchSong = function fetchSong(id) {
   });
 };
 var fetchSongs = function fetchSongs() {
-  debugger;
   return $.ajax({
     method: "GET",
     url: "/api/songs"

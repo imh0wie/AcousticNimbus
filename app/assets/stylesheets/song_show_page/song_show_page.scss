@@ -220,7 +220,7 @@
 }
 
 .song-show-page-description-comments {
-    width: 100vh;
+    width: 660px;
     margin-left: 30px;
 }
 
@@ -248,6 +248,93 @@
 .song-show-page-comments-header {
     color: #999;
 }
+
+.song-show-page-comments-index-item {
+    display: flex;
+    height: 40px;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.song-show-page-comments-index-item .date-delete {
+    text-align: right;
+}
+
+.song-show-page-comments-index-item .date {
+    font-size: 12px;
+    color: #999;
+    margin: 0;
+}
+
+.song-show-page-comments-index-item .delete {
+    // display: none;
+    width: 25px;
+    height: 25px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.song-show-page-comments-index-item:hover + .song-show-page-comments-index-item .delete {
+    // display: block;
+    // width: 25px;
+    // height: 25px;
+    // border: 1px solid #ccc;
+    // border-radius: 3px;
+    // text-align: center;
+}
+
+.song-show-page-comments-index-item .delete:hover{
+    // display: block;
+    // width: 25px;
+    // height: 25px;
+    // border: 1px solid #ccc;
+    // border-radius: 3px;
+    // text-align: center;
+}
+
+.comments-list-item-commenter-container {
+    display: flex;
+}
+
+.comments-list-item-commenter-container img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.comments-list-item-commenter-container div h1 {
+    font-size: 11px;
+    color: #ccc;
+    margin: 0px;
+}
+
+.comments-list-item-commenter-container .username {
+    font-size: 12px;
+    color: #999;
+}
+
+.comments-list-item-commenter-container .time {
+    font-size: 11px;
+    color: #999;
+}
+
+.comments-list-item-commenter-container .time:hover {
+    font-size: 11px;
+    color: #333;
+}
+
+.comments-list-item-commenter-container div {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.comments-list-item-commenter-container div p {
+    font-size: 12px;
+    margin: 0;
+}
+
 
 .song-show-page-sidebar {
     width: 390px;
