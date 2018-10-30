@@ -2814,7 +2814,9 @@ function (_React$Component) {
     key: "renderCommentsSection",
     value: function renderCommentsSection() {
       if (this.props.currentComments.length === 0) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "song-show-page-comments-container"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.message
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Seems a little quiet over here"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Be the first to comment on this song"));
       } else {

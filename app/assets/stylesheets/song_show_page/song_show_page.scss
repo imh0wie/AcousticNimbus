@@ -220,7 +220,25 @@
 }
 
 .song-show-page-description-comments {
+    width: 100vh;
     margin-left: 30px;
+}
+
+.song-show-page-description-comments img {
+    width: 210px;
+    margin: 0 auto;
+}
+
+.song-show-page-description-comments h3 {
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+}
+
+.song-show-page-description-comments h4 {
+    font-size: 16px;
+    color: #999;
+    text-align: center;
 }
 
 .song-show-page-comments-header-container {

@@ -183,7 +183,7 @@ class SongShowPage extends React.Component {
   renderCommentsSection() {
     if (this.props.currentComments.length === 0) {
       return (
-        <div>
+        <div className="song-show-page-comments-container">
           <img src={window.message}></img>
           <h3>Seems a little quiet over here</h3>
           <h4>Be the first to comment on this song</h4>
