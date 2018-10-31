@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
+import { fetchUsers } from "../../actions/user_actions";
 import { fetchSongs, fetchSong } from "../../actions/song_actions";
 <<<<<<< HEAD
 import { setCurrentSong, playSong, pauseSong, setElapsedTo } from "../../actions/current_song_actions";
@@ -9,19 +10,29 @@ import Waveform from "../common_components/waveform";
 =======
 import { setCurrentSong, playSong, pauseSong } from "../../actions/current_song_actions";
 import { createLike, removeLike, fetchLikes } from "../../actions/like_actions";
-import { likeOf, likesOf, liked } from "../../util/like_api_util";
+import { createFollow, removeFollow, fetchFollows } from "../../actions/follow_actions";
+import { likeOf } from "../../util/like_api_util";
+import { artistIdOf, followOf } from "../../util/follow_api_util";
 import Waveform from "./waveform";
 >>>>>>> likes
 
 const msp = (state, ownProps) => {
+  const songId = ownProps.match.params.songId;
+  const onPageSong = state.entities.songs[songId];
+  const currentUser = state.entities.users[state.session.id];
+  const likes = state.entities.likes;
+  const follows = state.entities.follows;
   debugger
   return ({ 
-    onPageSong: state.entities.songs[ownProps.match.params.songId],
-    onPageSongId: parseInt(ownProps.match.params.songId),
-    onPageSongLiked: liked(state.entities.users[state.session.id], likesOf("Song", parseInt(ownProps.match.params.songId), state.entities.likes)),
+    onPageSong: onPageSong,
+    onPageSongId: parseInt(songId),
+    // onPageSongLiked: liked(currentUser, likesOf("Song", parseInt(songId), likes)),
+    // onPageArtist: state.entities.users[artistIdOf(onPageSong)],
+    // onPageArtistFollowed: followed(artistIdOf(onPageSong), state.session.id, follows),
     currentSong: state.ui.currentSong,
-    currentUser: state.entities.users[state.session.id],
-    currentLike: likeOf(state.entities.users[state.session.id], likesOf("Song", parseInt(ownProps.match.params.songId), state.entities.likes)),
+    currentUser: currentUser,
+    currentLike: likeOf("Song", parseInt(songId), currentUser, likes),
+    currentFollow: followOf(artistIdOf(onPageSong), currentUser.id, follows),
   });
 };
 
@@ -38,7 +49,14 @@ const mdp = (dispatch) => {
       createLike: (like) => dispatch(createLike(like)),
       removeLike: (id) => dispatch(removeLike(id)),
       fetchLikes: () => dispatch(fetchLikes()),
+<<<<<<< HEAD
 >>>>>>> likes
+=======
+      createFollow: (follow) => dispatch(createFollow(follow)),
+      removeFollow: (id) => dispatch(removeFollow(id)),
+      fetchFollows: () => dispatch(fetchFollows()),
+      fetchUsers: () => dispatch(fetchUsers()),
+>>>>>>> follows
   });
 };
 
@@ -47,21 +65,36 @@ class SongShowPage extends React.Component {
     super(props);
     this.state = {
       likeableType: "Song",
-      likeableId: parseInt(this.props.onPageSongId),
-      likerId: parseInt(this.props.currentUser.id),
+      likeableId: this.props.onPageSongId,
+      likerId: this.props.currentUser.id,
+      followedUserId: artistIdOf(this.props.onPageSong),
+      followerId: this.props.currentUser.id,
     }
+    debugger
     this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this);
     // this.renderLike = this.renderLike.bind(this);
     this.renderLikeButton = this.renderLikeButton.bind(this);
+    this.renderFollowButton = this.renderFollowButton.bind(this);
     this.togglePlayPause = this.togglePlayPause.bind(this);
     this.handleLike = this.handleLike.bind(this);
+    this.handleFollow = this.handleFollow.bind(this);
   }
 
   componentDidMount() {
     // this.props.fetchSong(this.props.onPageSongId);
     debugger
-    this.props.fetchSongs()
+    this.props.fetchSongs();
     this.props.fetchLikes();
+    this.props.fetchFollows();
+    this.props.fetchUsers();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (artistIdOf(nextProps.onPageSong) !== this.state.followedUserId) {
+      this.setState({
+        followedUserId: artistIdOf(nextProps.onPageSong),
+      });
+    }
   }
 
   renderPlayPauseSign(song) {
@@ -91,7 +124,8 @@ class SongShowPage extends React.Component {
 
   handleLike(e) {
     e.preventDefault();
-    if (this.props.onPageSongLiked) {
+    debugger
+    if (this.props.currentLike) {
       this.props.removeLike(this.props.currentLike.id);
     } else {
       const like = {
@@ -99,35 +133,59 @@ class SongShowPage extends React.Component {
         likeable_id: this.state.likeableId,
         liker_id: this.state.likerId,
       }
+      debugger
       this.props.createLike(like);
     }
   }
 
-  // renderLike() {
-  //   if (this.props.onPageSongLiked) {
-  //     return <span><i className="fas fa-heart"></i> Liked</span>;
-  //   } else {
-  //     return <span><i className="fas fa-heart"></i> Like</span>;
-  //   }
-  // }
+  handleFollow(e) {
+    e.preventDefault();
+    debugger
+    if (this.props.currentFollow) {
+      this.props.removeFollow(this.props.currentFollow.id);
+    } else {
+      debugger
+      const follow = {
+        followed_user_id: this.state.followedUserId,
+        follower_id: this.state.followerId,
+      }
+      debugger
+      this.props.createFollow(follow);
+    }
+  }
 
   renderLikeButton() {
     debugger
-    if (this.props.onPageSongLiked) {
-      debugger
+    if (this.props.currentLike) {
       return (
         <button className="song-show-page-liked-button" onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> Liked</button>
       );
     } else {
-      debugger
       return (
         <button className="song-show-page-like-button" onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> Like</button>
       );
     }
   }
 
+  renderFollowButton() {
+    debugger
+    if (this.props.onPageSong.artistId === this.props.currentUser.id) return;
+    if (this.props.currentFollow) {
+      debugger
+      return (
+        <button className="song-show-page-follow-button" onClick={(e) => this.handleFollow(e)}>Following</button>
+      );
+    } else {
+      debugger
+      return (
+        <button className="song-show-page-follow-button" onClick={(e) => this.handleFollow(e)}>Follow</button>
+      );
+    }
+  }
+
   render() {
     if (!this.props.onPageSong) {
+      debugger
       return (
         <img src={window.loading1} className="loading"></img>
       );
@@ -190,7 +248,9 @@ class SongShowPage extends React.Component {
                   <Link to={`/users/${this.props.onPageSong.artistId}`} className="song-show-page-artist">{this.props.onPageSong.artist}</Link>
                   <div className="song-show-page-artist-follows-container">
                   </div>
-                  <button className="song-show-page-follow-button">Follow</button>
+                  <form>
+                    {this.renderFollowButton()}
+                  </form>
                 </div>
                 <div className="song-show-page-description-comments">
                   <div className="song-show-page-description-container">

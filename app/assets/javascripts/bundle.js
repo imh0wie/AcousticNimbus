@@ -220,6 +220,56 @@ var receiveCurrentSongErrors = function receiveCurrentSongErrors(errors) {
 
 /***/ }),
 
+/***/ "./frontend/actions/follow_actions.js":
+/*!********************************************!*\
+  !*** ./frontend/actions/follow_actions.js ***!
+  \********************************************/
+/*! exports provided: RECEIVE_FOLLOWS, createFollow, removeFollow, fetchFollows */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_FOLLOWS", function() { return RECEIVE_FOLLOWS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createFollow", function() { return createFollow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeFollow", function() { return removeFollow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchFollows", function() { return fetchFollows; });
+/* harmony import */ var _util_follow_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/follow_api_util */ "./frontend/util/follow_api_util.js");
+
+var RECEIVE_FOLLOWS = "RECEIVE_FOLLOWS";
+var createFollow = function createFollow(followToServer) {
+  return function (dispatch) {
+    return _util_follow_api_util__WEBPACK_IMPORTED_MODULE_0__["createFollow"](followToServer).then(function (followsFromServer) {
+      debugger;
+      return dispatch(receiveFollows(followsFromServer));
+    });
+  };
+};
+var removeFollow = function removeFollow(idToServer) {
+  return function (dispatch) {
+    return _util_follow_api_util__WEBPACK_IMPORTED_MODULE_0__["removeFollow"](idToServer).then(function (followsFromServer) {
+      debugger;
+      return dispatch(receiveFollows(followsFromServer));
+    });
+  };
+};
+var fetchFollows = function fetchFollows() {
+  return function (dispatch) {
+    return _util_follow_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchFollows"]().then(function (followsFromServer) {
+      debugger;
+      return dispatch(receiveFollows(followsFromServer));
+    });
+  };
+};
+
+var receiveFollows = function receiveFollows(follows) {
+  return {
+    type: RECEIVE_FOLLOWS,
+    follows: follows
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/actions/like_actions.js":
 /*!******************************************!*\
   !*** ./frontend/actions/like_actions.js ***!
@@ -239,7 +289,6 @@ var RECEIVE_LIKES = "RECEIVE_LIKES";
 var createLike = function createLike(likeToServer) {
   return function (dispatch) {
     return _util_like_api_util__WEBPACK_IMPORTED_MODULE_0__["createLike"](likeToServer).then(function (likesFromServer) {
-      debugger;
       return dispatch(receiveLikes(likesFromServer));
     });
   };
@@ -254,7 +303,6 @@ var removeLike = function removeLike(idToServer) {
 var fetchLikes = function fetchLikes() {
   return function (dispatch) {
     return _util_like_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchLikes"]().then(function (likesFromServer) {
-      debugger;
       return dispatch(receiveLikes(likesFromServer));
     });
   };
@@ -265,10 +313,7 @@ var receiveLikes = function receiveLikes(likes) {
     type: RECEIVE_LIKES,
     likes: likes
   };
-}; // ,
-//         (errors) => {
-//           return dispatch(receiveLikesErrors(errors.responseJSON));
-//         },
+};
 
 /***/ }),
 
@@ -452,6 +497,62 @@ var receiveSongsErrors = function receiveSongsErrors(errors) {
   return {
     type: RECEIVE_SONGS_ERRORS,
     errors: errors
+  };
+};
+
+/***/ }),
+
+/***/ "./frontend/actions/user_actions.js":
+/*!******************************************!*\
+  !*** ./frontend/actions/user_actions.js ***!
+  \******************************************/
+/*! exports provided: RECEIVE_USER, RECEIVE_USERS, fetchUsers, fetchUser, editUser, receiveUser, receiveUsers */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_USER", function() { return RECEIVE_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_USERS", function() { return RECEIVE_USERS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUsers", function() { return fetchUsers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUser", function() { return fetchUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editUser", function() { return editUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveUser", function() { return receiveUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveUsers", function() { return receiveUsers; });
+/* harmony import */ var _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/user_api_util */ "./frontend/util/user_api_util.js");
+
+var RECEIVE_USER = 'RECEIVE_USER';
+var RECEIVE_USERS = 'RECEIVE_USERS';
+var fetchUsers = function fetchUsers() {
+  return function (dispatch) {
+    return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchUsers"]().then(function (usersFromServer) {
+      return dispatch(receiveUsers(usersFromServer));
+    });
+  };
+};
+var fetchUser = function fetchUser(userId) {
+  return function (dispatch) {
+    return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchUser"](userId).then(function (userFromServer) {
+      return dispatch(receiveUser(userFromServer));
+    });
+  };
+};
+var editUser = function editUser(userToServer, userId) {
+  return function (dispatch) {
+    return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__["editUser"](userToServer, userId).then(function (userFromServer) {
+      return dispatch(receiveUser(userFromServer));
+    });
+  };
+};
+var receiveUser = function receiveUser(user) {
+  return {
+    type: RECEIVE_USER,
+    user: user
+  };
+};
+var receiveUsers = function receiveUsers(users) {
+  return {
+    type: RECEIVE_USERS,
+    users: users
   };
 };
 
@@ -2361,7 +2462,7 @@ var Root = function Root(_ref) {
 /*! exports provided: default */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/howiechan/Codes/projects/AcousticNimbus/frontend/components/song_show_page/song_show_page.jsx: Unexpected token (5:1)\n\n\u001b[0m \u001b[90m 3 | \u001b[39m\u001b[36mimport\u001b[39m { \u001b[33mLink\u001b[39m\u001b[33m,\u001b[39m withRouter } from \u001b[32m\"react-router-dom\"\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 4 | \u001b[39m\u001b[36mimport\u001b[39m { fetchSongs\u001b[33m,\u001b[39m fetchSong } from \u001b[32m\"../../actions/song_actions\"\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 5 | \u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   | \u001b[39m \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 6 | \u001b[39m\u001b[36mimport\u001b[39m { setCurrentSong\u001b[33m,\u001b[39m playSong\u001b[33m,\u001b[39m pauseSong\u001b[33m,\u001b[39m setElapsedTo } from \u001b[32m\"../../actions/current_song_actions\"\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 7 | \u001b[39m\u001b[90m// import { latest } from \"../../util/song_api_util\";\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 8 | \u001b[39m\u001b[36mimport\u001b[39m \u001b[33mWaveform\u001b[39m from \u001b[32m\"../common_components/waveform\"\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n    at _class.raise (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:3938:15)\n    at _class.unexpected (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5247:16)\n    at _class.jsxParseIdentifier (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:3417:14)\n    at _class.jsxParseNamespacedName (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:3427:23)\n    at _class.jsxParseElementName (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:3438:23)\n    at _class.jsxParseOpeningElementAt (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:3523:24)\n    at _class.jsxParseElementAt (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:3556:33)\n    at _class.jsxParseElement (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:3625:19)\n    at _class.parseExprAtom (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:3632:21)\n    at _class.parseExprSubscripts (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5923:21)\n    at _class.parseMaybeUnary (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5902:21)\n    at _class.parseExprOps (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5811:21)\n    at _class.parseMaybeConditional (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5783:21)\n    at _class.parseMaybeAssign (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5730:21)\n    at _class.parseExpression (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5683:21)\n    at _class.parseStatementContent (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7258:21)\n    at _class.parseStatement (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7144:17)\n    at _class.parseBlockOrModuleBlockBody (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7695:23)\n    at _class.parseBlockBody (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7682:10)\n    at _class.parseTopLevel (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7109:10)\n    at _class.parse (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:8495:17)\n    at parse (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:10448:38)\n    at parser (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/core/lib/transformation/normalize-file.js:170:34)\n    at normalizeFile (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/core/lib/transformation/normalize-file.js:138:11)\n    at runSync (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/core/lib/transformation/index.js:44:43)\n    at runAsync (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/core/lib/transformation/index.js:35:14)\n    at process.nextTick (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/core/lib/transform.js:34:34)\n    at _combinedTickCallback (internal/process/next_tick.js:131:7)\n    at process._tickCallback (internal/process/next_tick.js:180:9)");
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/howiechan/Codes/projects/AcousticNimbus/frontend/components/song_show_page/song_show_page.jsx: Unexpected token (6:1)\n\n\u001b[0m \u001b[90m 4 | \u001b[39m\u001b[36mimport\u001b[39m { fetchUsers } from \u001b[32m\"../../actions/user_actions\"\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 5 | \u001b[39m\u001b[36mimport\u001b[39m { fetchSongs\u001b[33m,\u001b[39m fetchSong } from \u001b[32m\"../../actions/song_actions\"\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 6 | \u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   | \u001b[39m \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 7 | \u001b[39m\u001b[36mimport\u001b[39m { setCurrentSong\u001b[33m,\u001b[39m playSong\u001b[33m,\u001b[39m pauseSong\u001b[33m,\u001b[39m setElapsedTo } from \u001b[32m\"../../actions/current_song_actions\"\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 8 | \u001b[39m\u001b[90m// import { latest } from \"../../util/song_api_util\";\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 9 | \u001b[39m\u001b[36mimport\u001b[39m \u001b[33mWaveform\u001b[39m from \u001b[32m\"../common_components/waveform\"\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n    at _class.raise (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:3938:15)\n    at _class.unexpected (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5247:16)\n    at _class.jsxParseIdentifier (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:3417:14)\n    at _class.jsxParseNamespacedName (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:3427:23)\n    at _class.jsxParseElementName (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:3438:23)\n    at _class.jsxParseOpeningElementAt (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:3523:24)\n    at _class.jsxParseElementAt (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:3556:33)\n    at _class.jsxParseElement (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:3625:19)\n    at _class.parseExprAtom (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:3632:21)\n    at _class.parseExprSubscripts (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5923:21)\n    at _class.parseMaybeUnary (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5902:21)\n    at _class.parseExprOps (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5811:21)\n    at _class.parseMaybeConditional (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5783:21)\n    at _class.parseMaybeAssign (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5730:21)\n    at _class.parseExpression (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5683:21)\n    at _class.parseStatementContent (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7258:21)\n    at _class.parseStatement (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7144:17)\n    at _class.parseBlockOrModuleBlockBody (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7695:23)\n    at _class.parseBlockBody (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7682:10)\n    at _class.parseTopLevel (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7109:10)\n    at _class.parse (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:8495:17)\n    at parse (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:10448:38)\n    at parser (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/core/lib/transformation/normalize-file.js:170:34)\n    at normalizeFile (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/core/lib/transformation/normalize-file.js:138:11)\n    at runSync (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/core/lib/transformation/index.js:44:43)\n    at runAsync (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/core/lib/transformation/index.js:35:14)\n    at process.nextTick (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/core/lib/transform.js:34:34)\n    at _combinedTickCallback (internal/process/next_tick.js:131:7)\n    at process._tickCallback (internal/process/next_tick.js:180:9)");
 
 /***/ }),
 
@@ -3555,6 +3656,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _users_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./users_reducer */ "./frontend/reducers/users_reducer.js");
 /* harmony import */ var _songs_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./songs_reducer */ "./frontend/reducers/songs_reducer.js");
 /* harmony import */ var _likes_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./likes_reducer */ "./frontend/reducers/likes_reducer.js");
+/* harmony import */ var _follows_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./follows_reducer */ "./frontend/reducers/follows_reducer.js");
+
 
 
 
@@ -3562,7 +3665,8 @@ __webpack_require__.r(__webpack_exports__);
 var entitiesReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   users: _users_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
   songs: _songs_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
-  likes: _likes_reducer__WEBPACK_IMPORTED_MODULE_3__["default"]
+  likes: _likes_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
+  follows: _follows_reducer__WEBPACK_IMPORTED_MODULE_4__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (entitiesReducer);
 
@@ -3591,6 +3695,43 @@ var errorsReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"]
 
 /***/ }),
 
+/***/ "./frontend/reducers/follows_reducer.js":
+/*!**********************************************!*\
+  !*** ./frontend/reducers/follows_reducer.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_follow_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/follow_actions */ "./frontend/actions/follow_actions.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+
+ // const defaultState = {
+//   id: null,
+//   followedUserId: null,
+//   followerId: null,
+// };
+
+var followsReducer = function followsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_follow_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_FOLLOWS"]:
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, action.follows);
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (followsReducer);
+
+/***/ }),
+
 /***/ "./frontend/reducers/likes_reducer.js":
 /*!********************************************!*\
   !*** ./frontend/reducers/likes_reducer.js ***!
@@ -3604,16 +3745,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
 
-
-var defaultState = {
-  id: null,
-  likeableType: null,
-  likeableId: null,
-  likerId: null
-};
+ // const defaultState = {
+//   id: null,
+//   likeableType: null,
+//   likeableId: null,
+//   likerId: null,
+// };
 
 var likesReducer = function likesReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
 
@@ -3885,10 +4025,12 @@ var uiReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/user_actions */ "./frontend/actions/user_actions.js");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -3899,8 +4041,11 @@ var usersReducer = function usersReducer() {
   Object.freeze(state);
 
   switch (action.type) {
-    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
-      return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, _defineProperty({}, action.currentUser.id, action.currentUser));
+    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_USERS"]:
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, state, action.users);
+
+    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_CURRENT_USER"]:
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, state, _defineProperty({}, action.currentUser.id, action.currentUser));
 
     default:
       return state;
@@ -3939,6 +4084,82 @@ var configureStore = function configureStore() {
 
 /***/ }),
 
+/***/ "./frontend/util/follow_api_util.js":
+/*!******************************************!*\
+  !*** ./frontend/util/follow_api_util.js ***!
+  \******************************************/
+/*! exports provided: createFollow, removeFollow, fetchFollows, artistIdOf, followOf */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createFollow", function() { return createFollow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeFollow", function() { return removeFollow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchFollows", function() { return fetchFollows; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "artistIdOf", function() { return artistIdOf; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "followOf", function() { return followOf; });
+/* harmony import */ var _general_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./general_api_util */ "./frontend/util/general_api_util.js");
+
+var createFollow = function createFollow(follow) {
+  debugger;
+  return $.ajax({
+    method: "POST",
+    url: "/api/follows",
+    data: {
+      follow: follow
+    }
+  });
+};
+var removeFollow = function removeFollow(id) {
+  debugger;
+  return $.ajax({
+    method: "DELETE",
+    url: "/api/follows/".concat(id)
+  });
+};
+var fetchFollows = function fetchFollows() {
+  debugger;
+  return $.ajax({
+    method: "GET",
+    url: "/api/follows"
+  });
+};
+var artistIdOf = function artistIdOf(onPageSong) {
+  debugger; // onPageSong ? onPageSong.artistId : null;
+
+  if (onPageSong) {
+    debugger;
+    return onPageSong.artistId;
+  } else {
+    debugger;
+    return null;
+  }
+};
+var followOf = function followOf(followedUserId, followerId, follows) {
+  if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(follows)) return null;
+  var followIds = Object.keys(follows);
+
+  for (var i = 0; i < followIds.length; i++) {
+    var followId = followIds[i];
+    var follow = follows[followId];
+    if (follow.followedUserId === followedUserId && follow.followerId === followerId) return follow;
+  }
+
+  return null;
+}; // export const followed = (artistId, currentUserId, follows) => {
+//     debugger
+//     if (isEmpty(follows)) return null;
+//     const followIds = Object.keys(follows);
+//     debugger
+//     followIds.some((followId) => {
+//         const follow = follows[followId];
+//         debugger
+//         return followed_user_id === artistId && follower_id === currentUserId;
+//     })
+// }
+
+/***/ }),
+
 /***/ "./frontend/util/general_api_util.js":
 /*!*******************************************!*\
   !*** ./frontend/util/general_api_util.js ***!
@@ -3967,7 +4188,7 @@ var isEmpty = function isEmpty(obj) {
 /*!****************************************!*\
   !*** ./frontend/util/like_api_util.js ***!
   \****************************************/
-/*! exports provided: createLike, removeLike, fetchLikes, likeOf, likesOf, liked */
+/*! exports provided: createLike, removeLike, fetchLikes, likeOf */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3976,8 +4197,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeLike", function() { return removeLike; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchLikes", function() { return fetchLikes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "likeOf", function() { return likeOf; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "likesOf", function() { return likesOf; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "liked", function() { return liked; });
 /* harmony import */ var _general_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./general_api_util */ "./frontend/util/general_api_util.js");
 
 var createLike = function createLike(like) {
@@ -3990,52 +4209,49 @@ var createLike = function createLike(like) {
   });
 };
 var removeLike = function removeLike(id) {
-  debugger;
   return $.ajax({
     method: "DELETE",
     url: "/api/likes/".concat(id)
   });
 };
 var fetchLikes = function fetchLikes() {
-  debugger;
   return $.ajax({
     method: "GET",
     url: "/api/likes"
   });
-};
-var likeOf = function likeOf(liker, likes) {
-  for (var i = 0; i < likes.length; i++) {
-    var like = likes[i];
-    if (like.likerId === liker.id) return like;
+}; // export const likesOf = (likeableType, likeableId, likes) => {
+//     if (isEmpty(likes)) return [];
+//     const likeIds = Object.keys(likes).reverse();
+//     let output = [];
+//     likeIds.forEach((likeId) => {
+//         const id = parseInt(likeId);
+//         const like = likes[id];
+//         debugger
+//         if (like.likeableType === likeableType && like.likeableId === likeableId) {
+//             debugger
+//             output.push(likes[likeId]);
+//         }
+//     })
+//     return output;
+// }
+
+var likeOf = function likeOf(likeableType, likeableId, liker, likes) {
+  if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(likes)) return null;
+  var likeIds = Object.keys(likes);
+
+  for (var i = 0; i < likeIds.length; i++) {
+    var likeId = likeIds[i];
+    var like = likes[likeId];
+    debugger;
+    if (like.likeableType === likeableType && like.likeableId === likeableId && like.likerId === liker.id) return like;
   }
 
   return null;
-};
-var likesOf = function likesOf(likeableType, likeableId, likes) {
-  debugger;
-  if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(likes)) return [];
-  var likeIds = Object.keys(likes).reverse();
-  var output = [];
-  debugger;
-  likeIds.forEach(function (likeId) {
-    var id = parseInt(likeId);
-    var like = likes[id];
-    debugger;
-
-    if (like.likeableType === likeableType && like.likeableId === likeableId) {
-      debugger;
-      output.push(likes[likeId]);
-    }
-  });
-  debugger;
-  return output;
-};
-var liked = function liked(currentUser, likes) {
-  debugger;
-  return likes.some(function (like) {
-    return like.likerId === currentUser.id;
-  });
-};
+}; // export const liked = (currentUser, likes) => {
+//     return likes.some((like) => {
+//         return like.likerId === currentUser.id;
+//     })
+// }
 
 /***/ }),
 
@@ -4219,6 +4435,42 @@ var shuffle = function shuffle(n, songs) {
 //   }
 //   return true;
 // }
+
+/***/ }),
+
+/***/ "./frontend/util/user_api_util.js":
+/*!****************************************!*\
+  !*** ./frontend/util/user_api_util.js ***!
+  \****************************************/
+/*! exports provided: fetchUsers, fetchUser, editUser */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUsers", function() { return fetchUsers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUser", function() { return fetchUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editUser", function() { return editUser; });
+var fetchUsers = function fetchUsers() {
+  return $.ajax({
+    method: "GET",
+    url: "/api/users"
+  });
+};
+var fetchUser = function fetchUser(userId) {
+  return $.ajax({
+    method: 'GET',
+    url: "/api/users/".concat(userId)
+  });
+};
+var editUser = function editUser(user, userId) {
+  return $.ajax({
+    method: 'PATCH',
+    url: "/api/users/".concat(userId),
+    data: user,
+    contentType: false,
+    processData: false
+  });
+};
 
 /***/ }),
 
