@@ -67,12 +67,14 @@ class UploadForm extends React.Component {
   handleAudio(e) {
     const reader = new FileReader();
     const file = e.currentTarget.files[0];
+    debugger
     reader.onloadend = function() {
       this.setState({
         audio: file,
         audioURL: reader.result,
       });
     }.bind(this);
+    debugger
     if (file) {
       reader.readAsDataURL(file);
     }
@@ -199,7 +201,7 @@ class UploadForm extends React.Component {
             </div>
             <div className="upload-form-buttons-container">
               <button className="upload-form-end-buttons upload-cancel-button" onClick={() => this.props.history.push("/stream")}>Cancel</button>
-              <input type="submit" value="Upload" className="upload-form-end-buttons upload-form-submit-button" onClick={this.handleSubmit} />
+              <input type="submit" value="Upload" className="upload-form-end-buttons upload-form-submit-button" onClick={this.handleSubmit()} />
             </div>
           </div>
         </div>

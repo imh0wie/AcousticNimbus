@@ -2,9 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { fetchSongs, fetchSong } from "../../actions/song_actions";
-import { setCurrentSong, playSong, pauseSong } from "../../actions/current_song_actions";
+import { setCurrentSong, playSong, pauseSong, setElapsedTo } from "../../actions/current_song_actions";
 // import { latest } from "../../util/song_api_util";
-import Waveform from "./waveform";
+import Waveform from "../common_components/waveform";
 
 const msp = (state, ownProps) => {
   return ({
@@ -24,6 +24,7 @@ const mdp = (dispatch) => {
       setCurrentSong: (song) => dispatch(setCurrentSong(song)),
       playSong: () => dispatch(playSong()),
       pauseSong: () => dispatch(pauseSong()),
+      setElapsedTo: (time) => dispatch(setElapsedTo(time))
   });
 };
 
@@ -105,9 +106,12 @@ class SongShowPage extends React.Component {
               </div>
               <div className="banner-player-waveform-container">
                 <Waveform 
+                  klass="waveform"
                   onPageSong={this.props.onPageSong}
                   onPageSongId={this.props.onPageSongId}
                   currentSong={this.props.currentSong}
+                  // setCurrentSong={this.props.setCurrentSong}
+                  // setElapsedTo={this.props.setElapsedTo}
                 />
               </div>
             </div>

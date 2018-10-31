@@ -1622,6 +1622,247 @@ var mdp = function mdp(dispatch) {
 
 /***/ }),
 
+/***/ "./frontend/components/common_components/waveform.jsx":
+/*!************************************************************!*\
+  !*** ./frontend/components/common_components/waveform.jsx ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var wavesurfer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! wavesurfer.js */ "./node_modules/wavesurfer.js/dist/wavesurfer.min.js");
+/* harmony import */ var wavesurfer_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(wavesurfer_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var _actions_song_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/song_actions */ "./frontend/actions/song_actions.js");
+/* harmony import */ var _actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/current_song_actions */ "./frontend/actions/current_song_actions.js");
+/* harmony import */ var _util_song_api_util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../util/song_api_util */ "./frontend/util/song_api_util.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+
+
+
+
+
+
+
+
+var msp = function msp(state) {
+  return {
+    latestTwelve: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_6__["latest"])(12, state.entities.songs),
+    latestTwenty: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_6__["latest"])(20, state.entities.songs),
+    shuffled: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_6__["shuffle"])(12, state.entities.songs) // currentSong: state.ui.currentSong,
+
+  };
+};
+
+var mdp = function mdp(dispatch) {
+  return {
+    fetchSongs: function fetchSongs() {
+      return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_4__["fetchSongs"])());
+    },
+    setCurrentSong: function setCurrentSong(song) {
+      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["setCurrentSong"])(song));
+    },
+    playSong: function playSong() {
+      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["playSong"])());
+    },
+    pauseSong: function pauseSong() {
+      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["pauseSong"])());
+    },
+    setElapsedTo: function setElapsedTo(time) {
+      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["setElapsedTo"])(time));
+    },
+    muteSong: function muteSong() {
+      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["muteSong"])());
+    },
+    unmuteSong: function unmuteSong() {
+      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["unmuteSong"])());
+    }
+  };
+}; // const mdp = (dispatch) => {
+//   return {
+//   };
+// };
+
+
+var Waveform =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Waveform, _React$Component);
+
+  function Waveform(props) {
+    var _this;
+
+    _classCallCheck(this, Waveform);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Waveform).call(this, props));
+    _this.state = {
+      playing: null,
+      elapsed: null
+    };
+    _this.initializeWaveform = _this.initializeWaveform.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.onReady = _this.onReady.bind(_assertThisInitialized(_assertThisInitialized(_this))); // this.onProgress = this.onProgress.bind(this);
+    // this.onSeek = this.onSeek.bind(this);
+
+    return _this;
+  }
+
+  _createClass(Waveform, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      // const ctx = document.createElement("waveform").getContext("2d");
+      // const gradient = ctx.createLinearGradient(0, 50, 0, 200);
+      // gradient.addColorStop(0.5, 'white');
+      // gradient.addColorStop(0.5, '#999');
+      this.initializeWaveform();
+      this.waveform.load(this.props.onPageSong.audioURL); // this.waveform.on("loading", (loaded) => {
+      //   document.getElementById("banner-player-waveform-progress").value = loaded / 100;
+      // });
+
+      this.waveform.on("ready", this.onReady()); // this.waveform.on("audioprocess", this.onProgress());
+      // this.waveform.on("seek", this.onSeek());
+    }
+  }, {
+    key: "initializeWaveform",
+    value: function initializeWaveform() {
+      if (this.props.klass === "waveform") {
+        this.waveform = wavesurfer_js__WEBPACK_IMPORTED_MODULE_1___default.a.create({
+          container: "#waveform",
+          waveColor: "#999",
+          progressColor: "#FF5400",
+          // width: 820,
+          height: 150,
+          barWidth: 2,
+          normalize: true,
+          // normalize by the maximum peak instead of 1.0
+          interact: true,
+          // whether the mouse interaction will be enabled at initialization
+          responsive: true,
+          // resize the waveform when the window is resized
+          fillParent: true // ignore container's size
+          // maxCanvasWidth: 820,
+
+        });
+      }
+    }
+  }, {
+    key: "onReady",
+    value: function onReady() {
+      // document.getElementById('progwress').style.display = 'none';
+      this.waveform.setMute(true);
+      debugger;
+
+      if (this.props.currentSong.song && this.props.onPageSongId === this.props.currentSong.song.id) {
+        debugger;
+        this.setState({
+          playing: this.props.currentSong.playing,
+          elapsed: this.props.currentSong.elapsed
+        });
+        this.waveform.seekTo(this.state.elapsed);
+        this.state.playing ? this.waveform.play() : this.waveform.pause();
+      } else {
+        debugger;
+        this.setState({
+          playing: false,
+          elapsed: 0
+        });
+        this.waveform.seekTo(this.state.elapsed);
+      }
+    } // onProgress() {
+    //   debugger
+    //   if (this.props.currentSong.song && this.props.onPageSongId === this.props.currentSong.song.id && this.state.elapsed !== this.props.currentSong.elpased) {
+    //     debugger
+    //     this.setState({
+    //       elapsed: this.props.currentSong.elapsed,
+    //     });
+    //     this.waveform.seekTo(this.state.elapsed);
+    //   }
+    //   // if (!this.props.currentSong.song) {
+    //   //   this.setState = ({
+    //   //     elapsed: 0,
+    //   //   });
+    //   //   this.waveform.seekTo(this.state.elapsed);
+    //   // }
+    // }
+    // onSeek(time) {
+    //   // debugger
+    //   if (this.props.currentSong.song && this.props.onPageSongId === this.props.currentSong.song.id) {
+    //     this.setState({
+    //       elapsed: time,
+    //     })
+    //     this.props.setElapsedTo(this.state.elapsed);
+    //   }
+    // }
+
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      debugger;
+
+      if (this.props.onPageSongId === nextProps.currentSong.song.id && nextProps.currentSong.playing) {
+        this.waveform.play();
+      } else {
+        this.waveform.pause();
+      }
+
+      if (this.props.onPageSongId === nextProps.currentSong.song.id && this.props.currentSong.elapsed !== nextProps.currentSong.elapsed) {
+        this.waveform.seekTo(nextProps.currentSong.elapsed);
+      }
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.waveform.destroy();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "waveform"
+      });
+    }
+  }]);
+
+  return Waveform;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+;
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(msp, mdp)(Waveform))); // togglePlaying() {
+//   this.setState({
+//     playing: !this.state.playing,
+//   });
+// }
+//
+// jump() {
+//   return (e) => {
+//     this.setState({
+//       at: e.originalArgs[0], //??
+//     });
+//   };
+// }
+
+/***/ }),
+
 /***/ "./frontend/components/homepage/charts_page/charts_page.jsx":
 /*!******************************************************************!*\
   !*** ./frontend/components/homepage/charts_page/charts_page.jsx ***!
@@ -2318,7 +2559,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _actions_song_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/song_actions */ "./frontend/actions/song_actions.js");
 /* harmony import */ var _actions_current_song_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/current_song_actions */ "./frontend/actions/current_song_actions.js");
-/* harmony import */ var _waveform__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./waveform */ "./frontend/components/song_show_page/waveform.jsx");
+/* harmony import */ var _common_components_waveform__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../common_components/waveform */ "./frontend/components/common_components/waveform.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2372,6 +2613,9 @@ var mdp = function mdp(dispatch) {
     },
     pauseSong: function pauseSong() {
       return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_4__["pauseSong"])());
+    },
+    setElapsedTo: function setElapsedTo(time) {
+      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_4__["setElapsedTo"])(time));
     }
   };
 };
@@ -2487,10 +2731,13 @@ function (_React$Component) {
           className: "song-show-page-song-genre"
         }, "#", this.props.onPageSong.genre))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "banner-player-waveform-container"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_waveform__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_waveform__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          klass: "waveform",
           onPageSong: this.props.onPageSong,
           onPageSongId: this.props.onPageSongId,
-          currentSong: this.props.currentSong
+          currentSong: this.props.currentSong // setCurrentSong={this.props.setCurrentSong}
+          // setElapsedTo={this.props.setElapsedTo}
+
         }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: this.props.onPageSong.imageURL ? this.props.onPageSong.imageURL : window.default_avatar,
           className: "song-show-page-song-img"
@@ -2565,259 +2812,6 @@ function (_React$Component) {
 
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, mdp)(SongShowPage)));
-
-/***/ }),
-
-/***/ "./frontend/components/song_show_page/waveform.jsx":
-/*!*********************************************************!*\
-  !*** ./frontend/components/song_show_page/waveform.jsx ***!
-  \*********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var wavesurfer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! wavesurfer.js */ "./node_modules/wavesurfer.js/dist/wavesurfer.min.js");
-/* harmony import */ var wavesurfer_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(wavesurfer_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var _actions_song_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/song_actions */ "./frontend/actions/song_actions.js");
-/* harmony import */ var _actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/current_song_actions */ "./frontend/actions/current_song_actions.js");
-/* harmony import */ var _util_song_api_util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../util/song_api_util */ "./frontend/util/song_api_util.js");
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-
-
-
-
-
-
-
-
-var msp = function msp(state) {
-  return {
-    latestTwelve: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_6__["latest"])(12, state.entities.songs),
-    latestTwenty: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_6__["latest"])(20, state.entities.songs),
-    shuffled: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_6__["shuffle"])(12, state.entities.songs) // currentSong: state.ui.currentSong,
-
-  };
-};
-
-var mdp = function mdp(dispatch) {
-  return {
-    fetchSongs: function fetchSongs() {
-      return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_4__["fetchSongs"])());
-    },
-    setCurrentSong: function setCurrentSong(song) {
-      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["setCurrentSong"])(song));
-    },
-    playSong: function playSong() {
-      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["playSong"])());
-    },
-    pauseSong: function pauseSong() {
-      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["pauseSong"])());
-    },
-    setElapsedTo: function setElapsedTo(time) {
-      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["setElapsedTo"])(time));
-    },
-    muteSong: function muteSong() {
-      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["muteSong"])());
-    },
-    unmuteSong: function unmuteSong() {
-      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["unmuteSong"])());
-    }
-  };
-}; // const mdp = (dispatch) => {
-//   return {
-//   };
-// };
-
-
-var Waveform =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(Waveform, _React$Component);
-
-  function Waveform(props) {
-    var _this;
-
-    _classCallCheck(this, Waveform);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Waveform).call(this, props));
-    _this.state = {
-      playing: null,
-      elapsed: null
-    };
-    _this.onReady = _this.onReady.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onProgress = _this.onProgress.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    return _this;
-  }
-
-  _createClass(Waveform, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      // const ctx = document.createElement("waveform").getContext("2d");
-      // const gradient = ctx.createLinearGradient(0, 50, 0, 200);
-      // gradient.addColorStop(0.5, 'white');
-      // gradient.addColorStop(0.5, '#999');
-      this.waveform = wavesurfer_js__WEBPACK_IMPORTED_MODULE_1___default.a.create({
-        container: "#banner-player-waveform",
-        waveColor: "#999",
-        progressColor: "#FF5400",
-        // width: 820,
-        height: 150,
-        barWidth: 2,
-        normalize: true,
-        // normalize by the maximum peak instead of 1.0
-        interact: true,
-        // Whether the mouse interaction will be enabled at initialization
-        responsive: true,
-        // resize the waveform when the window is resized
-        fillParent: true // ignore container's size
-        // maxCanvasWidth: 820,
-
-      });
-      this.waveform.load(this.props.onPageSong.audioURL); // this.waveform.on("loading", (loaded) => {
-      //   document.getElementById("banner-player-waveform-progress").value = loaded / 100;
-      // });
-
-      this.waveform.on("ready", this.onReady());
-      this.waveform.on("audioprocess", this.onProgress()); // this.waveform.on("seek", )
-    }
-  }, {
-    key: "onReady",
-    value: function onReady() {
-      // document.getElementById('progress').style.display = 'none';
-      this.waveform.setMute(true);
-      debugger;
-
-      if (!this.props.currentSong.song) {
-        this.setState = {
-          elapsed: 0
-        };
-        this.waveform.seekTo(this.state.elapsed);
-      } else if (this.props.onPageSongId === this.props.currentSong.song.id) {
-        this.setState = {
-          playing: this.props.currentSong.playing,
-          elapsed: this.props.currentSong.elapsed
-        };
-        this.waveform.seekTo(this.state.elapsed);
-        this.state.playing ? this.waveform.play() : this.waveform.pause();
-      }
-    }
-  }, {
-    key: "onProgress",
-    value: function onProgress() {
-      if (!this.props.currentSong.song) {
-        this.setState = {
-          elapsed: 0
-        };
-        this.waveform.seekTo(this.state.elapsed);
-      } else if (this.props.onPageSongId === this.props.currentSong.song.id && this.state.elapsed !== this.props.currentSong.elpased) {
-        this.setState = {
-          elapsed: this.props.currentSong.elapsed
-        };
-        this.waveform.seekTo(this.state.elapsed);
-      }
-    }
-  }, {
-    key: "onSeek",
-    value: function onSeek() {} // componentDidMount() {
-    // this.waveform = WaveSurfer.create({
-    //   container: "#banner-player-waveform",
-    //   waveColor: "#999",
-    //   progressColor: "#FF5400",
-    //   // width: 820,
-    //   height: 150,
-    //   barWidth: 2,
-    //   normalize: true, // normalize by the maximum peak instead of 1.0
-    //   interact: true, // Whether the mouse interaction will be enabled at initialization
-    //   responsive: true, // resize the waveform when the window is resized
-    //   fillParent: true, // ignore container's size
-    //   // maxCanvasWidth: 820,
-    // });
-    // this.waveform.load(this.props.onPageSong.audioURL);
-    // this.waveform.setMute(true);
-    // const buttons = {
-    //   play: document.getElementById("banner-player-play-sign"),
-    //   pause: document.getElementById("banner-player-pause-sign"),
-    // };
-    // buttons.play.addEventListener("click", () => {
-    //   waveformBar.play();
-    // buttons.play.disabled = true;
-    // buttons.pause.disabled = false;
-    // buttons.stop.disabled = false;
-    // });
-    // buttons.pause.addEventListener("click", () => {
-    // waveformBar.pause();
-    // buttons.play.disabled = false;
-    // buttons.pause.disabled = true;
-    // buttons.stop.disabled = false;
-    // });
-    // buttons.stop.addEventListener("click", () => {
-    // waveformBar.stop();
-    // buttons.play.disabled = false;
-    // buttons.pause.disabled = true;
-    // buttons.stop.disabled = true;
-    // });
-    // waveformBar.on("ready", () => {
-    // buttons.play.disabled = false;
-    // });
-    // window.addEventListener("resize", () => {
-    // const currentProgress = waveformBar.getCurrentTime() / waveformBar.getDuration();
-    // waveformBar.empty();
-    // waveformBar.drawBuffer();
-    // waveformBar.seekTo(currentProgress);
-    // buttons.play.disabled = false;
-    // buttons.pause.disabled = true;
-    // buttons.stop.disabled = false;
-    // }, false);
-    // }
-
-  }, {
-    key: "render",
-    value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "banner-player-waveform"
-      });
-    }
-  }]);
-
-  return Waveform;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-
-;
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(msp, mdp)(Waveform))); // togglePlaying() {
-//   this.setState({
-//     playing: !this.state.playing,
-//   });
-// }
-//
-// jump() {
-//   return (e) => {
-//     this.setState({
-//       at: e.originalArgs[0], //??
-//     });
-//   };
-// }
 
 /***/ }),
 
@@ -3076,6 +3070,7 @@ function (_React$Component) {
     value: function handleAudio(e) {
       var reader = new FileReader();
       var file = e.currentTarget.files[0];
+      debugger;
 
       reader.onloadend = function () {
         this.setState({
@@ -3083,6 +3078,8 @@ function (_React$Component) {
           audioURL: reader.result
         });
       }.bind(this);
+
+      debugger;
 
       if (file) {
         reader.readAsDataURL(file);
@@ -3266,7 +3263,7 @@ function (_React$Component) {
         type: "submit",
         value: "Upload",
         className: "upload-form-end-buttons upload-form-submit-button",
-        onClick: this.handleSubmit
+        onClick: this.handleSubmit()
       })))));
     }
   }]);
