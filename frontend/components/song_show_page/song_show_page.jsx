@@ -83,7 +83,7 @@ class SongShowPage extends React.Component {
   render() {
     if (!this.props.onPageSong) {
       return (
-        <img src={window.loading} className="loading"></img>
+        <img src={window.loading1} className="loading"></img>
       );
     } else {
       debugger

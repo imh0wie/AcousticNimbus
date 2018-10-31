@@ -1717,6 +1717,7 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Waveform).call(this, props));
     _this.state = {
+      loaded: false,
       playing: null,
       elapsed: null
     };
@@ -1730,17 +1731,18 @@ function (_React$Component) {
   _createClass(Waveform, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      // const ctx = document.createElement("waveform").getContext("2d");
+      // const ctx = document.getElementById("waveform").getContext("2d");
       // const gradient = ctx.createLinearGradient(0, 50, 0, 200);
       // gradient.addColorStop(0.5, 'white');
       // gradient.addColorStop(0.5, '#999');
       this.initializeWaveform();
-      this.waveform.load(this.props.onPageSong.audioURL); // this.waveform.on("loading", (loaded) => {
-      //   document.getElementById("banner-player-waveform-progress").value = loaded / 100;
-      // });
-
+      this.waveform.load(this.props.onPageSong.audioURL);
       this.waveform.on("ready", this.onReady()); // this.waveform.on("audioprocess", this.onProgress());
       // this.waveform.on("seek", this.onSeek());
+
+      this.setState({
+        loaded: true
+      });
     }
   }, {
     key: "initializeWaveform",
@@ -1749,6 +1751,7 @@ function (_React$Component) {
         this.waveform = wavesurfer_js__WEBPACK_IMPORTED_MODULE_1___default.a.create({
           container: "#waveform",
           waveColor: "#999",
+          // waveColor: gradient,
           progressColor: "#FF5400",
           // width: 820,
           height: 150,
@@ -1821,8 +1824,13 @@ function (_React$Component) {
 
       if (this.props.onPageSongId === nextProps.currentSong.song.id && nextProps.currentSong.playing) {
         this.waveform.play();
-      } else {
+      } else if (this.props.onPageSongId === nextProps.currentSong.song.id && !nextProps.currentSong.playing) {
         this.waveform.pause();
+      } else if (this.props.onPageSongId !== nextProps.currentSong.song.id) {
+        this.setState({
+          elapsed: 0,
+          playing: false
+        });
       }
 
       if (this.props.onPageSongId === nextProps.currentSong.song.id && this.props.currentSong.elapsed !== nextProps.currentSong.elapsed) {
@@ -1837,9 +1845,12 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      // if (!this.state.loading) {
+      // return <img src={window.loading2} alt="" id="waveform" />;
+      // } else {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "waveform"
-      });
+      }); // }
     }
   }]);
 
@@ -2701,7 +2712,7 @@ function (_React$Component) {
 
       if (!this.props.onPageSong) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.loading,
+          src: window.loading1,
           className: "loading"
         });
       } else {

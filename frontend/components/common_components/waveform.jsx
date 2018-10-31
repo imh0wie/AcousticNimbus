@@ -38,6 +38,7 @@ class Waveform extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      loaded: false,
       playing: null,
       elapsed: null,
     };
@@ -48,19 +49,16 @@ class Waveform extends React.Component {
   }
   
   componentDidMount() {
-    // const ctx = document.createElement("waveform").getContext("2d");
+    // const ctx = document.getElementById("waveform").getContext("2d");
     // const gradient = ctx.createLinearGradient(0, 50, 0, 200);
     // gradient.addColorStop(0.5, 'white');
     // gradient.addColorStop(0.5, '#999');
     this.initializeWaveform();
     this.waveform.load(this.props.onPageSong.audioURL);
-    // this.waveform.on("loading", (loaded) => {
-      //   document.getElementById("banner-player-waveform-progress").value = loaded / 100;
-      // });
     this.waveform.on("ready", this.onReady());
-      // this.waveform.on("audioprocess", this.onProgress());
-      // this.waveform.on("seek", this.onSeek());
-      
+    // this.waveform.on("audioprocess", this.onProgress());
+    // this.waveform.on("seek", this.onSeek());
+    this.setState({loaded: true});
   }
   
   initializeWaveform() {
@@ -68,6 +66,7 @@ class Waveform extends React.Component {
       this.waveform = WaveSurfer.create({
         container: "#waveform",
         waveColor: "#999",
+        // waveColor: gradient,
         progressColor: "#FF5400",
         // width: 820,
         height: 150,
@@ -131,13 +130,17 @@ class Waveform extends React.Component {
   //   }
   // }
 
-
   componentWillReceiveProps(nextProps) {
     debugger
     if (this.props.onPageSongId === nextProps.currentSong.song.id && nextProps.currentSong.playing) {
       this.waveform.play();
-    } else {
+    } else if (this.props.onPageSongId === nextProps.currentSong.song.id && !nextProps.currentSong.playing) {
       this.waveform.pause();
+    } else if (this.props.onPageSongId !== nextProps.currentSong.song.id) {
+      this.setState({
+        elapsed: 0,
+        playing: false,
+      });
     }
     if (this.props.onPageSongId === nextProps.currentSong.song.id &&
         this.props.currentSong.elapsed !== nextProps.currentSong.elapsed) {
@@ -150,11 +153,15 @@ class Waveform extends React.Component {
   }
 
   render() {
-    return (
-      <div id="waveform">
-        {/* <progress id="progress" className="banner-player-waveform-progress" value="0" max="1"></progress> */}
-      </div>
-    );
+    // if (!this.state.loading) {
+      // return <img src={window.loading2} alt="" id="waveform" />;
+    // } else {
+      return (
+        <div id="waveform">
+          {/* <img src={window.loading2} alt="" /> */}
+        </div>
+        );
+    // }
   }
 
 };
