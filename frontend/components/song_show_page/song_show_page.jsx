@@ -103,7 +103,6 @@ class SongShowPage extends React.Component {
       this.setState({
         body: "",
         songId: this.props.onPageSongId,
-        songProgress: null,
         commenterId: this.props.currentUser.id,
       })
     }
@@ -182,8 +181,9 @@ class SongShowPage extends React.Component {
   }
 
   update(field) {
-    const elapsed = this.props.currentSong.id === this.props.onPageSongId ? this.props.currentSong.elapsed : 0;
+    debugger
     return (e) => {
+      const elapsed = this.props.currentSong.song && this.props.currentSong.song.id === this.props.onPageSongId ? this.props.currentSong.elapsed : 0;
       this.setState({ 
         [field]: e.currentTarget.value,
         songProgress: elapsed,
@@ -232,8 +232,7 @@ class SongShowPage extends React.Component {
           <div className="song-show-page-comments-header-container">
             <p className="song-show-page-comments-header">{commentsHeader}</p>
           </div>
-          <div className="song-show-page-comments">
-            <ul className="song-show-page-comments-list">
+          <ul className="song-show-page-comments-list">
             {this.props.currentComments.map((comment) => {
                 return (
                 <CommentsListItem
@@ -247,8 +246,7 @@ class SongShowPage extends React.Component {
                 />
                 );
             })}
-            </ul>
-          </div>
+          </ul>
         </div>
       );
     }

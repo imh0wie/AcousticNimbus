@@ -2552,27 +2552,29 @@ function (_React$Component) {
   }, {
     key: "renderUsername",
     value: function renderUsername() {
-      debugger;
       var username = this.props.comment.commenterId === this.props.currentUser.id ? "You" : this.props.commenter.username;
-      debugger;
-      var audio = new Audio();
-      audio.src = this.props.onPageSong.audioURL;
-      var audioDuration = audio.duration;
-      debugger;
-
-      if (this.props.currentSong.song && this.props.onPageSong.id === this.props.currentSong.song.id) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-          className: "username"
-        }, username), " at ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-          className: "time"
-        }, this.props.currentSong.elapsed * audioDuration), ":");
-      } else {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-          className: "username"
-        }, username), " at ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-          className: "time"
-        }, "0:00"), ":");
-      }
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "username"
+      }, username), " at ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "time"
+      }, "0:00"), ":"); // debugger
+      // debugger
+      // const audio = new Audio(this.props.onPageSong.audioURL);
+      // // const audioDuration = audio.duration;
+      // let audioDuration;
+      // audio.onloaded = () => {
+      //     audioDuration = audio.duration;
+      // };
+      // debugger
+      // if (this.props.currentSong.song && this.props.c.id === this.props.currentSong.song.id) {
+      //     return (   
+      //         <h1><span className="username">{username}</span> at <span className="time">{this.state. * audioDuration}</span>:</h1>
+      //     );
+      // } else {
+      //     return (   
+      //         <h1><span className="username">{username}</span> at <span className="time">0:00</span>:</h1>
+      //     );
+      // }
     }
   }, {
     key: "renderCommentCreationTime",
@@ -2625,9 +2627,9 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "song-show-page-comments-index-item"
+        className: "song-show-page-comments-list-item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "comments-list-item-commenter-container"
+        className: "comment-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: this.props.commenter.imageURL ? this.props.commenter.imageURL : window.default_avatar,
         className: "comments-list-item-commenter-img"
@@ -2838,7 +2840,6 @@ function (_React$Component) {
         this.setState({
           body: "",
           songId: this.props.onPageSongId,
-          songProgress: null,
           commenterId: this.props.currentUser.id
         });
       }
@@ -2941,9 +2942,11 @@ function (_React$Component) {
     value: function update(field) {
       var _this3 = this;
 
-      var elapsed = this.props.currentSong.id === this.props.onPageSongId ? this.props.currentSong.elapsed : 0;
+      debugger;
       return function (e) {
         var _this3$setState;
+
+        var elapsed = _this3.props.currentSong.song && _this3.props.currentSong.song.id === _this3.props.onPageSongId ? _this3.props.currentSong.elapsed : 0;
 
         _this3.setState((_this3$setState = {}, _defineProperty(_this3$setState, field, e.currentTarget.value), _defineProperty(_this3$setState, "songProgress", elapsed), _this3$setState));
       };
@@ -3015,9 +3018,7 @@ function (_React$Component) {
           className: "song-show-page-comments-header-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "song-show-page-comments-header"
-        }, commentsHeader)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "song-show-page-comments"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        }, commentsHeader)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
           className: "song-show-page-comments-list"
         }, this.props.currentComments.map(function (comment) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_comments_list_item__WEBPACK_IMPORTED_MODULE_12__["default"], {
@@ -3029,7 +3030,7 @@ function (_React$Component) {
             onPageSong: _this6.props.onPageSong,
             removeComment: _this6.props.removeComment
           });
-        }))));
+        })));
       }
     }
   }, {

@@ -14,22 +14,28 @@ class CommentsListItem extends React.Component {
     }
 
     renderUsername() {
-        debugger
         const username = this.props.comment.commenterId === this.props.currentUser.id ? "You" : this.props.commenter.username;
-        debugger
-        const audio = new Audio();
-        audio.src = this.props.onPageSong.audioURL;
-        const audioDuration = audio.duration;
-        debugger
-        if (this.props.currentSong.song && this.props.onPageSong.id === this.props.currentSong.song.id) {
-            return (   
-                <h1><span className="username">{username}</span> at <span className="time">{this.props.currentSong.elapsed * audioDuration}</span>:</h1>
-            );
-        } else {
-            return (   
-                <h1><span className="username">{username}</span> at <span className="time">0:00</span>:</h1>
-            );
-        }
+        return (   
+            <h1><span className="username">{username}</span> at <span className="time">0:00</span>:</h1>
+        );
+        // debugger
+        // debugger
+        // const audio = new Audio(this.props.onPageSong.audioURL);
+        // // const audioDuration = audio.duration;
+        // let audioDuration;
+        // audio.onloaded = () => {
+        //     audioDuration = audio.duration;
+        // };
+        // debugger
+        // if (this.props.currentSong.song && this.props.c.id === this.props.currentSong.song.id) {
+        //     return (   
+        //         <h1><span className="username">{username}</span> at <span className="time">{this.state. * audioDuration}</span>:</h1>
+        //     );
+        // } else {
+        //     return (   
+        //         <h1><span className="username">{username}</span> at <span className="time">0:00</span>:</h1>
+        //     );
+        // }
     }
 
     renderCommentCreationTime(date) {
@@ -65,8 +71,8 @@ class CommentsListItem extends React.Component {
 
     render() {
         return (
-            <li className="song-show-page-comments-index-item">
-                <div className="comments-list-item-commenter-container">
+            <li className="song-show-page-comments-list-item">
+                <div className="comment-container">
                     <img src={this.props.commenter.imageURL ? this.props.commenter.imageURL : window.default_avatar} className="comments-list-item-commenter-img"></img>
                     <div>
                         {this.renderUsername()}

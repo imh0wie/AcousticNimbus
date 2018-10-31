@@ -224,6 +224,7 @@
     margin-left: 30px;
 }
 
+
 .song-show-page-description-comments img {
     width: 210px;
     margin: 0 auto;
@@ -249,24 +250,60 @@
     color: #999;
 }
 
-.song-show-page-comments-index-item {
+// .song-show-page-comments-list {
+
+// }
+
+.song-show-page-comments-list-item {
     display: flex;
-    height: 40px;
+    height: 45px;
     justify-content: space-between;
     margin: 10px 0;
 }
 
-.song-show-page-comments-index-item .date-delete {
+.comment-container {
+    display: flex;
+}
+
+.comment-container img {
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    margin-right: 10px;
+}
+
+.comment-container div h1 {
+    font-size: 11px;
+    color: #ccc;
+    margin: 0px;
+}
+
+.comment-container .username {
+    font-size: 12px;
+    color: #999;
+}
+
+.comment-container .time {
+    font-size: 11px;
+    color: #999;
+}
+
+.comment-container .time:hover {
+    font-size: 11px;
+    color: #333;
+}
+
+.date-delete {
     text-align: right;
 }
 
-.song-show-page-comments-index-item .date {
+.date-delete .date {
     font-size: 12px;
     color: #999;
     margin: 0;
 }
 
-.song-show-page-comments-index-item .delete {
+.date-delete .delete {
     // display: none;
     width: 25px;
     height: 25px;
@@ -275,7 +312,7 @@
     text-align: center;
 }
 
-.song-show-page-comments-index-item:hover + .song-show-page-comments-index-item .delete {
+.song-show-page-comments-list-item:hover + .song-show-page-comments-list-item .date-delete .delete {
     // display: block;
     // width: 25px;
     // height: 25px;
@@ -284,7 +321,7 @@
     // text-align: center;
 }
 
-.song-show-page-comments-index-item .delete:hover{
+.date-delete .delete:hover{
     // display: block;
     // width: 25px;
     // height: 25px;
@@ -293,36 +330,7 @@
     // text-align: center;
 }
 
-.comments-list-item-commenter-container {
-    display: flex;
-}
 
-.comments-list-item-commenter-container img {
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
-}
-
-.comments-list-item-commenter-container div h1 {
-    font-size: 11px;
-    color: #ccc;
-    margin: 0px;
-}
-
-.comments-list-item-commenter-container .username {
-    font-size: 12px;
-    color: #999;
-}
-
-.comments-list-item-commenter-container .time {
-    font-size: 11px;
-    color: #999;
-}
-
-.comments-list-item-commenter-container .time:hover {
-    font-size: 11px;
-    color: #333;
-}
 
 .comments-list-item-commenter-container div {
     display: flex;
