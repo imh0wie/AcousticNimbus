@@ -2,18 +2,26 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { fetchSongs, fetchSong } from "../../actions/song_actions";
+<<<<<<< HEAD
 import { setCurrentSong, playSong, pauseSong, setElapsedTo } from "../../actions/current_song_actions";
 // import { latest } from "../../util/song_api_util";
 import Waveform from "../common_components/waveform";
+=======
+import { setCurrentSong, playSong, pauseSong } from "../../actions/current_song_actions";
+import { createLike, removeLike, fetchLikes } from "../../actions/like_actions";
+import { likeOf, likesOf, liked } from "../../util/like_api_util";
+import Waveform from "./waveform";
+>>>>>>> likes
 
 const msp = (state, ownProps) => {
-  return ({
-    // songs: latest()
-    onPageSongId: parseInt(ownProps.match.params.songId),
+  debugger
+  return ({ 
     onPageSong: state.entities.songs[ownProps.match.params.songId],
+    onPageSongId: parseInt(ownProps.match.params.songId),
+    onPageSongLiked: liked(state.entities.users[state.session.id], likesOf("Song", parseInt(ownProps.match.params.songId), state.entities.likes)),
     currentSong: state.ui.currentSong,
     currentUser: state.entities.users[state.session.id],
-    users: state.entities.users,
+    currentLike: likeOf(state.entities.users[state.session.id], likesOf("Song", parseInt(ownProps.match.params.songId), state.entities.likes)),
   });
 };
 
@@ -24,28 +32,37 @@ const mdp = (dispatch) => {
       setCurrentSong: (song) => dispatch(setCurrentSong(song)),
       playSong: () => dispatch(playSong()),
       pauseSong: () => dispatch(pauseSong()),
+<<<<<<< HEAD
       setElapsedTo: (time) => dispatch(setElapsedTo(time))
+=======
+      createLike: (like) => dispatch(createLike(like)),
+      removeLike: (id) => dispatch(removeLike(id)),
+      fetchLikes: () => dispatch(fetchLikes()),
+>>>>>>> likes
   });
 };
 
 class SongShowPage extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      likeableType: "Song",
+      likeableId: parseInt(this.props.onPageSongId),
+      likerId: parseInt(this.props.currentUser.id),
+    }
     this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this);
+    // this.renderLike = this.renderLike.bind(this);
+    this.renderLikeButton = this.renderLikeButton.bind(this);
     this.togglePlayPause = this.togglePlayPause.bind(this);
+    this.handleLike = this.handleLike.bind(this);
   }
 
   componentDidMount() {
     // this.props.fetchSong(this.props.onPageSongId);
-    this.props.fetchSongs();
+    debugger
+    this.props.fetchSongs()
+    this.props.fetchLikes();
   }
-
-  // componentWillReceiveProps(nextProps) {
-  //   debugger
-  //   if (nextProps.songId !== this.props.onPageSongId) {
-  //     this.props.fetchSong(nextProps.songId);
-  //   }
-  // }
 
   renderPlayPauseSign(song) {
     if (!this.props.currentSong.song || this.props.onPageSongId !== this.props.currentSong.song.id) {
@@ -72,12 +89,41 @@ class SongShowPage extends React.Component {
     }
   }
 
-  // handleLike() {
+  handleLike(e) {
+    e.preventDefault();
+    if (this.props.onPageSongLiked) {
+      this.props.removeLike(this.props.currentLike.id);
+    } else {
+      const like = {
+        likeable_type: this.state.likeableType,
+        likeable_id: this.state.likeableId,
+        liker_id: this.state.likerId,
+      }
+      this.props.createLike(like);
+    }
+  }
 
+  // renderLike() {
+  //   if (this.props.onPageSongLiked) {
+  //     return <span><i className="fas fa-heart"></i> Liked</span>;
+  //   } else {
+  //     return <span><i className="fas fa-heart"></i> Like</span>;
+  //   }
   // }
 
   renderLikeButton() {
-
+    debugger
+    if (this.props.onPageSongLiked) {
+      debugger
+      return (
+        <button className="song-show-page-liked-button" onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> Liked</button>
+      );
+    } else {
+      debugger
+      return (
+        <button className="song-show-page-like-button" onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> Like</button>
+      );
+    }
   }
 
   render() {
@@ -130,7 +176,9 @@ class SongShowPage extends React.Component {
                 </div>
                 <div className="song-show-page-social-els">
                   <div className="song-show-page-social-els-left">
-                    <button className="song-show-page-like-button" onClick={() => this.handleLike()}><i className="fas fa-heart"></i> Like</button>
+                  <form>
+                    {this.renderLikeButton()}
+                  </form>
                   </div>
                   <div className="song-show-page-social-els-right">
                   </div>

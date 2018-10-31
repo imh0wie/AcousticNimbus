@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_21_215704) do
+ActiveRecord::Schema.define(version: 2018_10_29_235039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,15 @@ ActiveRecord::Schema.define(version: 2018_09_21_215704) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.string "body", null: false
+    t.integer "song_id", null: false
+    t.integer "song_progress", null: false
+    t.integer "commenter_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "follows", force: :cascade do |t|
     t.integer "followed_user_id", null: false
     t.integer "follower_id", null: false
@@ -45,12 +54,13 @@ ActiveRecord::Schema.define(version: 2018_09_21_215704) do
   end
 
   create_table "likes", force: :cascade do |t|
-    t.integer "liker_id", null: false
-    t.integer "likeable_id", null: false
     t.string "likeable_type", null: false
-    t.index ["likeable_id"], name: "index_likes_on_likeable_id"
-    t.index ["likeable_type"], name: "index_likes_on_likeable_type"
-    t.index ["liker_id"], name: "index_likes_on_liker_id"
+    t.integer "likeable_id", null: false
+    t.integer "liker_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable_type_and_likeable_id"
+    t.index ["liker_id", "likeable_type", "likeable_id"], name: "index_likes_on_liker_id_and_likeable_type_and_likeable_id", unique: true
   end
 
   create_table "songs", force: :cascade do |t|

@@ -2,7 +2,6 @@ class Api::SongsController < ApplicationController
 
   def index
     @songs = Song.all
-    # debugger
     render :index
   end
   
@@ -15,7 +14,7 @@ class Api::SongsController < ApplicationController
     @song = Song.new(song_params)
     # @song.artist_id = current_user.id
     if @song.save
-      render :show #Show hai json => json: {}
+      render :show
     else
       render json: @song.errors.full_messages, status: 401
     end
