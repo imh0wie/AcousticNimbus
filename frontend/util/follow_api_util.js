@@ -1,7 +1,6 @@
 import { isEmpty } from "./general_api_util";
 
 export const createFollow = (follow) => {
-    debugger
     return $.ajax({
         method: "POST",
         url: "/api/follows",
@@ -10,7 +9,6 @@ export const createFollow = (follow) => {
 };
 
 export const removeFollow = (id) => {
-    debugger
     return $.ajax({
         method: "DELETE",
         url: `/api/follows/${id}`,
@@ -18,7 +16,6 @@ export const removeFollow = (id) => {
 }
 
 export const fetchFollows = () => {
-    debugger
     return $.ajax({
         method: "GET",
         url: "/api/follows",
@@ -26,15 +23,12 @@ export const fetchFollows = () => {
 };
 
 export const artistIdOf = (onPageSong) => {
-    debugger
-    // onPageSong ? onPageSong.artistId : null;
-    if (onPageSong) {
-        debugger
-        return onPageSong.artistId;
-    } else {
-        debugger
-        return null;
-    }
+    onPageSong ? onPageSong.artistId : null;
+    // if (onPageSong) {
+    //     return onPageSong.artistId;
+    // } else {
+    //     return null;
+    // }
 }
 
 export const followOf = (followedUserId, followerId, follows) => {

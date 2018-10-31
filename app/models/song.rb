@@ -12,10 +12,17 @@ class Song < ApplicationRecord
     foreign_key: :artist_id,
     class_name: :User
   }
+  
   has_many :likes, {
     :as => :likeable, 
     :dependent => :destroy,
   }
+  has_many :comments, {
+    foreign_key: :song_id,
+    class_name: :comment,
+    dependent: :destroy,
+  }
+
   has_one_attached :audio
   has_one_attached :image
 

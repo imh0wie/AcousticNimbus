@@ -144,6 +144,53 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /***/ }),
 
+/***/ "./frontend/actions/comment_actions.js":
+/*!*********************************************!*\
+  !*** ./frontend/actions/comment_actions.js ***!
+  \*********************************************/
+/*! exports provided: RECEIVE_COMMENTS, createComment, removeComment, fetchComments */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_COMMENTS", function() { return RECEIVE_COMMENTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createComment", function() { return createComment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeComment", function() { return removeComment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchComments", function() { return fetchComments; });
+/* harmony import */ var _util_comment_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/comment_api_util */ "./frontend/util/comment_api_util.js");
+
+var RECEIVE_COMMENTS = "RECEIVE_COMMENTS";
+var createComment = function createComment(commentToServer) {
+  return function (dispatch) {
+    return _util_comment_api_util__WEBPACK_IMPORTED_MODULE_0__["createComment"](commentToServer).then(function (commentsFromServer) {
+      dispatch(receiveComments(commentsFromServer));
+    });
+  };
+};
+var removeComment = function removeComment(idToServer) {
+  return function (dispatch) {
+    return _util_comment_api_util__WEBPACK_IMPORTED_MODULE_0__["removeComment"](idToServer).then(function (commentsFromServer) {
+      return dispatch(receiveComments(commentsFromServer));
+    });
+  };
+};
+var fetchComments = function fetchComments() {
+  return function (dispatch) {
+    return _util_comment_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchComments"]().then(function (commentsFromServer) {
+      return dispatch(receiveComments(commentsFromServer));
+    });
+  };
+};
+
+var receiveComments = function receiveComments(comments) {
+  return {
+    type: RECEIVE_COMMENTS,
+    comments: comments
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/actions/current_song_actions.js":
 /*!**************************************************!*\
   !*** ./frontend/actions/current_song_actions.js ***!
@@ -177,25 +224,21 @@ var RECEIVE_CURRENT_SONG_ERRORS = "RECEIVE_CURRENT_SONG_ERRORS"; // What does it
 
 var playSong = function playSong() {
   return {
-    type: PLAY_SONG // song: song,
-
+    type: PLAY_SONG
   };
 };
 var pauseSong = function pauseSong() {
   return {
-    type: PAUSE_SONG // song: song,
-
+    type: PAUSE_SONG
   };
 };
 var setCurrentSong = function setCurrentSong(song) {
-  // debugger
   return {
     type: SET_CURRENT_SONG,
     song: song
   };
 };
 var setElapsedTo = function setElapsedTo(time) {
-  // debugger
   return {
     type: SET_ELAPSED_TO,
     time: time
@@ -239,7 +282,6 @@ var RECEIVE_FOLLOWS = "RECEIVE_FOLLOWS";
 var createFollow = function createFollow(followToServer) {
   return function (dispatch) {
     return _util_follow_api_util__WEBPACK_IMPORTED_MODULE_0__["createFollow"](followToServer).then(function (followsFromServer) {
-      debugger;
       return dispatch(receiveFollows(followsFromServer));
     });
   };
@@ -247,7 +289,6 @@ var createFollow = function createFollow(followToServer) {
 var removeFollow = function removeFollow(idToServer) {
   return function (dispatch) {
     return _util_follow_api_util__WEBPACK_IMPORTED_MODULE_0__["removeFollow"](idToServer).then(function (followsFromServer) {
-      debugger;
       return dispatch(receiveFollows(followsFromServer));
     });
   };
@@ -255,7 +296,6 @@ var removeFollow = function removeFollow(idToServer) {
 var fetchFollows = function fetchFollows() {
   return function (dispatch) {
     return _util_follow_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchFollows"]().then(function (followsFromServer) {
-      debugger;
       return dispatch(receiveFollows(followsFromServer));
     });
   };
@@ -469,7 +509,7 @@ var fetchSongs = function fetchSongs() {
       return dispatch(receiveSongsErrors(errors.responseJSON));
     });
   };
-}; // What does it do? ==> reducer
+};
 
 var receiveSong = function receiveSong(_ref) {
   var song = _ref.song;
@@ -3549,6 +3589,39 @@ function (_React$Component) {
 
 /***/ }),
 
+/***/ "./frontend/reducers/comments_reducer.js":
+/*!***********************************************!*\
+  !*** ./frontend/reducers/comments_reducer.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_comment_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/comment_actions */ "./frontend/actions/comment_actions.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+var commentsReducer = function commentsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_comment_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_COMMENTS"]:
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, action.comments);
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (commentsReducer);
+
+/***/ }),
+
 /***/ "./frontend/reducers/current_song_reducer.js":
 /*!***************************************************!*\
   !*** ./frontend/reducers/current_song_reducer.js ***!
@@ -3657,6 +3730,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _songs_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./songs_reducer */ "./frontend/reducers/songs_reducer.js");
 /* harmony import */ var _likes_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./likes_reducer */ "./frontend/reducers/likes_reducer.js");
 /* harmony import */ var _follows_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./follows_reducer */ "./frontend/reducers/follows_reducer.js");
+/* harmony import */ var _comments_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./comments_reducer */ "./frontend/reducers/comments_reducer.js");
+
 
 
 
@@ -3666,7 +3741,8 @@ var entitiesReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers
   users: _users_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
   songs: _songs_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
   likes: _likes_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
-  follows: _follows_reducer__WEBPACK_IMPORTED_MODULE_4__["default"]
+  follows: _follows_reducer__WEBPACK_IMPORTED_MODULE_4__["default"],
+  comments: _comments_reducer__WEBPACK_IMPORTED_MODULE_5__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (entitiesReducer);
 
@@ -4084,6 +4160,58 @@ var configureStore = function configureStore() {
 
 /***/ }),
 
+/***/ "./frontend/util/comment_api_util.js":
+/*!*******************************************!*\
+  !*** ./frontend/util/comment_api_util.js ***!
+  \*******************************************/
+/*! exports provided: createComment, removeComment, fetchComments, commentsOf */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createComment", function() { return createComment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeComment", function() { return removeComment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchComments", function() { return fetchComments; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "commentsOf", function() { return commentsOf; });
+/* harmony import */ var _general_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./general_api_util */ "./frontend/util/general_api_util.js");
+
+var createComment = function createComment(comment) {
+  return $.ajax({
+    method: "POST",
+    url: "/api/comments",
+    data: {
+      comment: comment
+    }
+  });
+};
+var removeComment = function removeComment(id) {
+  return $.ajax({
+    method: "DELETE",
+    url: "/api/comments/".concat(id)
+  });
+};
+var fetchComments = function fetchComments() {
+  return $.ajax({
+    method: "GET",
+    url: "/api/comments"
+  });
+};
+var commentsOf = function commentsOf(songId, comments) {
+  if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(comments)) return [];
+  var output = [];
+  var commentIds = Object.keys(comments);
+
+  for (var i = 0; i < commentIds.length; i++) {
+    var commentId = commentIds[i];
+    var comment = comments[commentId];
+    if (comment.songId === songId) output.unshift(comment);
+  }
+
+  return output;
+};
+
+/***/ }),
+
 /***/ "./frontend/util/follow_api_util.js":
 /*!******************************************!*\
   !*** ./frontend/util/follow_api_util.js ***!
@@ -4101,7 +4229,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _general_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./general_api_util */ "./frontend/util/general_api_util.js");
 
 var createFollow = function createFollow(follow) {
-  debugger;
   return $.ajax({
     method: "POST",
     url: "/api/follows",
@@ -4111,29 +4238,23 @@ var createFollow = function createFollow(follow) {
   });
 };
 var removeFollow = function removeFollow(id) {
-  debugger;
   return $.ajax({
     method: "DELETE",
     url: "/api/follows/".concat(id)
   });
 };
 var fetchFollows = function fetchFollows() {
-  debugger;
   return $.ajax({
     method: "GET",
     url: "/api/follows"
   });
 };
 var artistIdOf = function artistIdOf(onPageSong) {
-  debugger; // onPageSong ? onPageSong.artistId : null;
-
-  if (onPageSong) {
-    debugger;
-    return onPageSong.artistId;
-  } else {
-    debugger;
-    return null;
-  }
+  onPageSong ? onPageSong.artistId : null; // if (onPageSong) {
+  //     return onPageSong.artistId;
+  // } else {
+  //     return null;
+  // }
 };
 var followOf = function followOf(followedUserId, followerId, follows) {
   if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(follows)) return null;
@@ -4242,7 +4363,6 @@ var likeOf = function likeOf(likeableType, likeableId, liker, likes) {
   for (var i = 0; i < likeIds.length; i++) {
     var likeId = likeIds[i];
     var like = likes[likeId];
-    debugger;
     if (like.likeableType === likeableType && like.likeableId === likeableId && like.likerId === liker.id) return like;
   }
 
