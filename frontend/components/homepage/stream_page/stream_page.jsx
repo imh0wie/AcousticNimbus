@@ -1,4 +1,5 @@
 import React from "react";
+import StreamList from "./stream_list/stream_list";
 
 const StreamPage = () => {
   return (

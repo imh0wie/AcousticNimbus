@@ -44,6 +44,16 @@ export const shuffle = (n, songs) => {
   return songsToShuffle;
 };
 
+export const songsOf = (user, songs) => {
+  const output = [];
+  const songIds = Object.keys(songs);
+  songIds.forEach((songId) => {
+    const song = songs[songId];
+    if (user.id === song.artistId) output.push(song);
+  })
+  return output;
+}
+
 // const isEmpty = (obj) => {
 //   for (let key in obj) {
 //       if (obj.hasOwnProperty(key)) return false;

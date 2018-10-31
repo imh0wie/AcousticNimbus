@@ -1,4 +1,5 @@
 import { isEmpty } from "./general_api_util";
+import { songsOf } from "./song_api_util";
 
 export const createFollow = (follow) => {
     return $.ajax({
@@ -16,6 +17,7 @@ export const removeFollow = (id) => {
 }
 
 export const fetchFollows = () => {
+    debugger
     return $.ajax({
         method: "GET",
         url: "/api/follows",
@@ -23,7 +25,7 @@ export const fetchFollows = () => {
 };
 
 export const artistIdOf = (onPageSong) => {
-    onPageSong ? onPageSong.artistId : null;
+    return onPageSong ? onPageSong.artistId : null;
     // if (onPageSong) {
     //     return onPageSong.artistId;
     // } else {
@@ -63,6 +65,18 @@ export const followedUsersOf = (currentUser, follows, users) => {
         if (follow.followerId === currentUser.id) {
             output.push(users[follow.followedUserId]);
         }
+    })
+    return output;
+}
+
+export const followedSongs = (users, songs) => {
+    debugger
+    if (users.length === 0 || isEmpty(songs)) return null;
+    let output = [];
+    users.forEach((user) => {
+        const tracks = songsOf(user, songs);
+        debugger
+        output = output.concat(tracks);
     })
     return output;
 }

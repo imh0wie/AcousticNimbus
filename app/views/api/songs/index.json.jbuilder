@@ -9,5 +9,6 @@
     json.artistId song.artist.id
     json.imageURL song.image_url
     json.audioURL song.audio_url
+    json.createdAt song.created_at
   end 
 end 

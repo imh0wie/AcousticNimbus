@@ -113,10 +113,6 @@ class SongShowPage extends React.Component {
     }
   }
 
-  componentWillUpdate(nextProps) {
-   
-  }
-
   renderPlayPauseSign(song) {
     if (!this.props.currentSong.song || this.props.onPageSongId !== this.props.currentSong.song.id) {
       return (

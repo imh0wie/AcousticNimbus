@@ -132,6 +132,7 @@ class Waveform extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     debugger
+    if (!nextProps.currentSong.song) return;
     if (this.props.onPageSongId === nextProps.currentSong.song.id && nextProps.currentSong.playing) {
       this.waveform.play();
     } else if (this.props.onPageSongId === nextProps.currentSong.song.id && !nextProps.currentSong.playing) {
