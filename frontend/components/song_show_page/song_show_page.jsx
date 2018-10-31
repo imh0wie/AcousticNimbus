@@ -69,6 +69,7 @@ class SongShowPage extends React.Component {
       songId: this.props.onPageSongId,
       songProgress: null,
       commenterId: this.props.currentUser.id,
+      numOfComments: this.props.currentComments.length,
     }
     // debugger
     this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this);
@@ -99,13 +100,19 @@ class SongShowPage extends React.Component {
         followedUserId: artistIdOf(nextProps.onPageSong),
       });
     }
+    debugger
     if (this.props.currentComments.length !== nextProps.currentComments.length) {
+      debugger
       this.setState({
         body: "",
         songId: this.props.onPageSongId,
         commenterId: this.props.currentUser.id,
       })
     }
+  }
+
+  componentWillUpdate(nextProps) {
+   
   }
 
   renderPlayPauseSign(song) {
@@ -178,6 +185,7 @@ class SongShowPage extends React.Component {
       commenter_id: this.props.currentUser.id,
     }
     this.props.createComment(comment);
+    // this.props.createComment(comment).then(this.props.fetchComments());
   }
 
   update(field) {
@@ -243,6 +251,7 @@ class SongShowPage extends React.Component {
                 currentUser={this.props.currentUser}
                 onPageSong={this.props.onPageSong}
                 removeComment={this.props.removeComment}
+                fetchComments={this.props.fetchComments}
                 />
                 );
             })}

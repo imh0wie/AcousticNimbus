@@ -2800,7 +2800,8 @@ function (_React$Component) {
       body: "",
       songId: _this.props.onPageSongId,
       songProgress: null,
-      commenterId: _this.props.currentUser.id // debugger
+      commenterId: _this.props.currentUser.id,
+      numOfComments: _this.props.currentComments.length // debugger
 
     };
     _this.renderPlayPauseSign = _this.renderPlayPauseSign.bind(_assertThisInitialized(_assertThisInitialized(_this))); // this.renderLike = this.renderLike.bind(this);
@@ -2836,7 +2837,10 @@ function (_React$Component) {
         });
       }
 
+      debugger;
+
       if (this.props.currentComments.length !== nextProps.currentComments.length) {
+        debugger;
         this.setState({
           body: "",
           songId: this.props.onPageSongId,
@@ -2844,6 +2848,9 @@ function (_React$Component) {
         });
       }
     }
+  }, {
+    key: "componentWillUpdate",
+    value: function componentWillUpdate(nextProps) {}
   }, {
     key: "renderPlayPauseSign",
     value: function renderPlayPauseSign(song) {
@@ -2935,7 +2942,7 @@ function (_React$Component) {
         song_progress: this.state.songProgress,
         commenter_id: this.props.currentUser.id
       };
-      this.props.createComment(comment);
+      this.props.createComment(comment); // this.props.createComment(comment).then(this.props.fetchComments());
     }
   }, {
     key: "update",
@@ -3028,7 +3035,8 @@ function (_React$Component) {
             currentSong: _this6.props.currentSong,
             currentUser: _this6.props.currentUser,
             onPageSong: _this6.props.onPageSong,
-            removeComment: _this6.props.removeComment
+            removeComment: _this6.props.removeComment,
+            fetchComments: _this6.props.fetchComments
           });
         })));
       }
@@ -4496,7 +4504,7 @@ var commentsReducer = function commentsReducer() {
 
   switch (action.type) {
     case _actions_comment_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_COMMENTS"]:
-      return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, action.comments);
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, action.comments);
 
     default:
       return state;
