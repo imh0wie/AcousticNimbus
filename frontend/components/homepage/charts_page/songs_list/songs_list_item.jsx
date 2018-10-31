@@ -8,15 +8,7 @@ class SongsListItem extends React.Component {
         this.togglePlay = this.togglePlay.bind(this);
         this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this); 
     }
-
-// componentWillReceiveProps(newProps) {
-// }
-
-    // redirectToShowPage(song) {
-    //     debugger
-    //     this.props.setCurrentSong(song).then(this.props.history.push(`/songs/${action.song.id}`));
-    // }
-
+    
     togglePlay(song) {
         // debugger
         if (!this.props.currentSong.song || song.id !== this.props.currentSong.song.id ) {

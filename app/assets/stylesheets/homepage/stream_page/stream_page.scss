@@ -1,3 +1,11 @@
-.stream-page-header {
+.stream-page-container {
+  width: 820px;
+  margin: 0 auto;
+}
+
+.stream-page-container .header {
   display: block;
+  font-size: 18px;
+  color: #999;
+  margin: 35px 0;
 }

@@ -25,17 +25,17 @@ class Homepage extends React.Component {
   render() {
     return (
       <div className="homepage-container">
-        <div className="homepage-content-container">
+        <div className="content">
           {this.renderNavbar()}
           <Switch>
             <ProtectedRoute path="/stream" component={StreamPage} />
             <ProtectedRoute path="/charts/top" component={ChartsPage} />
           </Switch>
         </div>
-        <div className="sidebar-container">
-            <div className="sidebar-liked-songs">
+        <div className="sidebar">
+            <div className="liked-songs">
             </div>
-            <div className="sidebar-history">
+            <div className="history">
             </div>
           </div>
       </div>

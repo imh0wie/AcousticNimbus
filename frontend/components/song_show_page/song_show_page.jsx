@@ -3,12 +3,8 @@ import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { fetchUsers } from "../../actions/user_actions";
 import { fetchSongs, fetchSong } from "../../actions/song_actions";
-<<<<<<< HEAD
 import { setCurrentSong, playSong, pauseSong, setElapsedTo } from "../../actions/current_song_actions";
 // import { latest } from "../../util/song_api_util";
-import Waveform from "../common_components/waveform";
-=======
-import { setCurrentSong, playSong, pauseSong } from "../../actions/current_song_actions";
 import { createLike, removeLike, fetchLikes } from "../../actions/like_actions";
 import { createFollow, removeFollow, fetchFollows } from "../../actions/follow_actions";
 import { createComment, removeComment, fetchComments } from "../../actions/comment_actions";
@@ -16,8 +12,7 @@ import { likeOf } from "../../util/like_api_util";
 import { artistIdOf, followOf } from "../../util/follow_api_util";
 import { commentsOf } from "../../util/comment_api_util";
 import CommentsListItem from "./comments_list_item";
-import Waveform from "./waveform";
->>>>>>> likes
+import Waveform from "../common_components/waveform";
 
 const msp = (state, ownProps) => {
   const songId = parseInt(ownProps.match.params.songId);
@@ -49,15 +44,10 @@ const mdp = (dispatch) => {
       setCurrentSong: (song) => dispatch(setCurrentSong(song)),
       playSong: () => dispatch(playSong()),
       pauseSong: () => dispatch(pauseSong()),
-<<<<<<< HEAD
-      setElapsedTo: (time) => dispatch(setElapsedTo(time))
-=======
+      setElapsedTo: (time) => dispatch(setElapsedTo(time)),
       createLike: (like) => dispatch(createLike(like)),
       removeLike: (id) => dispatch(removeLike(id)),
       fetchLikes: () => dispatch(fetchLikes()),
-<<<<<<< HEAD
->>>>>>> likes
-=======
       createFollow: (follow) => dispatch(createFollow(follow)),
       removeFollow: (id) => dispatch(removeFollow(id)),
       fetchFollows: () => dispatch(fetchFollows()),
@@ -65,7 +55,6 @@ const mdp = (dispatch) => {
       removeComment: (id) => dispatch(removeComment(id)),
       fetchComments: () => dispatch(fetchComments()),
       fetchUsers: () => dispatch(fetchUsers()),
->>>>>>> follows
   });
 };
 
