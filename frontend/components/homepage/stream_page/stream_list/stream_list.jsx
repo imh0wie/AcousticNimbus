@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { fetchSongs } from "../../../../actions/song_actions";
-import { setCurrentSong, playSong, pauseSong } from "../../../../actions/current_song_actions";
+import { setCurrentSong, playSong, pauseSong, setElapsedTo } from "../../../../actions/current_song_actions";
 import { fetchFollows } from "../../../../actions/follow_actions";
 import { fetchUsers } from "../../../../actions/user_actions";
 import { latest } from "../../../../util/song_api_util";
@@ -31,6 +31,7 @@ const mdp = (dispatch) => {
       setCurrentSong: (song) => dispatch(setCurrentSong(song)),
       playSong: () => dispatch(playSong()),
       pauseSong: () => dispatch(pauseSong()),
+      setElapsedTo: (time) => dispatch(setElapsedTo(time)),
       fetchFollows: () => dispatch(fetchFollows()),
       fetchUsers: () => dispatch(fetchUsers()),
   });
@@ -52,27 +53,12 @@ class StreamList extends React.Component {
         this.props.fetchSongs();
         this.props.fetchFollows();
         this.props.fetchUsers();
-        // this.setState({loaded: true});
-    }
-
-    // componentWillReceiveNewProps(nextProps) {
-    //     debugger
-    //     if (this.props.users.length !== nextProps.users.length) {
-    //         debugger
-            
-    //     }
-    // }
-
-    componentWillReceiveProps(nextProps) {
-        // if (Object.keys(this.props.users).length !== Object.keys(nextProps.users).length) {
-        //     this.setState({users: nextProps.users})
-        // }
     }
 
     render() {
         if (!this.props.streamSongs) {
             debugger
-            return <img src={window.loading2} />;
+            return <img src={window.loading2} className="loading"/>;
         } else {
             debugger
             if (this.props.streamSongs.length === 0) {
@@ -86,12 +72,13 @@ class StreamList extends React.Component {
                                 <StreamListItem
                                 key={song.id}
                                 idx={idx}
-                                song={song}
+                                itemSong={song}
                                 artist={this.props.users[song.artistId]}
                                 currentSong={this.props.currentSong}
                                 setCurrentSong={this.props.setCurrentSong}
                                 playSong={this.props.playSong}
                                 pauseSong={this.props.pauseSong}
+                                setElapsedTo={this.props.setElapsedTo}
                                 />
                             );
                         })}

@@ -113,23 +113,23 @@ class SongShowPage extends React.Component {
     }
   }
 
-  renderPlayPauseSign(song) {
+  renderPlayPauseSign() {
     if (!this.props.currentSong.song || this.props.onPageSongId !== this.props.currentSong.song.id) {
       return (
-        <img src={window.play_button} className="banner-player-play-sign" onClick={() => this.togglePlayPause(song)} />       
+        <img src={window.play_button} className="banner-player-play-sign" onClick={() => this.togglePlayPause()} />       
       );
     } else if (this.props.onPageSongId === this.props.currentSong.song.id && this.props.currentSong.playing) {
       return (
-        <img src={window.pause_button} className="banner-player-pause-sign" onClick={() => this.togglePlayPause(song)} />
+        <img src={window.pause_button} className="banner-player-pause-sign" onClick={() => this.togglePlayPause()} />
       );
     } else if (this.props.onPageSongId === this.props.currentSong.song.id && !this.props.currentSong.playing) {
       return (
-        <img src={window.play_button} className="banner-player-play-sign" onClick={() => this.togglePlayPause(song)} />          
+        <img src={window.play_button} className="banner-player-play-sign" onClick={() => this.togglePlayPause()} />          
       );
     }
   }
 
-  togglePlayPause(song) {
+  togglePlayPause() {
     if (!this.props.currentSong.song || this.props.onPageSongId !== this.props.currentSong.song.id) {
       this.props.setCurrentSong(song);
       this.props.playSong();
@@ -269,17 +269,18 @@ class SongShowPage extends React.Component {
       // debugger
       return (
         <div className="song-show-page-container">
+          
           <div className="banner-player-container">
             <div className="banner-player">
-              <div className="banner-player-top">
-                <div className="banner-player-top-left">
-                  {this.renderPlayPauseSign(this.props.onPageSong)}
+              <div className="top">
+                <div className="left">
+                  {this.renderPlayPauseSign()}
                   <div className="song-show-page-song-info-container">
                     <Link to={`/users/${this.props.onPageSong.artistId}`} className="song-show-page-song-artist">{this.props.onPageSong.artist}</Link>
                     <h2 className="song-show-page-song-title">{this.props.onPageSong.title}</h2>
                   </div>
                 </div>
-                <div className="banner-player-top-right">
+                <div className="right">
                   <h4 className="song-show-page-song-upload-time"></h4>
                   <h4 className="song-show-page-song-genre">#{this.props.onPageSong.genre}</h4>
                 </div>
@@ -290,8 +291,6 @@ class SongShowPage extends React.Component {
                   onPageSong={this.props.onPageSong}
                   onPageSongId={this.props.onPageSongId}
                   currentSong={this.props.currentSong}
-                  // setCurrentSong={this.props.setCurrentSong}
-                  // setElapsedTo={this.props.setElapsedTo}
                 />
               </div>
             </div>

@@ -54,7 +54,8 @@ class Waveform extends React.Component {
     // gradient.addColorStop(0.5, 'white');
     // gradient.addColorStop(0.5, '#999');
     this.initializeWaveform();
-    this.waveform.load(this.props.onPageSong.audioURL);
+    const url = this.props.onPageSong ? this.props.onPageSong.audioURL : this.props.itemSong.audioURL
+    this.waveform.load(url);
     this.waveform.on("ready", this.onReady());
     // this.waveform.on("audioprocess", this.onProgress());
     // this.waveform.on("seek", this.onSeek());

@@ -135,7 +135,7 @@ class UploadForm extends React.Component {
           <h2 className="upload-form-subheader">We can't wait for your jam!</h2>
           <br/>
           <div className="song-uploader-container">
-            <input type="file" className="audio-uploader" value="" accept=".mp3, .wav" onChange={this.handleAudio} />
+            <input type="file" className="audio-uploader" value="" accept=".mp3, .wav" onChange={() => this.handleAudio()} />
             {audioPreview}
           </div>
         </div>
@@ -144,7 +144,7 @@ class UploadForm extends React.Component {
           <div className="upload-form-content">
             <div className="upload-form-left">
               {imagePreview}
-              <input type="file" className="image-uploader" value="" accept=".jpg, .png" onChange={this.handleImage} />
+              <input type="file" className="image-uploader" value="" accept=".jpg, .png" onChange={() => this.handleImage()} />
             </div>
             <div className="upload-form-right">
               {this.renderErrors}
@@ -156,13 +156,13 @@ class UploadForm extends React.Component {
                              value={this.state.title}
                              placeholder="Enter a title with minimum length of 3"
                              className="upload-form-title"
-                             onChange={this.update("title")}
+                             onChange={() => this.update("title")}
                 />
               </FormGroup>
               <FormControl.Feedback />
               <FormGroup controlId="uploadFormGenre">
                 <ControlLabel className="upload-form-data-name">Genre</ControlLabel>
-                <FormControl componentClass="select" placeholder="None" className="upload-form-genre" onChange={this.update("genre")}>
+                <FormControl componentClass="select" placeholder="None" className="upload-form-genre" onChange={() => this.update("genre")}>
                     <option value="Acoustic">Acoustic</option>
                     <option value="Ambient">Ambient</option>
                     <option value="Classical">Classical</option>
@@ -201,7 +201,7 @@ class UploadForm extends React.Component {
             </div>
             <div className="upload-form-buttons-container">
               <button className="upload-form-end-buttons upload-cancel-button" onClick={() => this.props.history.push("/stream")}>Cancel</button>
-              <input type="submit" value="Upload" className="upload-form-end-buttons upload-form-submit-button" onClick={this.handleSubmit()} />
+              <input type="submit" value="Upload" className="upload-form-end-buttons upload-form-submit-button" onClick={() => this.handleSubmit()} />
             </div>
           </div>
         </div>

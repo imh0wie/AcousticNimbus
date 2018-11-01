@@ -49,7 +49,7 @@ class CommentsListItem extends React.Component {
         } else if (commentLife < 86400) {
             const unit = Math.floor(commentLife / 3600) > 1 ? "hours" : "hour";
             return `${Math.floor(commentLife / 3600)} ${unit} ago`;
-        } else if (commentLife < 604800) {
+        } else if (commentLife < 2592000) {
             const unit = Math.floor(commentLife / 86400) > 1 ? "days" : "day";
             return `${Math.floor(commentLife / 86400)} ${unit} ago`;
         // } else if (commentLife < 2592000) {
