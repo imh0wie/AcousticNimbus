@@ -5,8 +5,29 @@ import Waveform from "../../../common_components/waveform";
 class ItemPlayer extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            likeableType: "Song",
+            likeableId: this.props.itemSong.id,
+            likerId: this.props.currentUser.id,
+        }
+        this.handleLike = this.handleLike.bind(this);
         this.togglePlayPause = this.togglePlayPause.bind(this);
         this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this);
+    }
+    
+    handleLike(e) {
+        e.preventDefault();
+        if (this.props.currentLike) {
+            this.props.removeLike(this.props.currentLike.id);
+        } else {
+            const like = {
+                likeable_type: this.state.likeableType,
+                likeable_id: this.state.likeableId,
+                liker_id: this.state.likerId,
+            }
+            debugger
+            this.props.createLike(like);
+        }
     }
 
     togglePlayPause() {
@@ -68,7 +89,7 @@ class ItemPlayer extends React.Component {
                     </div>
                     <div className="bottom">
                         <div className="left">
-                            <button className="social-button"><i class="fas fa-heart"></i></button>
+                            <button className={this.props.currentLike ? "social-button" : "liked"} onClick={(e) => this.handleLike(e)}><i class="fas fa-heart"></i> {this.props.itemLikes.length}</button>
                         </div>
                         <div className="right">
                             <p><i class="fas fa-play"></i></p>

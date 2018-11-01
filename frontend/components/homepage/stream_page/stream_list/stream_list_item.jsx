@@ -1,4 +1,5 @@
 import React from "react";
+import { likeOf } from "../../../../util/like_api_util";
 import ItemPlayer from "./item_player";
 
 class StreamListItem extends React.Component {
@@ -58,11 +59,16 @@ class StreamListItem extends React.Component {
                 </div>
                 <ItemPlayer
                 itemSong={this.props.itemSong}
+                itemLikes={this.props.itemLikes}
                 currentSong={this.props.currentSong}
+                currentLike={likeOf("Song", this.props.itemSong.id, this.props.currentUser, this.props.itemLikes)}
+                currentUser={this.props.currentUser}
                 setCurrentSong={this.props.setCurrentSong}
                 playSong={this.props.playSong}
                 pauseSong={this.props.pauseSong}
                 setElapsedTo={this.props.setElapsedTo}
+                createLike={this.props.createLike}
+                removeLike={this.props.removeLike}
                 />
             </li>
         );

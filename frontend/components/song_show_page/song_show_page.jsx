@@ -130,6 +130,7 @@ class SongShowPage extends React.Component {
   }
 
   togglePlayPause() {
+    debugger
     if (!this.props.currentSong.song || this.props.onPageSongId !== this.props.currentSong.song.id) {
       this.props.setCurrentSong(song);
       this.props.playSong();

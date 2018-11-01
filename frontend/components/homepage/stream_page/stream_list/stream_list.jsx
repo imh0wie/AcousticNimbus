@@ -3,21 +3,24 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { fetchSongs } from "../../../../actions/song_actions";
 import { setCurrentSong, playSong, pauseSong, setElapsedTo } from "../../../../actions/current_song_actions";
+import { fetchLikes, createLike, removeLike } from "../../../../actions/like_actions";
 import { fetchFollows } from "../../../../actions/follow_actions";
 import { fetchUsers } from "../../../../actions/user_actions";
-import { latest } from "../../../../util/song_api_util";
+import { likesOf } from "../../../../util/like_api_util";
 import { followedUsersOf, followedSongs} from "../../../../util/follow_api_util";
 import StreamListItem from "./stream_list_item";
 import { songsOf } from "../../../../util/song_api_util"
 
 const msp = (state) => {
     const songs = state.entities.songs;
+    const likes = state.entities.likes;
     const follows = state.entities.follows;
     const users = state.entities.users;
     const currentUser = state.entities.users[state.session.id];
     const followedArtists = followedUsersOf(currentUser, follows, users);
     return {
         users: users,
+        likes: likes,
         // followings: followingsOf(currentUser, follows),
         streamSongs: followedSongs(followedArtists, songs),
         currentUser: currentUser,
@@ -32,6 +35,9 @@ const mdp = (dispatch) => {
       playSong: () => dispatch(playSong()),
       pauseSong: () => dispatch(pauseSong()),
       setElapsedTo: (time) => dispatch(setElapsedTo(time)),
+      fetchLikes: () => dispatch(fetchLikes()),
+      createLike: (like) => dispatch(createLike(like)),
+      removeLike: (id) => dispatch(removeLike(id)),
       fetchFollows: () => dispatch(fetchFollows()),
       fetchUsers: () => dispatch(fetchUsers()),
   });
@@ -51,6 +57,7 @@ class StreamList extends React.Component {
     componentDidMount() {
         debugger
         this.props.fetchSongs();
+        this.props.fetchLikes();
         this.props.fetchFollows();
         this.props.fetchUsers();
     }
@@ -73,12 +80,16 @@ class StreamList extends React.Component {
                                 key={song.id}
                                 idx={idx}
                                 itemSong={song}
+                                itemLikes={likesOf("Song", song.id, this.props.likes)}
                                 artist={this.props.users[song.artistId]}
                                 currentSong={this.props.currentSong}
+                                currentUser={this.props.currentUser}
                                 setCurrentSong={this.props.setCurrentSong}
                                 playSong={this.props.playSong}
                                 pauseSong={this.props.pauseSong}
                                 setElapsedTo={this.props.setElapsedTo}
+                                createLike={this.props.createLike}
+                                removeLike={this.props.removeLike}
                                 />
                             );
                         })}
