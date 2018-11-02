@@ -45,12 +45,16 @@ class StreamListItem extends React.Component {
                     klass="item-player"
                     song={this.props.itemSong}
                     songId={this.props.itemSong.id}
+                    currentLike={this.props.currentLike}
                     currentLikes={this.props.itemLikes}
                     currentComments={this.props.itemComments}
                     currentSong={this.props.currentSong}
                     setCurrentSong={this.props.setCurrentSong}
                     playSong={this.props.playSong}
                     pauseSong={this.props.pauseSong}
+                    createLike={this.props.createLike}
+                    removeLike={this.props.removeLike}
+                    currentUser={this.props.currentUser}
                 />
             </li>
         );

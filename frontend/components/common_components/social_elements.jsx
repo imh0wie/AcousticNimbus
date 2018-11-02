@@ -7,18 +7,13 @@ class SocialElements extends React.Component {
 
     handleLike(e) {
         e.preventDefault();
+        debugger
         if (this.props.currentLike) {
           this.props.removeLike(this.props.currentLike.id);
         } else {
-            let id;
-            if ("banner-player") {
-                id = this.props.songId;
-            } else {
-                id = this.props.itemId;
-            }
             const like = {
                 likeable_type: "Song",
-                likeable_id: id,
+                likeable_id: this.props.songId,
                 liker_id: this.props.currentUser.id,
             }
             this.props.createLike(like);

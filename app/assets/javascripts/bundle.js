@@ -2060,19 +2060,14 @@ function (_React$Component) {
     key: "handleLike",
     value: function handleLike(e) {
       e.preventDefault();
+      debugger;
 
       if (this.props.currentLike) {
         this.props.removeLike(this.props.currentLike.id);
       } else {
-        var id;
-
-        if ("banner-player") {
-          id = this.props.songId;
-        } else {}
-
         var like = {
           likeable_type: "Song",
-          likeable_id: id,
+          likeable_id: this.props.songId,
           liker_id: this.props.currentUser.id
         };
         this.props.createLike(like);
@@ -3321,12 +3316,16 @@ function (_React$Component) {
         klass: "item-player",
         song: this.props.itemSong,
         songId: this.props.itemSong.id,
+        currentLike: this.props.currentLike,
         currentLikes: this.props.itemLikes,
         currentComments: this.props.itemComments,
         currentSong: this.props.currentSong,
         setCurrentSong: this.props.setCurrentSong,
         playSong: this.props.playSong,
-        pauseSong: this.props.pauseSong
+        pauseSong: this.props.pauseSong,
+        createLike: this.props.createLike,
+        removeLike: this.props.removeLike,
+        currentUser: this.props.currentUser
       }));
     }
   }]);
