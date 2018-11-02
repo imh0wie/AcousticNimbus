@@ -7,23 +7,23 @@
     display: flex;
 }
 
-.song-show-page-container .content .social-els-container .social-els .left .liked-button {
+.song-show-page-container .content .social-els-container .social-els .left button {
     width: auto;
     height: 25px;
-    color: #FF5400;
-    border: 1px solid #FF5400;
+    color: #333;
+    border: 1px solid #e5e5e5;
     border-radius: 3px;
     margin: 5px 0px;
     padding: 0px 10px 0px 7px;
 }
 
+.song-show-page-container .content .social-els-container .social-els .left .liked-button {
+    color: #FF5400;
+    border-color: 1px solid #FF5400;
+}
+
 .song-show-page-container .content .social-els-container .social-els .left .like-button {
-    width: auto;
-    height: 25px;
-    border: 1px solid #f2f2f2;
-    border-radius: 3px;
-    margin: 5px 0px;
-    padding: 0px 10px 0px 7px;
+
 }
 
 .song-show-page-container .content .social-els-container .social-els .right {
@@ -35,3 +35,35 @@
     margin: auto 0;
 }
 
+.item-player .social-els {
+    display: flex;
+    justify-content: space-between;
+}
+
+.item-player .social-els .left {
+    display: flex;
+}
+
+.item-player .social-els .left button {
+    color: #333;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+}
+
+
+.item-player .social-els .left .liked-button {
+    color: #FB5400;
+    border-color: #FB5400;
+}
+
+.item-player .social-els .left .like-button {
+}
+
+.item-player .social-els .right {
+    display: flex;
+}
+
+.item-player .social-els .right p {
+    display: flex;
+    color: #999;
+}

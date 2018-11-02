@@ -97,3 +97,68 @@
     height: 340px;
     margin: 20px 30px;
 }
+
+.item-player-container {
+    display: flex;
+}
+  
+.item-player-container .img-left {
+    width: 160px;
+    height: 160px;
+    margin-right: 20px;
+}
+  
+.item-player  {
+    width: 100vh;
+}
+
+.item-player .top {
+    display: flex;
+    justify-content: space-between;
+    margin: 7px 0;
+}
+  
+.item-player .top .left {
+    display: flex;  
+}
+  
+.item-player .top .left .play-sign {
+    width: 45px;
+    height: 45px;
+    margin: 0;
+    margin-right: 5px;
+}
+  
+.item-player .top .left .song-info {
+    margin: auto 0;
+}
+
+.item-player .top .left .song-info a {
+    display: block;
+    font-size: 12px;
+    color: #999;
+    text-decoration: none;
+}
+
+.item-player .top .left .song-info a:hover {
+    color: #333;
+}
+
+.item-player .top .left .song-info .title {
+    display: block;
+    font-size: 15px;
+    color: #333;
+    text-decoration: none;
+}
+
+.item-player .top .right .genre {
+    font-size: 12px;
+    color: white;
+    background-color: #999;
+    padding: 3px 10px;
+    border-radius: 20px;  
+}
+
+.item-player .top .right .genre:hover {
+    background-color: #666;
+}

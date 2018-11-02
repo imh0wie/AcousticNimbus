@@ -11,9 +11,10 @@ import { createComment, removeComment, fetchComments } from "../../actions/comme
 import { likeOf, likesOf } from "../../util/like_api_util";
 import { artistIdOf, followOf } from "../../util/follow_api_util";
 import { commentsOf } from "../../util/comment_api_util";
+import Player from "../common_components/player";
+import Waveform from "../common_components/waveform";
 import SocialElements from "../common_components/social_elements";
 import CommentsListItem from "./comments_list_item";
-import Waveform from "../common_components/waveform";
 
 const msp = (state, ownProps) => {
   const songId = parseInt(ownProps.match.params.songId);
@@ -73,11 +74,11 @@ class SongShowPage extends React.Component {
       numOfComments: this.props.currentComments.length,
     }
     // debugger
-    this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this);
-    this.renderUploadTime = this.renderUploadTime.bind(this);
+    // this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this);
+    // this.renderUploadTime = this.renderUploadTime.bind(this);
     this.renderFollowButton = this.renderFollowButton.bind(this);
     this.renderCommentsSection = this.renderCommentsSection.bind(this);
-    this.togglePlayPause = this.togglePlayPause.bind(this);
+    // this.togglePlayPause = this.togglePlayPause.bind(this);
     this.handleFollow = this.handleFollow.bind(this);
     this.handleComment = this.handleComment.bind(this);
     this.update = this.update.bind(this);
@@ -107,30 +108,14 @@ class SongShowPage extends React.Component {
     }
   }
 
-  renderPlayPauseSign() {
-    if (!this.props.currentSong.song || this.props.onPageSongId !== this.props.currentSong.song.id) {
-      return (
-        <img src={window.play_button} className="play-sign" onClick={() => this.togglePlayPause()} />       
-      );
-    } else if (this.props.onPageSongId === this.props.currentSong.song.id && this.props.currentSong.playing) {
-      return (
-        <img src={window.pause_button} className="pause-sign" onClick={() => this.togglePlayPause()} />
-      );
-    } else if (this.props.onPageSongId === this.props.currentSong.song.id && !this.props.currentSong.playing) {
-      return (
-        <img src={window.play_button} className="play-sign" onClick={() => this.togglePlayPause()} />          
-      );
-    }
-  }
-
-  togglePlayPause() {
-    if (!this.props.currentSong.song || this.props.onPageSongId !== this.props.currentSong.song.id) {
-      this.props.setCurrentSong(this.props.onPageSong);
-      this.props.playSong();
-    } else if (this.props.onPageSongId === this.props.currentSong.song.id) {
-      this.props.currentSong.playing ? this.props.pauseSong() : this.props.playSong() ;
-    }
-  }
+  // togglePlayPause() {
+  //   if (!this.props.currentSong.song || this.props.onPageSongId !== this.props.currentSong.song.id) {
+  //     this.props.setCurrentSong(this.props.onPageSong);
+  //     this.props.playSong();
+  //   } else if (this.props.onPageSongId === this.props.currentSong.song.id) {
+  //     this.props.currentSong.playing ? this.props.pauseSong() : this.props.playSong() ;
+  //   }
+  // }
 
   handleFollow(e) {
     e.preventDefault();
@@ -167,29 +152,6 @@ class SongShowPage extends React.Component {
         songProgress: elapsed,
        });
     };
-  }
-
-  renderUploadTime(date) {
-    const itemLife = Math.abs(new Date() - new Date(date)) / 1000;
-    if (itemLife < 60) {
-        const unit = Math.floor(itemLife) > 1 ? "seconds" : "second";
-        return `${Math.floor(itemLife)} ${unit} ago`;
-    } else if (itemLife < 3600) {
-        const unit = Math.floor(itemLife / 60) > 1 ? "minutes" : "minute";
-        return `${Math.floor(itemLife / 60)} ${unit} ago`;
-    } else if (itemLife < 86400) {
-        const unit = Math.floor(itemLife / 3600) > 1 ? "hours" : "hour";
-        return `${Math.floor(itemLife / 3600)} ${unit} ago`;
-    } else if (itemLife < 2592000) {
-        const unit = Math.floor(itemLife / 86400) > 1 ? "days" : "day";
-        return `${Math.floor(itemLife / 86400)} ${unit} ago`;
-    } else if (itemLife < 31104000) {
-        const unit = Math.floor(itemLife / 2592000) > 1 ? "months" : "month";
-        return `${Math.floor(itemLife / 2592000)} ${unit} ago`;
-    } else {
-        const unit = Math.floor(itemLife / 31104000) > 1 ? "years" : "year";
-        return `${Math.floor(itemLife / 31104000)} ${unit} ago`;
-    }
   }
 
   renderFollowButton() {
@@ -249,35 +211,20 @@ class SongShowPage extends React.Component {
         <img src={window.loading1} className="loading"></img>
       );
     } else {
-      // debugger
+      debugger
       return (
         <div className="song-show-page-container">
-          <div className="banner-player-container">
-            <div className="banner-player">
-              <div className="top">
-                <div className="left">
-                  {this.renderPlayPauseSign()}
-                  <div className="song-info">
-                    <Link to={`/users/${this.props.onPageSong.artistId}`} className="artist">{this.props.onPageSong.artist}</Link>
-                    <h2 className="title">{this.props.onPageSong.title}</h2>
-                  </div>
-                </div>
-                <div className="right">
-                  <h4 className="upload-time">{this.renderUploadTime(this.props.onPageSong.createdAt)}</h4>
-                  <h4 className="genre">#{this.props.onPageSong.genre}</h4>
-                </div>
-              </div>
-              <div className="waveform-container">
-                <Waveform 
-                  klass="waveform"
-                  onPageSong={this.props.onPageSong}
-                  onPageSongId={this.props.onPageSongId}
-                  currentSong={this.props.currentSong}
-                />
-              </div>
-            </div>
-            <img src={this.props.onPageSong.imageURL ? this.props.onPageSong.imageURL : window.default_avatar} className="img-right"></img>        
-          </div>
+          <Player
+            klass="banner-player"
+            song={this.props.onPageSong}
+            songId={this.props.onPageSongId}
+            currentLikes={this.props.currentLikes}
+            currentComments={this.props.currentComments}
+            currentSong={this.props.currentSong}
+            setCurrentSong={this.props.setCurrentSong}
+            playSong={this.props.playSong}
+            pauseSong={this.props.pauseSong}
+          />
           <div className="content">
             <div className="social-els-container">
               <div className="extrovert-section">
@@ -289,13 +236,13 @@ class SongShowPage extends React.Component {
                   </form>
                 </div>
                 <SocialElements
-                klass="song-show-page"
-                songId={this.props.onPageSongId}
-                currentLike={this.props.currentLike}
-                currentLikes={this.props.currentLikes}
-                createLike={this.props.createLike}
-                removeLike={this.props.removeLike}
-                currentUser={this.props.currentUser}
+                  klass="banner-player"
+                  songId={this.props.onPageSongId}
+                  currentLike={this.props.currentLike}
+                  currentLikes={this.props.currentLikes}
+                  createLike={this.props.createLike}
+                  removeLike={this.props.removeLike}
+                  currentUser={this.props.currentUser}
                 />
               </div>
               <div className="song-show-page-main-container">
@@ -326,4 +273,30 @@ class SongShowPage extends React.Component {
 }
 // style={{position: absolute; left: -9999px; width: 1px; height: 1px;}}
 
+{/* <div className="banner-player-container">
+            <div className="banner-player">
+              <div className="top">
+                <div className="left">
+                  {this.renderPlayPauseSign()}
+                  <div className="song-info">
+                    <Link to={`/users/${this.props.onPageSong.artistId}`} className="artist">{this.props.onPageSong.artist}</Link>
+                    <h2 className="title">{this.props.onPageSong.title}</h2>
+                  </div>
+                </div>
+                <div className="right">
+                  <h4 className="upload-time">{this.renderUploadTime(this.props.onPageSong.createdAt)}</h4>
+                  <h4 className="genre">#{this.props.onPageSong.genre}</h4>
+                </div>
+              </div>
+              <div className="waveform-container">
+                <Waveform 
+                  klass="banner-player"
+                  song={this.props.onPageSong}
+                  songId={this.props.onPageSongId}
+                  currentSong={this.props.currentSong}
+                />
+              </div>
+            </div>
+            <img src={this.props.onPageSong.imageURL ? this.props.onPageSong.imageURL : window.default_avatar} className="img-right"></img>        
+          </div> */}
 export default withRouter(connect(msp, mdp)(SongShowPage));

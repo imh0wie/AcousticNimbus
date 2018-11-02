@@ -1,6 +1,6 @@
 import React from "react";
 import { likeOf, likesOf } from "../../../../util/like_api_util";
-import ItemPlayer from "./item_player";
+import Player from "../../../common_components/player";
 
 class StreamListItem extends React.Component {
     constructor(props) {
@@ -35,26 +35,22 @@ class StreamListItem extends React.Component {
     }
 
     render() {
-        debugger
         return (
             <li className="stream-list-item">
                 <div className="header">
                     <img src={this.props.itemArtist.imageURL ? this.props.itemArtist.imageURL : window.default_avatar}/>
                     <p><span>{this.props.itemArtist.username}</span> posted a song {this.renderItemCreationTime(this.props.itemSong.createdAt)}</p> 
                 </div>
-                <ItemPlayer
-                itemSong={this.props.itemSong}
-                itemLikes={this.props.itemLikes}
-                itemComments={this.props.itemComments}
-                currentSong={this.props.currentSong}
-                currentLike={this.props.currentLike}
-                currentUser={this.props.currentUser}
-                setCurrentSong={this.props.setCurrentSong}
-                playSong={this.props.playSong}
-                pauseSong={this.props.pauseSong}
-                setElapsedTo={this.props.setElapsedTo}
-                createLike={this.props.createLike}
-                removeLike={this.props.removeLike}
+                <Player
+                    klass="item-player"
+                    song={this.props.itemSong}
+                    songId={this.props.itemSong.id}
+                    currentLikes={this.props.itemLikes}
+                    currentComments={this.props.itemComments}
+                    currentSong={this.props.currentSong}
+                    setCurrentSong={this.props.setCurrentSong}
+                    playSong={this.props.playSong}
+                    pauseSong={this.props.pauseSong}
                 />
             </li>
         );

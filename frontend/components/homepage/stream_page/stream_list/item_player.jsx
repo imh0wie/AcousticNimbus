@@ -59,7 +59,7 @@ class ItemPlayer extends React.Component {
         debugger
         return (
             <div className="item-player-container">
-                <img src={this.props.itemSong.imageURL ? this.props.itemSong.imageURL : window.default_avatar}/>
+                <img src={this.props.itemSong.imageURL ? this.props.itemSong.imageURL : window.default_avatar} className="img-left" />
                 <div className="item-player">
                     <div className="top">
                         <div className="left">

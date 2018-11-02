@@ -26,17 +26,13 @@ export const likesOf = (likeableType, likeableId, likes) => {
     if (isEmpty(likes)) return [];
     const likeIds = Object.keys(likes).reverse();
     let output = [];
-    debugger
     likeIds.forEach((likeId) => {
         const id = parseInt(likeId);
         const like = likes[id];
-        debugger
         if (like.likeableType === likeableType && like.likeableId === likeableId) {
-            debugger
             output.push(likes[likeId]);
         }
     })
-    debugger
     return output;
 }
 

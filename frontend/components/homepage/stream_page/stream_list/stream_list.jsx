@@ -54,13 +54,11 @@ class StreamList extends React.Component {
         // this.state = {
         //     loaded: false,
         // }
-        debugger
     }
     // componentWillMount() {
         
     // }
     componentDidMount() {
-        debugger
         this.props.fetchSongs();
         this.props.fetchLikes();
         this.props.fetchFollows();
@@ -70,10 +68,8 @@ class StreamList extends React.Component {
 
     render() {
         if (!this.props.streamSongs) {
-            debugger
             return <img src={window.loading2} className="loading"/>;
         } else {
-            debugger
             if (this.props.streamSongs.length === 0) {
                 return <p>Stream is currently empty. Use Charts to find music & audio to listen to.</p>
             } else {

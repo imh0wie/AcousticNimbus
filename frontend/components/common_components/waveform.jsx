@@ -50,8 +50,9 @@ class Waveform extends React.Component {
   
   componentDidMount() {
     this.initializeWaveform();
-    const url = this.props.onPageSong ? this.props.onPageSong.audioURL : this.props.itemSong.audioURL
-    this.waveform.load(url);
+    // const url = this.props.song ? this.props.song.audioURL : this.props.song.audioURL
+    debugger
+    this.waveform.load(this.props.song.audioURL);
     this.waveform.on("ready", this.onReady());
     // this.waveform.on("audioprocess", this.onProgress());
     // this.waveform.on("seek", this.onSeek());
@@ -64,27 +65,37 @@ class Waveform extends React.Component {
     // const gradient = ctx.createLinearGradient(0, 50, 0, 200);
     // gradient.addColorStop(0.5, 'white');
     // gradient.addColorStop(0.5, '#999');
-    if (this.props.klass === "waveform") {
-      this.waveform = WaveSurfer.create({
-        container: "#waveform",
-        waveColor: "hsla (200, 100%, 30%, 0.5)",
-        // waveColor: gradient,
-        progressColor: "#FF5400",
-        // width: 820,
-        height: 150,
-        barWidth: 1,
-        normalize: true, // normalize by the maximum peak instead of 1.0
-        interact: true, // whether the mouse interaction will be enabled at initialization
-        responsive: true, // resize the waveform when the window is resized
-        fillParent: true, // ignore container's size
-        // maxCanvasWidth: 820,
-      });
+    switch (this.props.klass) {
+      case "banner-player":
+        this.waveform = WaveSurfer.create({
+          container: "#waveform",
+          waveColor: "hsla (200, 100%, 30%, 0.5)",
+          progressColor: "#FF5400",
+          height: 150,
+          barWidth: 1,
+          normalize: true, // normalize by the maximum peak instead of 1.0
+          interact: true, // whether the mouse interaction will be enabled at initialization
+          responsive: true, // resize the waveform when the window is resized
+          fillParent: true, // ignore container's size
+        });
+      case "item-player":
+        this.waveform = WaveSurfer.create({
+          container: "#waveform",
+          waveColor: "hsla (200, 100%, 30%, 0.5)",
+          progressColor: "#FF5400",
+          height: 50,
+          barWidth: 1,
+          normalize: true, // normalize by the maximum peak instead of 1.0
+          interact: true, // whether the mouse interaction will be enabled at initialization
+          responsive: true, // resize the waveform when the window is resized
+          fillParent: true, // ignore container's size
+        });
     }
   }
     
   onReady() {
     this.waveform.setMute(true);
-    if (this.props.currentSong.song && this.props.onPageSongId === this.props.currentSong.song.id) {
+    if (this.props.currentSong.song && this.props.songId === this.props.currentSong.song.id) {
       this.setState({
         playing: this.props.currentSong.playing,
         elapsed: this.props.currentSong.elapsed,
@@ -103,7 +114,7 @@ class Waveform extends React.Component {
 
   // onProgress() {
   //   debugger
-  //   if (this.props.currentSong.song && this.props.onPageSongId === this.props.currentSong.song.id && this.state.elapsed !== this.props.currentSong.elpased) {
+  //   if (this.props.currentSong.song && this.props.songId === this.props.currentSong.song.id && this.state.elapsed !== this.props.currentSong.elpased) {
   //     debugger
   //     this.setState({
   //       elapsed: this.props.currentSong.elapsed,
@@ -120,7 +131,7 @@ class Waveform extends React.Component {
 
   // onSeek(time) {
   // debugger
-  //   if (this.props.currentSong.song && this.props.onPageSongId === this.props.currentSong.song.id) {
+  //   if (this.props.currentSong.song && this.props.songId === this.props.currentSong.song.id) {
   //     this.setState({
   //       elapsed: time,
   //     })
@@ -129,19 +140,25 @@ class Waveform extends React.Component {
   // }
 
   componentWillReceiveProps(nextProps) {
+    debugger
     if (!nextProps.currentSong.song) return;
-    if (this.props.onPageSongId === nextProps.currentSong.song.id && nextProps.currentSong.playing) {
+    debugger
+    if (this.props.songId === nextProps.currentSong.song.id && nextProps.currentSong.playing) {
+      debugger
       this.waveform.play();
-    } else if (this.props.onPageSongId === nextProps.currentSong.song.id && !nextProps.currentSong.playing) {
+    } else if (this.props.songId === nextProps.currentSong.song.id && !nextProps.currentSong.playing) {
+      debugger
       this.waveform.pause();
-    } else if (this.props.onPageSongId !== nextProps.currentSong.song.id) {
+    } else if (this.props.songId !== nextProps.currentSong.song.id) {
+      debugger
       this.setState({
         elapsed: 0,
         playing: false,
       });
     }
-    if (this.props.onPageSongId === nextProps.currentSong.song.id &&
+    if (this.props.songId === nextProps.currentSong.song.id &&
         this.props.currentSong.elapsed !== nextProps.currentSong.elapsed) {
+      debugger
       this.waveform.seekTo(nextProps.currentSong.elapsed);
     }
   }
