@@ -1,5 +1,10 @@
 .song-show-page-container .content .social-els-container .social-els {
     display: flex;
+    justify-content: space-between;
+}
+
+.song-show-page-container .content .social-els-container .social-els .left {
+    display: flex;
 }
 
 .song-show-page-container .content .social-els-container .social-els .left .liked-button {
@@ -20,3 +25,13 @@
     margin: 5px 0px;
     padding: 0px 10px 0px 7px;
 }
+
+.song-show-page-container .content .social-els-container .social-els .right {
+    display: flex;
+}
+
+.song-show-page-container .content .social-els-container .social-els .right p {
+    color: #999;
+    margin: auto 0;
+}
+

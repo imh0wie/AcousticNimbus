@@ -1,5 +1,5 @@
 import React from "react";
-import { likeOf } from "../../../../util/like_api_util";
+import { likeOf, likesOf } from "../../../../util/like_api_util";
 import ItemPlayer from "./item_player";
 
 class StreamListItem extends React.Component {
@@ -10,21 +10,6 @@ class StreamListItem extends React.Component {
         // this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this);
         this.renderItemCreationTime = this.renderItemCreationTime.bind(this);
     }
-    
-    // togglePlay(song) {
-    //     // debugger
-    //     if (!this.props.currentSong.song || song.id !== this.props.currentSong.song.id ) {
-    //         // debugger
-    //         this.props.setCurrentSong(song);
-    //         this.props.playSong();
-    //     } else if (song.id === this.props.currentSong.song.id && this.props.currentSong.playing) {
-    //         // debugger
-    //         this.props.pauseSong();
-    //     } else if (song.id === this.props.currentSong.song.id && !this.props.currentSong.playing) {
-    //         // debugger
-    //         this.props.playSong();
-    //     }
-    // }
 
     renderItemCreationTime(date) {
         const itemLife = Math.abs(new Date() - new Date(date)) / 1000;
@@ -54,14 +39,15 @@ class StreamListItem extends React.Component {
         return (
             <li className="stream-list-item">
                 <div className="header">
-                    <img src={this.props.artist.imageURL ? this.props.artist.imageURL : window.default_avatar}/>
-                    <p><span>{this.props.artist.username}</span> posted a song {this.renderItemCreationTime(this.props.itemSong.createdAt)}</p> 
+                    <img src={this.props.itemArtist.imageURL ? this.props.itemArtist.imageURL : window.default_avatar}/>
+                    <p><span>{this.props.itemArtist.username}</span> posted a song {this.renderItemCreationTime(this.props.itemSong.createdAt)}</p> 
                 </div>
                 <ItemPlayer
                 itemSong={this.props.itemSong}
                 itemLikes={this.props.itemLikes}
+                itemComments={this.props.itemComments}
                 currentSong={this.props.currentSong}
-                currentLike={likeOf("Song", this.props.itemSong.id, this.props.currentUser, this.props.itemLikes)}
+                currentLike={this.props.currentLike}
                 currentUser={this.props.currentUser}
                 setCurrentSong={this.props.setCurrentSong}
                 playSong={this.props.playSong}

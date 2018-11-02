@@ -67,14 +67,12 @@ class UploadForm extends React.Component {
   handleAudio(e) {
     const reader = new FileReader();
     const file = e.currentTarget.files[0];
-    debugger
     reader.onloadend = function() {
       this.setState({
         audio: file,
         audioURL: reader.result,
       });
     }.bind(this);
-    debugger
     if (file) {
       reader.readAsDataURL(file);
     }

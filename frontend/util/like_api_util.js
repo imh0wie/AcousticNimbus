@@ -1,7 +1,6 @@
 import { isEmpty } from "./general_api_util";
 
 export const createLike = (like) => {
-    debugger
     return $.ajax({
         method: "POST",
         url: "/api/likes",
@@ -31,7 +30,9 @@ export const likesOf = (likeableType, likeableId, likes) => {
     likeIds.forEach((likeId) => {
         const id = parseInt(likeId);
         const like = likes[id];
+        debugger
         if (like.likeableType === likeableType && like.likeableId === likeableId) {
+            debugger
             output.push(likes[likeId]);
         }
     })

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import SocialElements from "../../../common_components/social_elements";
 import Waveform from "../../../common_components/waveform";
 
 class ItemPlayer extends React.Component {
@@ -30,20 +31,16 @@ class ItemPlayer extends React.Component {
     }
 
     togglePlayPause() {
-        debugger
         if (!this.props.currentSong.song || this.props.itemSong.id !== this.props.currentSong.song.id) {
           this.props.setCurrentSong(this.props.itemSong);
           this.props.playSong();
-          debugger
         } else if (this.props.itemSong.id === this.props.currentSong.song.id) {
           this.props.currentSong.playing ? this.props.pauseSong() : this.props.playSong() ;
         }
     }
 
     renderPlayPauseSign() {
-        debugger
         if (!this.props.currentSong.song || this.props.itemSong.id !== this.props.currentSong.song.id) {
-            debugger
             return (
                 <img src={window.play_button} className="play-sign" onClick={() => this.togglePlayPause()} />       
             );
@@ -86,15 +83,17 @@ class ItemPlayer extends React.Component {
                             // setElapsedTo={this.props.setElapsedTo}
                         />
                     </div>
-                    <div className="bottom">
-                        <div className="left">
-                            <button className={this.props.currentLike ? "social-button" : "liked"} onClick={(e) => this.handleLike(e)}><i class="fas fa-heart"></i> {this.props.itemLikes.length}</button>
-                        </div>
-                        <div className="right">
-                            <p><i class="fas fa-play"></i></p>
-                            <p><i class="fas fa-comment-alt"></i></p>
-                        </div>
-                    </div>
+                    <SocialElements
+                        klass="item-player"
+                        itemId={this.props.itemSong.id}
+                        itemLikes={this.props.itemLikes}
+                        itemComments={this.props.itemComments}
+                        currentLike={this.props.currentLike}
+                        currentLikes={this.props.currentLikes}
+                        createLike={this.props.createLike}
+                        removeLike={this.props.removeLike}
+                        currentUser={this.props.currentUser}
+                    />
                 </div>
             </div>
         );

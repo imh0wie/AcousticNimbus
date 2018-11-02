@@ -18,15 +18,12 @@ class CommentsListItem extends React.Component {
         return (   
             <h1><span className="username">{username}</span> at <span className="time">0:00</span>:</h1>
         );
-        // debugger
-        // debugger
         // const audio = new Audio(this.props.onPageSong.audioURL);
         // // const audioDuration = audio.duration;
         // let audioDuration;
         // audio.onloaded = () => {
         //     audioDuration = audio.duration;
         // };
-        // debugger
         // if (this.props.currentSong.song && this.props.c.id === this.props.currentSong.song.id) {
         //     return (   
         //         <h1><span className="username">{username}</span> at <span className="time">{this.state. * audioDuration}</span>:</h1>

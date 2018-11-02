@@ -8,9 +8,10 @@ import { setCurrentSong, playSong, pauseSong, setElapsedTo } from "../../actions
 import { createLike, removeLike, fetchLikes } from "../../actions/like_actions";
 import { createFollow, removeFollow, fetchFollows } from "../../actions/follow_actions";
 import { createComment, removeComment, fetchComments } from "../../actions/comment_actions";
-import { likeOf } from "../../util/like_api_util";
+import { likeOf, likesOf } from "../../util/like_api_util";
 import { artistIdOf, followOf } from "../../util/follow_api_util";
 import { commentsOf } from "../../util/comment_api_util";
+import SocialElements from "../common_components/social_elements";
 import CommentsListItem from "./comments_list_item";
 import Waveform from "../common_components/waveform";
 
@@ -31,6 +32,7 @@ const msp = (state, ownProps) => {
     currentSong: state.ui.currentSong,
     currentUser: currentUser,
     currentLike: likeOf("Song", songId, currentUser, likes),
+    currentLikes: likesOf("Song", songId, likes),
     currentFollow: followOf(artistIdOf(onPageSong), currentUser.id, follows),
     currentComments: commentsOf(songId, comments),
     allUsers: state.entities.users,
@@ -62,9 +64,6 @@ class SongShowPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      likeableType: "Song",
-      likeableId: this.props.onPageSongId,
-      likerId: this.props.currentUser.id,
       followedUserId: artistIdOf(this.props.onPageSong),
       followerId: this.props.currentUser.id,
       body: "",
@@ -76,12 +75,9 @@ class SongShowPage extends React.Component {
     // debugger
     this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this);
     this.renderUploadTime = this.renderUploadTime.bind(this);
-    // this.renderLike = this.renderLike.bind(this);
-    this.renderLikeButton = this.renderLikeButton.bind(this);
     this.renderFollowButton = this.renderFollowButton.bind(this);
     this.renderCommentsSection = this.renderCommentsSection.bind(this);
     this.togglePlayPause = this.togglePlayPause.bind(this);
-    this.handleLike = this.handleLike.bind(this);
     this.handleFollow = this.handleFollow.bind(this);
     this.handleComment = this.handleComment.bind(this);
     this.update = this.update.bind(this);
@@ -89,7 +85,6 @@ class SongShowPage extends React.Component {
 
   componentDidMount() {
     // this.props.fetchSong(this.props.onPageSongId);
-    debugger
     this.props.fetchSongs();
     this.props.fetchLikes();
     this.props.fetchFollows();
@@ -103,9 +98,7 @@ class SongShowPage extends React.Component {
         followedUserId: artistIdOf(nextProps.onPageSong),
       });
     }
-    debugger
     if (this.props.currentComments.length !== nextProps.currentComments.length) {
-      debugger
       this.setState({
         body: "",
         songId: this.props.onPageSongId,
@@ -131,46 +124,23 @@ class SongShowPage extends React.Component {
   }
 
   togglePlayPause() {
-    debugger
     if (!this.props.currentSong.song || this.props.onPageSongId !== this.props.currentSong.song.id) {
-      debugger
       this.props.setCurrentSong(this.props.onPageSong);
       this.props.playSong();
     } else if (this.props.onPageSongId === this.props.currentSong.song.id) {
-      debugger
       this.props.currentSong.playing ? this.props.pauseSong() : this.props.playSong() ;
-    }
-  }
-
-  handleLike(e) {
-    e.preventDefault();
-    debugger
-    if (this.props.currentLike) {
-      this.props.removeLike(this.props.currentLike.id);
-    } else {
-      const like = {
-        likeable_type: this.state.likeableType,
-        likeable_id: this.state.likeableId,
-        liker_id: this.state.likerId,
-      }
-      debugger
-      this.props.createLike(like);
     }
   }
 
   handleFollow(e) {
     e.preventDefault();
-    debugger
     if (this.props.currentFollow) {
-      debugger
       this.props.removeFollow(this.props.currentFollow.id);
     } else {
-      debugger
       const follow = {
         followed_user_id: this.state.followedUserId,
         follower_id: this.state.followerId,
       }
-      debugger
       this.props.createFollow(follow);
     }
   }
@@ -179,7 +149,6 @@ class SongShowPage extends React.Component {
     e.preventDefault();
     // const elapsed = this.props.currentSong.id === this.props.onPageSongId ? this.props.currentSong.elapsed : 0;    
     // this.setState({ songProgress: elapsed});
-    debugger
     const comment = {
       body: this.state.body,
       song_id: this.state.songId,
@@ -191,7 +160,6 @@ class SongShowPage extends React.Component {
   }
 
   update(field) {
-    debugger
     return (e) => {
       const elapsed = this.props.currentSong.song && this.props.currentSong.song.id === this.props.onPageSongId ? this.props.currentSong.elapsed : 0;
       this.setState({ 
@@ -221,18 +189,6 @@ class SongShowPage extends React.Component {
     } else {
         const unit = Math.floor(itemLife / 31104000) > 1 ? "years" : "year";
         return `${Math.floor(itemLife / 31104000)} ${unit} ago`;
-    }
-  }
-
-  renderLikeButton() {
-    if (this.props.currentLike) {
-      return (
-        <button className="liked-button" onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> Liked</button>
-      );
-    } else {
-      return (
-        <button className="like-button" onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> Like</button>
-      );
     }
   }
 
@@ -332,13 +288,15 @@ class SongShowPage extends React.Component {
                     <input type="submit" className="song-show-page-comment-submit-button" tabIndex="-1" onClick={(e) => this.handleComment(e)}/>
                   </form>
                 </div>
-                <div className="social-els">
-                  <div className="left">
-                    {this.renderLikeButton()}
-                  </div>
-                  <div className="right">
-                  </div>
-                </div>
+                <SocialElements
+                klass="song-show-page"
+                songId={this.props.onPageSongId}
+                currentLike={this.props.currentLike}
+                currentLikes={this.props.currentLikes}
+                createLike={this.props.createLike}
+                removeLike={this.props.removeLike}
+                currentUser={this.props.currentUser}
+                />
               </div>
               <div className="song-show-page-main-container">
                 <div className="song-show-page-artist-info-container">

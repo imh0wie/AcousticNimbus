@@ -49,10 +49,8 @@ class Waveform extends React.Component {
   }
   
   componentDidMount() {
-    
     this.initializeWaveform();
     const url = this.props.onPageSong ? this.props.onPageSong.audioURL : this.props.itemSong.audioURL
-    debugger
     this.waveform.load(url);
     this.waveform.on("ready", this.onReady());
     // this.waveform.on("audioprocess", this.onProgress());
@@ -61,10 +59,8 @@ class Waveform extends React.Component {
   }
   
   initializeWaveform() {
-    // debugger
     // const canvas = document.getElementById("gradient")
     // const ctx = canvas.getContext("2d");
-    // debugger
     // const gradient = ctx.createLinearGradient(0, 50, 0, 200);
     // gradient.addColorStop(0.5, 'white');
     // gradient.addColorStop(0.5, '#999');
@@ -87,11 +83,8 @@ class Waveform extends React.Component {
   }
     
   onReady() {
-    // document.getElementById('progwress').style.display = 'none';
     this.waveform.setMute(true);
-    debugger
     if (this.props.currentSong.song && this.props.onPageSongId === this.props.currentSong.song.id) {
-      debugger
       this.setState({
         playing: this.props.currentSong.playing,
         elapsed: this.props.currentSong.elapsed,
@@ -99,7 +92,6 @@ class Waveform extends React.Component {
       this.waveform.seekTo(this.state.elapsed);
       this.state.playing ? this.waveform.play() : this.waveform.pause();
     } else {
-      debugger
       this.setState({
         playing: false,
         elapsed: 0,
@@ -127,7 +119,7 @@ class Waveform extends React.Component {
   // }
 
   // onSeek(time) {
-  //   // debugger
+  // debugger
   //   if (this.props.currentSong.song && this.props.onPageSongId === this.props.currentSong.song.id) {
   //     this.setState({
   //       elapsed: time,
@@ -137,7 +129,6 @@ class Waveform extends React.Component {
   // }
 
   componentWillReceiveProps(nextProps) {
-    debugger
     if (!nextProps.currentSong.song) return;
     if (this.props.onPageSongId === nextProps.currentSong.song.id && nextProps.currentSong.playing) {
       this.waveform.play();

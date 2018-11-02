@@ -17,7 +17,6 @@ export const removeFollow = (id) => {
 }
 
 export const fetchFollows = () => {
-    debugger
     return $.ajax({
         method: "GET",
         url: "/api/follows",
@@ -70,12 +69,10 @@ export const followedUsersOf = (currentUser, follows, users) => {
 }
 
 export const followedSongs = (users, songs) => {
-    debugger
     if (users.length === 0 || isEmpty(songs)) return null;
     let output = [];
     users.forEach((user) => {
         const tracks = songsOf(user, songs);
-        debugger
         output = output.concat(tracks);
     })
     return output;

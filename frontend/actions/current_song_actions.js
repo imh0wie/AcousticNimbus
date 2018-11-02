@@ -5,8 +5,8 @@ export const SET_ELAPSED_TO = "SET_ELAPSED_TO";
 export const MUTE_SONG = "MUTE_SONG";
 export const UNMUTE_SONG = "UNMUTE_SONG";
 export const RECEIVE_CURRENT_SONG_ERRORS = "RECEIVE_CURRENT_SONG_ERRORS";
-
 // What does it do? ==> reducer
+
 export const playSong = () => {
   return {
     type: PLAY_SONG,

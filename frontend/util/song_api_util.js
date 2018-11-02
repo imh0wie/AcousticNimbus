@@ -47,13 +47,11 @@ export const shuffle = (n, songs) => {
 export const songsOf = (user, songs) => {
   const output = [];
   const songIds = Object.keys(songs);
-  debugger
   songIds.forEach((songId) => {
     const id = parseInt(songId);
     const song = songs[id];
     if (user.id === song.artistId) output.push(song);
   })
-  debugger
   return output;
 }
 
