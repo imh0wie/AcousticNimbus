@@ -1923,12 +1923,9 @@ function (_React$Component) {
   _createClass(Waveform, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      // const ctx = document.getElementById("waveform").getContext("2d");
-      // const gradient = ctx.createLinearGradient(0, 50, 0, 200);
-      // gradient.addColorStop(0.5, 'white');
-      // gradient.addColorStop(0.5, '#999');
       this.initializeWaveform();
       var url = this.props.onPageSong ? this.props.onPageSong.audioURL : this.props.itemSong.audioURL;
+      debugger;
       this.waveform.load(url);
       this.waveform.on("ready", this.onReady()); // this.waveform.on("audioprocess", this.onProgress());
       // this.waveform.on("seek", this.onSeek());
@@ -1940,15 +1937,22 @@ function (_React$Component) {
   }, {
     key: "initializeWaveform",
     value: function initializeWaveform() {
+      // debugger
+      // const canvas = document.getElementById("gradient")
+      // const ctx = canvas.getContext("2d");
+      // debugger
+      // const gradient = ctx.createLinearGradient(0, 50, 0, 200);
+      // gradient.addColorStop(0.5, 'white');
+      // gradient.addColorStop(0.5, '#999');
       if (this.props.klass === "waveform") {
         this.waveform = wavesurfer_js__WEBPACK_IMPORTED_MODULE_1___default.a.create({
           container: "#waveform",
-          waveColor: "#999",
+          waveColor: "hsla (200, 100%, 30%, 0.5)",
           // waveColor: gradient,
           progressColor: "#FF5400",
           // width: 820,
           height: 150,
-          barWidth: 2,
+          barWidth: 1,
           normalize: true,
           // normalize by the maximum peak instead of 1.0
           interact: true,
@@ -2042,9 +2046,11 @@ function (_React$Component) {
       // if (!this.state.loading) {
       // return <img src={window.loading2} alt="" id="waveform" />;
       // } else {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "waveform"
-      }); // }
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "gradient"
+      })); // }
     }
   }]);
 
@@ -2758,7 +2764,6 @@ function (_React$Component) {
           likeable_id: this.state.likeableId,
           liker_id: this.state.likerId
         };
-        debugger;
         this.props.createLike(like);
       }
     }
@@ -3556,7 +3561,8 @@ function (_React$Component) {
       numOfComments: _this.props.currentComments.length // debugger
 
     };
-    _this.renderPlayPauseSign = _this.renderPlayPauseSign.bind(_assertThisInitialized(_assertThisInitialized(_this))); // this.renderLike = this.renderLike.bind(this);
+    _this.renderPlayPauseSign = _this.renderPlayPauseSign.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.renderUploadTime = _this.renderUploadTime.bind(_assertThisInitialized(_assertThisInitialized(_this))); // this.renderLike = this.renderLike.bind(this);
 
     _this.renderLikeButton = _this.renderLikeButton.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.renderFollowButton = _this.renderFollowButton.bind(_assertThisInitialized(_assertThisInitialized(_this)));
@@ -3608,7 +3614,7 @@ function (_React$Component) {
       if (!this.props.currentSong.song || this.props.onPageSongId !== this.props.currentSong.song.id) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.play_button,
-          className: "banner-player-play-sign",
+          className: "play-sign",
           onClick: function onClick() {
             return _this2.togglePlayPause();
           }
@@ -3616,7 +3622,7 @@ function (_React$Component) {
       } else if (this.props.onPageSongId === this.props.currentSong.song.id && this.props.currentSong.playing) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.pause_button,
-          className: "banner-player-pause-sign",
+          className: "pause-sign",
           onClick: function onClick() {
             return _this2.togglePlayPause();
           }
@@ -3624,7 +3630,7 @@ function (_React$Component) {
       } else if (this.props.onPageSongId === this.props.currentSong.song.id && !this.props.currentSong.playing) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.play_button,
-          className: "banner-player-play-sign",
+          className: "play-sign",
           onClick: function onClick() {
             return _this2.togglePlayPause();
           }
@@ -3637,9 +3643,11 @@ function (_React$Component) {
       debugger;
 
       if (!this.props.currentSong.song || this.props.onPageSongId !== this.props.currentSong.song.id) {
-        this.props.setCurrentSong(song);
+        debugger;
+        this.props.setCurrentSong(this.props.onPageSong);
         this.props.playSong();
       } else if (this.props.onPageSongId === this.props.currentSong.song.id) {
+        debugger;
         this.props.currentSong.playing ? this.props.pauseSong() : this.props.playSong();
       }
     }
@@ -3710,13 +3718,43 @@ function (_React$Component) {
       };
     }
   }, {
+    key: "renderUploadTime",
+    value: function renderUploadTime(date) {
+      var itemLife = Math.abs(new Date() - new Date(date)) / 1000;
+
+      if (itemLife < 60) {
+        var unit = Math.floor(itemLife) > 1 ? "seconds" : "second";
+        return "".concat(Math.floor(itemLife), " ").concat(unit, " ago");
+      } else if (itemLife < 3600) {
+        var _unit = Math.floor(itemLife / 60) > 1 ? "minutes" : "minute";
+
+        return "".concat(Math.floor(itemLife / 60), " ").concat(_unit, " ago");
+      } else if (itemLife < 86400) {
+        var _unit2 = Math.floor(itemLife / 3600) > 1 ? "hours" : "hour";
+
+        return "".concat(Math.floor(itemLife / 3600), " ").concat(_unit2, " ago");
+      } else if (itemLife < 2592000) {
+        var _unit3 = Math.floor(itemLife / 86400) > 1 ? "days" : "day";
+
+        return "".concat(Math.floor(itemLife / 86400), " ").concat(_unit3, " ago");
+      } else if (itemLife < 31104000) {
+        var _unit4 = Math.floor(itemLife / 2592000) > 1 ? "months" : "month";
+
+        return "".concat(Math.floor(itemLife / 2592000), " ").concat(_unit4, " ago");
+      } else {
+        var _unit5 = Math.floor(itemLife / 31104000) > 1 ? "years" : "year";
+
+        return "".concat(Math.floor(itemLife / 31104000), " ").concat(_unit5, " ago");
+      }
+    }
+  }, {
     key: "renderLikeButton",
     value: function renderLikeButton() {
       var _this4 = this;
 
       if (this.props.currentLike) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          className: "song-show-page-liked-button",
+          className: "liked-button",
           onClick: function onClick(e) {
             return _this4.handleLike(e);
           }
@@ -3725,7 +3763,7 @@ function (_React$Component) {
         }), " Liked");
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          className: "song-show-page-like-button",
+          className: "like-button",
           onClick: function onClick(e) {
             return _this4.handleLike(e);
           }
@@ -3816,20 +3854,20 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "left"
         }, this.renderPlayPauseSign(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "song-show-page-song-info-container"
+          className: "song-info"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
           to: "/users/".concat(this.props.onPageSong.artistId),
-          className: "song-show-page-song-artist"
+          className: "artist"
         }, this.props.onPageSong.artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
-          className: "song-show-page-song-title"
+          className: "title"
         }, this.props.onPageSong.title))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "right"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
-          className: "song-show-page-song-upload-time"
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
-          className: "song-show-page-song-genre"
+          className: "upload-time"
+        }, this.renderUploadTime(this.props.onPageSong.createdAt)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+          className: "genre"
         }, "#", this.props.onPageSong.genre))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "banner-player-waveform-container"
+          className: "waveform-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_waveform__WEBPACK_IMPORTED_MODULE_13__["default"], {
           klass: "waveform",
           onPageSong: this.props.onPageSong,
@@ -3837,24 +3875,24 @@ function (_React$Component) {
           currentSong: this.props.currentSong
         }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: this.props.onPageSong.imageURL ? this.props.onPageSong.imageURL : window.default_avatar,
-          className: "song-show-page-song-img"
+          className: "img-right"
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "song-show-page-content"
+          className: "content"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "song-show-page-social-els-container"
+          className: "social-els-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "song-show-page-comment-box-container"
+          className: "extrovert-section"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "song-show-page-comment-box-wrapper"
+          className: "comment-box-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: this.props.currentUser.imageURL ? this.props.currentUser.imageURL : window.default_avatar,
-          className: "song-show-page-comment-box-img"
+          className: "comment-box-img"
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
           type: "text",
           value: this.state.body,
           name: "comment",
           placeholder: "Write a comment",
-          className: "song-show-page-comment-box",
+          className: "comment-box",
           onChange: this.update("body")
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
           type: "submit",
@@ -3864,11 +3902,11 @@ function (_React$Component) {
             return _this7.handleComment(e);
           }
         }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "song-show-page-social-els"
+          className: "social-els"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "song-show-page-social-els-left"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, this.renderLikeButton())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "song-show-page-social-els-right"
+          className: "left"
+        }, this.renderLikeButton()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "right"
         }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-show-page-main-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

@@ -25,7 +25,6 @@ class ItemPlayer extends React.Component {
                 likeable_id: this.state.likeableId,
                 liker_id: this.state.likerId,
             }
-            debugger
             this.props.createLike(like);
         }
     }

@@ -9,178 +9,56 @@
 .song-show-page-container {
     position: relative;
     top: 45px;
-    height: 100vh;
+    height: 100vh;  
 }
+// .song-show-page-song-img {
+//     width: 340px;
+//     height: 340px;
+//     margin: 20px 30px;
+// }
 
-.banner-player-container {
+.song-show-page-container .content {
     display: flex;
-    justify-content: space-between;
-    // height: 420px;
-    border-bottom: 1px solid #f2f2f2;
-    background-color: #b1af9d;
-}
-
-.banner-player {
-    margin: 20px 30px;
-    width: 800px;
-}
-
-.banner-player-top {
-    display: flex;
-    justify-content: space-between;
-    width: 820px;
-}
-
-.banner-player-top-left {
-    display: flex;
-}
-
-.banner-player-waveform-container {
-    display: block;
-    position: relative;
-    top: 125px;
-}
-
-.banner-player-waveform-container {
-    height: 200px;
-}
-
-.banner-player-play-sign {
-    width: 60px;
-    height: 60px;
-}
-
-.banner-player-pause-sign {
-    position: relative;
-    left: 4px;
-    top: 4px;
-    width: 52px;
-    height: 52px;
-    margin-right: 8px;
-}
-
-.song-show-page-song-info-container {
-    min-width: 127px;
-}
-
-.song-show-page-song-artist {
-    font-size: 16px;
-    color: #ccc;
-    background-color: black;
-    text-decoration: none;
-    padding: 2.5px 10px;
-}
-
-.song-show-page-song-artist:hover {
-    font-size: 16px;
-    color: #ccc;
-    background-color: black;
-    text-decoration: none;
-    padding: 2.5px 10px;
-}
-
-.song-show-page-song-title {
-    font-size: 24px;
-    color: #fff;
-    background-color: black;
-    padding: 5px 10px;
-    margin: 5px 0px;
-}
-
-.song-show-page-song-genre {
-    background-color: #999;
-    color: white;
-    font-size: 16px;
-    padding: 4px 10px;
-    border: 0px;
-    border-radius: 15px;
-}
-
-.song-show-page-song-genre:hover {
-    background-color: #333;
-    color: white;
-    font-size: 16px;
-    padding: 4px 10px;
-    border: 0px;
-    border-radius: 15px;
-}
-
-.song-show-page-song-img {
-    width: 340px;
-    height: 340px;
-    margin: 20px 30px;
-}
-
-.song-show-page-content {
-    display: flex;
-    // width: 1240px;
-    // height: 420px;
     margin: 25px 35px;
-    // border: 1px solid #f2f2f2;
 }
 
-.song-show-page-social-els-container {
+.song-show-page-container .content .social-els-container {
     width: 815px;
-    // height: 90px;
     margin-right: 35px;
-    // border-bottom: 1px solid #f2f2f2;
 }
 
-.song-show-page-comment-box-container {
+.song-show-page-container .content .social-els-container .extrovert-section {
     width: 820px;
     height: 80px;
     border-bottom: 1px solid #f2f2f2;
 }
 
-.song-show-page-comment-box-img {
-    width: 40px;
-    height: 40px;
-}
-
-.song-show-page-comment-box-wrapper {
+.song-show-page-container .content .social-els-container .extrovert-section .comment-box-container {
     display: flex;
     background-color: #f2f2f2;
     height: 40px;
     // width: 780px;
 }
 
-.song-show-page-comment-box {
-    width: 758px;
-    // height: 40px;
-    padding: 5px;
-    background-color: white;
+.song-show-page-container .content .social-els-container .extrovert-section .comment-box-container .comment-box-img {
+    width: 40px;
+    height: 40px;
 }
 
-
-.song-show-page-comment-box {
+.song-show-page-container .content .social-els-container .extrovert-section .comment-box-container .comment-box {
+    width: 758px;
+    padding: 5px;
+    background-color: white;
     margin: 5px 5px;
 }
 
+
+// .song-show-page-comment-box {
+//     margin: 5px 5px;
+// }
+
 .song-show-page-comment-submit-button {
     display: none;
-}
-
-.song-show-page-social-els {
-    display: flex;
-}
-
-.song-show-page-liked-button {
-    width: auto;
-    height: 25px;
-    color: #FF5400;
-    border: 1px solid #FF5400;
-    border-radius: 3px;
-    margin: 5px 0px;
-    padding: 0px 10px 0px 7px;
-}
-
-.song-show-page-like-button {
-    width: auto;
-    height: 25px;
-    border: 1px solid #f2f2f2;
-    border-radius: 3px;
-    margin: 5px 0px;
-    padding: 0px 10px 0px 7px;
 }
 
 .song-show-page-main-container {

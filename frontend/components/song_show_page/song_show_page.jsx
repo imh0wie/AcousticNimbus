@@ -75,6 +75,7 @@ class SongShowPage extends React.Component {
     }
     // debugger
     this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this);
+    this.renderUploadTime = this.renderUploadTime.bind(this);
     // this.renderLike = this.renderLike.bind(this);
     this.renderLikeButton = this.renderLikeButton.bind(this);
     this.renderFollowButton = this.renderFollowButton.bind(this);
@@ -116,15 +117,15 @@ class SongShowPage extends React.Component {
   renderPlayPauseSign() {
     if (!this.props.currentSong.song || this.props.onPageSongId !== this.props.currentSong.song.id) {
       return (
-        <img src={window.play_button} className="banner-player-play-sign" onClick={() => this.togglePlayPause()} />       
+        <img src={window.play_button} className="play-sign" onClick={() => this.togglePlayPause()} />       
       );
     } else if (this.props.onPageSongId === this.props.currentSong.song.id && this.props.currentSong.playing) {
       return (
-        <img src={window.pause_button} className="banner-player-pause-sign" onClick={() => this.togglePlayPause()} />
+        <img src={window.pause_button} className="pause-sign" onClick={() => this.togglePlayPause()} />
       );
     } else if (this.props.onPageSongId === this.props.currentSong.song.id && !this.props.currentSong.playing) {
       return (
-        <img src={window.play_button} className="banner-player-play-sign" onClick={() => this.togglePlayPause()} />          
+        <img src={window.play_button} className="play-sign" onClick={() => this.togglePlayPause()} />          
       );
     }
   }
@@ -132,9 +133,11 @@ class SongShowPage extends React.Component {
   togglePlayPause() {
     debugger
     if (!this.props.currentSong.song || this.props.onPageSongId !== this.props.currentSong.song.id) {
-      this.props.setCurrentSong(song);
+      debugger
+      this.props.setCurrentSong(this.props.onPageSong);
       this.props.playSong();
     } else if (this.props.onPageSongId === this.props.currentSong.song.id) {
+      debugger
       this.props.currentSong.playing ? this.props.pauseSong() : this.props.playSong() ;
     }
   }
@@ -198,14 +201,37 @@ class SongShowPage extends React.Component {
     };
   }
 
+  renderUploadTime(date) {
+    const itemLife = Math.abs(new Date() - new Date(date)) / 1000;
+    if (itemLife < 60) {
+        const unit = Math.floor(itemLife) > 1 ? "seconds" : "second";
+        return `${Math.floor(itemLife)} ${unit} ago`;
+    } else if (itemLife < 3600) {
+        const unit = Math.floor(itemLife / 60) > 1 ? "minutes" : "minute";
+        return `${Math.floor(itemLife / 60)} ${unit} ago`;
+    } else if (itemLife < 86400) {
+        const unit = Math.floor(itemLife / 3600) > 1 ? "hours" : "hour";
+        return `${Math.floor(itemLife / 3600)} ${unit} ago`;
+    } else if (itemLife < 2592000) {
+        const unit = Math.floor(itemLife / 86400) > 1 ? "days" : "day";
+        return `${Math.floor(itemLife / 86400)} ${unit} ago`;
+    } else if (itemLife < 31104000) {
+        const unit = Math.floor(itemLife / 2592000) > 1 ? "months" : "month";
+        return `${Math.floor(itemLife / 2592000)} ${unit} ago`;
+    } else {
+        const unit = Math.floor(itemLife / 31104000) > 1 ? "years" : "year";
+        return `${Math.floor(itemLife / 31104000)} ${unit} ago`;
+    }
+  }
+
   renderLikeButton() {
     if (this.props.currentLike) {
       return (
-        <button className="song-show-page-liked-button" onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> Liked</button>
+        <button className="liked-button" onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> Liked</button>
       );
     } else {
       return (
-        <button className="song-show-page-like-button" onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> Like</button>
+        <button className="like-button" onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> Like</button>
       );
     }
   }
@@ -270,23 +296,22 @@ class SongShowPage extends React.Component {
       // debugger
       return (
         <div className="song-show-page-container">
-          
           <div className="banner-player-container">
             <div className="banner-player">
               <div className="top">
                 <div className="left">
                   {this.renderPlayPauseSign()}
-                  <div className="song-show-page-song-info-container">
-                    <Link to={`/users/${this.props.onPageSong.artistId}`} className="song-show-page-song-artist">{this.props.onPageSong.artist}</Link>
-                    <h2 className="song-show-page-song-title">{this.props.onPageSong.title}</h2>
+                  <div className="song-info">
+                    <Link to={`/users/${this.props.onPageSong.artistId}`} className="artist">{this.props.onPageSong.artist}</Link>
+                    <h2 className="title">{this.props.onPageSong.title}</h2>
                   </div>
                 </div>
                 <div className="right">
-                  <h4 className="song-show-page-song-upload-time"></h4>
-                  <h4 className="song-show-page-song-genre">#{this.props.onPageSong.genre}</h4>
+                  <h4 className="upload-time">{this.renderUploadTime(this.props.onPageSong.createdAt)}</h4>
+                  <h4 className="genre">#{this.props.onPageSong.genre}</h4>
                 </div>
               </div>
-              <div className="banner-player-waveform-container">
+              <div className="waveform-container">
                 <Waveform 
                   klass="waveform"
                   onPageSong={this.props.onPageSong}
@@ -295,26 +320,23 @@ class SongShowPage extends React.Component {
                 />
               </div>
             </div>
-            <img src={this.props.onPageSong.imageURL ? this.props.onPageSong.imageURL : window.default_avatar} className="song-show-page-song-img"></img>        
+            <img src={this.props.onPageSong.imageURL ? this.props.onPageSong.imageURL : window.default_avatar} className="img-right"></img>        
           </div>
-  
-          <div className="song-show-page-content">
-            <div className="song-show-page-social-els-container">
-              <div className="song-show-page-comment-box-container">
-                <div className="song-show-page-comment-box-wrapper">
-                  <img src={this.props.currentUser.imageURL ? this.props.currentUser.imageURL : window.default_avatar} className="song-show-page-comment-box-img"></img>
+          <div className="content">
+            <div className="social-els-container">
+              <div className="extrovert-section">
+                <div className="comment-box-container">
+                  <img src={this.props.currentUser.imageURL ? this.props.currentUser.imageURL : window.default_avatar} className="comment-box-img"></img>
                   <form>
-                    <input type="text" value={this.state.body} name="comment" placeholder="Write a comment" className="song-show-page-comment-box" onChange={this.update("body")} />
+                    <input type="text" value={this.state.body} name="comment" placeholder="Write a comment" className="comment-box" onChange={this.update("body")} />
                     <input type="submit" className="song-show-page-comment-submit-button" tabIndex="-1" onClick={(e) => this.handleComment(e)}/>
                   </form>
                 </div>
-                <div className="song-show-page-social-els">
-                  <div className="song-show-page-social-els-left">
-                  <form>
+                <div className="social-els">
+                  <div className="left">
                     {this.renderLikeButton()}
-                  </form>
                   </div>
-                  <div className="song-show-page-social-els-right">
+                  <div className="right">
                   </div>
                 </div>
               </div>

@@ -49,12 +49,10 @@ class Waveform extends React.Component {
   }
   
   componentDidMount() {
-    // const ctx = document.getElementById("waveform").getContext("2d");
-    // const gradient = ctx.createLinearGradient(0, 50, 0, 200);
-    // gradient.addColorStop(0.5, 'white');
-    // gradient.addColorStop(0.5, '#999');
+    
     this.initializeWaveform();
     const url = this.props.onPageSong ? this.props.onPageSong.audioURL : this.props.itemSong.audioURL
+    debugger
     this.waveform.load(url);
     this.waveform.on("ready", this.onReady());
     // this.waveform.on("audioprocess", this.onProgress());
@@ -63,15 +61,22 @@ class Waveform extends React.Component {
   }
   
   initializeWaveform() {
+    // debugger
+    // const canvas = document.getElementById("gradient")
+    // const ctx = canvas.getContext("2d");
+    // debugger
+    // const gradient = ctx.createLinearGradient(0, 50, 0, 200);
+    // gradient.addColorStop(0.5, 'white');
+    // gradient.addColorStop(0.5, '#999');
     if (this.props.klass === "waveform") {
       this.waveform = WaveSurfer.create({
         container: "#waveform",
-        waveColor: "#999",
+        waveColor: "hsla (200, 100%, 30%, 0.5)",
         // waveColor: gradient,
         progressColor: "#FF5400",
         // width: 820,
         height: 150,
-        barWidth: 2,
+        barWidth: 1,
         normalize: true, // normalize by the maximum peak instead of 1.0
         interact: true, // whether the mouse interaction will be enabled at initialization
         responsive: true, // resize the waveform when the window is resized
@@ -159,10 +164,12 @@ class Waveform extends React.Component {
       // return <img src={window.loading2} alt="" id="waveform" />;
     // } else {
       return (
-        <div id="waveform">
-          {/* <img src={window.loading2} alt="" /> */}
+        <div>
+          <div id="waveform">
+          </div>
+          <div id="gradient"></div>
         </div>
-        );
+      );
     // }
   }
 
