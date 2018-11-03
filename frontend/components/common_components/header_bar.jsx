@@ -30,18 +30,18 @@ class HeaderBar extends React.Component {
       return null;
     } else {
       return (
-        <header className="page-outer-bar">
-          <div className="page-inner-bar">
-            <Link to="/stream" ><img className="stream-logo" src={window.barLogo} ></img></Link>
-            <Link to="/stream"><button className="bar-home">Home</button></Link>
-            <Link to="/you/collection"><button className="bar-collection" >Collection</button></Link>
+        <header className="outer-bar">
+          <div className="inner-bar">
+            <Link to="/stream" ><img src={window.barLogo} className="logo" ></img></Link>
+            <Link to="/stream"><button className={this.props.currentURL.indexOf("/stream") > -1 || this.props.currentURL.indexOf("/charts") > -1 ? "home selected" : "home"}>Home</button></Link>
+            <Link to="/you/collection"><button className={this.props.currentURL.indexOf("/you") > -1 ? "collection selected" : "collection"} >Collection</button></Link>
             <div className="search-bar-container">
               <input type="text" placeholder="Search" className="search-bar"></input>
             </div>
-            <Link to="/upload"><button className="upload-button">Upload</button></Link>
+            <Link to="/upload"><button className={this.props.currentURL === "upload" ? "upload selected" : "upload"}>Upload</button></Link>
             <button className="profile-dropdown" onClick={() => this.props.history.push(`/users/${this.props.currentUser.id}`)}>
-              <img className="profile-dropdown-img" src={window.default_avatar}></img>
-              <p className="profile-dropdown-username">{this.props.currentUser.username}</p>
+              <img src={window.default_avatar}></img>
+              <p>{this.props.currentUser.username}</p>
             </button>
             <button className="logout-button" onClick={() => this.props.logout()}>Sign Out</button>
           </div>

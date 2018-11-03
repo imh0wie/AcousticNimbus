@@ -760,22 +760,22 @@ function (_React$Component) {
         return null;
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
-          className: "page-outer-bar"
+          className: "outer-bar"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "page-inner-bar"
+          className: "inner-bar"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
           to: "/stream"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          className: "stream-logo",
-          src: window.barLogo
+          src: window.barLogo,
+          className: "logo"
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
           to: "/stream"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          className: "bar-home"
+          className: this.props.currentURL.indexOf("/stream") > -1 || this.props.currentURL.indexOf("/charts") > -1 ? "home selected" : "home"
         }, "Home")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
           to: "/you/collection"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          className: "bar-collection"
+          className: this.props.currentURL.indexOf("/you") > -1 ? "collection selected" : "collection"
         }, "Collection")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "search-bar-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -785,18 +785,15 @@ function (_React$Component) {
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
           to: "/upload"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          className: "upload-button"
+          className: this.props.currentURL === "upload" ? "upload selected" : "upload"
         }, "Upload")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "profile-dropdown",
           onClick: function onClick() {
             return _this.props.history.push("/users/".concat(_this.props.currentUser.id));
           }
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          className: "profile-dropdown-img",
           src: window.default_avatar
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-          className: "profile-dropdown-username"
-        }, this.props.currentUser.username)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.currentUser.username)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "logout-button",
           onClick: function onClick() {
             return _this.props.logout();

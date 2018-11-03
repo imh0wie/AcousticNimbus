@@ -1,4 +1,4 @@
-.page-outer-bar {
+.outer-bar {
   position: fixed;
   top: 0px;
   background: #333;
@@ -8,40 +8,34 @@
   z-index: 1;
 }
 
-.page-inner-bar {
+.inner-bar {
   display: flex;
   margin: 0 auto;
   width: 1240px;
   height: 45px;
 }
 
-.stream-logo {
-  position: absolute;
+.inner-bar .logo {
+  position: relative;
+  top: 2px;
   width: 70px;
-  height: 45px;
+  height: 41px;
 }
 
-.bar-home {
-  position: relative;
-  left: 70px;
+.inner-bar .home {
   color: #ccc;
-  border: 1px solid #111;
-  padding: 13px 28px 10px 28px;
+  padding: 11px 28px;
   text-decoration: none !important;
 }
 
-.bar-collection {
-  position: relative;
-  left: 69px;
+.inner-bar .collection {
   color: #ccc;
-  border: 1px solid #111;
-  padding: 13px 28px 10px 28px;
+  padding: 11px 28px;
   text-decoration: none !important;
 }
 
 .search-bar-container {
   position: relative;
-  left: 68px;
   bottom: 1px;
   width: 605px;
   height: 44px;
@@ -57,30 +51,24 @@
   background-color: white;
 }
 
-.upload-button {
-  position: relative;
-  left: 67px;
+.inner-bar .upload {
   color: #ccc;
-  border: 1px solid #111;
   width: 39px;
   padding: 12.5px 11px;
   font-size: 13px;
   text-decoration: none !important;
 }
 
-.profile-dropdown {
+.inner-bar .profile-dropdown {
   display: flex;
-  position: relative;
-  left: 66px;
   color: #ccc;
-  border: 1px solid #111;
-  width: 113px;
+  width: 121.5px;
   height: 16px;
-  padding: 13.5px 12px;
+  padding: 14.5px 12px;
   font-size: 13px;
 }
 
-.profile-dropdown-img {
+.inner-bar .profile-dropdown img {
   position: relative;
   bottom: 5px;
   padding: 0px;
@@ -88,7 +76,7 @@
   height: 25px;
 }
 
-.profile-dropdown-username {
+.inner-bar .profile-dropdown p {
   position: relative;
   left: 10px;
   bottom: 3px;
@@ -97,14 +85,15 @@
   height: 30px;
 }
 
-.logout-button {
-  position: relative;
-  left: 65px;
+.inner-bar .logout-button {
   width: 132px;
   height: 35px;
-  padding: 4px;
-  border: 1px solid #111;
+  padding: 5px;
   color: #ccc;
   font-size: 14px;
   text-align: center;
+}
+
+.inner-bar .selected {
+  background-color: #111;
 }
