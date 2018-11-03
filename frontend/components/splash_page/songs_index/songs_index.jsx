@@ -34,8 +34,7 @@ class SongsIndex extends React.Component {
 
     render() {
         return (
-            <div className="splash-page-content">
-                <ul className="splash-page-songs-index">
+            <ul>
                 {this.props.songs.map((song) => {
                     return (
                     <SongsIndexItem
@@ -48,8 +47,7 @@ class SongsIndex extends React.Component {
                    />
                    );
                 })}
-                </ul>
-            </div>
+            </ul>
         );
     }
 }

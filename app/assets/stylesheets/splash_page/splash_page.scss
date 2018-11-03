@@ -43,30 +43,30 @@
   margin: 0 auto;
 }
 
-.splash-page-songs-index {
+.splash-page-content ul {
   display: flex;
   flex-wrap: wrap;
   // width: 1180px;
 }
 
-.splash-page-songs-index-item {
+.splash-page-content ul li {
   width: 180px;
   height: 220px;
   margin-left: 23px;
   margin-bottom: 40px;
 }
 
-.splash-page-songs-index-item-img-container {
+.songs-index-item .img-container {
   width: 180px;
   height: 180px;
 }
 
-.splash-page-songs-index-item-img {
+.songs-index-item .img-container .song-img {
   width: 180px;
   height: 180px;
 }
 
-.splash-page-songs-index-item-play-container {
+.play-sign-container {
   display: none;
   position: relative;
   bottom: 120px;
@@ -74,13 +74,13 @@
   height: 60px;
 }
 
-.splash-page-songs-index-item-img:hover + .splash-page-songs-index-item-play-container {
+.song-img:hover + .play-sign-container {
   display: block;
   width: 180px;
   height: 180px;
 }
 
-.splash-page-songs-index-item-play-container:hover {
+.play-sign-container:hover {
   display: block;
   width: 180px;
   height: 180px;
@@ -124,17 +124,17 @@
 }
 
 
-.splash-page-songs-index-item-title {
+.songs-index-item .title {
   font-size: 14px;
-  margin: auto 0px;
+  margin: 5px 0;
 }
 
-.splash-page-songs-index-item-artist {
+.songs-index-item .artist {
   font-size: 12px;
   color: #999;
 }
 
-.splash-page-songs-index-item-artist:hover {
+.songs-index-item .artist:hover {
   font-size: 12px;
   color: black;
 }

@@ -30,7 +30,7 @@ class SplashPage extends React.Component {
           </div>
         </div>
         <h2 className="content-header">Hear what’s trending for free in the AcousticNimbus community</h2>
-        <div className="splash-page-content-container">
+        <div className="splash-page-content">
           <SongsIndex />
         </div>
       </div>

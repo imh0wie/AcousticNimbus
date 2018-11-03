@@ -4601,11 +4601,7 @@ function (_React$Component) {
     value: function render() {
       var _this = this;
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "splash-page-content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "splash-page-songs-index"
-      }, this.props.songs.map(function (song) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.songs.map(function (song) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_songs_index_item__WEBPACK_IMPORTED_MODULE_6__["default"], {
           key: song.id,
           song: song,
@@ -4614,7 +4610,7 @@ function (_React$Component) {
           playSong: _this.props.playSong,
           pauseSong: _this.props.pauseSong
         });
-      })));
+      }));
     }
   }]);
 
@@ -4700,7 +4696,7 @@ function (_React$Component) {
       if (!this.props.currentSong.song || song.id !== this.props.currentSong.song.id || !this.props.currentSong.playing) {
         // debugger
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "splash-page-songs-index-item-play-container"
+          className: "play-sign-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.play_button,
           className: "splash-page-songs-index-item-play-sign",
@@ -4725,16 +4721,16 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "splash-page-songs-index-item"
+        className: "songs-index-item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "splash-page-songs-index-item-img-container"
+        className: "img-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: this.props.song.imageURL,
-        className: "splash-page-songs-index-item-img"
+        className: "song-img"
       }), this.renderPlayPauseSign(this.props.song)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
-        className: "splash-page-songs-index-item-title"
+        className: "title"
       }, this.props.song.title.length >= 23 ? this.props.song.title.slice(0, 23) + "..." : this.props.song.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-        className: "splash-page-songs-index-item-artist"
+        className: "artist"
       }, this.props.song.artist));
     }
   }]);
@@ -4827,7 +4823,7 @@ function (_React$Component) {
       }, "Upload your own"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
         className: "content-header"
       }, "Hear what\u2019s trending for free in the AcousticNimbus community"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "splash-page-content-container"
+        className: "splash-page-content"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_songs_index_songs_index__WEBPACK_IMPORTED_MODULE_6__["default"], null)));
     }
   }]);
