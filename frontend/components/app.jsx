@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 // import ModalContainer from "./modal/modal_container";
-import HeaderBarContainer from "./common_components/header_bar/header_bar_container";
+import HeaderBar from "./common_components/header_bar";
 import SplashPage from "./splash_page/splash_page";
 import Homepage from "./homepage/homepage";
 import SongsMgmtPage from "./songs_mgmt_page/songs_mgmt_page";
@@ -14,7 +14,7 @@ const App = () => {
   return (
     <div className="app">
       <div className="page-container">
-        <HeaderBarContainer />
+        <HeaderBar />
         <Switch>
           <AuthRoute exact path="/" component={SplashPage} />
           <ProtectedRoute path="/charts/top" component={Homepage} />

@@ -73,7 +73,6 @@ class StreamList extends React.Component {
             if (this.props.streamSongs.length === 0) {
                 return <p>Stream is currently empty. Use Charts to find music & audio to listen to.</p>
             } else {
-                debugger
                 return (
                     <ul className="stream-list">
                         {this.props.streamSongs.map((song, idx) => {

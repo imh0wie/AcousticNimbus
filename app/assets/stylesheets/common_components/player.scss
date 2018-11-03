@@ -115,11 +115,11 @@
 .item-player .top {
     display: flex;
     justify-content: space-between;
-    margin: 7px 0;
 }
   
 .item-player .top .left {
-    display: flex;  
+    display: flex;
+    height: 100%;
 }
   
 .item-player .top .left .play-sign {
@@ -128,9 +128,14 @@
     margin: 0;
     margin-right: 5px;
 }
+
+.item-player .top .left .pause-sign {
+    width: 39.5px;
+    height: 39.5px;
+    margin: 2px 8.5px 0 2px;
+}
   
 .item-player .top .left .song-info {
-    margin: auto 0;
 }
 
 .item-player .top .left .song-info a {
@@ -152,6 +157,8 @@
 }
 
 .item-player .top .right .genre {
+    position: relative;
+    bottom: 17px;
     font-size: 12px;
     color: white;
     background-color: #999;

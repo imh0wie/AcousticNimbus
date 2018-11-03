@@ -1,0 +1,56 @@
+.splash-page-header-bar {
+  margin: 0 auto;
+  width: 1240px;
+  border-top: 5px solid #f7530f;
+  background: image_url("slideshow-img1.jpg") no-repeat;
+  height: 450px;
+}
+
+.splash-page-header-bar .header-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.splash-page-header-bar .header-buttons .bar-logo {
+  display: flex;
+  margin: 8px 25px;
+}
+
+.splash-page-header-bar .header-buttons .bar-logo img {
+  width: 60px;
+  height: 60px;
+}
+
+.splash-page-header-bar .header-buttons .bar-logo h2 {
+  font-size: 14px;
+    font-weight: bold;
+    color: white;
+    margin: 18px 5px;
+}
+
+
+// min-width: 800px;
+// max-width: 1240px;
+.splash-page-header-bar .header-buttons .user-auth-buttons {
+  margin: 15px;
+}
+
+
+.splash-page-header-bar .header-buttons .user-auth-buttons .login {
+  background-color: transparent;
+  font-size: 14px;
+  color: white;
+  border: 1px solid white;
+  border-radius: 3px;
+  margin: 5px;
+  padding: 5px 15px;
+}
+
+.splash-page-header-bar .header-buttons .user-auth-buttons .signup {
+  background-color: #f7530f;
+  color: white;
+  font-size: 14px;
+  border-radius: 3px;
+  margin: 5px;
+  padding: 7px 15px;
+}

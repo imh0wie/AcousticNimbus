@@ -1,8 +1,24 @@
 import React from "react";
-import LoginFormContainer from "../session_form/login_form_container";
-import SignupFormContainer from "../session_form/signup_form_container";
+import { connect } from "react-redux";
+import { closeModal } from "../../actions/modal_actions";
+import LoginFormContainer from "./session_form/login_form_container";
+import SignupFormContainer from "./session_form/signup_form_container";
+
+const msp = (state) => {
+  return ({
+    modal: state.ui.modal,
+  });
+};
+
+const mdp = (dispatch) => {
+  return {
+    closeModal: () => dispatch(closeModal()),
+  };
+};
 
 class Modal extends React.Component {
+
+
   render() {
     if (!this.props.modal) {
       return null;
@@ -29,7 +45,5 @@ class Modal extends React.Component {
   }
 }
 
+export default connect(msp, mdp)(Modal);
 
-
-
-export default Modal;

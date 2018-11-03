@@ -19,7 +19,7 @@
 
 .song-show-page-container .content .social-els-container .social-els .left .liked-button {
     color: #FF5400;
-    border-color: 1px solid #FF5400;
+    border-color: #FF5400;
 }
 
 .song-show-page-container .content .social-els-container .social-els .left .like-button {
@@ -44,10 +44,17 @@
     display: flex;
 }
 
-.item-player .social-els .left button {
+.item-player .social-els .left p {
     color: #333;
     border: 1px solid #e5e5e5;
     border-radius: 3px;
+    margin: auto 0;
+    margin-right: 5px;
+    padding: 2px 8px;
+    font-size: 11px;
+    cursor: pointer;
+    min-width: 25px;
+    text-align: center;
 }
 
 
@@ -61,9 +68,24 @@
 
 .item-player .social-els .right {
     display: flex;
+    position: relative;
+    top: 10px;
+    margin: 0;
 }
 
-.item-player .social-els .right p {
+.item-player .social-els .right a {
     display: flex;
+    font-size: 11px;
     color: #999;
+    text-decoration: none;
+}
+
+.item-player .social-els .right a:hover {
+    color: #333;
+}
+
+.item-player .social-els .right i {
+    position: relative;
+    top: 2px;
+    margin-right: 7px;
 }

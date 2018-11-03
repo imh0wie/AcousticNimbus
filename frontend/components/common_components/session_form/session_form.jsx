@@ -61,12 +61,6 @@ class SessionForm extends React.Component {
     );
   }
 
-  // onSubmit(e) {
-  //   e.preventDefault();
-  //   this.props.closeModal();
-  //   this
-  // }
-
   submit() {
     if (this.props.formType === "signup")
       return (
@@ -115,7 +109,6 @@ class SessionForm extends React.Component {
         </form>
       </div>
     );
-    // </form>
   }
 }
 

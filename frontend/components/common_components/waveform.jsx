@@ -78,24 +78,29 @@ class Waveform extends React.Component {
           responsive: true, // resize the waveform when the window is resized
           fillParent: true, // ignore container's size
         });
+        break;
       case "item-player":
+        debugger
         this.waveform = WaveSurfer.create({
           container: "#waveform",
-          waveColor: "hsla (200, 100%, 30%, 0.5)",
+          waveColor: "grey",
           progressColor: "#FF5400",
-          height: 50,
+          height: 40,
           barWidth: 1,
           normalize: true, // normalize by the maximum peak instead of 1.0
           interact: true, // whether the mouse interaction will be enabled at initialization
           responsive: true, // resize the waveform when the window is resized
           fillParent: true, // ignore container's size
         });
+        break;
     }
   }
     
   onReady() {
+    debugger
     this.waveform.setMute(true);
     if (this.props.currentSong.song && this.props.songId === this.props.currentSong.song.id) {
+      debugger
       this.setState({
         playing: this.props.currentSong.playing,
         elapsed: this.props.currentSong.elapsed,
@@ -103,6 +108,7 @@ class Waveform extends React.Component {
       this.waveform.seekTo(this.state.elapsed);
       this.state.playing ? this.waveform.play() : this.waveform.pause();
     } else {
+      debugger
       this.setState({
         playing: false,
         elapsed: 0,

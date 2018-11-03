@@ -10,31 +10,24 @@ class SongsListItem extends React.Component {
     }
     
     togglePlay(song) {
-        // debugger
         if (!this.props.currentSong.song || song.id !== this.props.currentSong.song.id ) {
-            // debugger
             this.props.setCurrentSong(song);
             this.props.playSong();
         } else if (song.id === this.props.currentSong.song.id && this.props.currentSong.playing) {
-            // debugger
             this.props.pauseSong();
         } else if (song.id === this.props.currentSong.song.id && !this.props.currentSong.playing) {
-            // debugger
             this.props.playSong();
         }
     }
 
   renderPlayPauseSign(song) {
-    // debugger
     if (!this.props.currentSong.song || song.id !== this.props.currentSong.song.id || !this.props.currentSong.playing) {
-        // debugger
         return (
             <div className="charts-songs-list-item-play-container">
                 <img src={window.play_button} className="charts-songs-list-item-play-sign" onClick={() => this.togglePlay(song)} />
             </div>
         );
     } else if (song.id === this.props.currentSong.song.id && this.props.currentSong.playing) {
-        // debugger
         return (
             <div className="charts-songs-list-item-pause-container">
                 <img src={window.pause_button} className="charts-songs-list-item-pause-sign" onClick={() => this.togglePlay(song)} />
