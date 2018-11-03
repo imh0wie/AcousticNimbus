@@ -6,6 +6,10 @@ const StreamPage = () => {
     <div className="stream-page-container">
       <h4 className="header">Hear the latest posts from the people you are following: </h4>
       <StreamList />
+      <br/>
+      <br/>
+      <br/>
+      <br/>
     </div>
   );
 };

@@ -15,7 +15,7 @@ class Banner extends React.Component {
   render() {
     return (
       <div className="splash-page-header-bar">
-        <Slideshow />
+        <Slideshow klass="banner" />
         <div className="header-buttons">
           <img src={window.logo}></img>
           <div className="user-auth-buttons">

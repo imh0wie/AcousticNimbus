@@ -1949,8 +1949,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var style_loader_css_loader_react_responsive_carousel_lib_styles_main_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(style_loader_css_loader_react_responsive_carousel_lib_styles_main_css__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var style_loader_css_loader_react_responsive_carousel_lib_styles_carousel_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! style-loader!css-loader!react-responsive-carousel/lib/styles/carousel.css */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/react-responsive-carousel/lib/styles/carousel.css");
 /* harmony import */ var style_loader_css_loader_react_responsive_carousel_lib_styles_carousel_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(style_loader_css_loader_react_responsive_carousel_lib_styles_carousel_css__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_responsive_carousel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-responsive-carousel */ "./node_modules/react-responsive-carousel/lib/index.js");
-/* harmony import */ var react_responsive_carousel__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_responsive_carousel__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var style_loader_css_loader_react_responsive_carousel_lib_styles_carousel_min_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! style-loader!css-loader!react-responsive-carousel/lib/styles/carousel.min.css */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/react-responsive-carousel/lib/styles/carousel.min.css");
+/* harmony import */ var style_loader_css_loader_react_responsive_carousel_lib_styles_carousel_min_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(style_loader_css_loader_react_responsive_carousel_lib_styles_carousel_min_css__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_responsive_carousel__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-responsive-carousel */ "./node_modules/react-responsive-carousel/lib/index.js");
+/* harmony import */ var react_responsive_carousel__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_responsive_carousel__WEBPACK_IMPORTED_MODULE_4__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1977,44 +1979,77 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var Slideshow =
 /*#__PURE__*/
 function (_React$Component) {
   _inherits(Slideshow, _React$Component);
 
-  function Slideshow() {
+  function Slideshow(props) {
     _classCallCheck(this, Slideshow);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Slideshow).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(Slideshow).call(this, props));
   }
 
   _createClass(Slideshow, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_responsive_carousel__WEBPACK_IMPORTED_MODULE_3__["Carousel"], {
-        className: "carousel",
-        infiniteLoop: true,
-        autoPlay: true,
-        showArrows: false,
-        showStatus: false,
-        showThumbs: false,
-        swipable: true,
-        interval: 6000
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: window.carousel1
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "message"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Discover more with AcousticNimbus Go+"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "AcousticNimbus Go+ lets you listen offline, ad-free, with over 150 million tracks \u2014 and growing."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "buttons"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Learn More"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "free-trial"
-      }, "Try It Free for 30 years")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: window.carousel2
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "message"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "What's next in music is first on AcousticNimbus"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Upload your first track and begin your journey. AcousticNimbus gives you space to create, find your fans, and connect with other artists."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "button"
-      }, "Start uploading today"))));
+      if (this.props.klass === "banner") {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_responsive_carousel__WEBPACK_IMPORTED_MODULE_4__["Carousel"], {
+          className: "carousel",
+          infiniteLoop: true,
+          autoPlay: true,
+          showArrows: false,
+          showStatus: false,
+          showThumbs: false,
+          swipable: true,
+          interval: 6000
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.carousel1
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "message"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Discover more with AcousticNimbus Go+"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "AcousticNimbus Go+ lets you listen offline, ad-free, with over 150 million tracks \u2014 and growing."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "buttons"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Learn More"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "free-trial"
+        }, "Try It Free for 30 years")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.carousel2
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "message"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "What's next in music is first on AcousticNimbus"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Upload your first track and begin your journey. AcousticNimbus gives you space to create, find your fans, and connect with other artists."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "button"
+        }, "Start uploading today"))));
+      } else {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_responsive_carousel__WEBPACK_IMPORTED_MODULE_4__["Carousel"], {
+          className: "ad",
+          infiniteLoop: true,
+          autoPlay: true,
+          showArrows: false,
+          showStatus: false,
+          showThumbs: false,
+          swipable: true,
+          interval: 8000
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.ad1
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "ad1"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Looking for a Software Engineer?"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.ad2
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "logos"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "upper"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.linkedin,
+          className: "logo"
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.github,
+          className: "logo"
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.angellist,
+          className: "logo"
+        }))));
+      }
     }
   }]);
 
@@ -2852,6 +2887,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _homepage_navbar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./homepage_navbar */ "./frontend/components/homepage/homepage_navbar.jsx");
 /* harmony import */ var _stream_page_stream_page__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./stream_page/stream_page */ "./frontend/components/homepage/stream_page/stream_page.jsx");
 /* harmony import */ var _charts_page_charts_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./charts_page/charts_page */ "./frontend/components/homepage/charts_page/charts_page.jsx");
+/* harmony import */ var _common_components_slideshow__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../common_components/slideshow */ "./frontend/components/common_components/slideshow.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2869,6 +2905,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 
 
 
@@ -2919,7 +2956,11 @@ function (_React$Component) {
         component: _charts_page_charts_page__WEBPACK_IMPORTED_MODULE_6__["default"]
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "sidebar"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_slideshow__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        klass: "ad"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "stats"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "liked-songs"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "history"
@@ -3372,7 +3413,7 @@ var StreamPage = function StreamPage() {
     className: "stream-page-container"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
     className: "header"
-  }, "Hear the latest posts from the people you are following: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_stream_list_stream_list__WEBPACK_IMPORTED_MODULE_1__["default"], null));
+  }, "Hear the latest posts from the people you are following: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_stream_list_stream_list__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (StreamPage);
@@ -4521,7 +4562,9 @@ function (_React$Component) {
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "splash-page-header-bar"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_slideshow__WEBPACK_IMPORTED_MODULE_4__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_slideshow__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        klass: "banner"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "header-buttons"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.logo
@@ -7964,6 +8007,25 @@ exports = module.exports = __webpack_require__(/*! ../../../css-loader/lib/css-b
 
 // module
 exports.push([module.i, "/********************************************\n\tBREAKPOINT WIDTHS\n********************************************/\n/********************************************\n\tFONTS\n********************************************/\n/********************************************\n\tCOLOURS\n********************************************/\n.carousel .control-arrow, .carousel.carousel-slider .control-arrow {\n  -webkit-transition: all 0.25s ease-in;\n  -moz-transition: all 0.25s ease-in;\n  -ms-transition: all 0.25s ease-in;\n  -o-transition: all 0.25s ease-in;\n  transition: all 0.25s ease-in;\n  opacity: 0.4;\n  filter: alpha(opacity=40);\n  position: absolute;\n  z-index: 2;\n  top: 20px;\n  background: none;\n  border: 0;\n  font-size: 32px;\n  cursor: pointer; }\n  .carousel .control-arrow:hover {\n    opacity: 1;\n    filter: alpha(opacity=100); }\n  .carousel .control-arrow:before, .carousel.carousel-slider .control-arrow:before {\n    margin: 0 5px;\n    display: inline-block;\n    border-top: 8px solid transparent;\n    border-bottom: 8px solid transparent;\n    content: ''; }\n  .carousel .control-disabled.control-arrow {\n    opacity: 0;\n    filter: alpha(opacity=0);\n    cursor: inherit;\n    display: none; }\n  .carousel .control-prev.control-arrow {\n    left: 0; }\n    .carousel .control-prev.control-arrow:before {\n      border-right: 8px solid #fff; }\n  .carousel .control-next.control-arrow {\n    right: 0; }\n    .carousel .control-next.control-arrow:before {\n      border-left: 8px solid #fff; }\n\n.carousel {\n  position: relative;\n  width: 100%; }\n  .carousel * {\n    -webkit-box-sizing: border-box;\n    -moz-box-sizing: border-box;\n    box-sizing: border-box; }\n  .carousel img {\n    width: 100%;\n    display: inline-block;\n    pointer-events: none; }\n  .carousel .carousel {\n    position: relative; }\n  .carousel .control-arrow {\n    outline: 0;\n    border: 0;\n    background: none;\n    top: 50%;\n    margin-top: -13px;\n    font-size: 18px; }\n  .carousel .thumbs-wrapper {\n    margin: 20px;\n    overflow: hidden; }\n  .carousel .thumbs {\n    -webkit-transition: all 0.15s ease-in;\n    -moz-transition: all 0.15s ease-in;\n    -ms-transition: all 0.15s ease-in;\n    -o-transition: all 0.15s ease-in;\n    transition: all 0.15s ease-in;\n    -webkit-transform: translate3d(0, 0, 0);\n    -moz-transform: translate3d(0, 0, 0);\n    -ms-transform: translate3d(0, 0, 0);\n    -o-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n    position: relative;\n    list-style: none;\n    white-space: nowrap; }\n  .carousel .thumb {\n    -webkit-transition: border 0.15s ease-in;\n    -moz-transition: border 0.15s ease-in;\n    -ms-transition: border 0.15s ease-in;\n    -o-transition: border 0.15s ease-in;\n    transition: border 0.15s ease-in;\n    display: inline-block;\n    width: 80px;\n    margin-right: 6px;\n    white-space: nowrap;\n    overflow: hidden;\n    border: 3px solid #fff;\n    padding: 2px; }\n    .carousel .thumb.selected, .carousel .thumb:hover {\n      border: 3px solid #333;\n      padding: 2px; }\n    .carousel .thumb img {\n      vertical-align: top; }\n  .carousel.carousel-slider {\n    position: relative;\n    margin: 0;\n    overflow: hidden; }\n    .carousel.carousel-slider .control-arrow {\n      top: 0;\n      color: #fff;\n      font-size: 26px;\n      bottom: 0;\n      margin-top: 0;\n      padding: 5px; }\n      .carousel.carousel-slider .control-arrow:hover {\n        background: rgba(0, 0, 0, 0.2); }\n  .carousel .slider-wrapper {\n    overflow: hidden;\n    margin: auto;\n    width: 100%;\n    -webkit-transition: height 0.15s ease-in;\n    -moz-transition: height 0.15s ease-in;\n    -ms-transition: height 0.15s ease-in;\n    -o-transition: height 0.15s ease-in;\n    transition: height 0.15s ease-in; }\n    .carousel .slider-wrapper.axis-horizontal .slider {\n      -ms-box-orient: horizontal;\n      display: -webkit-box;\n      display: -moz-box;\n      display: -ms-flexbox;\n      display: -moz-flex;\n      display: -webkit-flex;\n      display: flex; }\n      .carousel .slider-wrapper.axis-horizontal .slider .slide {\n        flex-direction: column;\n        flex-flow: column; }\n    .carousel .slider-wrapper.axis-vertical {\n      -ms-box-orient: horizontal;\n      display: -webkit-box;\n      display: -moz-box;\n      display: -ms-flexbox;\n      display: -moz-flex;\n      display: -webkit-flex;\n      display: flex; }\n      .carousel .slider-wrapper.axis-vertical .slider {\n        -webkit-flex-direction: column;\n        flex-direction: column; }\n  .carousel .slider {\n    margin: 0;\n    padding: 0;\n    position: relative;\n    list-style: none;\n    width: 100%; }\n    .carousel .slider.animated {\n      -webkit-transition: all 0.35s ease-in-out;\n      -moz-transition: all 0.35s ease-in-out;\n      -ms-transition: all 0.35s ease-in-out;\n      -o-transition: all 0.35s ease-in-out;\n      transition: all 0.35s ease-in-out; }\n  .carousel .slide {\n    min-width: 100%;\n    margin: 0;\n    position: relative;\n    text-align: center;\n    background: #000; }\n    .carousel .slide img {\n      width: 100%;\n      vertical-align: top;\n      border: 0; }\n    .carousel .slide iframe {\n      display: inline-block;\n      width: calc(100% - 80px);\n      margin: 0 40px 40px;\n      border: 0; }\n    .carousel .slide .legend {\n      -webkit-transition: all 0.5s ease-in-out;\n      -moz-transition: all 0.5s ease-in-out;\n      -ms-transition: all 0.5s ease-in-out;\n      -o-transition: all 0.5s ease-in-out;\n      transition: all 0.5s ease-in-out;\n      position: absolute;\n      bottom: 40px;\n      left: 50%;\n      margin-left: -45%;\n      width: 90%;\n      border-radius: 10px;\n      background: #000;\n      color: #fff;\n      padding: 10px;\n      font-size: 12px;\n      text-align: center;\n      opacity: 0.25;\n      -webkit-transition: opacity 0.35s ease-in-out;\n      -moz-transition: opacity 0.35s ease-in-out;\n      -ms-transition: opacity 0.35s ease-in-out;\n      -o-transition: opacity 0.35s ease-in-out;\n      transition: opacity 0.35s ease-in-out; }\n  .carousel .control-dots {\n    position: absolute;\n    bottom: 0;\n    margin: 10px 0;\n    text-align: center;\n    width: 100%; }\n    @media (min-width: 960px) {\n      .carousel .control-dots {\n        bottom: 0; } }\n    .carousel .control-dots .dot {\n      -webkit-transition: opacity 0.25s ease-in;\n      -moz-transition: opacity 0.25s ease-in;\n      -ms-transition: opacity 0.25s ease-in;\n      -o-transition: opacity 0.25s ease-in;\n      transition: opacity 0.25s ease-in;\n      opacity: 0.3;\n      filter: alpha(opacity=30);\n      box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);\n      background: #fff;\n      border-radius: 50%;\n      width: 8px;\n      height: 8px;\n      cursor: pointer;\n      display: inline-block;\n      margin: 0 8px; }\n      .carousel .control-dots .dot.selected, .carousel .control-dots .dot:hover {\n        opacity: 1;\n        filter: alpha(opacity=100); }\n  .carousel .carousel-status {\n    position: absolute;\n    top: 0;\n    right: 0;\n    padding: 5px;\n    font-size: 10px;\n    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.9);\n    color: #fff; }\n  .carousel:hover .slide .legend {\n    opacity: 1; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/react-responsive-carousel/lib/styles/carousel.min.css":
+/*!******************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/react-responsive-carousel/lib/styles/carousel.min.css ***!
+  \******************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".carousel .control-arrow,.carousel.carousel-slider .control-arrow{-webkit-transition:all .25s ease-in;-moz-transition:all .25s ease-in;-ms-transition:all .25s ease-in;-o-transition:all .25s ease-in;transition:all .25s ease-in;opacity:.4;position:absolute;z-index:2;top:20px;background:0 0;border:0;font-size:32px;cursor:pointer}.carousel .control-arrow:hover{opacity:1}.carousel .control-arrow:before,.carousel.carousel-slider .control-arrow:before{margin:0 5px;display:inline-block;border-top:8px solid transparent;border-bottom:8px solid transparent;content:''}.carousel .control-disabled.control-arrow{opacity:0;cursor:inherit;display:none}.carousel .control-prev.control-arrow{left:0}.carousel .control-prev.control-arrow:before{border-right:8px solid #fff}.carousel .control-next.control-arrow{right:0}.carousel .control-next.control-arrow:before{border-left:8px solid #fff}.carousel{position:relative;width:100%}.carousel *{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.carousel img{width:100%;display:inline-block;pointer-events:none}.carousel .carousel{position:relative}.carousel .control-arrow{outline:0;border:0;background:0 0;top:50%;margin-top:-13px;font-size:18px}.carousel .thumbs-wrapper{margin:20px;overflow:hidden}.carousel .thumbs{-webkit-transition:all .15s ease-in;-moz-transition:all .15s ease-in;-ms-transition:all .15s ease-in;-o-transition:all .15s ease-in;transition:all .15s ease-in;-webkit-transform:translate3d(0,0,0);-moz-transform:translate3d(0,0,0);-ms-transform:translate3d(0,0,0);-o-transform:translate3d(0,0,0);transform:translate3d(0,0,0);position:relative;list-style:none;white-space:nowrap}.carousel .thumb{-webkit-transition:border .15s ease-in;-moz-transition:border .15s ease-in;-ms-transition:border .15s ease-in;-o-transition:border .15s ease-in;transition:border .15s ease-in;display:inline-block;width:80px;margin-right:6px;white-space:nowrap;overflow:hidden;border:3px solid #fff;padding:2px}.carousel .thumb.selected,.carousel .thumb:hover{border:3px solid #333;padding:2px}.carousel .thumb img{vertical-align:top}.carousel.carousel-slider{position:relative;margin:0;overflow:hidden}.carousel.carousel-slider .control-arrow{top:0;color:#fff;font-size:26px;bottom:0;margin-top:0;padding:5px}.carousel.carousel-slider .control-arrow:hover{background:rgba(0,0,0,.2)}.carousel .slider-wrapper{overflow:hidden;margin:auto;width:100%;-webkit-transition:height .15s ease-in;-moz-transition:height .15s ease-in;-ms-transition:height .15s ease-in;-o-transition:height .15s ease-in;transition:height .15s ease-in}.carousel .slider-wrapper.axis-horizontal .slider{-ms-box-orient:horizontal;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-moz-flex;display:-webkit-flex;display:flex}.carousel .slider-wrapper.axis-horizontal .slider .slide{flex-direction:column;flex-flow:column}.carousel .slider-wrapper.axis-vertical{-ms-box-orient:horizontal;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-moz-flex;display:-webkit-flex;display:flex}.carousel .slider-wrapper.axis-vertical .slider{-webkit-flex-direction:column;flex-direction:column}.carousel .slider{margin:0;padding:0;position:relative;list-style:none;width:100%}.carousel .slider.animated{-webkit-transition:all .35s ease-in-out;-moz-transition:all .35s ease-in-out;-ms-transition:all .35s ease-in-out;-o-transition:all .35s ease-in-out;transition:all .35s ease-in-out}.carousel .slide{min-width:100%;margin:0;position:relative;text-align:center;background:#000}.carousel .slide img{width:100%;vertical-align:top;border:0}.carousel .slide iframe{display:inline-block;width:calc(100% - 80px);margin:0 40px 40px;border:0}.carousel .slide .legend{-webkit-transition:all .5s ease-in-out;-moz-transition:all .5s ease-in-out;-ms-transition:all .5s ease-in-out;-o-transition:all .5s ease-in-out;transition:all .5s ease-in-out;position:absolute;bottom:40px;left:50%;margin-left:-45%;width:90%;border-radius:10px;background:#000;color:#fff;padding:10px;font-size:12px;text-align:center;opacity:.25;-webkit-transition:opacity .35s ease-in-out;-moz-transition:opacity .35s ease-in-out;-ms-transition:opacity .35s ease-in-out;-o-transition:opacity .35s ease-in-out;transition:opacity .35s ease-in-out}.carousel .control-dots{position:absolute;bottom:0;margin:10px 0;text-align:center;width:100%}@media (min-width:960px){.carousel .control-dots{bottom:0}}.carousel .control-dots .dot{-webkit-transition:opacity .25s ease-in;-moz-transition:opacity .25s ease-in;-ms-transition:opacity .25s ease-in;-o-transition:opacity .25s ease-in;transition:opacity .25s ease-in;opacity:.3;box-shadow:1px 1px 2px rgba(0,0,0,.9);background:#fff;border-radius:50%;width:8px;height:8px;cursor:pointer;display:inline-block;margin:0 8px}.carousel .control-dots .dot.selected,.carousel .control-dots .dot:hover{opacity:1}.carousel .carousel-status{position:absolute;top:0;right:0;padding:5px;font-size:10px;text-shadow:1px 1px 1px rgba(0,0,0,.9);color:#fff}.carousel:hover .slide .legend{opacity:1}", ""]);
 
 // exports
 
@@ -75343,6 +75405,36 @@ if (false) {} else {
 
 
 var content = __webpack_require__(/*! !../../../css-loader!./carousel.css */ "./node_modules/css-loader/index.js!./node_modules/react-responsive-carousel/lib/styles/carousel.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/react-responsive-carousel/lib/styles/carousel.min.css":
+/*!**********************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/react-responsive-carousel/lib/styles/carousel.min.css ***!
+  \**********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../css-loader!./carousel.min.css */ "./node_modules/css-loader/index.js!./node_modules/react-responsive-carousel/lib/styles/carousel.min.css");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 

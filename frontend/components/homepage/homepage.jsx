@@ -5,6 +5,7 @@ import { ProtectedRoute } from "../../util/route_util";
 import HomepageNavbar from "./homepage_navbar";
 import StreamPage from "./stream_page/stream_page";
 import ChartsPage from "./charts_page/charts_page";
+import Slideshow from "../common_components/slideshow";
 
 const msp = (state) => {
   return ({
@@ -33,11 +34,14 @@ class Homepage extends React.Component {
           </Switch>
         </div>
         <div className="sidebar">
-            <div className="liked-songs">
-            </div>
-            <div className="history">
-            </div>
+          <Slideshow klass="ad"/>
+          <div className="stats">
           </div>
+          <div className="liked-songs">
+          </div>
+          <div className="history">
+          </div>
+        </div>
       </div>
     );
   }
