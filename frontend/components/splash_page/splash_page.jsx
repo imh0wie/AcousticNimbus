@@ -25,11 +25,11 @@ class SplashPage extends React.Component {
           <Banner />
           <div className="splash-page-search-bar">
             <SearchBar /> 
-            <h4 className="search-box-separator">or</h4>
-            <button className="splash-page-upload-button" onClick={() => this.props.openModal("signup")}>Upload your own</button>
+            <h4>or</h4>
+            <button className="upload-button" onClick={() => this.props.openModal("signup")}>Upload your own</button>
           </div>
         </div>
-        <h2 className="splash-page-content-header">Hear what’s trending for free in the AcousticNimbus community</h2>
+        <h2 className="content-header">Hear what’s trending for free in the AcousticNimbus community</h2>
         <div className="splash-page-content-container">
           <SongsIndex />
         </div>

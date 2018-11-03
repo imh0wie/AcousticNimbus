@@ -11,12 +11,17 @@ const mdp = (dispatch) => {
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
+
+  }
+
+  openModal() {
+    this.props.openModal
   }
   
   render() {
     return (
       <form className="box-container">
-          <input type="text" placeholder="Search for songs, artists" onClick={() => this.props.openModal("signup")}/>
+          <input type="text" placeholder="Search for songs, artists (disabled)"/>
           <button onClick={() => this.props.openModal("signup")}></button>
       </form>
     );

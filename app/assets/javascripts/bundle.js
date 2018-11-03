@@ -1590,6 +1590,11 @@ function (_React$Component) {
   }
 
   _createClass(SearchBar, [{
+    key: "openModal",
+    value: function openModal() {
+      this.props.openModal;
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this = this;
@@ -1598,10 +1603,7 @@ function (_React$Component) {
         className: "box-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
-        placeholder: "Search for songs, artists",
-        onClick: function onClick() {
-          return _this.props.openModal("signup");
-        }
+        placeholder: "Search for songs, artists (disabled)"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: function onClick() {
           return _this.props.openModal("signup");
@@ -4817,15 +4819,13 @@ function (_React$Component) {
         className: "splash-page-header-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_modal__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_banner__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "splash-page-search-bar"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_search_bar__WEBPACK_IMPORTED_MODULE_5__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
-        className: "search-box-separator"
-      }, "or"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "splash-page-upload-button",
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_search_bar__WEBPACK_IMPORTED_MODULE_5__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "or"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "upload-button",
         onClick: function onClick() {
           return _this.props.openModal("signup");
         }
       }, "Upload your own"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
-        className: "splash-page-content-header"
+        className: "content-header"
       }, "Hear what\u2019s trending for free in the AcousticNimbus community"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "splash-page-content-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_songs_index_songs_index__WEBPACK_IMPORTED_MODULE_6__["default"], null)));
