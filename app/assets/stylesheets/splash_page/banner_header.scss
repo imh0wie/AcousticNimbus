@@ -8,30 +8,37 @@
 
 .splash-page-header-bar .header-buttons {
   display: flex;
+  position: absolute;
+  top: 0;
   justify-content: space-between;
+  width: 100%;
+  z-index: 1;
 }
 
-.splash-page-header-bar .header-buttons .bar-logo {
-  display: flex;
-  margin: 8px 25px;
-}
+// .splash-page-header-bar .header-buttons .bar-logo {
+//   display: flex;
+//   margin: 8px 25px;
+// }
 
-.splash-page-header-bar .header-buttons .bar-logo img {
-  width: 60px;
-  height: 60px;
+.splash-page-header-bar .header-buttons img {
+  width: 18%;
+  height: 75%;
+  margin: 5px 0px 0px 20px;
 }
 
 .splash-page-header-bar .header-buttons .bar-logo h2 {
+  position: relative;
+  bottom: 20px;
   font-size: 14px;
-    font-weight: bold;
-    color: white;
-    margin: 18px 5px;
+  font-weight: bold;
+  color: white;
+  margin: 0px 5px;
 }
-
 
 // min-width: 800px;
 // max-width: 1240px;
 .splash-page-header-bar .header-buttons .user-auth-buttons {
+  display: flex;
   margin: 15px;
 }
 
@@ -54,3 +61,69 @@
   margin: 5px;
   padding: 7px 15px;
 }
+
+.splash-page-header-bar .carousel .slide {
+  background: none;
+  color: #fff;
+}
+
+.splash-page-header-bar .carousel .message {
+  position: absolute;
+  top: 135px;
+  width: 800px;
+  margin-left: 225px;
+}
+
+.splash-page-header-bar .carousel .message h1 {
+  font-size: 32px;
+  border-top: none;
+}
+
+.splash-page-header-bar .carousel .message h2 {
+  font-size: 17px;
+  line-height: 25px;
+  border-top: none;
+  width: 545px;
+  margin: 15px auto;
+  padding: 0;
+}
+
+.splash-page-header-bar .carousel .message .buttons {
+  display: flex;
+  position: relative;
+  top: 10px;
+  width: 390px;
+  margin: 0 auto;
+  justify-content: space-between;
+}
+
+.splash-page-header-bar .carousel .message .buttons button {
+  color: #f2f2f2;
+  font-size: 17px;
+  border: 1px solid #e5e5e5;
+  border-radius: 3px;
+  padding: 10px 25px;
+}
+
+.splash-page-header-bar .carousel .message .buttons .free-trial {
+  border: 1px solid #FB5400;
+  background-color: #FB5400;
+}
+
+.splash-page-header-bar .carousel .message .button {
+  position: relative;
+  top: 10px;
+  color: #f2f2f2;
+  font-size: 17px;
+  border: 1px solid #FB5400;
+  border-radius: 3px;
+  background-color: #FB5400;
+  padding: 10px 25px;
+}
+
+
+
+
+// .splash-page-header-bar .carousel .thumbs-wrapper .axis-vertical {
+//   display: none !important;
+// }

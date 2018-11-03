@@ -9,14 +9,32 @@ import { Carousel } from 'react-responsive-carousel';
 class Slideshow extends React.Component {
     render() {
         return (
-            <Carousel>
+            <Carousel className="carousel"
+                infiniteLoop autoPlay
+                showArrows={false}
+                showStatus={false}
+                showThumbs={false}
+                swipable={true}
+                interval={6000}
+            >
                 <div>
                     <img src={window.carousel1} />
-                    <p className="legend">Legend 1</p>
+                    <div className="message">
+                        <h1>Discover more with AcousticNimbus Go+</h1>
+                        <h2>AcousticNimbus Go+ lets you listen offline, ad-free, with over 150 million tracks — and growing.</h2>
+                        <div className="buttons">
+                            <button>Learn More</button>
+                            <button className="free-trial">Try It Free for 30 years</button>
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <img src={window.carousel2} />
-                    <p className="legend">Legend 2</p>
+                    <div className="message">
+                        <h1>What's next in music is first on AcousticNimbus</h1>
+                        <h2>Upload your first track and begin your journey. AcousticNimbus gives you space to create, find your fans, and connect with other artists.</h2>
+                        <button className="button">Start uploading today</button>
+                    </div>
                 </div>
             </Carousel>
         );

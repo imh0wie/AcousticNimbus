@@ -8,7 +8,8 @@ span, article, footer, time, small {
   border: 0;
   outline: 0;
   font: inherit;
-  font-family: "Interstate","Lucida Grande",Arial,sans-serif;
+  font-family: inherit;
+  font-family: 'Open Sans', sans-serif;
   color: inherit;
   text-align: inherit;
   text-decoration: inherit;
@@ -19,6 +20,10 @@ span, article, footer, time, small {
 
 body {
   background-color: #f2f2f2;
+}
+
+h1, h2, h3, h4, p, span, a {
+  transform: scaleY(1.1);
 }
 
 ul {

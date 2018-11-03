@@ -1869,15 +1869,30 @@ function (_React$Component) {
   _createClass(Slideshow, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_responsive_carousel__WEBPACK_IMPORTED_MODULE_3__["Carousel"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_responsive_carousel__WEBPACK_IMPORTED_MODULE_3__["Carousel"], {
+        className: "carousel",
+        infiniteLoop: true,
+        autoPlay: true,
+        showArrows: false,
+        showStatus: false,
+        showThumbs: false,
+        swipable: true,
+        interval: 6000
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.carousel1
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-        className: "legend"
-      }, "Legend 1")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "message"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Discover more with AcousticNimbus Go+"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "AcousticNimbus Go+ lets you listen offline, ad-free, with over 150 million tracks \u2014 and growing."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "buttons"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Learn More"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "free-trial"
+      }, "Try It Free for 30 years")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.carousel2
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-        className: "legend"
-      }, "Legend 2")));
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "message"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "What's next in music is first on AcousticNimbus"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Upload your first track and begin your journey. AcousticNimbus gives you space to create, find your fans, and connect with other artists."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "button"
+      }, "Start uploading today"))));
     }
   }]);
 
@@ -4386,13 +4401,11 @@ function (_React$Component) {
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "splash-page-header-bar"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_slideshow__WEBPACK_IMPORTED_MODULE_4__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "header-buttons"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "bar-logo"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.logo
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "ACOUSTICNIMBUS")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "user-auth-buttons"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: function onClick() {
@@ -4404,7 +4417,7 @@ function (_React$Component) {
           return _this.props.openModal("signup");
         },
         className: "signup"
-      }, "Create account"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_slideshow__WEBPACK_IMPORTED_MODULE_4__["default"], null));
+      }, "Create account"))));
     }
   }]);
 

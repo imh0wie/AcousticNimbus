@@ -15,17 +15,14 @@ class Banner extends React.Component {
   render() {
     return (
       <div className="splash-page-header-bar">
+        <Slideshow />
         <div className="header-buttons">
-          <div className="bar-logo">
-            <img src={window.logo}></img>
-            <h2>ACOUSTICNIMBUS</h2>
-          </div>
+          <img src={window.logo}></img>
           <div className="user-auth-buttons">
             <button onClick={() => this.props.openModal("login")} className="login">Log In</button>
             <button onClick={() => this.props.openModal("signup")} className="signup">Create account</button>
           </div>
         </div>
-        <Slideshow />
       </div>
     );
   }
