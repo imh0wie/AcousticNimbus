@@ -8,7 +8,6 @@ class SocialElements extends React.Component {
 
     handleLike(e) {
         e.preventDefault();
-        debugger
         if (this.props.currentLike) {
           this.props.removeLike(this.props.currentLike.id);
         } else {

@@ -719,7 +719,6 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 var msp = function msp(state, ownProps) {
-  debugger;
   return {
     currentUser: state.entities.users[state.session.id],
     // currentURL: ownProps.history.location.pathname,
@@ -747,27 +746,19 @@ function (_React$Component) {
   _inherits(HeaderBar, _React$Component);
 
   function HeaderBar(props) {
-    var _this;
-
     _classCallCheck(this, HeaderBar);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(HeaderBar).call(this, props));
-    debugger;
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(HeaderBar).call(this, props));
   }
 
   _createClass(HeaderBar, [{
     key: "render",
     value: function render() {
-      var _this2 = this;
-
-      debugger;
+      var _this = this;
 
       if (!this.props.currentUser || this.props.currentURL === "/") {
-        debugger;
         return null;
       } else {
-        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
           className: "page-outer-bar"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -798,7 +789,7 @@ function (_React$Component) {
         }, "Upload")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "profile-dropdown",
           onClick: function onClick() {
-            return _this2.props.history.push("/users/".concat(_this2.props.currentUser.id));
+            return _this.props.history.push("/users/".concat(_this.props.currentUser.id));
           }
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           className: "profile-dropdown-img",
@@ -808,7 +799,7 @@ function (_React$Component) {
         }, this.props.currentUser.username)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "logout-button",
           onClick: function onClick() {
-            return _this2.props.logout();
+            return _this.props.logout();
           }
         }, "Sign Out")));
       }
@@ -1074,7 +1065,6 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      debugger;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: this.props.klass === "banner-player" ? "banner-player-container" : "item-player-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -1147,8 +1137,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _actions_song_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../actions/song_actions */ "./frontend/actions/song_actions.js");
-/* harmony import */ var _actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../actions/current_song_actions */ "./frontend/actions/current_song_actions.js");
-/* harmony import */ var _util_song_api_util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../util/song_api_util */ "./frontend/util/song_api_util.js");
+/* harmony import */ var _actions_like_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../actions/like_actions */ "./frontend/actions/like_actions.js");
+/* harmony import */ var _actions_current_song_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../actions/current_song_actions */ "./frontend/actions/current_song_actions.js");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var _util_song_api_util__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../util/song_api_util */ "./frontend/util/song_api_util.js");
+/* harmony import */ var _util_like_api_util__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../util/like_api_util */ "./frontend/util/like_api_util.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1175,12 +1168,19 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 
+
+
+
 var msp = function msp(state) {
+  var songId = state.ui.currentSong.song ? state.ui.currentSong.song.id : null;
   return {
-    latestTwelve: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_6__["latest"])(12, state.entities.songs),
-    latestTwenty: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_6__["latest"])(20, state.entities.songs),
-    shuffled: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_6__["shuffle"])(12, state.entities.songs),
-    currentSong: state.ui.currentSong
+    latestTwelve: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_8__["latest"])(12, state.entities.songs),
+    latestTwenty: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_8__["latest"])(20, state.entities.songs),
+    shuffled: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_8__["shuffle"])(12, state.entities.songs),
+    likes: state.entities.likes,
+    currentSong: state.ui.currentSong,
+    currentUser: state.entities.users[state.session.id],
+    currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_9__["likeOf"])("Song", songId, state.session.id, state.entities.likes)
   };
 };
 
@@ -1189,23 +1189,35 @@ var mdp = function mdp(dispatch) {
     fetchSongs: function fetchSongs() {
       return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_4__["fetchSongs"])());
     },
+    fetchLikes: function fetchLikes() {
+      return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_5__["fetchLikes"])());
+    },
+    createLike: function createLike(like) {
+      return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_5__["createLike"])(like));
+    },
+    removeLike: function removeLike(id) {
+      return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_5__["removeLike"])(id));
+    },
     setCurrentSong: function setCurrentSong(song) {
-      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["setCurrentSong"])(song));
+      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_6__["setCurrentSong"])(song));
     },
     playSong: function playSong() {
-      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["playSong"])());
+      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_6__["playSong"])());
     },
     pauseSong: function pauseSong() {
-      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["pauseSong"])());
+      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_6__["pauseSong"])());
     },
     setElapsedTo: function setElapsedTo(time) {
-      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["setElapsedTo"])(time));
+      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_6__["setElapsedTo"])(time));
     },
     muteSong: function muteSong() {
-      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["muteSong"])());
+      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_6__["muteSong"])());
     },
     unmuteSong: function unmuteSong() {
-      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["unmuteSong"])());
+      return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_6__["unmuteSong"])());
+    },
+    openModal: function openModal(modal) {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_7__["openModal"])(modal));
     }
   };
 };
@@ -1242,13 +1254,14 @@ function (_React$Component) {
     _this.handleNext = _this.handleNext.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleShuffle = _this.handleShuffle.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleLoop = _this.handleLoop.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleLike = _this.handleLike.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.showTime = _this.showTime.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleSlide = _this.handleSlide.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleUnslide = _this.handleUnslide.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
-  } // componentDidMount() {
-  //     this.props.fetchSongs();
+  } // componentWillReceiveProps() {
+  //     debugger
   // }
 
 
@@ -1278,10 +1291,7 @@ function (_React$Component) {
     key: "handleOver",
     value: function handleOver() {
       this.handleNext(this.props.currentSong.song);
-    } // handlePause(song) {
-    //     this.props.pauseSong(song);
-    // }
-
+    }
   }, {
     key: "handlePlayPause",
     value: function handlePlayPause() {
@@ -1385,6 +1395,25 @@ function (_React$Component) {
       }
     }
   }, {
+    key: "handleLike",
+    value: function handleLike() {
+      if (this.props.currentUser) {
+        if (this.props.currentLike) {
+          this.props.removeLike(this.props.currentLike.id);
+        } else {
+          var like = {
+            likeable_type: "Song",
+            likeable_id: this.props.currentSong.song.id,
+            liker_id: this.props.currentUser.id
+          };
+          debugger;
+          this.props.createLike(like);
+        }
+      } else {
+        this.props.openModal("signup");
+      }
+    }
+  }, {
     key: "renderPlayPauseButton",
     value: function renderPlayPauseButton() {
       var _this2 = this;
@@ -1458,7 +1487,7 @@ function (_React$Component) {
           onDuration: this.handleDuration,
           onEnded: this.handleOver
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "player-controls-container"
+          className: "controls-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.play_bar_previous,
           className: "player-control",
@@ -1471,22 +1500,23 @@ function (_React$Component) {
           onClick: function onClick() {
             return _this4.handleNext(_this4.props.currentSong.song);
           }
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.play_bar_shuffle,
-          className: "player-control",
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: this.state.shuffle ? "shuffled" : "shuffle",
           onClick: function onClick() {
             return _this4.handleShuffle();
           }
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          class: "fas fa-random"
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.play_bar_loop,
           className: "player-control",
           onClick: function onClick() {
             return _this4.handleLoop();
           }
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "song-current-progress-container"
+          className: "progress"
         }, this.showTime(Math.round(this.state.duration * this.state.elapsed))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "song-progress-tracker-container"
+          className: "progress-tracker-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-progress-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -1500,27 +1530,36 @@ function (_React$Component) {
           onMouseDown: this.handleSlide,
           onChange: this.handleChange
         }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "song-length-container"
-        }, this.showTime(Math.round(this.state.duration))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "song-volume-controls-container"
-        }, this.renderVolume()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "player-bar-song-info-container"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: this.props.currentSong.song.imageURL ? this.props.currentSong.song.imageURL : window.default_avatar,
-          className: "player-bar-song-img"
+          className: "length"
+        }, this.showTime(Math.round(this.state.duration))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: this.props.currentSong.muted ? window.volume_off : window.volume_on,
+          className: "player-control",
+          onClick: function onClick() {
+            return _this4.handleVolume();
+          }
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "player-bar-song-info"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-          className: "player-bar-song-artist"
-        }, this.props.currentSong.song.artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-          className: "player-bar-song-title"
+          className: "song-info-container"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: this.props.currentSong.song.imageURL ? this.props.currentSong.song.imageURL : window.default_avatar
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "song-info"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+          to: "",
+          className: "artist"
+        }, this.props.currentSong.song.artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+          to: "/songs/".concat(this.props.currentSong.song.id),
+          className: "title"
         }, this.props.currentSong.song.title.length < 41 ? this.props.currentSong.song.title : this.props.currentSong.song.title.slice(0, 40)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "player-bar-song-actions-container"
+          className: "actions-container"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: this.props.currentLike ? "liked" : "like"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-          className: "fas fa-heart player-bar-heart"
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.playlist,
-          className: "player-bar-playlist"
+          className: "fas fa-heart",
+          onClick: function onClick() {
+            return _this4.handleLike();
+          }
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.playlist
         }))));
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
@@ -1529,7 +1568,9 @@ function (_React$Component) {
   }]);
 
   return PlayerBar;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component); //<img src={window.play_bar_shuffle} className="player-control" onClick={() => this.handleShuffle()}></img>
+//<p></p>
+
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(msp, mdp)(PlayerBar)));
 
@@ -2039,7 +2080,6 @@ function (_React$Component) {
     key: "handleLike",
     value: function handleLike(e) {
       e.preventDefault();
-      debugger;
 
       if (this.props.currentLike) {
         this.props.removeLike(this.props.currentLike.id);
@@ -2231,8 +2271,8 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.initializeWaveform(); // const url = this.props.song ? this.props.song.audioURL : this.props.song.audioURL
+      // debugger
 
-      debugger;
       this.waveform.load(this.props.song.audioURL);
       this.waveform.on("ready", this.onReady()); // this.waveform.on("audioprocess", this.onProgress());
       // this.waveform.on("seek", this.onSeek());
@@ -2269,7 +2309,7 @@ function (_React$Component) {
           break;
 
         case "item-player":
-          debugger;
+          // debugger
           this.waveform = wavesurfer_js__WEBPACK_IMPORTED_MODULE_1___default.a.create({
             container: "#waveform",
             waveColor: "grey",
@@ -2291,11 +2331,11 @@ function (_React$Component) {
   }, {
     key: "onReady",
     value: function onReady() {
-      debugger;
+      // debugger
       this.waveform.setMute(true);
 
       if (this.props.currentSong.song && this.props.songId === this.props.currentSong.song.id) {
-        debugger;
+        // debugger
         this.setState({
           playing: this.props.currentSong.playing,
           elapsed: this.props.currentSong.elapsed
@@ -2303,7 +2343,7 @@ function (_React$Component) {
         this.waveform.seekTo(this.state.elapsed);
         this.state.playing ? this.waveform.play() : this.waveform.pause();
       } else {
-        debugger;
+        // debugger
         this.setState({
           playing: false,
           elapsed: 0
@@ -2339,18 +2379,17 @@ function (_React$Component) {
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
-      debugger;
-      if (!nextProps.currentSong.song) return;
-      debugger;
+      // debugger
+      if (!nextProps.currentSong.song) return; // debugger
 
       if (this.props.songId === nextProps.currentSong.song.id && nextProps.currentSong.playing) {
-        debugger;
+        // debugger
         this.waveform.play();
       } else if (this.props.songId === nextProps.currentSong.song.id && !nextProps.currentSong.playing) {
-        debugger;
+        // debugger
         this.waveform.pause();
       } else if (this.props.songId !== nextProps.currentSong.song.id) {
-        debugger;
+        // debugger
         this.setState({
           elapsed: 0,
           playing: false
@@ -2358,7 +2397,7 @@ function (_React$Component) {
       }
 
       if (this.props.songId === nextProps.currentSong.song.id && this.props.currentSong.elapsed !== nextProps.currentSong.elapsed) {
-        debugger;
+        // debugger
         this.waveform.seekTo(nextProps.currentSong.elapsed);
       }
     }
@@ -4824,7 +4863,7 @@ function (_React$Component) {
         className: "content-header"
       }, "Hear what\u2019s trending for free in the AcousticNimbus community"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "splash-page-content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_songs_index_songs_index__WEBPACK_IMPORTED_MODULE_6__["default"], null)));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_songs_index_songs_index__WEBPACK_IMPORTED_MODULE_6__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)));
     }
   }]);
 
@@ -5779,6 +5818,7 @@ var fetchLikes = function fetchLikes() {
   });
 };
 var likesOf = function likesOf(likeableType, likeableId, likes) {
+  debugger;
   if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(likes)) return [];
   var likeIds = Object.keys(likes).reverse();
   var output = [];
@@ -5799,9 +5839,11 @@ var likeOf = function likeOf(likeableType, likeableId, liker, likes) {
   for (var i = 0; i < likeIds.length; i++) {
     var likeId = likeIds[i];
     var like = likes[likeId];
+    debugger;
     if (like.likeableType === likeableType && like.likeableId === likeableId && like.likerId === liker.id) return like;
   }
 
+  debugger;
   return null;
 }; // export const liked = (currentUser, likes) => {
 //     return likes.some((like) => {

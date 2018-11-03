@@ -23,6 +23,7 @@ export const fetchLikes = () => {
 };
 
 export const likesOf = (likeableType, likeableId, likes) => {
+    debugger
     if (isEmpty(likes)) return [];
     const likeIds = Object.keys(likes).reverse();
     let output = [];
@@ -42,8 +43,10 @@ export const likeOf = (likeableType, likeableId, liker, likes) => {
     for (let i = 0; i < likeIds.length; i++ ) {
         const likeId = likeIds[i];
         const like = likes[likeId];
+        debugger
         if (like.likeableType === likeableType && like.likeableId === likeableId && like.likerId === liker.id) return like;
     }
+    debugger
     return null;
 }
 

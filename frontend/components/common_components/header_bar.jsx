@@ -5,7 +5,6 @@ import { login, logout } from "../../actions/session_actions";
 import { openModal } from "../../actions/modal_actions";
 
 const msp = (state, ownProps) => {
-  debugger
   return {
     currentUser: state.entities.users[state.session.id],
     // currentURL: ownProps.history.location.pathname,
@@ -24,16 +23,12 @@ const mdp = (dispatch) => {
 class HeaderBar extends React.Component {
   constructor(props) {
     super(props);
-    debugger
   }
 
   render() {
-    debugger
     if (!this.props.currentUser || this.props.currentURL === "/") {
-      debugger
       return null;
     } else {
-      debugger
       return (
         <header className="page-outer-bar">
           <div className="page-inner-bar">

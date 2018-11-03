@@ -15,7 +15,7 @@
     width: 1240px;
 }
 
-.player-controls-container {
+.player-bar .controls-container {
     display: flex;
 }
 
@@ -25,16 +25,30 @@
     margin: 13px 10px;
 }
 
-.song-current-progress-container {
+.player-bar .controls-container p {
+    margin: 0 10px;
+}
+
+.player-bar .controls-container p i {
+    position: relative;
+    top: 13.5px;
+}
+
+.player-bar .controls-container .shuffled{
+    color: #FB5400;
+}
+
+.player-bar .progress {
+    color: #FB5400;
     margin: 13px 10px;
 }
 
-.song-progress-tracker-container {
+.player-bar .progress-tracker-container {
     margin: 15px 10px;
     width: 520px;
 }
 
-.song-length-container {
+.player-bar .length {
     margin: 13px 20px 0px 0px;
 }
 
@@ -49,13 +63,14 @@ input[type=range]:focus {
     border: 1px solid #000000;
 }
 
-.player-bar-song-info-container {
+.player-bar .song-info-container {
     display: flex;
+    margin-left: 5px;
     // width: 100%;
     // margin-right: 210px;
 }
 
-.player-bar-song-img {
+.player-bar .song-info-container img {
     position: relative;
     top: 10px;
     width: 30px;
@@ -63,27 +78,25 @@ input[type=range]:focus {
     margin-right: 10px;
 }
 
-.player-bar-song-info {
+.player-bar .song-info-container .song-info {
     position: relative;
     top: 10px;
 }
 
-.player-bar-song-artist {
+.player-bar .song-info-container .song-info a {
+    display: block;
     font-size: 11px;
     color: #999;
     margin: 0px;
+    text-decoration: none;
 }
 
-.player-bar-song-artist:hover {
-    font-size: 11px;
+.player-bar .song-info-container .song-info a:hover {
     color: black;
-    margin: 0px;
 }
 
-.player-bar-song-title {
-    font-size: 11px;
+.player-bar .song-info-container .song-info .title {
     color: #333;
-    margin: 0px;
 }
 
 .player-bar-song-title:hover {
@@ -92,21 +105,29 @@ input[type=range]:focus {
     margin: 0px;
 }
 
-.player-bar-song-actions-container {
+.player-bar .actions-container {
     display: flex;
     position: absolute;
     top: 12px;
     right: 105px;
-    width: 50px;
+    width: 55px;
     justify-content: space-between;
 }
 
-.player-bar-heart {
-    position: relative;
-    top: 5px;
+.player-bar .actions-container .liked {
+    color: #FB5400;
 }
 
-.player-bar-playlist {
+.player-bar .actions-container .like {
+    color: black;
+}
+
+.player-bar .actions-container i {
+    position: relative;
+    top: 2px;
+}
+
+.player-bar .actions-container img {
     width: 25px;
     height: 25px;
     margin: 0;
