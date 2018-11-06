@@ -6,6 +6,7 @@ import HomepageNavbar from "./homepage_navbar";
 import StreamPage from "./stream_page/stream_page";
 import ChartsPage from "./charts_page/charts_page";
 import Slideshow from "../common_components/slideshow";
+import WhoToFollow from "./who_to_follow/who_to_follow"
 
 const msp = (state) => {
   return ({
@@ -37,6 +38,7 @@ class Homepage extends React.Component {
           <Slideshow klass="ad"/>
           <div className="stats">
           </div>
+          <WhoToFollow />
           <div className="liked-songs">
           </div>
           <div className="history">

@@ -8,7 +8,7 @@
 }
 
 .homepage-container .sidebar {
-    width: auto;
+    width: 360px;
 }
 
 .homepage-container .sidebar .ad {
@@ -60,6 +60,39 @@
 //     height: 250px;
 //     background-color: yellow;
 // }
+
+.homepage-container .sidebar .who-to-follow {
+    width: 300px;
+    margin: 0 auto;
+    color: #9b9b9b;
+}
+
+.homepage-container .sidebar .who-to-follow .header {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+    margin: 0 auto;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.homepage-container .sidebar .who-to-follow .header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.homepage-container .sidebar .who-to-follow .error-message h4 {
+    font-size: 13px;
+}
+
+.homepage-container .sidebar .who-to-follow .error-message p {
+    font-size: 12px;
+}
+
+.who-to-follow:hover + .refresh {
+    color: #333;
+}
+
 
 
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
+import { fetchSongs } from "../../../actions/song_actions";
 import { fetchFollows } from "../../../actions/follow_actions";
 import { fetchUsers } from "../../../actions/user_actions";
 import { followersOf } from "../../../util/follow_api_util";
@@ -11,7 +12,7 @@ import { songsOf } from "../../../util/song_api_util";
 const msp = (state) => {
     debugger
     return ({
-        suggestedArtists: suggestedArtists(3, state.entities.users, state.entities.users[state.session.id]),
+        suggestedArtists: suggestedArtists(3, state.entities.follows, state.entities.users, state.entities.users[state.session.id]),
         songs: state.entities.songs,
         follows: state.entities.follows,
     });
@@ -39,10 +40,22 @@ class ArtistsList extends React.Component {
     }
 
     render() {
-        if (this.props.suggestedArtists) {
+        if (!this.props.suggestedArtists) {
+            return (
+                <img src={window.loading5}></img>
+            );
+        } else if (this.props.suggestedArtists.length === 0) {
+            return (
+                <div className="error-message">
+                    <h4>We cannot recommend you any users because:</h4>
+                    <p>1) you have followed all users on Acoustic Nimbus; OR</p>
+                    <p>2) our site sucks and you are the only user...</p>
+                </div>
+            );
+        } else {
             return (
                 <ul>
-                    <p><i class="fas fa-users"></i></p>
+                    <p> : )</p>
                     {this.props.suggestedArtists.map((artist) => {
                         return (
                             <ArtistsListItem 
@@ -54,10 +67,6 @@ class ArtistsList extends React.Component {
                     })}
                 </ul>
             )
-        } else {
-            return (
-                <img src={window.loading5}></img>
-            );
         }
     }
 }

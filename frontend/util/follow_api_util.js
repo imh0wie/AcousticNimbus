@@ -43,6 +43,18 @@ export const followOf = (followedUserId, followerId, follows) => {
     return null;
 }
 
+export const followersOf = (followedUserId, follows) => {
+    if (isEmpty(follows)) return null;
+    const output = [];
+    const followIds = Object.keys(follows);
+    for (let i = 0; i < followIds.length; i++ ) {
+        const followId = followIds[i];
+        const follow = follows[followId];
+        if (follow.followedUserId === followedUserId) output.push(follow);
+    }
+    return null;
+}
+
 export const followingsOf = (followerId, follows) => {
     if (isEmpty(follows)) return null;
     const output = [];
