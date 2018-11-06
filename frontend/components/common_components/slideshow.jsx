@@ -64,10 +64,10 @@ class Slideshow extends React.Component {
                         <img src={window.ad2} />
                         <div className="logos">
                             <div className="upper">
-                                <img src={window.linkedin} className="logo"></img>
-                                <img src={window.github} className="logo"></img>
+                                <a href="https://www.linkedin.com/in/howie-chan"><img src={window.linkedin} className="logo"></img></a>
+                                <a href="https://github.com/h0wiechan"><img src={window.github} className="logo"></img></a>
                             </div>
-                            <img src={window.angellist} className="logo"/>
+                            <a href="https://angel.co/h0wiechan"><img src={window.angellist} className="logo"/></a>
                         </div>
                     </div>
                 </Carousel>

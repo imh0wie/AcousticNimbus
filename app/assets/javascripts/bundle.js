@@ -2039,16 +2039,22 @@ function (_React$Component) {
           className: "logos"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "upper"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+          href: "https://www.linkedin.com/in/howie-chan"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.linkedin,
           className: "logo"
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+          href: "https://github.com/h0wiechan"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.github,
           className: "logo"
-        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+          href: "https://angel.co/h0wiechan"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.angellist,
           className: "logo"
-        }))));
+        })))));
       }
     }
   }]);
