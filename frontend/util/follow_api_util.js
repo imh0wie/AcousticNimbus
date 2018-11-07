@@ -52,7 +52,7 @@ export const followersOf = (followedUserId, follows) => {
         const follow = follows[followId];
         if (follow.followedUserId === followedUserId) output.push(follow);
     }
-    return null;
+    return output;
 }
 
 export const followingsOf = (followerId, follows) => {

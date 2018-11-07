@@ -2,9 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { fetchSongs } from "../../../actions/song_actions";
-import { fetchFollows } from "../../../actions/follow_actions";
+import { fetchFollows, createFollow, removeFollow } from "../../../actions/follow_actions";
 import { fetchUsers } from "../../../actions/user_actions";
-import { followersOf } from "../../../util/follow_api_util";
+import { followersOf, followOf } from "../../../util/follow_api_util";
 import { suggestedArtists } from "../../../util/user_api_util";
 import ArtistsListItem from "./artist_list_item";
 import { songsOf } from "../../../util/song_api_util";
@@ -12,9 +12,10 @@ import { songsOf } from "../../../util/song_api_util";
 const msp = (state) => {
     debugger
     return ({
-        suggestedArtists: suggestedArtists(3, state.entities.follows, state.entities.users, state.entities.users[state.session.id]),
+        suggestedArtists: suggestedArtists(3, state.entities.follows, state.entities.users, state.session.id),
         songs: state.entities.songs,
         follows: state.entities.follows,
+        currentUser: state.entities.users[state.session.id],
     });
 }
 
@@ -22,6 +23,8 @@ const mdp = (dispatch) => {
     return ({
         fetchSongs: () => dispatch(fetchSongs()),
         fetchFollows: () => dispatch(fetchFollows()),
+        createFollow: (follow) => dispatch(createFollow(follow)),
+        removeFollow: (id) => dispatch(removeFollow(id)),
         fetchUsers: () => dispatch(fetchUsers()),
     });
 }
@@ -40,11 +43,14 @@ class ArtistsList extends React.Component {
     }
 
     render() {
+        debugger
         if (!this.props.suggestedArtists) {
+            debugger
             return (
-                <img src={window.loading5}></img>
+                <img src={window.loading5} className="loading"></img>
             );
         } else if (this.props.suggestedArtists.length === 0) {
+            debugger
             return (
                 <div className="error-message">
                     <h4>We cannot recommend you any users because:</h4>
@@ -53,15 +59,19 @@ class ArtistsList extends React.Component {
                 </div>
             );
         } else {
+            debugger
             return (
                 <ul>
-                    <p> : )</p>
                     {this.props.suggestedArtists.map((artist) => {
                         return (
                             <ArtistsListItem 
-                                artist={artist}
+                                artist={artist} 
+                                artistFollow={followOf(artist.id, this.props.currentUser.id, this.props.follows)}
                                 artistFollowers={followersOf(artist.id, this.props.follows)}
                                 artistSongs={songsOf(artist, this.props.songs)}
+                                createFollow={this.props.createFollow}
+                                removeFollow={this.props.removeFollow}
+                                currentUser={this.props.currentUser}
                             />
                         );
                     })}
