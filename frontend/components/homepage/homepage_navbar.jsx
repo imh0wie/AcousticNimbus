@@ -26,15 +26,9 @@ class HomepageNavbar extends React.Component {
 
   render() {
     return (
-      <div className="navbar-container">
-        <ul className="navbar">
-          <li className="navbar-button-container">
-            <NavLink to="/stream" className="navbar-button" activeClassName="active" onClick={() => this.switchTabFrom("stream")}><h3>Stream</h3></NavLink> 
-          </li>
-          <li className="navbar-button-container">
-            <NavLink to="/charts/top" className="navbar-button" activeClassName="active" onClick={() => this.switchTabFrom("charts")}><h3>Charts</h3></NavLink>
-          </li>
-        </ul>
+      <div className="navbar">
+        <NavLink to="/stream" activeClassName="active" onClick={() => this.switchTabFrom("stream")}>Stream</NavLink> 
+        <NavLink to="/charts/top" activeClassName="active" onClick={() => this.switchTabFrom("charts")}>Charts</NavLink>
       </div>
     );
   }

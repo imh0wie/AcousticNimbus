@@ -3055,28 +3055,20 @@ function (_React$Component) {
       var _this2 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "navbar-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "navbar"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "navbar-button-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
         to: "/stream",
-        className: "navbar-button",
         activeClassName: "active",
         onClick: function onClick() {
           return _this2.switchTabFrom("stream");
         }
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Stream"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "navbar-button-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+      }, "Stream"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
         to: "/charts/top",
-        className: "navbar-button",
         activeClassName: "active",
         onClick: function onClick() {
           return _this2.switchTabFrom("charts");
         }
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Charts")))));
+      }, "Charts"));
     }
   }]);
 
