@@ -772,11 +772,13 @@ function (_React$Component) {
           to: "/stream"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: this.props.currentURL.indexOf("/stream") > -1 || this.props.currentURL.indexOf("/charts") > -1 ? "home selected" : "home"
-        }, "Home")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-          to: "/you/collection"
+        }, "Home")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          title: "Page coming soon!"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+          to: ""
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: this.props.currentURL.indexOf("/you") > -1 ? "collection selected" : "collection"
-        }, "Collection")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        }, "Collection"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "search-bar-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
           type: "text",
@@ -786,14 +788,13 @@ function (_React$Component) {
           to: "/upload"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: this.props.currentURL === "upload" ? "upload selected" : "upload"
-        }, "Upload")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          className: "profile-dropdown",
-          onClick: function onClick() {
-            return _this.props.history.push("/users/".concat(_this.props.currentUser.id));
-          }
+        }, "Upload")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          title: "Page coming soon!"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "profile-dropdown"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.default_avatar
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.currentUser.username)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.currentUser.username))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "logout-button",
           onClick: function onClick() {
             return _this.props.logout();
@@ -916,6 +917,98 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, mdp)(Modal));
+
+/***/ }),
+
+/***/ "./frontend/components/common_components/navbar.jsx":
+/*!**********************************************************!*\
+  !*** ./frontend/components/common_components/navbar.jsx ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var Navbar =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Navbar, _React$Component);
+
+  function Navbar(props) {
+    _classCallCheck(this, Navbar);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Navbar).call(this, props));
+  }
+
+  _createClass(Navbar, [{
+    key: "render",
+    value: function render() {
+      var _this = this;
+
+      switch (this.props.klass) {
+        case "homepage":
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "navbar"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+            to: "/stream",
+            activeClassName: "active",
+            onClick: function onClick() {
+              return _this.switchTabFrom("stream");
+            }
+          }, "Stream"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+            to: "/charts/top",
+            activeClassName: "active",
+            onClick: function onClick() {
+              return _this.switchTabFrom("charts");
+            }
+          }, "Charts"));
+
+        default:
+          break;
+      }
+    }
+  }]);
+
+  return Navbar;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+; // <ul className="homepage-navbar">
+//   <li className="homepage-navbar-button-container">
+//     <h2 className="homepage-navbar-button" onClick={() => this.props.history.push("/stream")}>Stream</h2>
+//   </li>
+//   <li className="homepage-navbar-button-container">
+//     <h2 className="homepage-navbar-button" onClick={() => this.props.history.push("/charts/top")}>Charts</h2>
+//   </li>
+// </ul>
+// <iframe src="https://giphy.com/embed/wsWcsrfMXjJgk" width="480" height="264" frameBorder="0" className="giphy-embed" allowFullScreen></iframe>
+// <img src="slideshow-img1.jpg" alt="img1" className="header-background"></img>
+// <img src="images/header-background.gif" alt="header-background" className="header-background"></img>
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(Navbar));
 
 /***/ }),
 
@@ -2890,7 +2983,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _util_route_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../util/route_util */ "./frontend/util/route_util.jsx");
-/* harmony import */ var _homepage_navbar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./homepage_navbar */ "./frontend/components/homepage/homepage_navbar.jsx");
+/* harmony import */ var _common_components_navbar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../common_components/navbar */ "./frontend/components/common_components/navbar.jsx");
 /* harmony import */ var _stream_page_stream_page__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./stream_page/stream_page */ "./frontend/components/homepage/stream_page/stream_page.jsx");
 /* harmony import */ var _charts_page_charts_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./charts_page/charts_page */ "./frontend/components/homepage/charts_page/charts_page.jsx");
 /* harmony import */ var _common_components_slideshow__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../common_components/slideshow */ "./frontend/components/common_components/slideshow.jsx");
@@ -2947,7 +3040,9 @@ function (_React$Component) {
   _createClass(Homepage, [{
     key: "renderNavbar",
     value: function renderNavbar() {
-      if (this.props.currentUser) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_homepage_navbar__WEBPACK_IMPORTED_MODULE_4__["default"], null);
+      if (this.props.currentUser) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_navbar__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        klass: "homepage"
+      });
     }
   }, {
     key: "render",
@@ -2981,113 +3076,6 @@ function (_React$Component) {
 
 ;
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, null)(Homepage)));
-
-/***/ }),
-
-/***/ "./frontend/components/homepage/homepage_navbar.jsx":
-/*!**********************************************************!*\
-  !*** ./frontend/components/homepage/homepage_navbar.jsx ***!
-  \**********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-
- // line 21: Should we pass in currentUser as props?
-
-var HomepageNavbar =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(HomepageNavbar, _React$Component);
-
-  function HomepageNavbar(props) {
-    var _this;
-
-    _classCallCheck(this, HomepageNavbar);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(HomepageNavbar).call(this, props));
-    _this.state = {
-      stream: true,
-      charts: false // this.state = {
-      //   stream: false,
-      //   charts: true
-      // }
-
-    };
-    return _this;
-  }
-
-  _createClass(HomepageNavbar, [{
-    key: "switchTabFrom",
-    value: function switchTabFrom(tab) {
-      if (tab === "stream" && !this.state.stream || tab === "charts" && !this.state.charts) {
-        this.setState({
-          stream: !this.state.stream,
-          charts: !this.state.charts
-        });
-      }
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "navbar"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        to: "/stream",
-        activeClassName: "active",
-        onClick: function onClick() {
-          return _this2.switchTabFrom("stream");
-        }
-      }, "Stream"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        to: "/charts/top",
-        activeClassName: "active",
-        onClick: function onClick() {
-          return _this2.switchTabFrom("charts");
-        }
-      }, "Charts"));
-    }
-  }]);
-
-  return HomepageNavbar;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-
-; // <ul className="homepage-navbar">
-//   <li className="homepage-navbar-button-container">
-//     <h2 className="homepage-navbar-button" onClick={() => this.props.history.push("/stream")}>Stream</h2>
-//   </li>
-//   <li className="homepage-navbar-button-container">
-//     <h2 className="homepage-navbar-button" onClick={() => this.props.history.push("/charts/top")}>Charts</h2>
-//   </li>
-// </ul>
-// <iframe src="https://giphy.com/embed/wsWcsrfMXjJgk" width="480" height="264" frameBorder="0" className="giphy-embed" allowFullScreen></iframe>
-// <img src="slideshow-img1.jpg" alt="img1" className="header-background"></img>
-// <img src="images/header-background.gif" alt="header-background" className="header-background"></img>
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(HomepageNavbar));
 
 /***/ }),
 

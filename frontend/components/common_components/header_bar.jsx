@@ -34,15 +34,15 @@ class HeaderBar extends React.Component {
           <div className="inner-bar">
             <Link to="/stream" ><img src={window.barLogo} className="logo" ></img></Link>
             <Link to="/stream"><button className={this.props.currentURL.indexOf("/stream") > -1 || this.props.currentURL.indexOf("/charts") > -1 ? "home selected" : "home"}>Home</button></Link>
-            <Link to="/you/collection"><button className={this.props.currentURL.indexOf("/you") > -1 ? "collection selected" : "collection"} >Collection</button></Link>
+            <span title="Page coming soon!"><Link to=""><button className={this.props.currentURL.indexOf("/you") > -1 ? "collection selected" : "collection"} >Collection</button></Link></span>
             <div className="search-bar-container">
               <input type="text" placeholder="Search" className="search-bar"></input>
             </div>
             <Link to="/upload"><button className={this.props.currentURL === "upload" ? "upload selected" : "upload"}>Upload</button></Link>
-            <button className="profile-dropdown" onClick={() => this.props.history.push(`/users/${this.props.currentUser.id}`)}>
+            <span title="Page coming soon!"><button className="profile-dropdown">
               <img src={window.default_avatar}></img>
               <p>{this.props.currentUser.username}</p>
-            </button>
+            </button></span>
             <button className="logout-button" onClick={() => this.props.logout()}>Sign Out</button>
           </div>
         </header>

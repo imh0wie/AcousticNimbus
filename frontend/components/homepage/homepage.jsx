@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Switch, Route, withRouter } from "react-router-dom";
 import { ProtectedRoute } from "../../util/route_util";
-import HomepageNavbar from "./homepage_navbar";
+import Navbar from "../common_components/navbar";
 import StreamPage from "./stream_page/stream_page";
 import ChartsPage from "./charts_page/charts_page";
 import Slideshow from "../common_components/slideshow";
@@ -21,7 +21,7 @@ class Homepage extends React.Component {
   }
 
   renderNavbar() {
-    if (this.props.currentUser) return <HomepageNavbar />;
+    if (this.props.currentUser) return <Navbar klass="homepage"/>;
   }
 
   render() {
