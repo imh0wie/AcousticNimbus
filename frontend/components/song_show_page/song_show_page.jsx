@@ -229,7 +229,7 @@ class SongShowPage extends React.Component {
             <div className="social-els-container">
               <div className="extrovert-section">
                 <div className="comment-box-container">
-                  <img src={this.props.currentUser.imageURL ? this.props.currentUser.imageURL : window.default_avatar} className="comment-box-img"></img>
+                  <img src={this.props.currentUser.imageURL ? this.props.currentUser.imageURL : window.user_dp} className="comment-box-img"></img>
                   <form>
                     <input type="text" value={this.state.body} name="comment" placeholder="Write a comment" className="comment-box" onChange={this.update("body")} />
                     <input type="submit" className="song-show-page-comment-submit-button" tabIndex="-1" onClick={(e) => this.handleComment(e)}/>
@@ -247,7 +247,7 @@ class SongShowPage extends React.Component {
               </div>
               <div className="song-show-page-main-container">
                 <div className="song-show-page-artist-info-container">
-                  <img src={this.props.onPageSong.artist.imageURL ? this.props.onPageSong.artist.imageURL : window.default_avatar} className="song-show-page-artist-img"></img>
+                  <img src={this.props.onPageSong.artist.imageURL ? this.props.onPageSong.artist.imageURL : window.user_dp} className="song-show-page-artist-img"></img>
                   <Link to={`/users/${this.props.onPageSong.artistId}`} className="song-show-page-artist">{this.props.onPageSong.artist}</Link>
                   <div className="song-show-page-artist-follows-container">
                   </div>
@@ -297,6 +297,6 @@ class SongShowPage extends React.Component {
                 />
               </div>
             </div>
-            <img src={this.props.onPageSong.imageURL ? this.props.onPageSong.imageURL : window.default_avatar} className="img-right"></img>        
+            <img src={this.props.onPageSong.imageURL ? this.props.onPageSong.imageURL : window.user_dp} className="img-right"></img>        
           </div> */}
 export default withRouter(connect(msp, mdp)(SongShowPage));

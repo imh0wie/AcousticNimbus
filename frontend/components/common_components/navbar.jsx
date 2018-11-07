@@ -15,6 +15,12 @@ class Navbar extends React.Component {
             <NavLink to="/charts/top" activeClassName="active" onClick={() => this.switchTabFrom("charts")}>Charts</NavLink>
           </div>
         );
+      case "user-show-page":
+        return (
+          <div className="navbar">
+            <NavLink to={`/users/${this.props.onPageArtistId}`} activeClassName="active" onClick={() => this.switchTabFrom("stream")}>Songs</NavLink> 
+          </div>
+        );
       default:
         break;
     }

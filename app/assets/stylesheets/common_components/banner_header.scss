@@ -120,3 +120,41 @@
   background-color: #FB5400;
   padding: 10px 25px;
 }
+
+.user-show-page .banner-container {
+  position: relative;
+  top: 45px;
+}
+
+.user-show-page .banner-container .banner {
+  display: flex;
+}
+
+.user-show-page .banner-container .slide {
+  background: none;
+}
+
+.user-show-page .banner-container .banner .artist-info-container {
+  display: flex;
+  position: absolute;
+}
+
+.user-show-page .banner-container .banner .artist-info-container img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin: 30px;
+}
+
+.user-show-page .banner-container .banner .artist-info-container .artist-info {
+  height: 200px;
+  margin: auto 0;
+}
+
+.user-show-page .banner-container .banner .artist-info-container .artist-info .username {
+  color: #fff;
+  font-size: 24px;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 4px 7px;
+  line-height: 37px;
+}

@@ -1,21 +1,49 @@
 
 
-.user-show-page-banner {
-    height: 305px;
-    border-bottom: 1px solid #f2f2f2;
-}
+// .user-show-page-banner {
+//     height: 305px;
+//     border-bottom: 1px solid #f2f2f2;
+// }
 
-.user-show-page-content-header {
-    margin: 0 auto;
-    width: 1180px;
-    height: 45px;
-    border-bottom: 1px solid #f2f2f2;
-}
+// .user-show-page-content-header {
+//     margin: 0 auto;
+//     width: 1180px;
+//     height: 45px;
+//     border-bottom: 1px solid #f2f2f2;
+// }
 
-.user-show-page-content {
+// .user-show-page-content {
+//     display: flex;
+// }
+
+// .user-show-page-music {
+//     width: 850px;
+// }
+.user-show-page .bar {
     display: flex;
+    justify-content: space-between;
+    width: 1180px;
+    margin: 0 auto;
+    border-bottom: 1px solid #f2f2f2;
+    position: relative;
+    top: 45px;
 }
 
-.user-show-page-music {
-    width: 850px;
+.user-show-page .bar .social-els {
+    height: 100%;
+    margin: auto 0;
+}
+
+.user-show-page .bar .social-els .buttons button {
+    color: #fff;
+    font-size: 14px;
+    border: 1px solid #FB5400;
+    border-radius: 3px;
+    padding: 2px 10px;
+    background-color: #FB5400;
+}
+
+.user-show-page .bar .social-els .buttons .following {
+    background-color: #fff;
+    color: #FB5400;
 }

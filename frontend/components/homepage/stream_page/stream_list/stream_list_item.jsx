@@ -38,7 +38,7 @@ class StreamListItem extends React.Component {
         return (
             <li className="stream-list-item">
                 <div className="header">
-                    <img src={this.props.itemArtist.imageURL ? this.props.itemArtist.imageURL : window.default_avatar}/>
+                    <img src={this.props.itemArtist.imageURL ? this.props.itemArtist.imageURL : window.user_dp}/>
                     <p><span>{this.props.itemArtist.username}</span> posted a song {this.renderItemCreationTime(this.props.itemSong.createdAt)}</p> 
                 </div>
                 <Player

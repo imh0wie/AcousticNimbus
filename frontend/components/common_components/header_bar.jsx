@@ -40,7 +40,7 @@ class HeaderBar extends React.Component {
             </div>
             <Link to="/upload"><button className={this.props.currentURL === "upload" ? "upload selected" : "upload"}>Upload</button></Link>
             <span title="Page coming soon!"><button className="profile-dropdown">
-              <img src={window.default_avatar}></img>
+              <img src={window.user_dp}></img>
               <p>{this.props.currentUser.username}</p>
             </button></span>
             <button className="logout-button" onClick={() => this.props.logout()}>Sign Out</button>

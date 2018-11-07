@@ -40,7 +40,7 @@ class ArtistListItem extends React.Component {
         return (
             <li>
                 <div className="item-info-container">
-                    <img src={this.props.artist.imageURL ? this.props.artist.imageURL : window.default_avatar} className="item-img"></img>
+                    <img src={this.props.artist.imageURL ? this.props.artist.imageURL : window.user_dp} className="item-img"></img>
                     <div className="item-info">
                         <p>{this.props.artist.username}</p>
                         <div className="social">
@@ -58,7 +58,7 @@ class ArtistListItem extends React.Component {
 // const ArtistListItem = () => {
 //     return (
 //         <li>
-//             <img src={this.props.artist.imageURL ? this.props.artist.imageURL : window.default_avatar}></img>
+//             <img src={this.props.artist.imageURL ? this.props.artist.imageURL : window.user_dp}></img>
 //             <p>{this.props.artist.username}</p>
 //             <p>{this.props.artistFollowers.length}</p>
 //             <p>{this.props.artistSongs.length}</p>

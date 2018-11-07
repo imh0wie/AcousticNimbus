@@ -22,7 +22,7 @@ const App = () => {
           <ProtectedRoute path="/upload" component={SongsMgmtPage} />
           <ProtectedRoute path="/you/collection" component={SongsMgmtPage} />
           <ProtectedRoute exact path="/songs/:songId" component={SongShowPage} />
-          <Route exact path="/users/:userId" component={UserShowPage} />
+          <ProtectedRoute exact path="/users/:userId" component={UserShowPage} />
         </Switch>
       </div>
       <PlayerBar />

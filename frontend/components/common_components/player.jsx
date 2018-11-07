@@ -71,7 +71,7 @@ class Player extends React.Component {
     render() {
         return (
             <div className={this.props.klass === "banner-player" ? "banner-player-container" : "item-player-container"}>
-                <img src={this.props.song.imageURL ? this.props.song.imageURL : window.default_avatar} className="img-left" style={(this.props.klass === "banner-player") ? this.noneStyle : {}}></img>
+                <img src={this.props.song.imageURL ? this.props.song.imageURL : window.song_dp} className="img-left" style={(this.props.klass === "banner-player") ? this.noneStyle : {}}></img>
                 <div className={this.props.klass === "banner-player" ? "banner-player" : "item-player"}>
                     <div className="top">
                         <div className="left">
@@ -106,7 +106,7 @@ class Player extends React.Component {
                         style={(this.props.klass === "banner-player") ? this.noneStyle : {}}
                     />
                 </div>
-                <img src={this.props.song.imageURL ? this.props.song.imageURL : window.default_avatar} className="img-right"  style={(this.props.klass === "item-player") ? this.noneStyle : {}}></img>
+                <img src={this.props.song.imageURL ? this.props.song.imageURL : window.user_dp} className="img-right"  style={(this.props.klass === "item-player") ? this.noneStyle : {}}></img>
             </div>  
         );
     }

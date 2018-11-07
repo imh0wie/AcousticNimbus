@@ -282,7 +282,7 @@ class PlayerBar extends React.Component {
                 </div>
                 <img src={this.props.currentSong.muted ? window.volume_off : window.volume_on} className="player-control" onClick={() => this.handleVolume()}></img>
                 <div className="song-info-container">
-                    <img src={this.props.currentSong.song.imageURL ? this.props.currentSong.song.imageURL : window.default_avatar} ></img>
+                    <img src={this.props.currentSong.song.imageURL ? this.props.currentSong.song.imageURL : window.user_dp} ></img>
                     <div className="song-info">
                         <Link to="" className="artist">{this.props.currentSong.song.artist}</Link>
                         <Link to={`/songs/${this.props.currentSong.song.id}`} className="title">{this.props.currentSong.song.title.length < 41 ? this.props.currentSong.song.title : this.props.currentSong.song.title.slice(0,40)}</Link>

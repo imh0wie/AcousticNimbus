@@ -18,7 +18,6 @@ const mdp = (dispatch) => {
 
 class Modal extends React.Component {
 
-
   render() {
     if (!this.props.modal) {
       return null;

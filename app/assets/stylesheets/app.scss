@@ -10,10 +10,23 @@
     background-color: white;
     width: 1240px;
     height: auto;
+    min-height: 900px;
 }
 
 body {
     // background-color: #f2f2f2 !important;
+}
+
+.carousel .slide {
+    background: none;
+}
+
+.page-container .user-show-loading {
+    position: relative;
+    left: 520px;
+    top: 350px;
+    width: 200px;
+    height: 200px;
 }
   
   

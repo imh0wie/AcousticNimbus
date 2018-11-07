@@ -70,7 +70,7 @@ class CommentsListItem extends React.Component {
         return (
             <li className="song-show-page-comments-list-item">
                 <div className="comment-container">
-                    <img src={this.props.commenter.imageURL ? this.props.commenter.imageURL : window.default_avatar} className="comments-list-item-commenter-img"></img>
+                    <img src={this.props.commenter.imageURL ? this.props.commenter.imageURL : window.user_dp} className="comments-list-item-commenter-img"></img>
                     <div>
                         {this.renderUsername()}
                         <p>{this.props.comment.body}</p>

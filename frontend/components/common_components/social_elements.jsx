@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 class SocialElements extends React.Component {
     constructor(props) {
         super(props);
+        this.handleFollow = this.handleFollow.bind(this);
     }
 
     handleLike(e) {
@@ -20,6 +21,19 @@ class SocialElements extends React.Component {
         }
     }
 
+    handleFollow(e) {
+        e.preventDefault();
+        if (this.props.currentFollow) {
+          this.props.removeFollow(this.props.currentFollow.id);
+        } else {
+            const follow = {
+                followed_user_id: this.props.onPageArtistId,
+                follower_id: this.props.currentUserId
+            }
+            this.props.createFollow(follow);
+        }
+    }
+
     renderButtons() {
         switch (this.props.klass) {
             case "banner-player":
@@ -32,6 +46,12 @@ class SocialElements extends React.Component {
                 return (
                     <div className="left">
                         <p className={this.props.currentLike ? "liked-button" : "like-button"} onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> {this.props.currentLikes.length}</p>
+                    </div>
+                );
+            case "user-show-page":
+                return (
+                    <div className="buttons">
+                        <button className={this.props.currentFollow ? "following" : "follow"} onClick={(e) => this.handleFollow(e)}>{this.props.currentFollow ? "Following" : "Follow"}</button>
                     </div>
                 );
         }
@@ -51,6 +71,8 @@ class SocialElements extends React.Component {
                         <Link to={`/songs/${this.props.songId}`}><i className="fas fa-comment-alt"></i>{this.props.currentComments.length}</Link> 
                     </div>
                 );
+            case "user-show-page":
+                return null;
         }
     }
 

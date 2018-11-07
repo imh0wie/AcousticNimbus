@@ -41,11 +41,11 @@ class SongsListItem extends React.Component {
       <li className="charts-songs-list-item">
         <p className={(this.props.idx + 1 >= 10) ? "double" : "charts-songs-list-item-rank"}>{this.props.idx + 1}</p> 
         <div className="charts-songs-list-item-img-container">
-            <img src={this.props.song.imageURL} className="charts-songs-list-item-img" />
+            <img src={this.props.song.imageURL ? this.props.song.imageURL : window.song_dp } className="charts-songs-list-item-img" />
             {this.renderPlayPauseSign(this.props.song)}
         </div>
         <div className="charts-songs-list-item-info-container">
-            <Link to={`/users/${this.props.song.artist.id}`} className="charts-songs-list-item-artist">{this.props.song.artist}</Link>
+            <Link to={`/users/${this.props.song.artistId}`} className="charts-songs-list-item-artist">{this.props.song.artist}</Link>
             <Link to={`/songs/${this.props.song.id}`} className="charts-songs-list-item-title">
                 {this.props.song.title.length >= 23 ? this.props.song.title.slice(0, 23) + "..." : this.props.song.title}
             </Link>
