@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 class ArtistListItem extends React.Component {
     constructor(props) {
@@ -42,7 +43,7 @@ class ArtistListItem extends React.Component {
                 <div className="item-info-container">
                     <img src={this.props.artist.imageURL ? this.props.artist.imageURL : window.user_dp} className="item-img"></img>
                     <div className="item-info">
-                        <p>{this.props.artist.username}</p>
+                        <Link to={`/users/${this.props.artist.id}`}>{this.props.artist.username}</Link>
                         <div className="social">
                             <p><i class="fas fa-user-friends"></i> {this.renderNumber(this.props.artistFollowers.length)}</p>
                             <p><i class="fas fa-music"></i> {this.renderNumber(this.props.artistSongs.length)}</p>

@@ -129,10 +129,11 @@
     margin: auto 0;
 }
 
-.homepage-container .sidebar .who-to-follow .item-info-container .item-info p {
+.homepage-container .sidebar .who-to-follow .item-info-container .item-info a {
     color: #333;
     font-size: 14px;
     margin: 0;
+    text-decoration: none;
 }
 
 .homepage-container .sidebar .who-to-follow .item-info-container .item-info .social {
@@ -145,6 +146,7 @@
 .homepage-container .sidebar .who-to-follow .item-info-container .item-info .social p {
     color: #999;
     font-size: 12.25px;
+    margin: 0;
 }
 
 .homepage-container .sidebar .who-to-follow .item-info-container .item-info .social p:hover {
