@@ -49,7 +49,7 @@ class SongsIndexItem extends React.Component {
         return (
           <li className="songs-index-item">
             <div className="img-container">
-                <img src={this.props.song.imageURL ? this.props.song.imageURL : window.song_dp } className="song-img" />
+                <img src={this.props.song.imageURL ? this.props.song.imageURL : window.song_dp } className="splash-song-img" />
                 {this.renderPlayPauseSign(this.props.song)}
             </div>
             <h4 className="title">

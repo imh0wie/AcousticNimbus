@@ -63,7 +63,7 @@
   height: 180px;
 }
 
-.songs-index-item .img-container .song-img {
+.splash-song-img {
   width: 180px;
   height: 180px;
 }
@@ -76,13 +76,13 @@
   height: 60px;
 }
 
-.song-img:hover + .play-sign-container {
+.splash-song-img:hover + .play-sign-container {
   display: block;
   width: 180px;
   height: 180px;
 }
 
-.play-sign-container:hover {
+.songs-index-item .img-container .play-sign-container:hover {
   display: block;
   width: 180px;
   height: 180px;
@@ -94,7 +94,7 @@
   height: 60px;
 }
 
-.songs-index-item .img-container .pause-container {
+.songs-index-item .img-container .pause-sign-container {
   display: block;
   position: relative;
   bottom: 120px;
@@ -113,7 +113,7 @@
 
 
 
-.songs-index-item .img-container .img:hover + .songs-index-item .img-container .pause-pause-container {
+.splash-song-img:hover + .songs-index-item .img-container .pause-pause-container {
   display: block;
   width: 180px;
   height: 180px;

@@ -5232,7 +5232,7 @@ function (_React$Component) {
         className: "img-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: this.props.song.imageURL ? this.props.song.imageURL : window.song_dp,
-        className: "song-img"
+        className: "splash-song-img"
       }), this.renderPlayPauseSign(this.props.song)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
         className: "title"
       }, this.props.song.title.length >= 23 ? this.props.song.title.slice(0, 23) + "..." : this.props.song.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
