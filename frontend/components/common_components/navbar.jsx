@@ -11,14 +11,14 @@ class Navbar extends React.Component {
       case "homepage":
         return (
           <div className="navbar">
-            <NavLink to="/stream" activeClassName="active" onClick={() => this.switchTabFrom("stream")}>Stream</NavLink> 
-            <NavLink to="/charts/top" activeClassName="active" onClick={() => this.switchTabFrom("charts")}>Charts</NavLink>
+            <NavLink to="/stream" activeClassName="active">Stream</NavLink> 
+            <NavLink to="/charts/top" activeClassName="active">Charts</NavLink>
           </div>
         );
       case "user-show-page":
         return (
           <div className="navbar">
-            <NavLink to={`/users/${this.props.onPageArtistId}`} activeClassName="active" onClick={() => this.switchTabFrom("stream")}>Songs</NavLink> 
+            <NavLink to={`/users/${this.props.onPageArtistId}`} activeClassName="active">Songs</NavLink> 
           </div>
         );
       default:

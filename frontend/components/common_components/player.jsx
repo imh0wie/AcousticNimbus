@@ -69,6 +69,7 @@ class Player extends React.Component {
     }
 
     render() {
+        debugger
         return (
             <div className={this.props.klass === "banner-player" ? "banner-player-container" : "item-player-container"}>
                 <img src={this.props.song.imageURL ? this.props.song.imageURL : window.song_dp} className="img-left" style={(this.props.klass === "banner-player") ? this.noneStyle : {}}></img>
@@ -103,6 +104,7 @@ class Player extends React.Component {
                         removeLike={this.props.removeLike}
                         currentLike={this.props.currentLike}
                         currentUser={this.props.currentUser}
+                        currentUserId={this.props.currentUserId}
                         style={(this.props.klass === "banner-player") ? this.noneStyle : {}}
                     />
                 </div>

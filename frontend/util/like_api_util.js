@@ -23,7 +23,6 @@ export const fetchLikes = () => {
 };
 
 export const likesOf = (likeableType, likeableId, likes) => {
-    debugger
     if (isEmpty(likes)) return [];
     const likeIds = Object.keys(likes).reverse();
     let output = [];

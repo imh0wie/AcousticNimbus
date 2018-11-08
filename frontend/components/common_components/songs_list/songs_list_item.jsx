@@ -1,13 +1,12 @@
 import React from "react";
-import { likeOf, likesOf } from "../../../../util/like_api_util";
-import Player from "../../../common_components/player";
+import Player from "../player";
 
-class StreamListItem extends React.Component {
+class SongsListItem extends React.Component {
     constructor(props) {
         super(props);
-        // this.redirectToShowPage = this.redirectToShowPage.bind(this);
-        // this.togglePlay = this.togglePlay.bind(this);
-        // this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this);
+        this.noneStyle = {
+            display: "none",
+        };
         this.renderItemCreationTime = this.renderItemCreationTime.bind(this);
     }
 
@@ -35,9 +34,10 @@ class StreamListItem extends React.Component {
     }
 
     render() {
+        debugger
         return (
-            <li className="stream-list-item">
-                <div className="header">
+            <li className="songs-list-item">
+                <div className="header" style={this.props.klass === "user-show-page" ? this.noneStyle : {}}>
                     <img src={this.props.itemArtist.imageURL ? this.props.itemArtist.imageURL : window.user_dp}/>
                     <p><span>{this.props.itemArtist.username}</span> posted a song {this.renderItemCreationTime(this.props.itemSong.createdAt)}</p> 
                 </div>
@@ -55,10 +55,11 @@ class StreamListItem extends React.Component {
                     createLike={this.props.createLike}
                     removeLike={this.props.removeLike}
                     currentUser={this.props.currentUser}
+                    currentUserId={this.props.currentUserId}
                 />
             </li>
         );
     }
 }
 
-export default StreamListItem;
+export default SongsListItem;

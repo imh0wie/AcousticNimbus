@@ -1,7 +1,4 @@
 import React from 'react';
-// import ReactDOM from 'react-dom';
-// import "react-responsive-carousel/lib/styles/carousel.min.css";
-// import styles from 'react-responsive-carousel/lib/styles/carousel.min.css';
 import 'style-loader!css-loader!react-responsive-carousel/lib/styles/main.css';
 import 'style-loader!css-loader!react-responsive-carousel/lib/styles/carousel.css';
 import 'style-loader!css-loader!react-responsive-carousel/lib/styles/carousel.min.css';
@@ -81,7 +78,6 @@ class Slideshow extends React.Component {
                     </Carousel>
                 );
             case "user-show-page":
-            debugger
                 return (
                     <Carousel className="banner-container"
                         autoPlay={false}

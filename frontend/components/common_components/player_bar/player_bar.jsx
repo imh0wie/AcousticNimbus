@@ -192,7 +192,6 @@ class PlayerBar extends React.Component {
                     likeable_id: this.props.currentSong.song.id,
                     liker_id: this.props.currentUser.id,
                 }
-                debugger
                 this.props.createLike(like);
             }
         } else {

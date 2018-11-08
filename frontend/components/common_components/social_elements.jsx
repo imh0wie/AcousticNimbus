@@ -15,7 +15,7 @@ class SocialElements extends React.Component {
             const like = {
                 likeable_type: "Song",
                 likeable_id: this.props.songId,
-                liker_id: this.props.currentUser.id,
+                liker_id: this.props.currentUserId,
             }
             this.props.createLike(like);
         }

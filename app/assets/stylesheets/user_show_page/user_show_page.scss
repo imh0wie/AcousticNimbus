@@ -25,8 +25,6 @@
     width: 1180px;
     margin: 0 auto;
     border-bottom: 1px solid #f2f2f2;
-    position: relative;
-    top: 45px;
 }
 
 .user-show-page .bar .social-els {
@@ -47,3 +45,18 @@
     background-color: #fff;
     color: #FB5400;
 }
+
+.user-show-page .content {
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .user-show-page .content .songs-list {
+    width: 880px;
+  }
+  
+  .user-show-page .content .sidebar {
+    width: 360px;
+    border: 1px solid black;
+  }
