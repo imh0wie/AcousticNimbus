@@ -1688,8 +1688,6 @@ function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1710,33 +1708,18 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-
-
-var mdp = function mdp(dispatch) {
-  return {
-    openModal: function openModal(modal) {
-      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["openModal"])(modal));
-    }
-  };
-};
-
 var SearchBar =
 /*#__PURE__*/
 function (_React$Component) {
   _inherits(SearchBar, _React$Component);
 
-  function SearchBar(props) {
+  function SearchBar() {
     _classCallCheck(this, SearchBar);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(SearchBar).call(this, props));
+    return _possibleConstructorReturn(this, _getPrototypeOf(SearchBar).apply(this, arguments));
   }
 
   _createClass(SearchBar, [{
-    key: "openModal",
-    value: function openModal() {
-      this.props.openModal;
-    }
-  }, {
     key: "render",
     value: function render() {
       var _this = this;
@@ -1757,7 +1740,7 @@ function (_React$Component) {
   return SearchBar;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(null, mdp)(SearchBar));
+/* harmony default export */ __webpack_exports__["default"] = (SearchBar);
 
 /***/ }),
 
@@ -1901,19 +1884,19 @@ function (_React$Component) {
       if (this.props.formType === "signup") {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "form-header"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
-          className: "form-welcome-message"
-        }, "Welcome to Acoustic Nimbus!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.altLogo
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
           className: "form-action"
-        }, "Sign Up"));
+        }, "Join us now!"));
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "form-header"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
-          className: "form-welcome-message"
-        }, "Welcome back!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.altLogo
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
           className: "form-action"
-        }, "Sign In"));
+        }, "SIGN IN"));
       }
     }
   }, {
@@ -2108,6 +2091,8 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       switch (this.props.klass) {
         case "banner":
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_responsive_carousel__WEBPACK_IMPORTED_MODULE_5__["Carousel"], {
@@ -2125,14 +2110,24 @@ function (_React$Component) {
             className: "message"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Discover more with AcousticNimbus Go+"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "AcousticNimbus Go+ lets you listen offline, ad-free, with over 150 million tracks \u2014 and growing."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "buttons"
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Learn More"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-            className: "free-trial"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            onClick: function onClick() {
+              return _this2.props.openModal("signup");
+            }
+          }, "Learn More"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            className: "free-trial",
+            onClick: function onClick() {
+              return _this2.props.openModal("signup");
+            }
           }, "Try It Free for 30 years")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
             src: window.carousel2
           }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "message"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "What's next in music is first on AcousticNimbus"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Upload your first track and begin your journey. AcousticNimbus gives you space to create, find your fans, and connect with other artists."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-            className: "button"
+            className: "button",
+            onClick: function onClick() {
+              return _this2.props.openModal("signup");
+            }
           }, "Start uploading today"))));
 
         case "ad":
@@ -4932,10 +4927,7 @@ function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
-/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
-/* harmony import */ var _common_components_slideshow__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../common_components/slideshow */ "./frontend/components/common_components/slideshow.jsx");
+/* harmony import */ var _common_components_slideshow__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../common_components/slideshow */ "./frontend/components/common_components/slideshow.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4957,20 +4949,6 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-
-
-
-var mdp = function mdp(dispatch) {
-  return {
-    login: function login(user) {
-      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__["login"])(user));
-    },
-    openModal: function openModal(modal) {
-      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["openModal"])(modal));
-    }
-  };
-};
-
 var Banner =
 /*#__PURE__*/
 function (_React$Component) {
@@ -4989,8 +4967,9 @@ function (_React$Component) {
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "splash-page-header-bar"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_slideshow__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        klass: "banner"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_slideshow__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        klass: "banner",
+        openModal: this.props.openModal
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "header-buttons"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -5014,7 +4993,7 @@ function (_React$Component) {
   return Banner;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(null, mdp)(Banner));
+/* harmony default export */ __webpack_exports__["default"] = (Banner);
 
 /***/ }),
 
@@ -5319,11 +5298,15 @@ function (_React$Component) {
         className: "splash-page"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "header"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_modal__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_banner__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_modal__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_banner__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        openModal: this.props.openModal
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "search-bar-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "search-bar"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_search_bar__WEBPACK_IMPORTED_MODULE_5__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "or"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_search_bar__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        openModal: this.props.openModal
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "or"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "upload-button",
         onClick: function onClick() {
           return _this.props.openModal("signup");

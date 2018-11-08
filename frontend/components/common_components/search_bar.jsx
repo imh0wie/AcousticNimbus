@@ -1,23 +1,6 @@
 import React from "react";
-import { connect } from "react-redux";
-import { openModal } from "../../actions/modal_actions";
-
-const mdp = (dispatch) => {
-  return {
-    openModal: (modal) => dispatch(openModal(modal)),
-  };
-};
 
 class SearchBar extends React.Component {
-  constructor(props) {
-    super(props);
-
-  }
-
-  openModal() {
-    this.props.openModal
-  }
-  
   render() {
     return (
       <form className="box-container">
@@ -28,4 +11,4 @@ class SearchBar extends React.Component {
   }
 }
 
-export default connect(null, mdp)(SearchBar);
+export default SearchBar;

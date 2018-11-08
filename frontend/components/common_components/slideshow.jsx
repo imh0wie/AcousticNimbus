@@ -33,8 +33,8 @@ class Slideshow extends React.Component {
                                 <h1>Discover more with AcousticNimbus Go+</h1>
                                 <h2>AcousticNimbus Go+ lets you listen offline, ad-free, with over 150 million tracks — and growing.</h2>
                                 <div className="buttons">
-                                    <button>Learn More</button>
-                                    <button className="free-trial">Try It Free for 30 years</button>
+                                    <button onClick={() => this.props.openModal("signup")}>Learn More</button>
+                                    <button className="free-trial" onClick={() => this.props.openModal("signup")}>Try It Free for 30 years</button>
                                 </div>
                             </div>
                         </div>
@@ -43,7 +43,7 @@ class Slideshow extends React.Component {
                             <div className="message">
                                 <h1>What's next in music is first on AcousticNimbus</h1>
                                 <h2>Upload your first track and begin your journey. AcousticNimbus gives you space to create, find your fans, and connect with other artists.</h2>
-                                <button className="button">Start uploading today</button>
+                                <button className="button" onClick={() => this.props.openModal("signup")}>Start uploading today</button>
                             </div>
                         </div>
                     </Carousel>

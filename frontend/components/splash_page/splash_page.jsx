@@ -22,10 +22,10 @@ class SplashPage extends React.Component {
       <div className="splash-page">
         <div className="header">
           <Modal />
-          <Banner />
+          <Banner openModal={this.props.openModal} />
           <div className="search-bar-container">
             <div className="search-bar">
-              <SearchBar /> 
+              <SearchBar openModal={this.props.openModal}/> 
               <h4>or</h4>
               <button className="upload-button" onClick={() => this.props.openModal("signup")}>Upload your own</button>
             </div>

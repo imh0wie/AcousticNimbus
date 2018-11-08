@@ -33,17 +33,19 @@ class SessionForm extends React.Component {
     if (this.props.formType === "signup") {
       return (
         <div className="form-header">
-          <h2 className="form-welcome-message">Welcome to Acoustic Nimbus!</h2>
+          <img src={window.altLogo}></img>
+          {/* <h2 className="form-welcome-message">Welcome to Acoustic Nimbus!</h2> */}
           <br/>
-          <h3 className="form-action">Sign Up</h3>
+          <h3 className="form-action">Join us now!</h3>
         </div>
       );
     } else {
       return (
         <div className="form-header">
-          <h2 className="form-welcome-message">Welcome back!</h2>
+          <img src={window.altLogo}></img>
+          {/* <h2 className="form-welcome-message">Welcome back!</h2> */}
           <br/>
-          <h3 className="form-action">Sign In</h3>
+          <h3 className="form-action">SIGN IN</h3>
         </div>
       );
     }
