@@ -133,7 +133,7 @@ class UploadForm extends React.Component {
           <h2 className="upload-form-subheader">We can't wait for your jam!</h2>
           <br/>
           <div className="song-uploader-container">
-            <input type="file" className="audio-uploader" value="" accept=".mp3, .wav" onChange={() => this.handleAudio()} />
+            <input type="file" className="audio-uploader" value="" accept=".mp3, .wav" onChange={(e) => this.handleAudio(e)} />
             {audioPreview}
           </div>
         </div>
@@ -142,7 +142,7 @@ class UploadForm extends React.Component {
           <div className="upload-form-content">
             <div className="upload-form-left">
               {imagePreview}
-              <input type="file" className="image-uploader" value="" accept=".jpg, .png" onChange={() => this.handleImage()} />
+              <input type="file" className="image-uploader" value="" accept=".jpg, .png" onChange={(e) => this.handleImage(e)} />
             </div>
             <div className="upload-form-right">
               {this.renderErrors}

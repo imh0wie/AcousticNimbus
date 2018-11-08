@@ -1,11 +1,14 @@
-.splash-page-search-bar {
+.splash-page .header .search-bar-container {
+  margin-top: 40px;
+}
+
+.splash-page .header .search-bar-container .search-bar {
   display: flex;
   margin: 0px auto;
-  margin-top: 40px;
   width: 855px;
 }
 
-.splash-page-search-bar .box-container input {
+.splash-page .header .search-bar-container .search-bar .box-container input {
   background-color: #f2f2f2;
   width: 600px;
   height: 50px;
@@ -13,11 +16,11 @@
   padding: 0px 10px;
 }
 
-.splash-page-search-bar h4 {
+.splash-page .header .search-bar-container .search-bar h4 {
   margin: 15px;
 }
 
-.splash-page-search-bar .upload-button {
+.splash-page .header .search-bar-container .search-bar .upload-button {
   position: relative;
   left: 0px;
   font-size: 16px;
@@ -30,7 +33,7 @@
   padding: 0px 20px;
 }
 
-.splash-page-container .content-header {
+.splash-page .content-header {
   display: block;
   font-size: 22px;
   text-align: center;
@@ -39,17 +42,16 @@
   border-top: 0px;
 }
 
-.splash-page-content {
+.splash-page .content {
   margin: 0 auto;
 }
 
-.splash-page-content ul {
+.splash-page .content ul {
   display: flex;
   flex-wrap: wrap;
   // width: 1180px;
 }
-
-.splash-page-content ul li {
+.splash-page .content ul li {
   width: 180px;
   height: 220px;
   margin-left: 23px;
@@ -66,7 +68,7 @@
   height: 180px;
 }
 
-.play-sign-container {
+.songs-index-item .img-container .play-sign-container {
   display: none;
   position: relative;
   bottom: 120px;
@@ -86,13 +88,13 @@
   height: 180px;
 }
 
-.splash-page-songs-index-item-play-sign {
+.songs-index-item .img-container .play-sign-container .play-sign {
   margin: 0 auto;
   width: 60px;
   height: 60px;
 }
 
-.splash-page-songs-index-item-pause-container {
+.songs-index-item .img-container .pause-container {
   display: block;
   position: relative;
   bottom: 120px;
@@ -100,7 +102,7 @@
   height: 60px;
 }
 
-.splash-page-songs-index-item-pause-sign {
+.songs-index-item .img-container .pause-sign {
   position: relative;
   top: 4px;
   margin: 0 auto;
@@ -111,13 +113,13 @@
 
 
 
-.splash-page-songs-index-item-img:hover + .splash-page-songs-index-item-pause-pause-container {
+.songs-index-item .img-container .img:hover + .songs-index-item .img-container .pause-pause-container {
   display: block;
   width: 180px;
   height: 180px;
 }
 
-.splash-page-songs-index-item-pause-sign-container:hover {
+.songs-index-item .img-container .pause-sign-container:hover {
   display: block;
   width: 180px;
   height: 180px;

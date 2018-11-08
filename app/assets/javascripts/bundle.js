@@ -872,40 +872,50 @@ var Modal =
 function (_React$Component) {
   _inherits(Modal, _React$Component);
 
-  function Modal() {
+  function Modal(props) {
+    var _this;
+
     _classCallCheck(this, Modal);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Modal).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Modal).call(this, props));
+    _this.noneStyle = {
+      display: "none"
+    };
+    _this.hiddenStyle = {
+      maxHeight: "500px"
+    };
+    return _this;
   }
 
   _createClass(Modal, [{
     key: "render",
     value: function render() {
-      if (!this.props.modal) {
-        return null;
-      } // const newModal = modal.modal;
-
-
+      // if (!this.props.modal) {
+      //   return null;
+      // }
+      // const newModal = modal.modal;
       var component;
 
-      switch (this.props.modal.modal) {
-        case "login":
-          component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_session_form_login_form_container__WEBPACK_IMPORTED_MODULE_3__["default"], null);
-          break;
+      if (this.props.modal) {
+        switch (this.props.modal.modal) {
+          case "login":
+            component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_session_form_login_form_container__WEBPACK_IMPORTED_MODULE_3__["default"], null);
+            break;
 
-        case "signup":
-          component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_4__["default"], null);
-          break;
+          case "signup":
+            component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_4__["default"], null);
+            break;
 
-        default:
-          return null;
+          default:
+            return null;
+        }
       }
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "modal-background",
+        className: this.props.modal ? "modal-background" : "closed",
         onClick: this.props.closeModal
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "modal-child",
+        className: this.props.modal ? "modal-child" : "closed",
         onClick: function onClick(e) {
           return e.stopPropagation();
         }
@@ -1941,7 +1951,9 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         onClick: this.props.closeModal,
         className: "form-close"
-      }, "x"), this.formHeader(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.renderErrors(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        class: "fas fa-times"
+      })), this.formHeader(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.renderErrors(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "username-input"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Username", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
@@ -2418,6 +2430,7 @@ function (_React$Component) {
       this.props.fetchComments();
 
       if (this.props.klass !== "user-show-page") {
+        debugger;
         this.props.fetchFollows();
         this.props.fetchUsers();
       }
@@ -2439,6 +2452,8 @@ function (_React$Component) {
         default:
           break;
       }
+
+      debugger;
 
       if (!this.songs) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -2758,12 +2773,12 @@ function (_React$Component) {
           break;
 
         case "item-player":
-          // debugger
+          debugger;
           this.waveform = wavesurfer_js__WEBPACK_IMPORTED_MODULE_1___default.a.create({
             container: "#waveform",
             waveColor: "grey",
             progressColor: "#FF5400",
-            height: 40,
+            height: 20,
             barWidth: 1,
             normalize: true,
             // normalize by the maximum peak instead of 1.0
@@ -2986,9 +3001,7 @@ function (_React$Component) {
         onChange: this.update("order")
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "newest"
-      }, "Newest"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "topThirty"
-      }, "Top 30")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Newest")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "genre-filters-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], {
         controlId: "genreFilters"
@@ -2999,35 +3012,7 @@ function (_React$Component) {
         onChange: this.update("genres")
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "All"
-      }, "All genres"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "Acoustic"
-      }, "Acoustic"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "Ambient"
-      }, "Ambient"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "Classical"
-      }, "Classical"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "Country"
-      }, "Country"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "Dance/EDM"
-      }, "Dance/EDM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "Electronic"
-      }, "Electronic"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "Hip-hop"
-      }, "Hip-hop"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "Jazz"
-      }, "Jazz"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "Metal"
-      }, "Metal"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "Piano"
-      }, "Piano"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "Pop"
-      }, "Pop"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "Soul"
-      }, "Soul"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "Rock"
-      }, "Rock"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "World"
-      }, "World"))))), this.renderFiltersMessage(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "All genres"))))), this.renderFiltersMessage(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "charts-songs-list-labels"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "charts-songs-list-label"
@@ -4811,8 +4796,8 @@ function (_React$Component) {
         className: "audio-uploader",
         value: "",
         accept: ".mp3, .wav",
-        onChange: function onChange() {
-          return _this5.handleAudio();
+        onChange: function onChange(e) {
+          return _this5.handleAudio(e);
         }
       }), audioPreview)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "upload-fill-in-form"
@@ -4825,8 +4810,8 @@ function (_React$Component) {
         className: "image-uploader",
         value: "",
         accept: ".jpg, .png",
-        onChange: function onChange() {
-          return _this5.handleImage();
+        onChange: function onChange(e) {
+          return _this5.handleImage(e);
         }
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "upload-form-right"
@@ -5220,7 +5205,7 @@ function (_React$Component) {
           className: "play-sign-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.play_button,
-          className: "splash-page-songs-index-item-play-sign",
+          className: "play-sign",
           onClick: function onClick() {
             return _this2.togglePlay(song);
           }
@@ -5228,10 +5213,10 @@ function (_React$Component) {
       } else if (song.id === this.props.currentSong.song.id && this.props.currentSong.playing) {
         // debugger
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "splash-page-songs-index-item-pause-container"
+          className: "pause-sign-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.pause_button,
-          className: "splash-page-songs-index-item-pause-sign",
+          className: "pause-sign",
           onClick: function onClick() {
             return _this2.togglePlay(song);
           }
@@ -5331,20 +5316,22 @@ function (_React$Component) {
       var _this = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "splash-page-container"
+        className: "splash-page"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "splash-page-header-container"
+        className: "header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_modal__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_banner__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "splash-page-search-bar"
+        className: "search-bar-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "search-bar"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_search_bar__WEBPACK_IMPORTED_MODULE_5__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "or"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "upload-button",
         onClick: function onClick() {
           return _this.props.openModal("signup");
         }
-      }, "Upload your own"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+      }, "Upload your own")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
         className: "content-header"
       }, "Hear what\u2019s trending for free in the AcousticNimbus community"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "splash-page-content"
+        className: "content"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_songs_index_songs_index__WEBPACK_IMPORTED_MODULE_6__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)));
     }
   }]);
@@ -6285,10 +6272,7 @@ var followedUsersOf = function followedUsersOf(currentUser, follows, users) {
   var output = [];
   followIds.forEach(function (followId) {
     var follow = follows[followId];
-
-    if (follow.followerId === currentUser.id) {
-      output.push(users[follow.followedUserId]);
-    }
+    if (follow.followerId === currentUser.id) output.push(users[follow.followedUserId]);
   });
   return output;
 };

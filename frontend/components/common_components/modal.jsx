@@ -17,29 +17,42 @@ const mdp = (dispatch) => {
 };
 
 class Modal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.noneStyle = {
+      display: "none"
+    };
+    this.hiddenStyle = {
+      maxHeight: "500px"
+    };
+  }
+
+  
 
   render() {
-    if (!this.props.modal) {
-      return null;
-    }
+    // if (!this.props.modal) {
+    //   return null;
+    // }
     // const newModal = modal.modal;
     let component;
-    switch (this.props.modal.modal) {
-      case "login":
-      component = <LoginFormContainer />;
-      break;
-      case "signup":
-      component = <SignupFormContainer />;
-      break;
-      default:
-      return null;
+    if (this.props.modal) {
+      switch (this.props.modal.modal) {
+        case "login":
+          component = <LoginFormContainer />;
+          break;
+        case "signup":
+          component = <SignupFormContainer />;
+          break;
+        default:
+          return null;
+      }
     }
     return (
-      <div className="modal-background" onClick={this.props.closeModal}>
-        <div className="modal-child" onClick={e => e.stopPropagation()}>
+        <div className={this.props.modal ? "modal-background" : "closed" } onClick={this.props.closeModal}>
+          <div className={this.props.modal ? "modal-child" : "closed" } onClick={e => e.stopPropagation()} >
           { component }
+          </div>
         </div>
-      </div>
     );
   }
 }

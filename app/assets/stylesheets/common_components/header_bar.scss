@@ -34,14 +34,14 @@
   text-decoration: none !important;
 }
 
-.search-bar-container {
+.inner-bar .search-bar-container {
   position: relative;
   bottom: 1px;
   width: 605px;
   height: 44px;
 }
 
-.search-bar {
+.inner-bar .search-bar-container .search-bar {
   position: absolute;
   border: 1px solid #ccc;
   margin: 8px 12px;

@@ -13,6 +13,7 @@ class SongsList extends React.Component {
         this.props.fetchLikes();
         this.props.fetchComments();
         if (this.props.klass !== "user-show-page") {
+            debugger
             this.props.fetchFollows();
             this.props.fetchUsers();
         }
@@ -29,6 +30,7 @@ class SongsList extends React.Component {
             default:
                 break;
         }
+        debugger
         if (!this.songs) {
             return <img src={window.loading5} className="loading"></img>;
         } else {

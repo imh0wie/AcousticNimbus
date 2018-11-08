@@ -19,18 +19,20 @@ class SplashPage extends React.Component {
 
   render() {
     return (
-      <div className="splash-page-container">
-        <div className="splash-page-header-container">
+      <div className="splash-page">
+        <div className="header">
           <Modal />
           <Banner />
-          <div className="splash-page-search-bar">
-            <SearchBar /> 
-            <h4>or</h4>
-            <button className="upload-button" onClick={() => this.props.openModal("signup")}>Upload your own</button>
+          <div className="search-bar-container">
+            <div className="search-bar">
+              <SearchBar /> 
+              <h4>or</h4>
+              <button className="upload-button" onClick={() => this.props.openModal("signup")}>Upload your own</button>
+            </div>
           </div>
         </div>
         <h2 className="content-header">Hear what’s trending for free in the AcousticNimbus community</h2>
-        <div className="splash-page-content">
+        <div className="content">
           <SongsIndex />
           <br></br>
         </div>

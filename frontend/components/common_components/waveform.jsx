@@ -8,10 +8,10 @@ import { latest, shuffle } from "../../util/song_api_util";
 
 const msp = (state) => {
     return {
-        latestTwelve: latest(12, state.entities.songs),
-        latestTwenty: latest(20, state.entities.songs),
-        shuffled: shuffle(12, state.entities.songs),
-        // currentSong: state.ui.currentSong,
+      latestTwelve: latest(12, state.entities.songs),
+      latestTwenty: latest(20, state.entities.songs),
+      shuffled: shuffle(12, state.entities.songs),
+      // currentSong: state.ui.currentSong,
     }
 }
 
@@ -80,12 +80,12 @@ class Waveform extends React.Component {
         });
         break;
       case "item-player":
-        // debugger
+        debugger
         this.waveform = WaveSurfer.create({
           container: "#waveform",
           waveColor: "grey",
           progressColor: "#FF5400",
-          height: 40,
+          height: 20,
           barWidth: 1,
           normalize: true, // normalize by the maximum peak instead of 1.0
           interact: true, // whether the mouse interaction will be enabled at initialization
@@ -114,8 +114,7 @@ class Waveform extends React.Component {
         elapsed: 0,
       });
       this.waveform.seekTo(this.state.elapsed);
-    } 
-    
+    }
   }
 
   // onProgress() {

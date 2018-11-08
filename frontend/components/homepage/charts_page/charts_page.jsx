@@ -36,7 +36,7 @@ class ChartsPage extends React.Component {
             <FormGroup controlId="orderSelector">
               <FormControl componentClass="select" placeholder="None" className="order-selector" onChange={this.update("order")}>
                   <option value="newest">Newest</option>
-                  <option value="topThirty">Top 30</option>
+                  {/* <option value="topThirty">Top 30</option> */}
               </FormControl>
             </FormGroup>
           </div>
@@ -44,7 +44,7 @@ class ChartsPage extends React.Component {
             <FormGroup controlId="genreFilters">
               <FormControl componentClass="select" placeholder="None" className="genre-filters" onChange={this.update("genres")}>
                 <option value="All">All genres</option>
-                <option value="Acoustic">Acoustic</option>
+                {/* <option value="Acoustic">Acoustic</option>
                 <option value="Ambient">Ambient</option>
                 <option value="Classical">Classical</option>
                 <option value="Country">Country</option>
@@ -57,7 +57,7 @@ class ChartsPage extends React.Component {
                 <option value="Pop">Pop</option>
                 <option value="Soul">Soul</option>
                 <option value="Rock">Rock</option>
-                <option value="World">World</option>
+                <option value="World">World</option> */}
               </FormControl>
             </FormGroup>
           </div>

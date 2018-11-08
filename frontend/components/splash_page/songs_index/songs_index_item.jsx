@@ -32,14 +32,14 @@ class SongsIndexItem extends React.Component {
             // debugger
             return (
                 <div className="play-sign-container">
-                    <img src={window.play_button} className="splash-page-songs-index-item-play-sign" onClick={() => this.togglePlay(song)} />
+                    <img src={window.play_button} className="play-sign" onClick={() => this.togglePlay(song)} />
                 </div>
             );
         } else if (song.id === this.props.currentSong.song.id && this.props.currentSong.playing) {
             // debugger
             return (
-                <div className="splash-page-songs-index-item-pause-container">
-                    <img src={window.pause_button} className="splash-page-songs-index-item-pause-sign" onClick={() => this.togglePlay(song)} />
+                <div className="pause-sign-container">
+                    <img src={window.pause_button} className="pause-sign" onClick={() => this.togglePlay(song)} />
                 </div>
             );
         }

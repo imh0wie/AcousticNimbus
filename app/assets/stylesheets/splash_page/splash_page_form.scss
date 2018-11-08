@@ -25,6 +25,19 @@
   right: 30px;
   top: 30px;
   font-size: 30px;
+  color: #f2f2f2;
+  transition: color 0.15s;
+  -moz-transition: color 0.15s; /* Firefox 4 */
+  -webkit-transition: color 0.15s; /* Safari and Chrome */
+  -o-transition: color 0.15s;
+}
+
+.form-close:hover {
+  color: #999;
+  transition: color 0.15s;
+  -moz-transition: color 0.15s; /* Firefox 4 */
+  -webkit-transition: color 0.15s; /* Safari and Chrome */
+  -o-transition: color 0.15s;
 }
 
 .form-data {
