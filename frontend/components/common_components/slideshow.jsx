@@ -9,7 +9,6 @@ class Slideshow extends React.Component {
     constructor(props) {
         super(props);
         this.userBanners = [window.user_banner1, window.user_banner2];
-        this.songBanners = [window.song_banner1, window.song_banner2];
     }
 
     randomUserBanner() {

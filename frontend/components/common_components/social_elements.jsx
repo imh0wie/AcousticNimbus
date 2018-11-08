@@ -10,13 +10,14 @@ class SocialElements extends React.Component {
     handleLike(e) {
         e.preventDefault();
         if (this.props.currentLike) {
-          this.props.removeLike(this.props.currentLike.id);
+            this.props.removeLike(this.props.currentLike.id);
         } else {
             const like = {
                 likeable_type: "Song",
                 likeable_id: this.props.songId,
                 liker_id: this.props.currentUserId,
             }
+            debugger
             this.props.createLike(like);
         }
     }

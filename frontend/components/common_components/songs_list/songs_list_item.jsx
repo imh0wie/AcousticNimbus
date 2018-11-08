@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Player from "../player";
 
 class SongsListItem extends React.Component {
@@ -38,8 +39,8 @@ class SongsListItem extends React.Component {
         return (
             <li className="songs-list-item">
                 <div className="header" style={this.props.klass === "user-show-page" ? this.noneStyle : {}}>
-                    <img src={this.props.itemArtist.imageURL ? this.props.itemArtist.imageURL : window.user_dp}/>
-                    <p><span>{this.props.itemArtist.username}</span> posted a song {this.renderItemCreationTime(this.props.itemSong.createdAt)}</p> 
+                    <Link to={`/users/${this.props.itemArtist.id}`}><img src={this.props.itemArtist.imageURL ? this.props.itemArtist.imageURL : window.user_dp}/></Link>
+                    <p><Link to={`/users/${this.props.itemArtist.id}`}>{this.props.itemArtist.username}</Link> posted a song {this.renderItemCreationTime(this.props.itemSong.createdAt)}</p> 
                 </div>
                 <Player
                     klass="item-player"

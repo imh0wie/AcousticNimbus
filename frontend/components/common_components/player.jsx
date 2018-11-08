@@ -64,7 +64,7 @@ class Player extends React.Component {
         if (this.props.klass === "banner-player") {
             return <h2 className="title">{this.props.song.title}</h2>;
         } else {
-            return <Link to={`/songs/${this.props.song.artistId}`} className="title">{this.props.song.title}</Link>;
+            return <Link to={`/songs/${this.props.song.id}`} className="title">{this.props.song.title}</Link>;
         }
     }
 

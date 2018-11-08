@@ -19,11 +19,12 @@ import CommentsListItem from "./comments_list_item";
 const msp = (state, ownProps) => {
   const songId = parseInt(ownProps.match.params.songId);
   const onPageSong = state.entities.songs[songId];
-  const currentUser = state.entities.users[state.session.id];
+  const currentUserId = state.session.id;
   const likes = state.entities.likes;
   const follows = state.entities.follows;
   const comments = state.entities.comments;
-  // debugger
+  const users = state.entities.users;
+  debugger
   return ({ 
     onPageSong: onPageSong,
     onPageSongId: songId,
@@ -31,12 +32,13 @@ const msp = (state, ownProps) => {
     // onPageArtist: state.entities.users[artistIdOf(onPageSong)],
     // onPageArtistFollowed: followed(artistIdOf(onPageSong), state.session.id, follows),
     currentSong: state.ui.currentSong,
-    currentUser: currentUser,
-    currentLike: likeOf("Song", songId, currentUser, likes),
+    currentUserId: currentUserId,
+    currentUser: users[currentUserId],
+    currentLike: likeOf("Song", songId, users[currentUserId], likes),
     currentLikes: likesOf("Song", songId, likes),
-    currentFollow: followOf(artistIdOf(onPageSong), currentUser.id, follows),
+    currentFollow: followOf(artistIdOf(onPageSong), currentUserId, follows),
     currentComments: commentsOf(songId, comments),
-    allUsers: state.entities.users,
+    allUsers: users,
   });
 };
 
@@ -73,6 +75,7 @@ class SongShowPage extends React.Component {
       commenterId: this.props.currentUser.id,
       numOfComments: this.props.currentComments.length,
     }
+    this.songBanners = [window.song_banner1, window.song_banner2];
     // debugger
     // this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this);
     // this.renderUploadTime = this.renderUploadTime.bind(this);
@@ -117,6 +120,10 @@ class SongShowPage extends React.Component {
   //   }
   // }
 
+  randomSongBanner() {
+    return randomize(this.songBanners)[0];
+  }
+  
   handleFollow(e) {
     e.preventDefault();
     if (this.props.currentFollow) {
@@ -242,6 +249,7 @@ class SongShowPage extends React.Component {
                   currentLikes={this.props.currentLikes}
                   createLike={this.props.createLike}
                   removeLike={this.props.removeLike}
+                  currentUserId={this.props.currentUserId}
                   currentUser={this.props.currentUser}
                 />
               </div>

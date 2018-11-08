@@ -74,10 +74,6 @@ class StreamPage extends React.Component {
                     fetchComments={this.props.fetchComments}
                     fetchUsers={this.props.fetchUsers}
         />
-        <br/>
-        <br/>
-        <br/>
-        <br/>
       </div>
     );
   }

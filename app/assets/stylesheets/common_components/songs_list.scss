@@ -14,9 +14,11 @@
     margin: auto 0;
 }
 
-.stream-page-container .songs-list-item .header p span {
+.stream-page-container .songs-list-item .header p a {
     color: #333;
+    text-decoration: none;
 }
+
 
 /////////////////////////////////////////////////////////
 
