@@ -32,20 +32,20 @@ class SessionForm extends React.Component {
   formHeader() {
     if (this.props.formType === "signup") {
       return (
-        <div className="form-header">
+        <div className="header">
           <img src={window.altLogo}></img>
           {/* <h2 className="form-welcome-message">Welcome to Acoustic Nimbus!</h2> */}
           <br/>
-          <h3 className="form-action">Join us now!</h3>
+          <h3>Join us now!</h3>
         </div>
       );
     } else {
       return (
-        <div className="form-header">
+        <div className="header">
           <img src={window.altLogo}></img>
           {/* <h2 className="form-welcome-message">Welcome back!</h2> */}
           <br/>
-          <h3 className="form-action">SIGN IN</h3>
+          <h3>SIGN IN</h3>
         </div>
       );
     }
@@ -79,28 +79,26 @@ class SessionForm extends React.Component {
     return(
       <div className="user-form-container">
         <form onSubmit={this.handleSubmit.bind(this)} className="user-form">
-          <p onClick={this.props.closeModal} className="form-close"><i class="fas fa-times"></i></p>
+          <span onClick={this.props.closeModal}><i class="fas fa-times"></i></span>
           { this.formHeader() }
           <br/>
           {this.renderErrors()}
-          <div className="username-input">
-            <label>Username
-              <input type="text"
-                     value={this.state.username}
-                     onChange={this.update("username")}
-                     className="form-data" />
-            </label>
+          <div className="input">
+            <p>Username</p>
+            <input type="text"
+                    value={this.state.username}
+                    onChange={this.update("username")}
+                    className="data" />
           </div>
           <br/>
-          <div className="password-input">
-            <label>Password
-              <input type="password"
-                     value={this.state.password}
-                     onChange={this.update("password")}
-                     className="form-data" />
-            </label>
+          <div className="input">
+            <p>Password</p>
+            <input type="password"
+                    value={this.state.password}
+                    onChange={this.update("password")}
+                    className="data" />
           </div>
-          <div className="form-buttons-container">
+          <div className="buttons">
             {this.submit()}<p className="button-separator">or</p>{this.props.switchForm}
           </div>
           <br/>

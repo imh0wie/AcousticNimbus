@@ -8,20 +8,8 @@
   opacity: 1;
   box-shadow: 0px 0px 10px 2px #dadada;
 }
- 
-.form-welcome-message {
-  font-size: 30px;
-  text-align: center;
 
-}
-
-.form-action {
-  font-family: 'Anton', sans-serif;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.form-close {
+.user-form-container .user-form span {
   position: absolute;
   right: 30px;
   top: 30px;
@@ -33,7 +21,7 @@
   -o-transition: color 0.15s;
 }
 
-.form-close:hover {
+.user-form-container .user-form span:hover {
   color: #999;
   transition: color 0.15s;
   -moz-transition: color 0.15s; /* Firefox 4 */
@@ -41,7 +29,24 @@
   -o-transition: color 0.15s;
 }
 
-.form-data {
+.user-form-container .user-form .header h3{
+  font-family: 'Anton', sans-serif;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.user-form-container .user-form .input {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-form-container .user-form .input p {
+  height: 100%;
+  margin: auto 0;
+  margin-left: 10px;
+}
+
+.user-form-container .user-form .input .data {
   display: inline-block;
   margin: 15px 15px;
   width: 300px;
@@ -50,9 +55,18 @@
   border-radius: 5px;
 }
 
-.form-buttons-container {
+// .form-data {
+//   display: inline-block;
+//   margin: 15px 15px;
+//   width: 300px;
+//   height: 30px;
+//   border: 1px solid #e6e6e6;
+//   border-radius: 5px;
+// }
+
+.user-form-container .user-form .buttons {
   width: 250px;
-  margin: 15px 0px 0px 150px;
+  margin: 30px 0px 0px 150px;
 }
 
 .form-login-button {

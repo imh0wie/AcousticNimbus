@@ -56,15 +56,4 @@ class ArtistListItem extends React.Component {
     }
 }
 
-// const ArtistListItem = () => {
-//     return (
-//         <li>
-//             <img src={this.props.artist.imageURL ? this.props.artist.imageURL : window.user_dp}></img>
-//             <p>{this.props.artist.username}</p>
-//             <p>{this.props.artistFollowers.length}</p>
-//             <p>{this.props.artistSongs.length}</p>
-//         </li>
-//     );
-// }
-
 export default ArtistListItem;

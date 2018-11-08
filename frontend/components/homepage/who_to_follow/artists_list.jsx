@@ -6,7 +6,7 @@ import { fetchFollows, createFollow, removeFollow } from "../../../actions/follo
 import { fetchUsers } from "../../../actions/user_actions";
 import { followersOf, followOf } from "../../../util/follow_api_util";
 import { suggestedArtists } from "../../../util/user_api_util";
-import ArtistsListItem from "./artist_list_item";
+import ArtistsListItem from "./artists_list_item";
 import { songsOf } from "../../../util/song_api_util";
 
 const msp = (state) => {
@@ -15,6 +15,7 @@ const msp = (state) => {
         suggestedArtists: suggestedArtists(3, state.entities.follows, state.entities.users, state.session.id),
         songs: state.entities.songs,
         follows: state.entities.follows,
+        users: state.entities.users,
         currentUser: state.entities.users[state.session.id],
     });
 }
@@ -67,7 +68,7 @@ class ArtistsList extends React.Component {
                             <ArtistsListItem 
                                 artist={artist} 
                                 artistFollow={followOf(artist.id, this.props.currentUser.id, this.props.follows)}
-                                artistFollowers={followersOf(artist.id, this.props.follows)}
+                                artistFollowers={followersOf(artist.id, this.props.follows, this.props.users)}
                                 artistSongs={songsOf(artist, this.props.songs)}
                                 createFollow={this.props.createFollow}
                                 removeFollow={this.props.removeFollow}
@@ -78,7 +79,7 @@ class ArtistsList extends React.Component {
                 </ul>
             )
         }
-    }
+    } 
 }
 
 export default withRouter(connect(msp, mdp)(ArtistsList));
