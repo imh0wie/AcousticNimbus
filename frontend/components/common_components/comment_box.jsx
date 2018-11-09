@@ -26,7 +26,13 @@ class CommentBox extends React.Component {
         e.preventDefault();
         debugger
         this.props.createComment(this.state);
-      }
+        this.setState({
+            body: "",
+            song_id: this.props.songId,
+            song_progress: null,
+            commenter_id: this.props.currentUserId
+        })
+    }
     
     update(field) {
         debugger

@@ -15,6 +15,7 @@ import Player from "../common_components/player";
 import CommentBox from "../common_components/comment_box";
 import SocialElements from "../common_components/social_elements";
 import MiniArtistProfile from "../common_components/mini_artist_profile";
+import CommentsList from "./comments_list";
 import CommentsListItem from "./comments_list_item";
 import Slideshow from "../common_components/slideshow";
 
@@ -40,7 +41,7 @@ const msp = (state, ownProps) => {
     currentLikes: likesOf("Song", songId, likes),
     currentFollow: followOf(artistIdOf(onPageSong), currentUserId, follows),
     currentComments: commentsOf(songId, comments),
-    allUsers: users,
+    users: users,
   });
 };
 
@@ -74,13 +75,6 @@ class SongShowPage extends React.Component {
     }
     this.noneStyle = {display: "none"};
     this.songBanners = [window.song_banner1, window.song_banner2];
-    // debugger
-    // this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this);
-    // this.renderUploadTime = this.renderUploadTime.bind(this);
-    // this.renderFollowButton = this.renderFollowButton.bind(this);
-    this.renderCommentsSection = this.renderCommentsSection.bind(this);
-    // this.togglePlayPause = this.togglePlayPause.bind(this);
-    // this.handleFollow = this.handleFollow.bind(this);
     
   }
 
@@ -89,7 +83,7 @@ class SongShowPage extends React.Component {
     this.props.fetchSongs();
     this.props.fetchLikes();
     // this.props.fetchFollows();
-    this.props.fetchComments();
+    // this.props.fetchComments();
     // this.props.fetchUsers();
   }
 
@@ -108,91 +102,8 @@ class SongShowPage extends React.Component {
     }
   }
 
-  // togglePlayPause() {
-  //   if (!this.props.currentSong.song || this.props.onPageSongId !== this.props.currentSong.song.id) {
-  //     this.props.setCurrentSong(this.props.onPageSong);
-  //     this.props.playSong();
-  //   } else if (this.props.onPageSongId === this.props.currentSong.song.id) {
-  //     this.props.currentSong.playing ? this.props.pauseSong() : this.props.playSong() ;
-  //   }
-  // }
-
   randomSongBanner() {
     return randomize(this.songBanners)[0];
-  }
-  
-  // handleFollow(e) {
-  //   e.preventDefault();
-  //   if (this.props.currentFollow) {
-  //     this.props.removeFollow(this.props.currentFollow.id);
-  //   } else {
-  //     const follow = {
-  //       followed_user_id: this.state.followedUserId,
-  //       follower_id: this.state.followerId,
-  //     }
-  //     this.props.createFollow(follow);
-  //   }
-  // }
-
-  // handleComment(e) {
-  //   e.preventDefault();
-  //   // const elapsed = this.props.currentSong.id === this.props.onPageSongId ? this.props.currentSong.elapsed : 0;    
-  //   // this.setState({ songProgress: elapsed});
-  //   const comment = {
-  //     body: this.state.body,
-  //     song_id: this.state.songId,
-  //     song_progress: this.state.songProgress,
-  //     commenter_id: this.props.currentUser.id,
-  //   }
-  //   this.props.createComment(comment);
-  //   // this.props.createComment(comment).then(this.props.fetchComments());
-  // }
-
-  // update(field) {
-  //   return (e) => {
-  //     const elapsed = this.props.currentSong.song && this.props.currentSong.song.id === this.props.onPageSongId ? this.props.currentSong.elapsed : 0;
-  //     this.setState({ 
-  //       [field]: e.currentTarget.value,
-  //       songProgress: elapsed,
-  //      });
-  //   };
-  // }
-
-  renderCommentsSection() {
-    if (this.props.currentComments.length === 0) {
-      return (
-        <div className="song-show-page-comments-container">
-          <img src={window.message}></img>
-          <h3>Seems a little quiet over here</h3>
-          <h4>Be the first to comment on this song</h4>
-        </div>
-      );
-    } else {
-      const commentsHeader = this.props.currentComments.length > 1 ? `${this.props.currentComments.length} comments` : "1 comment";
-      return (
-        <div className="song-show-page-comments-container">
-          <div className="song-show-page-comments-header-container">
-            <p className="song-show-page-comments-header">{commentsHeader}</p>
-          </div>
-          <ul className="song-show-page-comments-list">
-            {this.props.currentComments.map((comment) => {
-                return (
-                <CommentsListItem
-                key={comment.id}
-                comment={comment}
-                commenter={this.props.allUsers[comment.commenterId]}
-                currentSong={this.props.currentSong}
-                currentUser={this.props.currentUsera}
-                onPageSong={this.props.onPageSong}
-                removeComment={this.props.removeComment}
-                fetchComments={this.props.fetchComments}
-                />
-                );
-            })}
-          </ul>
-        </div>
-      );
-    }
   }
 
   render() {
@@ -243,11 +154,14 @@ class SongShowPage extends React.Component {
                   song={this.props.onPageSong}
                   currentUserId={this.props.currentUserId}
                 />
-                <div className="song-show-page-description-comments">
-                  <div className="song-show-page-description-container">
-                    <p className="song-show-page-description">{this.props.onPageSong.description}</p>
-                  </div>
-                  {this.renderCommentsSection()}
+                <div className="description-comments">
+                  <p className="description">{this.props.onPageSong.description}</p>
+                  <CommentsList
+                    song={this.props.onPageSong}
+                    songId={this.props.onPageSongId}
+                    currentSong={this.props.currentSong}
+                    currentUser={this.props.currentUser}
+                  />
                 </div>
               </div>
             </div>

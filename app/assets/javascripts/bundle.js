@@ -754,6 +754,12 @@ function (_React$Component) {
       e.preventDefault();
       debugger;
       this.props.createComment(this.state);
+      this.setState({
+        body: "",
+        song_id: this.props.songId,
+        song_progress: null,
+        commenter_id: this.props.currentUserId
+      });
     }
   }, {
     key: "update",
@@ -4432,6 +4438,121 @@ var Root = function Root(_ref) {
 
 /***/ }),
 
+/***/ "./frontend/components/song_show_page/comments_list.jsx":
+/*!**************************************************************!*\
+  !*** ./frontend/components/song_show_page/comments_list.jsx ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var _actions_comment_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/comment_actions */ "./frontend/actions/comment_actions.js");
+/* harmony import */ var _util_comment_api_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../util/comment_api_util */ "./frontend/util/comment_api_util.js");
+/* harmony import */ var _comments_list_item__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./comments_list_item */ "./frontend/components/song_show_page/comments_list_item.jsx");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+
+
+
+var msp = function msp(state, ownProps) {
+  var comments = state.entities.comments;
+  var songId = ownProps.songId;
+  return {
+    users: state.entities.users,
+    comments: state.entities.comments,
+    currentComments: Object(_util_comment_api_util__WEBPACK_IMPORTED_MODULE_4__["commentsOf"])(songId, comments)
+  };
+};
+
+var mdp = function mdp(dispatch) {
+  return {
+    fetchComments: function fetchComments() {
+      return dispatch(Object(_actions_comment_actions__WEBPACK_IMPORTED_MODULE_3__["fetchComments"])());
+    },
+    removeComment: function removeComment(id) {
+      return dispatch(Object(_actions_comment_actions__WEBPACK_IMPORTED_MODULE_3__["removeComment"])(id));
+    }
+  };
+};
+
+var CommentsList =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(CommentsList, _React$Component);
+
+  function CommentsList(props) {
+    _classCallCheck(this, CommentsList);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(CommentsList).call(this, props));
+  }
+
+  _createClass(CommentsList, [{
+    key: "render",
+    value: function render() {
+      var _this = this;
+
+      if (this.props.currentComments.length === 0) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "comments-none"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.message
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Seems a little quiet over here"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Be the first to comment on this song"));
+      } else {
+        var commentsHeader = this.props.currentComments.length > 1 ? "".concat(this.props.currentComments.length, " comments") : "1 comment";
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "comments"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: "header"
+        }, commentsHeader), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+          className: "song-show-page-comments-list"
+        }, this.props.currentComments.map(function (comment) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_comments_list_item__WEBPACK_IMPORTED_MODULE_5__["default"], {
+            key: comment.id,
+            comment: comment,
+            commenter: _this.props.users[comment.commenterId],
+            currentSong: _this.props.currentSong,
+            currentUser: _this.props.currentUser,
+            onPageSong: _this.props.onPageSong,
+            removeComment: _this.props.removeComment,
+            fetchComments: _this.props.fetchComments
+          });
+        })));
+      }
+    }
+  }]);
+
+  return CommentsList;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, mdp)(CommentsList)));
+
+/***/ }),
+
 /***/ "./frontend/components/song_show_page/comments_list_item.jsx":
 /*!*******************************************************************!*\
   !*** ./frontend/components/song_show_page/comments_list_item.jsx ***!
@@ -4608,8 +4729,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _common_components_comment_box__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../common_components/comment_box */ "./frontend/components/common_components/comment_box.jsx");
 /* harmony import */ var _common_components_social_elements__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../common_components/social_elements */ "./frontend/components/common_components/social_elements.jsx");
 /* harmony import */ var _common_components_mini_artist_profile__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../common_components/mini_artist_profile */ "./frontend/components/common_components/mini_artist_profile.jsx");
-/* harmony import */ var _comments_list_item__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./comments_list_item */ "./frontend/components/song_show_page/comments_list_item.jsx");
-/* harmony import */ var _common_components_slideshow__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../common_components/slideshow */ "./frontend/components/common_components/slideshow.jsx");
+/* harmony import */ var _comments_list__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./comments_list */ "./frontend/components/song_show_page/comments_list.jsx");
+/* harmony import */ var _comments_list_item__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./comments_list_item */ "./frontend/components/song_show_page/comments_list_item.jsx");
+/* harmony import */ var _common_components_slideshow__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../common_components/slideshow */ "./frontend/components/common_components/slideshow.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4620,13 +4742,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 
 
@@ -4634,6 +4756,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
  // import { latest } from "../../util/song_api_util";
+
 
 
 
@@ -4670,7 +4793,7 @@ var msp = function msp(state, ownProps) {
     currentLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_9__["likesOf"])("Song", songId, likes),
     currentFollow: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_10__["followOf"])(Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_10__["artistIdOf"])(onPageSong), currentUserId, follows),
     currentComments: Object(_util_comment_api_util__WEBPACK_IMPORTED_MODULE_11__["commentsOf"])(songId, comments),
-    allUsers: users
+    users: users
   };
 };
 
@@ -4743,14 +4866,7 @@ function (_React$Component) {
     _this.noneStyle = {
       display: "none"
     };
-    _this.songBanners = [window.song_banner1, window.song_banner2]; // debugger
-    // this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this);
-    // this.renderUploadTime = this.renderUploadTime.bind(this);
-    // this.renderFollowButton = this.renderFollowButton.bind(this);
-
-    _this.renderCommentsSection = _this.renderCommentsSection.bind(_assertThisInitialized(_assertThisInitialized(_this))); // this.togglePlayPause = this.togglePlayPause.bind(this);
-    // this.handleFollow = this.handleFollow.bind(this);
-
+    _this.songBanners = [window.song_banner1, window.song_banner2];
     return _this;
   }
 
@@ -4760,8 +4876,8 @@ function (_React$Component) {
       // this.props.fetchSong(this.props.onPageSongId);
       this.props.fetchSongs();
       this.props.fetchLikes(); // this.props.fetchFollows();
-
-      this.props.fetchComments(); // this.props.fetchUsers();
+      // this.props.fetchComments();
+      // this.props.fetchUsers();
     }
   }, {
     key: "componentWillReceiveProps",
@@ -4779,88 +4895,11 @@ function (_React$Component) {
           commenterId: this.props.currentUser.id
         });
       }
-    } // togglePlayPause() {
-    //   if (!this.props.currentSong.song || this.props.onPageSongId !== this.props.currentSong.song.id) {
-    //     this.props.setCurrentSong(this.props.onPageSong);
-    //     this.props.playSong();
-    //   } else if (this.props.onPageSongId === this.props.currentSong.song.id) {
-    //     this.props.currentSong.playing ? this.props.pauseSong() : this.props.playSong() ;
-    //   }
-    // }
-
+    }
   }, {
     key: "randomSongBanner",
     value: function randomSongBanner() {
       return randomize(this.songBanners)[0];
-    } // handleFollow(e) {
-    //   e.preventDefault();
-    //   if (this.props.currentFollow) {
-    //     this.props.removeFollow(this.props.currentFollow.id);
-    //   } else {
-    //     const follow = {
-    //       followed_user_id: this.state.followedUserId,
-    //       follower_id: this.state.followerId,
-    //     }
-    //     this.props.createFollow(follow);
-    //   }
-    // }
-    // handleComment(e) {
-    //   e.preventDefault();
-    //   // const elapsed = this.props.currentSong.id === this.props.onPageSongId ? this.props.currentSong.elapsed : 0;    
-    //   // this.setState({ songProgress: elapsed});
-    //   const comment = {
-    //     body: this.state.body,
-    //     song_id: this.state.songId,
-    //     song_progress: this.state.songProgress,
-    //     commenter_id: this.props.currentUser.id,
-    //   }
-    //   this.props.createComment(comment);
-    //   // this.props.createComment(comment).then(this.props.fetchComments());
-    // }
-    // update(field) {
-    //   return (e) => {
-    //     const elapsed = this.props.currentSong.song && this.props.currentSong.song.id === this.props.onPageSongId ? this.props.currentSong.elapsed : 0;
-    //     this.setState({ 
-    //       [field]: e.currentTarget.value,
-    //       songProgress: elapsed,
-    //      });
-    //   };
-    // }
-
-  }, {
-    key: "renderCommentsSection",
-    value: function renderCommentsSection() {
-      var _this2 = this;
-
-      if (this.props.currentComments.length === 0) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "song-show-page-comments-container"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.message
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Seems a little quiet over here"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Be the first to comment on this song"));
-      } else {
-        var commentsHeader = this.props.currentComments.length > 1 ? "".concat(this.props.currentComments.length, " comments") : "1 comment";
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "song-show-page-comments-container"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "song-show-page-comments-header-container"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-          className: "song-show-page-comments-header"
-        }, commentsHeader)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-          className: "song-show-page-comments-list"
-        }, this.props.currentComments.map(function (comment) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_comments_list_item__WEBPACK_IMPORTED_MODULE_16__["default"], {
-            key: comment.id,
-            comment: comment,
-            commenter: _this2.props.allUsers[comment.commenterId],
-            currentSong: _this2.props.currentSong,
-            currentUser: _this2.props.currentUsera,
-            onPageSong: _this2.props.onPageSong,
-            removeComment: _this2.props.removeComment,
-            fetchComments: _this2.props.fetchComments
-          });
-        })));
-      }
     }
   }, {
     key: "render",
@@ -4913,12 +4952,15 @@ function (_React$Component) {
           song: this.props.onPageSong,
           currentUserId: this.props.currentUserId
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "song-show-page-description-comments"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "song-show-page-description-container"
+          className: "description-comments"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-          className: "song-show-page-description"
-        }, this.props.onPageSong.description)), this.renderCommentsSection()))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "description"
+        }, this.props.onPageSong.description), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_comments_list__WEBPACK_IMPORTED_MODULE_16__["default"], {
+          song: this.props.onPageSong,
+          songId: this.props.onPageSongId,
+          currentSong: this.props.currentSong,
+          currentUser: this.props.currentUser
+        })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-show-page-sidebar"
         })));
       }
