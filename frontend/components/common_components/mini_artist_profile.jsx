@@ -1,16 +1,23 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
+import { fetchSongs } from "../../actions/song_actions";
 import { fetchFollows, createFollow, removeFollow } from "../../actions/follow_actions";
 import { fetchUsers } from "../../actions/user_actions";
-import { followOf } from "../../util/follow_api_util";
+import { isEmpty } from "../../util/general_api_util";
+import { songsOf } from "../../util/song_api_util";
+import { followOf, followersOf } from "../../util/follow_api_util";
 
 const msp = (state, ownProps) => {
+    const songs = state.entities.songs;
     const follows = state.entities.follows;
     const users = state.entities.users;
     const song = ownProps.song;
     const currentUserId = ownProps.currentUserId;
     return ({
+        songs: songs,
+        follows: follows,
+        users: users,
         songArtist: users[song.artistId],
         currentFollow: followOf(song.artistId, currentUserId, follows),
     });
@@ -18,6 +25,7 @@ const msp = (state, ownProps) => {
 
 const mdp = (dispatch) => {
     return({
+        fetchSongs: () => dispatch(fetchSongs()),
         fetchFollows: () => dispatch(fetchFollows()),
         createFollow: (follow) => dispatch(createFollow(follow)),
         removeFollow: (id) => dispatch(removeFollow(id)),
@@ -31,7 +39,7 @@ class MiniArtistProfile extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchUsers().then(this.props.fetchFollows());
+        this.props.fetchUsers().then(this.props.fetchSongs().then(this.props.fetchFollows()));
     }
 
     handleFollow(e) {
@@ -50,14 +58,18 @@ class MiniArtistProfile extends React.Component {
 
     render() {
         debugger
-        if (this.props.songArtist) {
+        if (isEmpty(this.props.follows)) {
+            debugger
+            return <img src={window.loading5} className="loading"></img>
+        } else {
             debugger
             return (
                 <div className="artist-info-container">
                     <img src={this.props.songArtist.imageURL ? this.props.songArtist.imageURL : window.user_dp} className="artist-img"></img>
                     <Link to={`/users/${this.props.song.artistId}`}>{this.props.song.artist}</Link>
                     <div className="follows-songs">
-                        <p></p>
+                        <Link to=""><i class="fas fa-user-friends"></i> {followersOf(this.props.songArtist.id, this.props.follows, this.props.users).length}</Link>
+                        <Link to=""><i class="fas fa-music"></i> {songsOf(this.props.songArtist, this.props.songs).length}</Link>
                     </div>
                     <button className={this.props.currentFollow ? "following" : "follow"}
                             onClick={(e) => this.handleFollow(e)}
@@ -66,9 +78,6 @@ class MiniArtistProfile extends React.Component {
                     </button>
                 </div>
             );
-        } else {
-            debugger
-            return <img src={window.loading5}></img>
         }
         
     }

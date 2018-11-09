@@ -45,7 +45,7 @@ export const shuffle = (n, songs) => {
 };
 
 export const songsOf = (user, songs) => {
-  // if (isEmpty(songs)) return [];
+  if (isEmpty(songs)) return null;
   const output = [];
   const songIds = Object.keys(songs).reverse();
   songIds.forEach((songId) => {

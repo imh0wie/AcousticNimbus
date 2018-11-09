@@ -63,6 +63,15 @@
     width: 815px;
 }
 
+.song-show-page .content .social-els-container .main .loading {
+    width: 125px;
+    height: 125px;
+}
+
+.song-show-page .content .social-els-container .main .artist-info-container {
+    width: 125px;
+}
+
 .song-show-page .content .social-els-container .main .artist-info-container .artist-img {
     width: 125px;
     border-radius: 50%;
@@ -80,11 +89,28 @@
     cursor: pointer;
 }
 
+.song-show-page .content .social-els-container .main .artist-info-container .follows-songs {
+    display: flex;
+    margin: 5px 0;
+}
+
+.song-show-page .content .social-els-container .main .artist-info-container .follows-songs a {
+    color: #999;
+    font-size: 11px;
+    margin-right: 5px;
+    text-decoration: none;
+}
+
+.song-show-page .content .social-els-container .main .artist-info-container .follows-songs a:hover {
+    color: #333;
+    font-size: 11px;
+    text-decoration: none;
+}
+
 .song-show-page .content .social-els-container .main .artist-info-container button {
     color: white;
     font-size: 11px;
     background-color: #FB5400;
-    margin-top: 5px;
     padding: 2px 8px;
     border: 1px solid #FB5400;
     border-radius: 3px;
@@ -99,20 +125,15 @@
     border-radius: 3px;
 }
 
-.song-show-page-artist-follows-container {
-    display: flex;
-}
 
-.song-show-page .content .social-els-container .main .artist-info-container {}
-
-.song-show-page-follow-button {
-    font-size: 11px;
-    color: white;
-    background-color: #f50;
-    width: 50px;
-    height: 20px;
-    text-align: center;
-}
+// .song-show-page-follow-button {
+//     font-size: 11px;
+//     color: white;
+//     background-color: #f50;
+//     width: 50px;
+//     height: 20px;
+//     text-align: center;
+// }
 
 .song-show-page-description-comments {
     width: 660px;
