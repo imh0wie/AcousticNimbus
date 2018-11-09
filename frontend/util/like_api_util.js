@@ -42,11 +42,20 @@ export const likeOf = (likeableType, likeableId, liker, likes) => {
     for (let i = 0; i < likeIds.length; i++ ) {
         const likeId = likeIds[i];
         const like = likes[likeId];
-        debugger
         if (like.likeableType === likeableType && like.likeableId === likeableId && like.likerId === liker.id) return like;
     }
-    debugger
     return null;
+}
+
+export const likesBy = (likes, userId) => {
+    if (isEmpty(likes)) return null;
+    const output = [];
+    const likeIds = Object.keys(likes);
+    likeIds.forEach((likeId) => {
+        const like = likes[likeId];
+        if (like.likerId === userId) output.push(like);
+    })
+    return output;
 }
 
 // export const liked = (currentUser, likes) => {

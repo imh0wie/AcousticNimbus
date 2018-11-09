@@ -45,12 +45,24 @@ export const shuffle = (n, songs) => {
 };
 
 export const songsOf = (user, songs) => {
+  // if (isEmpty(songs)) return [];
   const output = [];
   const songIds = Object.keys(songs).reverse();
   songIds.forEach((songId) => {
     const id = parseInt(songId);
     const song = songs[id];
     if (user.id === song.artistId) output.push(song);
+  })
+  return output;
+}
+
+export const songsLikedBy = (userId, songs, likes) => {
+  if (isEmpty(likes) || isEmpty(songs)) return null;
+  const output = [];
+  const likeIds = Object.keys(likes);
+  likeIds.forEach((likeId) => {
+      const like = likes[likeId];
+      if (like.likeableType === "Song" && like.likerId === userId) output.push(songs[like.likeableId]);
   })
   return output;
 }

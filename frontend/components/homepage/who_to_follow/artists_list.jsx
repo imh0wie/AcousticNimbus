@@ -10,7 +10,7 @@ import ArtistsListItem from "./artists_list_item";
 import { songsOf } from "../../../util/song_api_util";
 
 const msp = (state) => {
-    debugger
+    // debugger
     return ({
         suggestedArtists: suggestedArtists(3, state.entities.follows, state.entities.users, state.session.id),
         songs: state.entities.songs,
@@ -33,25 +33,35 @@ const mdp = (dispatch) => {
 class ArtistsList extends React.Component {
     constructor(props) {
         super(props);
-        debugger
+        // debugger
     }
 
     componentDidMount() {
-        debugger
-        this.props.fetchSongs();
-        this.props.fetchFollows();
-        this.props.fetchUsers();
+        // debugger
+        this.props.fetchSongs().then(
+            this.props.fetchFollows().then(
+                this.props.fetchUsers()
+            )
+        );
+        this.props.fetchFollows().then(
+            this.props.fetchUsers().then(
+                this.props.fetchSongs()
+            )
+        );
+        // this.props.fetchSongs()
+        // this.props.fetchFollows();
+        // this.props.fetchUsers();
     }
 
     render() {
-        debugger
+        // debugger
         if (!this.props.suggestedArtists) {
-            debugger
+            // debugger
             return (
                 <img src={window.loading5} className="loading"></img>
             );
         } else if (this.props.suggestedArtists.length === 0) {
-            debugger
+            // debugger
             return (
                 <div className="error-message">
                     <h4>We cannot recommend you any users because:</h4>
@@ -60,7 +70,7 @@ class ArtistsList extends React.Component {
                 </div>
             );
         } else {
-            debugger
+            // debugger
             return (
                 <ul>
                     {this.props.suggestedArtists.map((artist) => {

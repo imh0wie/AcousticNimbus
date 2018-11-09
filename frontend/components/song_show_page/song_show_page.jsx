@@ -7,14 +7,16 @@ import { setCurrentSong, playSong, pauseSong, setElapsedTo } from "../../actions
 // import { latest } from "../../util/song_api_util";
 import { createLike, removeLike, fetchLikes } from "../../actions/like_actions";
 import { createFollow, removeFollow, fetchFollows } from "../../actions/follow_actions";
-import { createComment, removeComment, fetchComments } from "../../actions/comment_actions";
+import { removeComment, fetchComments } from "../../actions/comment_actions";
 import { likeOf, likesOf } from "../../util/like_api_util";
 import { artistIdOf, followOf } from "../../util/follow_api_util";
 import { commentsOf } from "../../util/comment_api_util";
 import Player from "../common_components/player";
-import Waveform from "../common_components/waveform";
+import CommentBox from "../common_components/comment_box";
 import SocialElements from "../common_components/social_elements";
+import MiniArtistProfile from "../common_components/mini_artist_profile";
 import CommentsListItem from "./comments_list_item";
+import Slideshow from "../common_components/slideshow";
 
 const msp = (state, ownProps) => {
   const songId = parseInt(ownProps.match.params.songId);
@@ -24,7 +26,7 @@ const msp = (state, ownProps) => {
   const follows = state.entities.follows;
   const comments = state.entities.comments;
   const users = state.entities.users;
-  debugger
+  // debugger
   return ({ 
     onPageSong: onPageSong,
     onPageSongId: songId,
@@ -56,7 +58,6 @@ const mdp = (dispatch) => {
       createFollow: (follow) => dispatch(createFollow(follow)),
       removeFollow: (id) => dispatch(removeFollow(id)),
       fetchFollows: () => dispatch(fetchFollows()),
-      createComment: (comment) => dispatch(createComment(comment)),
       removeComment: (id) => dispatch(removeComment(id)),
       fetchComments: () => dispatch(fetchComments()),
       fetchUsers: () => dispatch(fetchUsers()),
@@ -69,31 +70,27 @@ class SongShowPage extends React.Component {
     this.state = {
       followedUserId: artistIdOf(this.props.onPageSong),
       followerId: this.props.currentUser.id,
-      body: "",
-      songId: this.props.onPageSongId,
-      songProgress: null,
-      commenterId: this.props.currentUser.id,
       numOfComments: this.props.currentComments.length,
     }
+    this.noneStyle = {display: "none"};
     this.songBanners = [window.song_banner1, window.song_banner2];
     // debugger
     // this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this);
     // this.renderUploadTime = this.renderUploadTime.bind(this);
-    this.renderFollowButton = this.renderFollowButton.bind(this);
+    // this.renderFollowButton = this.renderFollowButton.bind(this);
     this.renderCommentsSection = this.renderCommentsSection.bind(this);
     // this.togglePlayPause = this.togglePlayPause.bind(this);
-    this.handleFollow = this.handleFollow.bind(this);
-    this.handleComment = this.handleComment.bind(this);
-    this.update = this.update.bind(this);
+    // this.handleFollow = this.handleFollow.bind(this);
+    
   }
 
   componentDidMount() {
     // this.props.fetchSong(this.props.onPageSongId);
     this.props.fetchSongs();
     this.props.fetchLikes();
-    this.props.fetchFollows();
+    // this.props.fetchFollows();
     this.props.fetchComments();
-    this.props.fetchUsers();
+    // this.props.fetchUsers();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -124,55 +121,42 @@ class SongShowPage extends React.Component {
     return randomize(this.songBanners)[0];
   }
   
-  handleFollow(e) {
-    e.preventDefault();
-    if (this.props.currentFollow) {
-      this.props.removeFollow(this.props.currentFollow.id);
-    } else {
-      const follow = {
-        followed_user_id: this.state.followedUserId,
-        follower_id: this.state.followerId,
-      }
-      this.props.createFollow(follow);
-    }
-  }
+  // handleFollow(e) {
+  //   e.preventDefault();
+  //   if (this.props.currentFollow) {
+  //     this.props.removeFollow(this.props.currentFollow.id);
+  //   } else {
+  //     const follow = {
+  //       followed_user_id: this.state.followedUserId,
+  //       follower_id: this.state.followerId,
+  //     }
+  //     this.props.createFollow(follow);
+  //   }
+  // }
 
-  handleComment(e) {
-    e.preventDefault();
-    // const elapsed = this.props.currentSong.id === this.props.onPageSongId ? this.props.currentSong.elapsed : 0;    
-    // this.setState({ songProgress: elapsed});
-    const comment = {
-      body: this.state.body,
-      song_id: this.state.songId,
-      song_progress: this.state.songProgress,
-      commenter_id: this.props.currentUser.id,
-    }
-    this.props.createComment(comment);
-    // this.props.createComment(comment).then(this.props.fetchComments());
-  }
+  // handleComment(e) {
+  //   e.preventDefault();
+  //   // const elapsed = this.props.currentSong.id === this.props.onPageSongId ? this.props.currentSong.elapsed : 0;    
+  //   // this.setState({ songProgress: elapsed});
+  //   const comment = {
+  //     body: this.state.body,
+  //     song_id: this.state.songId,
+  //     song_progress: this.state.songProgress,
+  //     commenter_id: this.props.currentUser.id,
+  //   }
+  //   this.props.createComment(comment);
+  //   // this.props.createComment(comment).then(this.props.fetchComments());
+  // }
 
-  update(field) {
-    return (e) => {
-      const elapsed = this.props.currentSong.song && this.props.currentSong.song.id === this.props.onPageSongId ? this.props.currentSong.elapsed : 0;
-      this.setState({ 
-        [field]: e.currentTarget.value,
-        songProgress: elapsed,
-       });
-    };
-  }
-
-  renderFollowButton() {
-    if (this.props.onPageSong.artistId === this.props.currentUser.id) return;
-    if (this.props.currentFollow) {
-      return (
-        <button className="song-show-page-follow-button" onClick={(e) => this.handleFollow(e)}>Following</button>
-      );
-    } else {
-      return (
-        <button className="song-show-page-follow-button" onClick={(e) => this.handleFollow(e)}>Follow</button>
-      );
-    }
-  }
+  // update(field) {
+  //   return (e) => {
+  //     const elapsed = this.props.currentSong.song && this.props.currentSong.song.id === this.props.onPageSongId ? this.props.currentSong.elapsed : 0;
+  //     this.setState({ 
+  //       [field]: e.currentTarget.value,
+  //       songProgress: elapsed,
+  //      });
+  //   };
+  // }
 
   renderCommentsSection() {
     if (this.props.currentComments.length === 0) {
@@ -198,7 +182,7 @@ class SongShowPage extends React.Component {
                 comment={comment}
                 commenter={this.props.allUsers[comment.commenterId]}
                 currentSong={this.props.currentSong}
-                currentUser={this.props.currentUser}
+                currentUser={this.props.currentUsera}
                 onPageSong={this.props.onPageSong}
                 removeComment={this.props.removeComment}
                 fetchComments={this.props.fetchComments}
@@ -220,7 +204,7 @@ class SongShowPage extends React.Component {
     } else {
       debugger
       return (
-        <div className="song-show-page-container">
+        <div className="song-show-page">
           <Player
             klass="banner-player"
             song={this.props.onPageSong}
@@ -235,13 +219,13 @@ class SongShowPage extends React.Component {
           <div className="content">
             <div className="social-els-container">
               <div className="extrovert-section">
-                <div className="comment-box-container">
-                  <img src={this.props.currentUser.imageURL ? this.props.currentUser.imageURL : window.user_dp} className="comment-box-img"></img>
-                  <form>
-                    <input type="text" value={this.state.body} name="comment" placeholder="Write a comment" className="comment-box" onChange={this.update("body")} />
-                    <input type="submit" className="song-show-page-comment-submit-button" tabIndex="-1" onClick={(e) => this.handleComment(e)}/>
-                  </form>
-                </div>
+                <CommentBox 
+                  klass="song-show-page"
+                  songId={this.props.onPageSongId}
+                  currentSong={this.props.currentSong}
+                  currentUser={this.props.currentUser}
+                  currentUserId={this.props.currentUserId}
+                />
                 <SocialElements
                   klass="banner-player"
                   songId={this.props.onPageSongId}
@@ -253,16 +237,12 @@ class SongShowPage extends React.Component {
                   currentUser={this.props.currentUser}
                 />
               </div>
-              <div className="song-show-page-main-container">
-                <div className="song-show-page-artist-info-container">
-                  <img src={this.props.onPageSong.artist.imageURL ? this.props.onPageSong.artist.imageURL : window.user_dp} className="song-show-page-artist-img"></img>
-                  <Link to={`/users/${this.props.onPageSong.artistId}`} className="song-show-page-artist">{this.props.onPageSong.artist}</Link>
-                  <div className="song-show-page-artist-follows-container">
-                  </div>
-                  <form>
-                    {this.renderFollowButton()}
-                  </form>
-                </div>
+              <div className="main">
+                <MiniArtistProfile  
+                  klass="song-show-page"
+                  song={this.props.onPageSong}
+                  currentUserId={this.props.currentUserId}
+                />
                 <div className="song-show-page-description-comments">
                   <div className="song-show-page-description-container">
                     <p className="song-show-page-description">{this.props.onPageSong.description}</p>
@@ -272,6 +252,7 @@ class SongShowPage extends React.Component {
               </div>
             </div>
             <div className="song-show-page-sidebar">
+              {/* <Slideshow /> */}
             </div>
           </div>
         </div>
@@ -280,31 +261,4 @@ class SongShowPage extends React.Component {
   }
 }
 // style={{position: absolute; left: -9999px; width: 1px; height: 1px;}}
-
-{/* <div className="banner-player-container">
-            <div className="banner-player">
-              <div className="top">
-                <div className="left">
-                  {this.renderPlayPauseSign()}
-                  <div className="song-info">
-                    <Link to={`/users/${this.props.onPageSong.artistId}`} className="artist">{this.props.onPageSong.artist}</Link>
-                    <h2 className="title">{this.props.onPageSong.title}</h2>
-                  </div>
-                </div>
-                <div className="right">
-                  <h4 className="upload-time">{this.renderUploadTime(this.props.onPageSong.createdAt)}</h4>
-                  <h4 className="genre">#{this.props.onPageSong.genre}</h4>
-                </div>
-              </div>
-              <div className="waveform-container">
-                <Waveform 
-                  klass="banner-player"
-                  song={this.props.onPageSong}
-                  songId={this.props.onPageSongId}
-                  currentSong={this.props.currentSong}
-                />
-              </div>
-            </div>
-            <img src={this.props.onPageSong.imageURL ? this.props.onPageSong.imageURL : window.user_dp} className="img-right"></img>        
-          </div> */}
 export default withRouter(connect(msp, mdp)(SongShowPage));

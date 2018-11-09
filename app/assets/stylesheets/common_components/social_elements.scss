@@ -1,13 +1,13 @@
-.song-show-page-container .content .social-els-container .social-els {
+.song-show-page .content .social-els-container .social-els {
     display: flex;
     justify-content: space-between;
 }
 
-.song-show-page-container .content .social-els-container .social-els .left {
+.song-show-page .content .social-els-container .social-els .left {
     display: flex;
 }
 
-.song-show-page-container .content .social-els-container .social-els .left button {
+.song-show-page .content .social-els-container .social-els .left button {
     width: auto;
     height: 25px;
     color: #333;
@@ -17,20 +17,20 @@
     padding: 0px 10px 0px 7px;
 }
 
-.song-show-page-container .content .social-els-container .social-els .left .liked-button {
+.song-show-page .content .social-els-container .social-els .left .liked-button {
     color: #FF5400;
     border-color: #FF5400;
 }
 
-.song-show-page-container .content .social-els-container .social-els .left .like-button {
+.song-show-page .content .social-els-container .social-els .left .like-button {
 
 }
 
-.song-show-page-container .content .social-els-container .social-els .right {
+.song-show-page .content .social-els-container .social-els .right {
     display: flex;
 }
 
-.song-show-page-container .content .social-els-container .social-els .right p {
+.song-show-page .content .social-els-container .social-els .right p {
     color: #999;
     margin: auto 0;
 }

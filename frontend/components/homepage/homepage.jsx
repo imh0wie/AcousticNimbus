@@ -7,28 +7,29 @@ import StreamPage from "./stream_page/stream_page";
 import ChartsPage from "./charts_page/charts_page";
 import Slideshow from "../common_components/slideshow";
 import WhoToFollow from "./who_to_follow/who_to_follow"
+import LikesSection from "./likes_section/likes_section";
 
 const msp = (state) => {
+  const currentUserId = state.session.id;
   return ({
-    currentUser: state.entities.users[state.session.id],
+    currentUserId: currentUserId,
+    currentUser: state.entities.users[currentUserId],
   });
 }
 
 class Homepage extends React.Component {
   constructor(props) {
     super(props);
-    this.renderNavbar = this.renderNavbar.bind(this);
-  }
-
-  renderNavbar() {
-    if (this.props.currentUser) return <Navbar klass="homepage"/>;
+    this.noneStyle = {
+      display: "none"
+    };
   }
 
   render() {
     return (
       <div className="homepage-container">
         <div className="content">
-          {this.renderNavbar()}
+          <Navbar klass="homepage" currentUser={this.props.currentUser} />
           <Switch>
             <ProtectedRoute path="/stream" component={StreamPage} />
             <ProtectedRoute path="/charts/top" component={ChartsPage} />
@@ -39,6 +40,7 @@ class Homepage extends React.Component {
           <div className="stats">
           </div>
           <WhoToFollow />
+          <LikesSection />
           <div className="liked-songs">
           </div>
           <div className="history">

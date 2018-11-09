@@ -13,7 +13,7 @@ class SongsList extends React.Component {
         this.props.fetchLikes();
         this.props.fetchComments();
         if (this.props.klass !== "user-show-page") {
-            debugger
+            // debugger
             this.props.fetchFollows();
             this.props.fetchUsers();
         }
@@ -30,12 +30,15 @@ class SongsList extends React.Component {
             default:
                 break;
         }
-        debugger
+        // debugger
         if (!this.songs) {
+            // debugger
             return <img src={window.loading5} className="loading"></img>;
         } else {
             if (this.songs.length === 0) {
+                // debugger
                 if (this.props.klass === "user-show-page") return <img src={window.loading5} className="loading"></img>; 
+                // debugger
                 return <p>Stream is currently empty. Use Charts to find music & audio to listen to.</p>
             } else {
                 return (

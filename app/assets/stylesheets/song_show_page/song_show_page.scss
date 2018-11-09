@@ -6,10 +6,10 @@
     height: 100px;
 }
 
-.song-show-page-container {
+.song-show-page {
     position: relative;
     top: 45px;
-    height: 100vh;  
+    height: 100vh;
 }
 // .song-show-page-song-img {
 //     width: 340px;
@@ -17,76 +17,93 @@
 //     margin: 20px 30px;
 // }
 
-.song-show-page-container .content {
+.song-show-page .content {
     display: flex;
     margin: 25px 35px;
 }
 
-.song-show-page-container .content .social-els-container {
+.song-show-page .content .social-els-container {
     width: 815px;
     margin-right: 35px;
 }
 
-.song-show-page-container .content .social-els-container .extrovert-section {
+.song-show-page .content .social-els-container .extrovert-section {
     width: 820px;
     height: 80px;
     border-bottom: 1px solid #f2f2f2;
 }
 
-.song-show-page-container .content .social-els-container .extrovert-section .comment-box-container {
+.song-show-page .content .social-els-container .extrovert-section .comment-box-container {
     display: flex;
     background-color: #f2f2f2;
     height: 40px;
     // width: 780px;
 }
 
-.song-show-page-container .content .social-els-container .extrovert-section .comment-box-container .comment-box-img {
+.song-show-page .content .social-els-container .extrovert-section .comment-box-container .comment-box-img {
     width: 40px;
     height: 40px;
 }
 
-.song-show-page-container .content .social-els-container .extrovert-section .comment-box-container .comment-box {
+.song-show-page .content .social-els-container .extrovert-section .comment-box-container .comment-box {
     width: 758px;
     padding: 5px;
     background-color: white;
     margin: 5px 5px;
 }
 
-
-// .song-show-page-comment-box {
-//     margin: 5px 5px;
-// }
-
-.song-show-page-comment-submit-button {
+.song-show-page .content .social-els-container .extrovert-section .comment-box-container .submit-button {
     display: none;
 }
 
-.song-show-page-main-container {
+.song-show-page .content .social-els-container .main {
     display: flex;
     position: relative;
     top: 20px;
     width: 815px;
 }
 
-.song-show-page-artist-img {
+.song-show-page .content .social-els-container .main .artist-info-container .artist-img {
     width: 125px;
     border-radius: 50%;
+    margin-bottom: 5px;
 }
 
-.song-show-page-artist {
+.song-show-page .content .social-els-container .main .artist-info-container a {
     color: black;
     text-decoration: none;
 }
 
-.song-show-page-artist:hover {
+.song-show-page .content .social-els-container .main .artist-info-container a:hover {
     color: black;
     text-decoration: none;
     cursor: pointer;
 }
 
+.song-show-page .content .social-els-container .main .artist-info-container button {
+    color: white;
+    font-size: 11px;
+    background-color: #FB5400;
+    margin-top: 5px;
+    padding: 2px 8px;
+    border: 1px solid #FB5400;
+    border-radius: 3px;
+}
+
+.song-show-page .content .social-els-container .main .artist-info-container .following {
+    color: #FB5400;
+    font-size: 11px;
+    background-color: white;
+    padding: 2px 8px;
+    border: 1px solid #FB5400;
+    border-radius: 3px;
+}
+
 .song-show-page-artist-follows-container {
     display: flex;
 }
+
+.song-show-page .content .social-els-container .main .artist-info-container {}
 
 .song-show-page-follow-button {
     font-size: 11px;

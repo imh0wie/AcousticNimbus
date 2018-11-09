@@ -33,13 +33,16 @@ export const artistIdOf = (onPageSong) => {
 }
 
 export const followOf = (followedUserId, followerId, follows) => {
+    debugger
     if (isEmpty(follows)) return null;
+    debugger
     const followIds = Object.keys(follows);
     for (let i = 0; i < followIds.length; i++ ) {
         const followId = followIds[i];
         const follow = follows[followId];
         if (follow.followedUserId === followedUserId && follow.followerId === followerId) return follow;
     }
+    debugger
     return null;
 }
 
@@ -84,6 +87,8 @@ export const followedSongs = (users, songs) => {
     users.forEach((user) => {
         const tracks = songsOf(user, songs);
         output = output.concat(tracks);
+        debugger
     })
+    debugger
     return output;
 }

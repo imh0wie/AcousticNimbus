@@ -7,6 +7,7 @@ class Navbar extends React.Component {
   }
 
   render() {
+    if (!this.props.currentUser) return null;
     switch (this.props.klass) {
       case "homepage":
         return (

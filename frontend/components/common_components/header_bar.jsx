@@ -26,7 +26,7 @@ class HeaderBar extends React.Component {
   }
 
   render() {
-    if (!this.props.currentUser || this.props.currentURL === "/") {
+    if (!this.props.currentUser) {
       return null;
     } else {
       return (
@@ -34,15 +34,15 @@ class HeaderBar extends React.Component {
           <div className="inner-bar">
             <Link to="/stream" ><img src={window.barLogo} className="logo" ></img></Link>
             <Link to="/stream"><button className={this.props.currentURL.indexOf("/stream") > -1 || this.props.currentURL.indexOf("/charts") > -1 ? "home selected" : "home"}>Home</button></Link>
-            <span title="Page coming soon!"><Link to=""><button className={this.props.currentURL.indexOf("/you") > -1 ? "collection selected" : "collection"} >Collection</button></Link></span>
+            {/* <span title="Page coming soon!"><Link to=""><button className={this.props.currentURL.indexOf("/you") > -1 ? "collection selected" : "collection"} >Collection</button></Link></span> */}
             <div className="search-bar-container">
-              <input type="text" placeholder="Search" className="search-bar"></input>
+              <input type="text" placeholder="Search (Disabled)" className="search-bar"></input>
             </div>
             <Link to="/upload"><button className={this.props.currentURL === "upload" ? "upload selected" : "upload"}>Upload</button></Link>
-            <span title="Page coming soon!"><button className="profile-dropdown">
+            <Link to={`/users/${this.props.currentUser.id}`}><button className="profile-dropdown">
               <img src={window.user_dp}></img>
               <p>{this.props.currentUser.username}</p>
-            </button></span>
+            </button></Link>
             <button className="logout-button" onClick={() => this.props.logout()}>Sign Out</button>
           </div>
         </header>
