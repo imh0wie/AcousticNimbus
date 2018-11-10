@@ -3800,11 +3800,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _actions_song_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/song_actions */ "./frontend/actions/song_actions.js");
-/* harmony import */ var _actions_comment_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../actions/comment_actions */ "./frontend/actions/comment_actions.js");
-/* harmony import */ var _util_general_api_util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../util/general_api_util */ "./frontend/util/general_api_util.js");
-/* harmony import */ var _util_like_api_util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../util/like_api_util */ "./frontend/util/like_api_util.js");
-/* harmony import */ var _util_comment_api_util__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../util/comment_api_util */ "./frontend/util/comment_api_util.js");
-/* harmony import */ var _likes_list_item__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./likes_list_item */ "./frontend/components/homepage/likes_section/likes_list_item.jsx");
+/* harmony import */ var _actions_like_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../actions/like_actions */ "./frontend/actions/like_actions.js");
+/* harmony import */ var _actions_comment_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../actions/comment_actions */ "./frontend/actions/comment_actions.js");
+/* harmony import */ var _util_general_api_util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../util/general_api_util */ "./frontend/util/general_api_util.js");
+/* harmony import */ var _util_like_api_util__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../util/like_api_util */ "./frontend/util/like_api_util.js");
+/* harmony import */ var _util_comment_api_util__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../util/comment_api_util */ "./frontend/util/comment_api_util.js");
+/* harmony import */ var _likes_list_item__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./likes_list_item */ "./frontend/components/homepage/likes_section/likes_list_item.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -3833,11 +3834,13 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var msp = function msp(state) {
   return {
     // songs: isEmpty(state.entities.songs) ? null : state.entities.songs,
     // comments: isEmpty(state.entities.comments) ? null : state.entities.comments,
     songs: state.entities.songs,
+    likes: state.entities.likes,
     comments: state.entities.comments
   };
 };
@@ -3847,8 +3850,11 @@ var mdp = function mdp(dispatch) {
     fetchSongs: function fetchSongs() {
       return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["fetchSongs"])());
     },
+    fetchLikes: function fetchLikes() {
+      return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_4__["fetchLikes"])());
+    },
     fetchComments: function fetchComments() {
-      return dispatch(Object(_actions_comment_actions__WEBPACK_IMPORTED_MODULE_4__["fetchComments"])());
+      return dispatch(Object(_actions_comment_actions__WEBPACK_IMPORTED_MODULE_5__["fetchComments"])());
     }
   };
 };
@@ -3867,8 +3873,7 @@ function (_React$Component) {
   _createClass(LikesList, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchSongs();
-      this.props.fetchComments();
+      this.props.fetchSongs().then(this.props.fetchLikes().then(this.props.fetchComments()));
     }
   }, {
     key: "render",
@@ -3877,15 +3882,15 @@ function (_React$Component) {
 
       debugger;
 
-      if (!Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_5__["isEmpty"])(this.props.songs) && this.props.latestThreeLikes) {
+      if (!Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_6__["isEmpty"])(this.props.songs) && this.props.latestThreeLikes) {
         debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.latestThreeLikes.map(function (like) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_likes_list_item__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_likes_list_item__WEBPACK_IMPORTED_MODULE_9__["default"], {
             key: like.id,
             like: like,
             song: _this.props.songs[like.likeableId],
-            songLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likesOf"])("Song", like.likeableId, _this.props.likes),
-            songComments: Object(_util_comment_api_util__WEBPACK_IMPORTED_MODULE_7__["commentsOf"])(like.likeableId, _this.props.comments)
+            songLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_7__["likesOf"])("Song", like.likeableId, _this.props.likes),
+            songComments: Object(_util_comment_api_util__WEBPACK_IMPORTED_MODULE_8__["commentsOf"])(like.likeableId, _this.props.comments)
           });
         }));
       } else {

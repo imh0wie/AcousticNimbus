@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { fetchSongs } from "../../../actions/song_actions";
+import { fetchLikes } from "../../../actions/like_actions";
 import { fetchComments } from "../../../actions/comment_actions";
 import { isEmpty } from "../../../util/general_api_util"
 import { likesOf } from "../../../util/like_api_util";
@@ -13,6 +14,7 @@ const msp = (state) => {
         // songs: isEmpty(state.entities.songs) ? null : state.entities.songs,
         // comments: isEmpty(state.entities.comments) ? null : state.entities.comments,
         songs: state.entities.songs,
+        likes: state.entities.likes,
         comments: state.entities.comments,
     })
 }
@@ -20,6 +22,7 @@ const msp = (state) => {
 const mdp = (dispatch) => {
     return ({
         fetchSongs: () => dispatch(fetchSongs()),
+        fetchLikes: () => dispatch(fetchLikes()),
         fetchComments: () => dispatch(fetchComments()),
     });
 }
@@ -30,8 +33,11 @@ class LikesList extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchSongs();
-        this.props.fetchComments();
+        this.props.fetchSongs().then(
+            this.props.fetchLikes().then(
+                this.props.fetchComments()
+            )
+        )
     }
 
     render() {
