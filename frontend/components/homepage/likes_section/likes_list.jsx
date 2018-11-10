@@ -10,8 +10,10 @@ import LikesListItem from "./likes_list_item";
 
 const msp = (state) => {
     return ({
-        songs: isEmpty(state.entities.songs) ? null : state.entities.songs,
-        comments: isEmpty(state.entities.comments) ? null : state.entities.comments,
+        // songs: isEmpty(state.entities.songs) ? null : state.entities.songs,
+        // comments: isEmpty(state.entities.comments) ? null : state.entities.comments,
+        songs: state.entities.songs,
+        comments: state.entities.comments,
     })
 }
 
@@ -34,11 +36,11 @@ class LikesList extends React.Component {
 
     render() {
         debugger
-        if (this.props.songs) {
+        if (!isEmpty(this.props.songs) && this.props.latestThreeLikes) {
             debugger
             return (
                 <ul>
-                    {this.props.latestThreeLikes.forEach((like) => {
+                    {this.props.latestThreeLikes.map((like) => {
                         return (
                             <LikesListItem
                             key={like.id}
@@ -53,9 +55,7 @@ class LikesList extends React.Component {
             );    
         } else {
             debugger
-            return (
-                <img src={window.loading5}></img>
-            );
+            return null;
         }
 
     }

@@ -3770,8 +3770,8 @@ function (_React$Component) {
         klass: "ad"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "stats"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_who_to_follow_who_to_follow__WEBPACK_IMPORTED_MODULE_8__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_likes_section_likes_section__WEBPACK_IMPORTED_MODULE_9__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "liked-songs"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_who_to_follow_who_to_follow__WEBPACK_IMPORTED_MODULE_8__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_likes_section_likes_section__WEBPACK_IMPORTED_MODULE_9__["default"], {
+        currentUserId: this.props.currentUserId
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "history"
       })));
@@ -3835,8 +3835,10 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 var msp = function msp(state) {
   return {
-    songs: Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_5__["isEmpty"])(state.entities.songs) ? null : state.entities.songs,
-    comments: Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_5__["isEmpty"])(state.entities.comments) ? null : state.entities.comments
+    // songs: isEmpty(state.entities.songs) ? null : state.entities.songs,
+    // comments: isEmpty(state.entities.comments) ? null : state.entities.comments,
+    songs: state.entities.songs,
+    comments: state.entities.comments
   };
 };
 
@@ -3875,9 +3877,9 @@ function (_React$Component) {
 
       debugger;
 
-      if (this.props.songs) {
+      if (!Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_5__["isEmpty"])(this.props.songs) && this.props.latestThreeLikes) {
         debugger;
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.latestThreeLikes.forEach(function (like) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.latestThreeLikes.map(function (like) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_likes_list_item__WEBPACK_IMPORTED_MODULE_8__["default"], {
             key: like.id,
             like: like,
@@ -3888,9 +3890,7 @@ function (_React$Component) {
         }));
       } else {
         debugger;
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.loading5
-        });
+        return null;
       }
     }
   }]);
@@ -3913,6 +3913,7 @@ function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -3933,6 +3934,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var LikesListItem =
 /*#__PURE__*/
 function (_React$Component) {
@@ -3947,13 +3949,14 @@ function (_React$Component) {
   _createClass(LikesListItem, [{
     key: "render",
     value: function render() {
+      debugger;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: this.props.song.imageURL ? this.props.song.imageURL : window.song_dp
+        src: this.props.song ? this.props.song.imageURL : window.song_dp
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "song-info"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Link, {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: ""
-      }, this.props.song.artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Link, {
+      }, this.props.song.artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: ""
       }, this.props.song.title.length > 24 ? this.props.song.title.slice(0, 24) + "..." : this.props.song.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "social-info"
@@ -4038,9 +4041,15 @@ function (_React$Component) {
   _inherits(LikesSection, _React$Component);
 
   function LikesSection(props) {
+    var _this;
+
     _classCallCheck(this, LikesSection);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(LikesSection).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(LikesSection).call(this, props));
+    _this.state = {
+      loading: false
+    };
+    return _this;
   }
 
   _createClass(LikesSection, [{
@@ -4049,26 +4058,32 @@ function (_React$Component) {
       this.props.fetchLikes();
     }
   }, {
-    key: "render",
-    value: function render() {
-      if (this.props.currentLikes) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "likes-section"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "header"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-          className: "fas fa-heart"
-        }), " ", this.props.currentLikes.length, " likes"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-          to: ""
-        }, "View all")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_likes_list__WEBPACK_IMPORTED_MODULE_5__["default"], {
-          likes: this.props.likes,
-          latestThreeLikes: this.props.latestThreeLikes
-        }));
-      } else {
+    key: "renderList",
+    value: function renderList() {
+      if (this.state.loading) {
+        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loading5
         });
+      } else {
+        debugger;
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_likes_list__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          latestThreeLikes: this.props.latestThreeLikes
+        });
       }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "likes-section"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-heart"
+      }), " ", this.props.currentLikes ? this.props.currentLikes.length : "n", " likes"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+        to: ""
+      }, "View all")), this.renderList());
     }
   }]);
 

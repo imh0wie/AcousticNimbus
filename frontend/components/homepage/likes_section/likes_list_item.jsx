@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 class LikesListItem extends React.Component {
     constructor(props) {
@@ -6,9 +7,10 @@ class LikesListItem extends React.Component {
     }
 
     render() {
+        debugger
         return (
             <li>
-                <img src={this.props.song.imageURL ? this.props.song.imageURL : window.song_dp}></img>
+                <img src={this.props.song ? this.props.song.imageURL : window.song_dp}></img>
                 <div className="song-info">
                     <Link to="">{this.props.song.artist}</Link>
                     <Link to="">{this.props.song.title.length > 24 ? this.props.song.title.slice(0,24) + "..." : this.props.song.title}</Link>

@@ -40,9 +40,7 @@ class Homepage extends React.Component {
           <div className="stats">
           </div>
           <WhoToFollow />
-          <LikesSection />
-          <div className="liked-songs">
-          </div>
+          <LikesSection currentUserId={this.props.currentUserId} />
           <div className="history">
           </div>
         </div>

@@ -25,30 +25,39 @@ const mdp = (dispatch) => {
 class LikesSection extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            loading: false,
+        }
     }
 
     componentDidMount() {
         this.props.fetchLikes();
     }
 
-    render () {
-        if (this.props.currentLikes) {
-            return (
-                <div className="likes-section">
-                    <div className="header">
-                        <p><i className="fas fa-heart"></i> {this.props.currentLikes.length} likes</p>
-                        <Link to="">View all</Link>
-                    </div>
-                    <LikesList  
-                    likes={this.props.likes}
-                    latestThreeLikes={this.props.latestThreeLikes} 
-                    />
-                </div>
-            );
-        } else {
+    renderList() {
+        if (this.state.loading) {
+            debugger
             return <img src={window.loading5}></img>;
+        } else {
+            debugger
+            return (
+                <LikesList  
+                latestThreeLikes={this.props.latestThreeLikes} 
+                />
+            );
         }
-        
+    }
+
+    render () {
+        return (
+            <div className="likes-section">
+                <div className="header">
+                    <p><i className="fas fa-heart"></i> {this.props.currentLikes ? this.props.currentLikes.length : "n"} likes</p>
+                    <Link to="">View all</Link>
+                </div>
+                {this.renderList()}
+            </div>
+        );
     } 
 }
 
