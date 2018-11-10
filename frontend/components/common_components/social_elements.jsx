@@ -1,10 +1,43 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { Link, withRouter } from "react-router-dom";
+import { fetchLikes, createLike, removeLike } from "../../actions/like_actions";
+import { fetchUsers } from "../../actions/user_actions";
+import { likesOf, likeOf } from "../../util/like_api_util";
+
+const msp = (state, ownProps) => {
+    const likes = state.entities.likes;
+    const songId = ownProps.songId;
+    const currentUser = ownProps.currentUser;
+    const currentUserId = ownProps.currentUserId;
+    debugger
+    return ({
+        likes: likes,
+        currentLike: likeOf("Song", songId, currentUser, likes),
+        currentLikes: likesOf("Song", songId, likes),
+        currentUserId: currentUserId,
+    });
+}
+
+const mdp = (dispatch) => {
+    return ({
+        fetchLikes: () => dispatch(fetchLikes()),
+        createLike: (like) => dispatch(createLike(like)),
+        removeLike: (id) => dispatch(removeLike(id)),
+        fetchUsers: () => dispatch(fetchUsers()),
+    })
+}
 
 class SocialElements extends React.Component {
     constructor(props) {
         super(props);
         this.handleFollow = this.handleFollow.bind(this);
+    }
+
+    componentDidMount() {
+        if (this.props.klass === "banner-player") {
+            this.props.fetchLikes();
+        }
     }
 
     handleLike(e) {
@@ -79,13 +112,16 @@ class SocialElements extends React.Component {
 
     render() {
         if (this.props.klass === "none") return <div></div>;
+        debugger
         return (
             <div className="social-els">
                 {this.renderButtons()}
                 {this.renderSocialData()}
             </div>
         );
+       
+        
     }
 }
 
-export default SocialElements;
+export default withRouter(connect(msp, mdp)(SocialElements));

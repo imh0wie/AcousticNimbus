@@ -5,7 +5,7 @@ const WhoToFollow = () => {
     return (
         <div className="who-to-follow">
             <div className="header"> 
-                <p><i class="fas fa-user-friends"></i> Who to follow</p>
+                <p><i className="fas fa-user-friends"></i> Who to follow</p>
                 {/* <p className="refresh"><i class="fas fa-redo-alt"></i> Refresh </p> */}
             </div>
             <ArtistsList />

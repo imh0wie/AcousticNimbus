@@ -37,7 +37,9 @@ export const likesOf = (likeableType, likeableId, likes) => {
 }
 
 export const likeOf = (likeableType, likeableId, liker, likes) => {
-    if (isEmpty(likes)) return null;
+    debugger
+    if (isEmpty(likes) || !liker) return null;
+    debugger
     const likeIds = Object.keys(likes);
     for (let i = 0; i < likeIds.length; i++ ) {
         const likeId = likeIds[i];

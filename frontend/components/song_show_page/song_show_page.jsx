@@ -81,7 +81,7 @@ class SongShowPage extends React.Component {
   componentDidMount() {
     // this.props.fetchSong(this.props.onPageSongId);
     this.props.fetchSongs();
-    this.props.fetchLikes();
+    // this.props.fetchLikes();
     // this.props.fetchFollows();
     // this.props.fetchComments();
     // this.props.fetchUsers();
@@ -113,7 +113,7 @@ class SongShowPage extends React.Component {
         <img src={window.loading1} className="loading"></img>
       );
     } else {
-      debugger
+      // debugger
       return (
         <div className="song-show-page">
           <Player
@@ -140,12 +140,8 @@ class SongShowPage extends React.Component {
                 <SocialElements
                   klass="banner-player"
                   songId={this.props.onPageSongId}
-                  currentLike={this.props.currentLike}
-                  currentLikes={this.props.currentLikes}
-                  createLike={this.props.createLike}
-                  removeLike={this.props.removeLike}
-                  currentUserId={this.props.currentUserId}
                   currentUser={this.props.currentUser}
+                  currentUserId={this.props.currentUserId}
                 />
               </div>
               <div className="main">

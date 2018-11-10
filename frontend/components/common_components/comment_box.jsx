@@ -24,7 +24,6 @@ class CommentBox extends React.Component {
 
     handleComment(e) {
         e.preventDefault();
-        debugger
         this.props.createComment(this.state);
         this.setState({
             body: "",
@@ -35,7 +34,6 @@ class CommentBox extends React.Component {
     }
     
     update(field) {
-        debugger
         return (e) => {
             const elapsed = this.props.currentSong.song && this.props.currentSong.song.id === this.props.songId ? this.props.currentSong.elapsed : 0;
             this.setState({ 
@@ -46,7 +44,6 @@ class CommentBox extends React.Component {
     }
 
     render() {
-        debugger
         return (
             <div className="comment-box-container">
                 <img src={this.props.currentUser.imageURL ? this.props.currentUser.imageURL : window.user_dp} className="comment-box-img"></img>

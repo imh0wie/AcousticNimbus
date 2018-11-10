@@ -43,11 +43,11 @@ class ArtistsList extends React.Component {
                 this.props.fetchUsers()
             )
         );
-        this.props.fetchFollows().then(
-            this.props.fetchUsers().then(
-                this.props.fetchSongs()
-            )
-        );
+        // this.props.fetchFollows().then(
+        //     this.props.fetchUsers().then(
+        //         this.props.fetchSongs()
+        //     )
+        // );
         // this.props.fetchSongs()
         // this.props.fetchFollows();
         // this.props.fetchUsers();
@@ -74,8 +74,10 @@ class ArtistsList extends React.Component {
             return (
                 <ul>
                     {this.props.suggestedArtists.map((artist) => {
+                        if (!songsOf(artist, this.props.songs)) return  <img src={window.loading5} className="loading"></img>;
                         return (
                             <ArtistsListItem 
+                                key={artist.id}
                                 artist={artist} 
                                 artistFollow={followOf(artist.id, this.props.currentUser.id, this.props.follows)}
                                 artistFollowers={followersOf(artist.id, this.props.follows, this.props.users)}
