@@ -8,6 +8,7 @@ import ChartsPage from "./charts_page/charts_page";
 import Slideshow from "../common_components/slideshow";
 import WhoToFollow from "./who_to_follow/who_to_follow"
 import LikesSection from "../common_components/likes_section/likes_section";
+import HiringInfoSection from "../common_components/hiring_info_section";
 
 const msp = (state) => {
   const currentUserId = state.session.id;
@@ -43,6 +44,7 @@ class Homepage extends React.Component {
           <LikesSection klass="homepage" currentUserId={this.props.currentUserId} />
           <div className="history">
           </div>
+          <HiringInfoSection />
         </div>
       </div>
     );

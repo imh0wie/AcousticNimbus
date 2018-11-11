@@ -11,6 +11,7 @@ import CommentsList from "./comments_list/comments_list";
 import Slideshow from "../common_components/slideshow";
 import RelatedSongs from "./related_songs";
 import LikesSection from "../common_components/likes_section/likes_section";
+import HiringInfoSection from "../common_components/hiring_info_section";
 
 const msp = (state, ownProps) => {
   const songId = parseInt(ownProps.match.params.songId);
@@ -98,6 +99,7 @@ class SongShowPage extends React.Component {
                 song={this.props.onPageSong}
                 songId={this.props.onPageSongId}
               />
+              <HiringInfoSection />
             </div>
           </div>
         </div>

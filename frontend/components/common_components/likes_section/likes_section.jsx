@@ -4,6 +4,7 @@ import { Link, withRouter } from "react-router-dom";
 import { fetchLikes } from "../../../actions/like_actions";
 import { likesBy, likesOf } from "../../../util/like_api_util";
 import MiniList from "../mini_list/mini_list";
+import LikesList from "./likes_list/likes_list"
 
 const msp = (state, ownProps) => {
     const song = ownProps.song;
@@ -49,14 +50,15 @@ class LikesSection extends React.Component {
                     return (
                         <MiniList
                             klass="likes-section"
-                            currentLikes={this.props.currentLikes}
+                            currentLikes={this.likes}
                         />
                     );
                 case "song-show-page":
+                    debugger
                     return (
-                        <div id="likes-section">
-                            hi
-                        </div>
+                        <LikesList
+                            likes={this.likes}
+                        />
                     );
                 default:
                     break;
@@ -75,7 +77,6 @@ class LikesSection extends React.Component {
             default:
                 break;
         }
-        debugger
         return (
             <div className="likes-section">
                 <div className="header">
