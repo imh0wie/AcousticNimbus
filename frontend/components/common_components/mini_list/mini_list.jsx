@@ -5,6 +5,7 @@ import { fetchSongs } from "../../../actions/song_actions";
 import { fetchLikes } from "../../../actions/like_actions";
 import { fetchComments } from "../../../actions/comment_actions";
 import { isEmpty } from "../../../util/general_api_util"
+import { relatedSongsOf } from "../../../util/song_api_util";
 import { likesOf } from "../../../util/like_api_util";
 import { commentsOf } from "../../../util/comment_api_util";
 import MiniListItem from "./mini_list_item";
@@ -12,6 +13,7 @@ import MiniListItem from "./mini_list_item";
 const msp = (state, ownProps) => {
     const song = ownProps.song;
     const songId = ownProps.songId;
+    const currentLikes = ownProps.currentLikes;
     return ({
         // songs: isEmpty(state.entities.songs) ? null : state.entities.songs,
         // comments: isEmpty(state.entities.comments) ? null : state.entities.comments,
@@ -20,6 +22,7 @@ const msp = (state, ownProps) => {
         songs: state.entities.songs,
         likes: state.entities.likes,
         comments: state.entities.comments,
+        latestThreeLikes: currentLikes ? currentLikes.slice(0, 3) : null,
     })
 }
 
@@ -50,7 +53,8 @@ class MiniList extends React.Component {
                 this.miniListItems = this.props.latestThreeLikes;
                 break;
             case "song-show-page":
-                this.miniListItems = 
+                // this.miniListItems = 
+                break;
             default:
                 break;
         }

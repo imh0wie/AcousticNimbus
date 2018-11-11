@@ -8,11 +8,9 @@ import MiniList from "../../common_components/mini_list/mini_list";
 const msp = (state) => {
     const currentUserId = state.session.id;
     const likes = state.entities.likes;
-    const currentLikes = likesBy(likes, currentUserId);
     return ({
         likes: likes,
-        currentLikes: currentLikes,
-        latestThreeLikes: currentLikes ? currentLikes.slice(0, 3) : null,
+        currentLikes: likesBy(likes, currentUserId),
     });
 }
 
@@ -43,7 +41,7 @@ class LikesSection extends React.Component {
             return (
                 <MiniList
                 klass="likes-section"
-                latestThreeLikes={this.props.latestThreeLikes} 
+                currentLikes={this.props.currentLikes}
                 />
             );
         }
