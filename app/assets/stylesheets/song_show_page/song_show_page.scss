@@ -255,6 +255,37 @@
     border-left: 1px solid #f2f2f2;
 }
 
+.song-show-page .content .sidebar .related-songs {
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    color: #9b9b9b;
+}
+
+.song-show-page .content .sidebar .related-songs .header {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+    height: 100%;
+    margin: 0 auto;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.song-show-page .content .sidebar .related-songs .header p {
+    margin: 0;
+    margin-bottom: 3px;
+}
+
+.song-show-page .content .sidebar .related-songs .header a {
+    color: #999;
+    text-decoration: none;
+}
+
+.song-show-page .content .sidebar .related-songs .header a:hover {
+    color: #333;
+    // text-decoration: none;
+}
 
 
 

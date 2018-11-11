@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { removeComment } from "../../actions/comment_actions";
+import { removeComment } from "../../../actions/comment_actions";
 
 const msp = (state) => {
     const currentUserId = state.session.id;

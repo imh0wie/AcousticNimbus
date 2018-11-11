@@ -7,8 +7,9 @@ import Player from "../common_components/player";
 import CommentBox from "../common_components/comment_box";
 import SocialElements from "../common_components/social_elements";
 import MiniArtistProfile from "../common_components/mini_artist_profile";
-import CommentsList from "./comments_list";
+import CommentsList from "./comments_list/comments_list";
 import Slideshow from "../common_components/slideshow";
+import RelatedSongs from "./related_songs";
 
 const msp = (state, ownProps) => {
   const songId = parseInt(ownProps.match.params.songId);
@@ -87,6 +88,7 @@ class SongShowPage extends React.Component {
             </div>
             <div className="sidebar">
               <Slideshow klass="ad"/>
+              <RelatedSongs />
             </div>
           </div>
         </div>
