@@ -25,7 +25,7 @@ const mdp = (dispatch) => {
     })
 }
 
-class LikesSession extends React.Component {
+class LikesSection extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -88,4 +88,4 @@ class LikesSession extends React.Component {
     } 
 }
 
-export default withRouter(connect(msp, mdp)(LikesSession));
+export default withRouter(connect(msp, mdp)(LikesSection));

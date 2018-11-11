@@ -1009,24 +1009,24 @@ var mdp = function mdp(dispatch) {
   };
 };
 
-var LikesSession =
+var LikesSection =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(LikesSession, _React$Component);
+  _inherits(LikesSection, _React$Component);
 
-  function LikesSession(props) {
+  function LikesSection(props) {
     var _this;
 
-    _classCallCheck(this, LikesSession);
+    _classCallCheck(this, LikesSection);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(LikesSession).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(LikesSection).call(this, props));
     _this.state = {
       loading: true
     };
     return _this;
   }
 
-  _createClass(LikesSession, [{
+  _createClass(LikesSection, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.fetchLikes();
@@ -1091,10 +1091,10 @@ function (_React$Component) {
     }
   }]);
 
-  return LikesSession;
+  return LikesSection;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, mdp)(LikesSession)));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, mdp)(LikesSection)));
 
 /***/ }),
 
