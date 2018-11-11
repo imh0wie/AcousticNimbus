@@ -20,6 +20,7 @@ const msp = (state, ownProps) => {
         users: users,
         songArtist: users[song.artistId],
         currentFollow: followOf(song.artistId, currentUserId, follows),
+        currentUserId: currentUserId,
     });
 }
 
