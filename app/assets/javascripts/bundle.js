@@ -1057,7 +1057,6 @@ function (_React$Component) {
           followed_user_id: this.props.songArtist.id,
           follower_id: this.props.currentUserId
         };
-        debugger;
         this.props.createFollow(follow);
       }
     }
@@ -1066,16 +1065,12 @@ function (_React$Component) {
     value: function render() {
       var _this = this;
 
-      debugger;
-
       if (Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_6__["isEmpty"])(this.props.follows)) {
-        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loading5,
           className: "loading"
         });
       } else {
-        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "artist-info-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -1116,200 +1111,9 @@ function (_React$Component) {
   !*** ./frontend/components/common_components/mini_list/mini_list.jsx ***!
   \***********************************************************************/
 /*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var _actions_song_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/song_actions */ "./frontend/actions/song_actions.js");
-/* harmony import */ var _actions_like_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../actions/like_actions */ "./frontend/actions/like_actions.js");
-/* harmony import */ var _actions_comment_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../actions/comment_actions */ "./frontend/actions/comment_actions.js");
-/* harmony import */ var _util_general_api_util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../util/general_api_util */ "./frontend/util/general_api_util.js");
-/* harmony import */ var _util_like_api_util__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../util/like_api_util */ "./frontend/util/like_api_util.js");
-/* harmony import */ var _util_comment_api_util__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../util/comment_api_util */ "./frontend/util/comment_api_util.js");
-/* harmony import */ var _mini_list_item__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./mini_list_item */ "./frontend/components/common_components/mini_list/mini_list_item.jsx");
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-
-
-
-
-
-
-
-
-
-
-
-var msp = function msp(state) {
-  return {
-    // songs: isEmpty(state.entities.songs) ? null : state.entities.songs,
-    // comments: isEmpty(state.entities.comments) ? null : state.entities.comments,
-    songs: state.entities.songs,
-    likes: state.entities.likes,
-    comments: state.entities.comments
-  };
-};
-
-var mdp = function mdp(dispatch) {
-  return {
-    fetchSongs: function fetchSongs() {
-      return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["fetchSongs"])());
-    },
-    fetchLikes: function fetchLikes() {
-      return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_4__["fetchLikes"])());
-    },
-    fetchComments: function fetchComments() {
-      return dispatch(Object(_actions_comment_actions__WEBPACK_IMPORTED_MODULE_5__["fetchComments"])());
-    }
-  };
-};
-
-var MiniList =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(MiniList, _React$Component);
-
-  function MiniList(props) {
-    _classCallCheck(this, MiniList);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(MiniList).call(this, props));
-  }
-
-  _createClass(MiniList, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      this.props.fetchSongs().then(this.props.fetchLikes().then(this.props.fetchComments()));
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this = this;
-
-      switch (this.props.klass) {
-        case "likes-section":
-          this.miniListItems = this.props.latestThreeLikes;
-          break;
-
-        default:
-          break;
-      }
-
-      if (!Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_6__["isEmpty"])(this.props.songs) && this.miniListItems) {
-        debugger;
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.miniListItems.map(function (like) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_mini_list_item__WEBPACK_IMPORTED_MODULE_9__["default"], {
-            key: like.id,
-            like: like,
-            song: _this.props.songs[like.likeableId],
-            songLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_7__["likesOf"])("Song", like.likeableId, _this.props.likes),
-            songComments: Object(_util_comment_api_util__WEBPACK_IMPORTED_MODULE_8__["commentsOf"])(like.likeableId, _this.props.comments)
-          });
-        }));
-      } else {
-        debugger;
-        return null;
-      }
-    }
-  }]);
-
-  return MiniList;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, mdp)(MiniList)));
-
-/***/ }),
-
-/***/ "./frontend/components/common_components/mini_list/mini_list_item.jsx":
-/*!****************************************************************************!*\
-  !*** ./frontend/components/common_components/mini_list/mini_list_item.jsx ***!
-  \****************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-
-
-
-var MiniListItem =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(MiniListItem, _React$Component);
-
-  function MiniListItem(props) {
-    _classCallCheck(this, MiniListItem);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(MiniListItem).call(this, props));
-  }
-
-  _createClass(MiniListItem, [{
-    key: "render",
-    value: function render() {
-      debugger;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: this.props.song ? this.props.song.imageURL : window.song_dp
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "song-info"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/users/".concat(this.props.song.artistId)
-      }, this.props.song.artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/songs/".concat(this.props.song.id),
-        className: "title"
-      }, this.props.song.title.length > 24 ? this.props.song.title.slice(0, 24) + "..." : this.props.song.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "social-info"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-heart"
-      }), " ", this.props.songLikes.length), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        class: "fas fa-comment-alt"
-      }), " ", this.props.songComments.length))));
-    }
-  }]);
-
-  return MiniListItem;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-
-/* harmony default export */ __webpack_exports__["default"] = (MiniListItem); // 14 12.25
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/howiechan/Codes/projects/AcousticNimbus/frontend/components/common_components/mini_list/mini_list.jsx: Unexpected token (54:12)\n\n\u001b[0m \u001b[90m 52 | \u001b[39m            \u001b[36mcase\u001b[39m \u001b[32m\"song-show-page\"\u001b[39m\u001b[33m:\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 53 | \u001b[39m                \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mminiListItems \u001b[33m=\u001b[39m \u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 54 | \u001b[39m            \u001b[36mdefault\u001b[39m\u001b[33m:\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    | \u001b[39m            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 55 | \u001b[39m                \u001b[36mbreak\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 56 | \u001b[39m        }\u001b[0m\n\u001b[0m \u001b[90m 57 | \u001b[39m        \u001b[36mif\u001b[39m (\u001b[33m!\u001b[39misEmpty(\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mprops\u001b[33m.\u001b[39msongs) \u001b[33m&&\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mminiListItems) {\u001b[0m\n    at _class.raise (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:3938:15)\n    at _class.unexpected (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5247:16)\n    at _class.parseExprAtom (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:6327:20)\n    at _class.parseExprAtom (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:3634:52)\n    at _class.parseExprSubscripts (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5923:21)\n    at _class.parseMaybeUnary (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5902:21)\n    at _class.parseExprOps (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5811:21)\n    at _class.parseMaybeConditional (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5783:21)\n    at _class.parseMaybeAssign (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5730:21)\n    at _class.parseMaybeAssign (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5770:27)\n    at _class.parseExpression (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:5683:21)\n    at _class.parseStatementContent (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7258:21)\n    at _class.parseStatement (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7144:17)\n    at _class.parseSwitchStatement (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7533:36)\n    at _class.parseStatementContent (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7181:21)\n    at _class.parseStatement (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7144:17)\n    at _class.parseBlockOrModuleBlockBody (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7695:23)\n    at _class.parseBlockBody (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7682:10)\n    at _class.parseBlock (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7671:10)\n    at _class.parseFunctionBody (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:6924:24)\n    at _class.parseFunctionBodyAndFinish (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:6904:10)\n    at _class.parseMethod (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:6856:10)\n    at _class.pushClassMethod (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:8075:30)\n    at _class.parseClassMemberWithIsStatic (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7994:12)\n    at _class.parseClassMember (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7936:10)\n    at _class.parseClassBody (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7891:12)\n    at _class.parseClass (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7841:10)\n    at _class.parseStatementContent (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7172:21)\n    at _class.parseStatement (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7144:17)\n    at _class.parseBlockOrModuleBlockBody (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7695:23)");
 
 /***/ }),
 
@@ -1690,7 +1494,6 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      debugger;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: this.props.klass === "banner-player" ? "banner-player-container" : "item-player-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -2771,7 +2574,6 @@ var msp = function msp(state, ownProps) {
   var likes = state.entities.likes;
   var currentUserId = state.session.id;
   var currentUser = state.entities.users[currentUserId];
-  debugger;
   return {
     likes: likes,
     currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_5__["likeOf"])("Song", songId, currentUser, likes),
@@ -2921,7 +2723,6 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       if (this.props.klass === "none") return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
-      debugger;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "social-els"
       }, this.renderButtons(), this.renderSocialData());
@@ -4791,7 +4592,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var RelatedSongs = function RelatedSongs() {
+var RelatedSongs = function RelatedSongs(props) {
+  debugger;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "related-songs"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -4958,7 +4760,11 @@ function (_React$Component) {
           className: "sidebar"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_slideshow__WEBPACK_IMPORTED_MODULE_10__["default"], {
           klass: "ad"
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_related_songs__WEBPACK_IMPORTED_MODULE_11__["default"], null))));
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_related_songs__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          klass: "song-show-page",
+          song: this.props.onPageSong,
+          songId: this.props.onPageSongId
+        }))));
       }
     }
   }]);
@@ -7033,7 +6839,7 @@ var logout = function logout() {
 /*!****************************************!*\
   !*** ./frontend/util/song_api_util.js ***!
   \****************************************/
-/*! exports provided: createSong, fetchSong, fetchSongs, latest, shuffle, songsOf, songsLikedBy */
+/*! exports provided: createSong, fetchSong, fetchSongs, latest, shuffle, songsOf, songsLikedBy, relatedSongs */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7045,6 +6851,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "shuffle", function() { return shuffle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "songsOf", function() { return songsOf; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "songsLikedBy", function() { return songsLikedBy; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "relatedSongs", function() { return relatedSongs; });
 /* harmony import */ var _general_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./general_api_util */ "./frontend/util/general_api_util.js");
 
 var createSong = function createSong(song) {
@@ -7108,6 +6915,16 @@ var songsLikedBy = function songsLikedBy(userId, songs, likes) {
   likeIds.forEach(function (likeId) {
     var like = likes[likeId];
     if (like.likeableType === "Song" && like.likerId === userId) output.push(songs[like.likeableId]);
+  });
+  return output;
+};
+var relatedSongs = function relatedSongs(targetSongId, songs) {
+  if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(songs)) return null;
+  var output = [];
+  var songIds = Object.keys(songs);
+  songIds.forEach(function (songId) {
+    var song = songs[songId];
+    if (song.genre === songs[targetSongId].genre) output.push(song);
   });
   return output;
 }; // const isEmpty = (obj) => {

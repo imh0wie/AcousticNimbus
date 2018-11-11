@@ -52,18 +52,14 @@ class MiniArtistProfile extends React.Component {
             followed_user_id: this.props.songArtist.id,
             follower_id: this.props.currentUserId,
           }
-          debugger
           this.props.createFollow(follow);
         }
       }
 
     render() {
-        debugger
         if (isEmpty(this.props.follows)) {
-            debugger
             return <img src={window.loading5} className="loading"></img>
         } else {
-            debugger
             return (
                 <div className="artist-info-container">
                     <img src={this.props.songArtist.imageURL ? this.props.songArtist.imageURL : window.user_dp} className="artist-img"></img>

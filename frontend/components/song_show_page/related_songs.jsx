@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const RelatedSongs = () => {
+const RelatedSongs = (props) => {
+    debugger
     return (
         <div className="related-songs">
             <div className="header"> 

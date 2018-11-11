@@ -9,10 +9,14 @@ import { likesOf } from "../../../util/like_api_util";
 import { commentsOf } from "../../../util/comment_api_util";
 import MiniListItem from "./mini_list_item";
 
-const msp = (state) => {
+const msp = (state, ownProps) => {
+    const song = ownProps.song;
+    const songId = ownProps.songId;
     return ({
         // songs: isEmpty(state.entities.songs) ? null : state.entities.songs,
         // comments: isEmpty(state.entities.comments) ? null : state.entities.comments,
+        song: song,
+        songId: songId,
         songs: state.entities.songs,
         likes: state.entities.likes,
         comments: state.entities.comments,
@@ -45,6 +49,8 @@ class MiniList extends React.Component {
             case "likes-section":
                 this.miniListItems = this.props.latestThreeLikes;
                 break;
+            case "song-show-page":
+                this.miniListItems = 
             default:
                 break;
         }

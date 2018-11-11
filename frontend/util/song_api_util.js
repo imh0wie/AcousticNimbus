@@ -67,6 +67,17 @@ export const songsLikedBy = (userId, songs, likes) => {
   return output;
 }
 
+export const relatedSongs = (targetSongId, songs) => {
+  if (isEmpty(songs)) return null;
+  const output = [];
+  const songIds = Object.keys(songs);
+  songIds.forEach((songId) => {
+    const song = songs[songId];
+    if (song.genre === songs[targetSongId].genre) output.push(song);
+  })
+  return output;
+}
+
 // const isEmpty = (obj) => {
 //   for (let key in obj) {
 //       if (obj.hasOwnProperty(key)) return false;

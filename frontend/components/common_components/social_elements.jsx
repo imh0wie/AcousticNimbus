@@ -10,7 +10,6 @@ const msp = (state, ownProps) => {
     const likes = state.entities.likes;
     const currentUserId = state.session.id;
     const currentUser = state.entities.users[currentUserId];
-    debugger
     return ({
         likes: likes,
         currentLike: likeOf("Song", songId, currentUser, likes),
@@ -113,7 +112,6 @@ class SocialElements extends React.Component {
 
     render() {
         if (this.props.klass === "none") return <div></div>;
-        debugger
         return (
             <div className="social-els">
                 {this.renderButtons()}
