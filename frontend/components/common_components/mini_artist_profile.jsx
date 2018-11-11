@@ -9,11 +9,11 @@ import { songsOf } from "../../util/song_api_util";
 import { followOf, followersOf } from "../../util/follow_api_util";
 
 const msp = (state, ownProps) => {
+    const song = ownProps.song;
     const songs = state.entities.songs;
     const follows = state.entities.follows;
     const users = state.entities.users;
-    const song = ownProps.song;
-    const currentUserId = ownProps.currentUserId;
+    const currentUserId = state.session.id;
     return ({
         songs: songs,
         follows: follows,

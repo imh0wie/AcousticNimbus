@@ -994,11 +994,11 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 var msp = function msp(state, ownProps) {
+  var song = ownProps.song;
   var songs = state.entities.songs;
   var follows = state.entities.follows;
   var users = state.entities.users;
-  var song = ownProps.song;
-  var currentUserId = ownProps.currentUserId;
+  var currentUserId = state.session.id;
   return {
     songs: songs,
     follows: follows,
@@ -1729,8 +1729,6 @@ function (_React$Component) {
         createLike: this.props.createLike,
         removeLike: this.props.removeLike,
         currentLike: this.props.currentLike,
-        currentUser: this.props.currentUser,
-        currentUserId: this.props.currentUserId,
         style: this.props.klass === "banner-player" ? this.noneStyle : {}
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: this.props.song.imageURL ? this.props.song.imageURL : window.user_dp,
@@ -2768,16 +2766,17 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 var msp = function msp(state, ownProps) {
-  var likes = state.entities.likes;
   var songId = ownProps.songId;
-  var currentUser = ownProps.currentUser;
-  var currentUserId = ownProps.currentUserId;
+  var likes = state.entities.likes;
+  var currentUserId = state.session.id;
+  var currentUser = state.entities.users[currentUserId];
   debugger;
   return {
     likes: likes,
     currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_5__["likeOf"])("Song", songId, currentUser, likes),
     currentLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_5__["likesOf"])("Song", songId, likes),
-    currentUserId: currentUserId
+    currentUserId: currentUserId,
+    currentUser: currentUser
   };
 };
 
@@ -4556,9 +4555,6 @@ var mdp = function mdp(dispatch) {
   return {
     fetchComments: function fetchComments() {
       return dispatch(Object(_actions_comment_actions__WEBPACK_IMPORTED_MODULE_3__["fetchComments"])());
-    },
-    removeComment: function removeComment(id) {
-      return dispatch(Object(_actions_comment_actions__WEBPACK_IMPORTED_MODULE_3__["removeComment"])(id));
     }
   };
 };
@@ -4575,6 +4571,11 @@ function (_React$Component) {
   }
 
   _createClass(CommentsList, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.fetchComments();
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this = this;
@@ -4598,11 +4599,7 @@ function (_React$Component) {
             key: comment.id,
             comment: comment,
             commenter: _this.props.users[comment.commenterId],
-            currentSong: _this.props.currentSong,
-            currentUser: _this.props.currentUser,
-            onPageSong: _this.props.onPageSong,
-            removeComment: _this.props.removeComment,
-            fetchComments: _this.props.fetchComments
+            onPageSong: _this.props.onPageSong
           });
         })));
       }
@@ -4627,6 +4624,9 @@ function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var _actions_comment_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/comment_actions */ "./frontend/actions/comment_actions.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4646,6 +4646,25 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 
+
+
+
+
+var msp = function msp(state) {
+  var currentUserId = state.session.id;
+  return {
+    currentUserId: currentUserId,
+    currentUser: state.entities.users[currentUserId]
+  };
+};
+
+var mdp = function mdp(dispatch) {
+  return {
+    removeComment: function removeComment(id) {
+      return dispatch(Object(_actions_comment_actions__WEBPACK_IMPORTED_MODULE_3__["removeComment"])(id));
+    }
+  };
+};
 
 var CommentsListItem =
 /*#__PURE__*/
@@ -4678,21 +4697,7 @@ function (_React$Component) {
         className: "username"
       }, username), " at ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "time"
-      }, "0:00"), ":"); // const audio = new Audio(this.props.onPageSong.audioURL);
-      // // const audioDuration = audio.duration;
-      // let audioDuration;
-      // audio.onloaded = () => {
-      //     audioDuration = audio.duration;
-      // };
-      // if (this.props.currentSong.song && this.props.c.id === this.props.currentSong.song.id) {
-      //     return (   
-      //         <h1><span className="username">{username}</span> at <span className="time">{this.state. * audioDuration}</span>:</h1>
-      //     );
-      // } else {
-      //     return (   
-      //         <h1><span className="username">{username}</span> at <span className="time">0:00</span>:</h1>
-      //     );
-      // }
+      }, "0:00"), ":");
     }
   }, {
     key: "renderCommentCreationTime",
@@ -4762,7 +4767,7 @@ function (_React$Component) {
   return CommentsListItem;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (CommentsListItem);
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, mdp)(CommentsListItem)));
 
 /***/ }),
 
@@ -4934,7 +4939,8 @@ function (_React$Component) {
       this.props.fetchSongs(); // this.props.fetchLikes();
       // this.props.fetchFollows();
       // this.props.fetchComments();
-      // this.props.fetchUsers();
+
+      this.props.fetchUsers();
     }
   }, {
     key: "componentWillReceiveProps",
@@ -4995,24 +5001,23 @@ function (_React$Component) {
 
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_social_elements__WEBPACK_IMPORTED_MODULE_14__["default"], {
           klass: "banner-player",
-          songId: this.props.onPageSongId,
-          currentUser: this.props.currentUser,
-          currentUserId: this.props.currentUserId
+          songId: this.props.onPageSongId // currentUser={this.props.currentUser}
+          // currentUserId={this.props.currentUserId}
+
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "main"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_mini_artist_profile__WEBPACK_IMPORTED_MODULE_15__["default"], {
           klass: "song-show-page",
-          song: this.props.onPageSong,
-          currentUserId: this.props.currentUserId
+          song: this.props.onPageSong
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "description-comments"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "description"
         }, this.props.onPageSong.description), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_comments_list__WEBPACK_IMPORTED_MODULE_16__["default"], {
           song: this.props.onPageSong,
-          songId: this.props.onPageSongId,
-          currentSong: this.props.currentSong,
-          currentUser: this.props.currentUser
+          songId: this.props.onPageSongId // currentSong={this.props.currentSong}
+          // currentUser={this.props.currentUser}
+
         })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-show-page-sidebar"
         })));

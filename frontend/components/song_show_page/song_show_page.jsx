@@ -84,7 +84,7 @@ class SongShowPage extends React.Component {
     // this.props.fetchLikes();
     // this.props.fetchFollows();
     // this.props.fetchComments();
-    // this.props.fetchUsers();
+    this.props.fetchUsers();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -140,23 +140,22 @@ class SongShowPage extends React.Component {
                 <SocialElements
                   klass="banner-player"
                   songId={this.props.onPageSongId}
-                  currentUser={this.props.currentUser}
-                  currentUserId={this.props.currentUserId}
+                  // currentUser={this.props.currentUser}
+                  // currentUserId={this.props.currentUserId}
                 />
               </div>
               <div className="main">
                 <MiniArtistProfile  
                   klass="song-show-page"
                   song={this.props.onPageSong}
-                  currentUserId={this.props.currentUserId}
                 />
                 <div className="description-comments">
                   <p className="description">{this.props.onPageSong.description}</p>
                   <CommentsList
                     song={this.props.onPageSong}
                     songId={this.props.onPageSongId}
-                    currentSong={this.props.currentSong}
-                    currentUser={this.props.currentUser}
+                    // currentSong={this.props.currentSong}
+                    // currentUser={this.props.currentUser}
                   />
                 </div>
               </div>

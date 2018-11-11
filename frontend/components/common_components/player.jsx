@@ -119,8 +119,6 @@ class Player extends React.Component {
                         createLike={this.props.createLike}
                         removeLike={this.props.removeLike}
                         currentLike={this.props.currentLike}
-                        currentUser={this.props.currentUser}
-                        currentUserId={this.props.currentUserId}
                         style={(this.props.klass === "banner-player") ? this.noneStyle : {}}
                     />
                 </div>

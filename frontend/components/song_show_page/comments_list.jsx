@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { fetchComments, removeComment } from "../../actions/comment_actions";
+import { fetchComments } from "../../actions/comment_actions";
 import { commentsOf } from "../../util/comment_api_util";
 import CommentsListItem from "./comments_list_item";
 
@@ -18,13 +18,16 @@ const msp = (state, ownProps) => {
 const mdp = (dispatch) => {
     return ({
         fetchComments: () => dispatch(fetchComments()),
-        removeComment: (id) => dispatch(removeComment(id))
     });
 }
 
 class CommentsList extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    componentDidMount() {
+        this.props.fetchComments();
     }
 
     render() {
@@ -48,11 +51,7 @@ class CommentsList extends React.Component {
                       key={comment.id}
                       comment={comment}
                       commenter={this.props.users[comment.commenterId]}
-                      currentSong={this.props.currentSong}
-                      currentUser={this.props.currentUser}
                       onPageSong={this.props.onPageSong}
-                      removeComment={this.props.removeComment}
-                      fetchComments={this.props.fetchComments}
                       />
                       );
                   })}

@@ -6,16 +6,17 @@ import { fetchUsers } from "../../actions/user_actions";
 import { likesOf, likeOf } from "../../util/like_api_util";
 
 const msp = (state, ownProps) => {
-    const likes = state.entities.likes;
     const songId = ownProps.songId;
-    const currentUser = ownProps.currentUser;
-    const currentUserId = ownProps.currentUserId;
+    const likes = state.entities.likes;
+    const currentUserId = state.session.id;
+    const currentUser = state.entities.users[currentUserId];
     debugger
     return ({
         likes: likes,
         currentLike: likeOf("Song", songId, currentUser, likes),
         currentLikes: likesOf("Song", songId, likes),
         currentUserId: currentUserId,
+        currentUser: currentUser,
     });
 }
 

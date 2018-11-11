@@ -1,4 +1,21 @@
 import React from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { removeComment } from "../../actions/comment_actions";
+
+const msp = (state) => {
+    const currentUserId = state.session.id;
+    return ({
+        currentUserId: currentUserId,
+        currentUser: state.entities.users[currentUserId],
+    });
+}
+
+const mdp = (dispatch) => {
+    return ({
+        removeComment: (id) => dispatch(removeComment(id))
+    });
+}
 
 class CommentsListItem extends React.Component {
     constructor(props) {
@@ -18,21 +35,6 @@ class CommentsListItem extends React.Component {
         return (   
             <h1><span className="username">{username}</span> at <span className="time">0:00</span>:</h1>
         );
-        // const audio = new Audio(this.props.onPageSong.audioURL);
-        // // const audioDuration = audio.duration;
-        // let audioDuration;
-        // audio.onloaded = () => {
-        //     audioDuration = audio.duration;
-        // };
-        // if (this.props.currentSong.song && this.props.c.id === this.props.currentSong.song.id) {
-        //     return (   
-        //         <h1><span className="username">{username}</span> at <span className="time">{this.state. * audioDuration}</span>:</h1>
-        //     );
-        // } else {
-        //     return (   
-        //         <h1><span className="username">{username}</span> at <span className="time">0:00</span>:</h1>
-        //     );
-        // }
     }
 
     renderCommentCreationTime(date) {
@@ -85,4 +87,4 @@ class CommentsListItem extends React.Component {
     }
 }
 
-export default CommentsListItem;
+export default withRouter(connect(msp, mdp)(CommentsListItem));
