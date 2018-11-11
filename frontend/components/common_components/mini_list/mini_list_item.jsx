@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-class LikesListItem extends React.Component {
+class MiniListItem extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -24,5 +24,5 @@ class LikesListItem extends React.Component {
     }
 }
 
-export default LikesListItem;
+export default MiniListItem;
 // 14 12.25

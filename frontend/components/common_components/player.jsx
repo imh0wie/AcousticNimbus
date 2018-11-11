@@ -1,7 +1,23 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { Link, withRouter } from "react-router-dom";
+import { setCurrentSong, playSong, pauseSong } from "../../actions/current_song_actions";
 import Waveform from "../common_components/waveform";
 import SocialElements from "../common_components/social_elements";
+
+const msp = (state) => {
+    return ({
+        currentSong: state.ui.currentSong,
+    })
+}
+
+const mdp = (dispatch) => {
+    return ({
+        setCurrentSong: (song) => dispatch(setCurrentSong(song)),
+        playSong: () => dispatch(playSong()),
+        pauseSong: () => dispatch(pauseSong()),
+    })
+}
 
 class Player extends React.Component {
     constructor(props) {
@@ -69,6 +85,7 @@ class Player extends React.Component {
     }
 
     render() {
+        debugger
         return (
             <div className={this.props.klass === "banner-player" ? "banner-player-container" : "item-player-container"}>
                 <img src={this.props.song.imageURL ? this.props.song.imageURL : window.song_dp} className="img-left" style={(this.props.klass === "banner-player") ? this.noneStyle : {}}></img>
@@ -113,4 +130,4 @@ class Player extends React.Component {
     }
 }
 
-export default Player;
+export default withRouter(connect(msp, mdp)(Player));

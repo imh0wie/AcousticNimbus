@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { fetchLikes } from "../../../actions/like_actions";
 import { likesBy } from "../../../util/like_api_util";
-import LikesList from "./likes_list";
+import MiniList from "../../common_components/mini_list/mini_list";
 
 const msp = (state) => {
     const currentUserId = state.session.id;
@@ -41,7 +41,8 @@ class LikesSection extends React.Component {
         } else {
             debugger
             return (
-                <LikesList  
+                <MiniList
+                klass="likes-section"
                 latestThreeLikes={this.props.latestThreeLikes} 
                 />
             );

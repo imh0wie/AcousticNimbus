@@ -49,9 +49,9 @@ const mdp = (dispatch) => {
   return ({
       fetchSongs: () => dispatch(fetchSongs()),
       fetchSong: (id) => dispatch(fetchSong(id)),
-      setCurrentSong: (song) => dispatch(setCurrentSong(song)),
-      playSong: () => dispatch(playSong()),
-      pauseSong: () => dispatch(pauseSong()),
+      // setCurrentSong: (song) => dispatch(setCurrentSong(song)),
+      // playSong: () => dispatch(playSong()),
+      // pauseSong: () => dispatch(pauseSong()),
       setElapsedTo: (time) => dispatch(setElapsedTo(time)),
       createLike: (like) => dispatch(createLike(like)),
       removeLike: (id) => dispatch(removeLike(id)),
@@ -120,12 +120,12 @@ class SongShowPage extends React.Component {
             klass="banner-player"
             song={this.props.onPageSong}
             songId={this.props.onPageSongId}
-            currentLikes={this.props.currentLikes}
-            currentComments={this.props.currentComments}
-            currentSong={this.props.currentSong}
-            setCurrentSong={this.props.setCurrentSong}
-            playSong={this.props.playSong}
-            pauseSong={this.props.pauseSong}
+            // currentLikes={this.props.currentLikes}
+            // currentComments={this.props.currentComments}
+            // currentSong={this.props.currentSong}
+            // setCurrentSong={this.props.setCurrentSong}
+            // playSong={this.props.playSong}
+            // pauseSong={this.props.pauseSong}
           />
           <div className="content">
             <div className="social-els-container">

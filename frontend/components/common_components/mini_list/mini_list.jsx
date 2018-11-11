@@ -7,7 +7,7 @@ import { fetchComments } from "../../../actions/comment_actions";
 import { isEmpty } from "../../../util/general_api_util"
 import { likesOf } from "../../../util/like_api_util";
 import { commentsOf } from "../../../util/comment_api_util";
-import LikesListItem from "./likes_list_item";
+import MiniListItem from "./mini_list_item";
 
 const msp = (state) => {
     return ({
@@ -27,7 +27,7 @@ const mdp = (dispatch) => {
     });
 }
 
-class LikesList extends React.Component {
+class MiniList extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -41,14 +41,20 @@ class LikesList extends React.Component {
     }
 
     render() {
-        debugger
-        if (!isEmpty(this.props.songs) && this.props.latestThreeLikes) {
+        switch (this.props.klass) {
+            case "likes-section":
+                this.miniListItems = this.props.latestThreeLikes;
+                break;
+            default:
+                break;
+        }
+        if (!isEmpty(this.props.songs) && this.miniListItems) {
             debugger
             return (
                 <ul>
-                    {this.props.latestThreeLikes.map((like) => {
+                    {this.miniListItems.map((like) => {
                         return (
-                            <LikesListItem
+                            <MiniListItem
                             key={like.id}
                             like={like}
                             song={this.props.songs[like.likeableId]}
@@ -67,4 +73,4 @@ class LikesList extends React.Component {
     }
 }
 
-export default withRouter(connect(msp, mdp)(LikesList));
+export default withRouter(connect(msp, mdp)(MiniList));
