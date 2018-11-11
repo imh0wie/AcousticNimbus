@@ -35,7 +35,6 @@ class SongsListItem extends React.Component {
     }
 
     render() {
-        debugger
         return (
             <li className="songs-list-item">
                 <div className="header" style={this.props.klass === "user-show-page" ? this.noneStyle : {}}>

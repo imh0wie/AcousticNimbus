@@ -24,20 +24,21 @@ class LikesSection extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading: false,
+            loading: true,
         }
     }
 
     componentDidMount() {
         this.props.fetchLikes();
+        this.setState({
+            loading: false,
+        })
     }
 
     renderList() {
         if (this.state.loading) {
-            debugger
             return <img src={window.loading5}></img>;
         } else {
-            debugger
             return (
                 <MiniList
                 klass="likes-section"

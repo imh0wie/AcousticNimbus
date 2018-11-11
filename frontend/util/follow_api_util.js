@@ -44,9 +44,7 @@ export const followOf = (followedUserId, followerId, follows) => {
 }
 
 export const followersOf = (followedUserId, follows, users) => {
-    debugger
     if (isEmpty(follows)) return null;
-    debugger
     const output = [];
     const followIds = Object.keys(follows);
     for (let i = 0; i < followIds.length; i++ ) {
@@ -54,7 +52,6 @@ export const followersOf = (followedUserId, follows, users) => {
         const follow = follows[followId];
         if (follow.followedUserId === followedUserId) output.push(users[follow.followerId]);
     }
-    debugger
     return output;
 }
 
@@ -87,8 +84,6 @@ export const followedSongs = (users, songs) => {
     users.forEach((user) => {
         const tracks = songsOf(user, songs);
         output = output.concat(tracks);
-        debugger
     })
-    debugger
     return output;
 }

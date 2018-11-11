@@ -13,16 +13,18 @@ import MiniListItem from "./mini_list_item";
 const msp = (state, ownProps) => {
     const song = ownProps.song;
     const songId = ownProps.songId;
+    const songs = state.entities.songs;
     const currentLikes = ownProps.currentLikes;
     return ({
         // songs: isEmpty(state.entities.songs) ? null : state.entities.songs,
         // comments: isEmpty(state.entities.comments) ? null : state.entities.comments,
         song: song,
         songId: songId,
-        songs: state.entities.songs,
+        songs: songs,
         likes: state.entities.likes,
         comments: state.entities.comments,
         latestThreeLikes: currentLikes ? currentLikes.slice(0, 3) : null,
+        relatedThreeSongs: isEmpty(songs) || !songId ? null : relatedSongsOf(songId, songs).slice(0, 3),
     })
 }
 
@@ -53,7 +55,7 @@ class MiniList extends React.Component {
                 this.miniListItems = this.props.latestThreeLikes;
                 break;
             case "song-show-page":
-                // this.miniListItems = 
+                this.miniListItems = this.props.relatedThreeSongs;
                 break;
             default:
                 break;
@@ -76,8 +78,8 @@ class MiniList extends React.Component {
                 </ul>
             );    
         } else {
-            debugger
-            return null;
+            if (this.props.klass === "likes-section") return null;
+            return <img src={window.loading5}></img>;
         }
 
     }

@@ -80,7 +80,6 @@ class Waveform extends React.Component {
         });
         break;
       case "item-player":
-        debugger
         this.waveform = WaveSurfer.create({
           container: "#waveform",
           waveColor: "grey",

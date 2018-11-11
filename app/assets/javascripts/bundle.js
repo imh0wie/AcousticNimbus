@@ -1160,16 +1160,18 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 var msp = function msp(state, ownProps) {
   var song = ownProps.song;
   var songId = ownProps.songId;
+  var songs = state.entities.songs;
   var currentLikes = ownProps.currentLikes;
   return {
     // songs: isEmpty(state.entities.songs) ? null : state.entities.songs,
     // comments: isEmpty(state.entities.comments) ? null : state.entities.comments,
     song: song,
     songId: songId,
-    songs: state.entities.songs,
+    songs: songs,
     likes: state.entities.likes,
     comments: state.entities.comments,
-    latestThreeLikes: currentLikes ? currentLikes.slice(0, 3) : null
+    latestThreeLikes: currentLikes ? currentLikes.slice(0, 3) : null,
+    relatedThreeSongs: Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_6__["isEmpty"])(songs) || !songId ? null : Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_7__["relatedSongsOf"])(songId, songs).slice(0, 3)
   };
 };
 
@@ -1214,7 +1216,7 @@ function (_React$Component) {
           break;
 
         case "song-show-page":
-          // this.miniListItems = 
+          this.miniListItems = this.props.relatedThreeSongs;
           break;
 
         default:
@@ -1233,8 +1235,10 @@ function (_React$Component) {
           });
         }));
       } else {
-        debugger;
-        return null;
+        if (this.props.klass === "likes-section") return null;
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.loading5
+        });
       }
     }
   }]);
@@ -3229,7 +3233,6 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      debugger;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "songs-list-item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -3415,7 +3418,6 @@ function (_React$Component) {
           break;
 
         case "item-player":
-          debugger;
           this.waveform = wavesurfer_js__WEBPACK_IMPORTED_MODULE_1___default.a.create({
             container: "#waveform",
             waveColor: "grey",
@@ -4096,7 +4098,7 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(LikesSection).call(this, props));
     _this.state = {
-      loading: false
+      loading: true
     };
     return _this;
   }
@@ -4105,17 +4107,18 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.fetchLikes();
+      this.setState({
+        loading: false
+      });
     }
   }, {
     key: "renderList",
     value: function renderList() {
       if (this.state.loading) {
-        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loading5
         });
       } else {
-        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_mini_list_mini_list__WEBPACK_IMPORTED_MODULE_5__["default"], {
           klass: "likes-section",
           currentLikes: this.props.currentLikes
@@ -6752,9 +6755,7 @@ var followOf = function followOf(followedUserId, followerId, follows) {
   return null;
 };
 var followersOf = function followersOf(followedUserId, follows, users) {
-  debugger;
   if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(follows)) return null;
-  debugger;
   var output = [];
   var followIds = Object.keys(follows);
 
@@ -6764,7 +6765,6 @@ var followersOf = function followersOf(followedUserId, follows, users) {
     if (follow.followedUserId === followedUserId) output.push(users[follow.followerId]);
   }
 
-  debugger;
   return output;
 };
 var followingsOf = function followingsOf(followerId, follows) {
@@ -6796,9 +6796,7 @@ var followedSongs = function followedSongs(users, songs) {
   users.forEach(function (user) {
     var tracks = Object(_song_api_util__WEBPACK_IMPORTED_MODULE_1__["songsOf"])(user, songs);
     output = output.concat(tracks);
-    debugger;
   });
-  debugger;
   return output;
 };
 
@@ -7125,6 +7123,7 @@ var relatedSongsOf = function relatedSongsOf(targetSongId, songs) {
   var songIds = Object.keys(songs);
   songIds.forEach(function (songId) {
     var song = songs[songId];
+    debugger;
     if (song.genre === songs[targetSongId].genre) output.push(song);
   });
   return output;
