@@ -946,6 +946,158 @@ function (_React$Component) {
 
 /***/ }),
 
+/***/ "./frontend/components/common_components/likes_section/likes_section.jsx":
+/*!*******************************************************************************!*\
+  !*** ./frontend/components/common_components/likes_section/likes_section.jsx ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var _actions_like_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/like_actions */ "./frontend/actions/like_actions.js");
+/* harmony import */ var _util_like_api_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../util/like_api_util */ "./frontend/util/like_api_util.js");
+/* harmony import */ var _mini_list_mini_list__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../mini_list/mini_list */ "./frontend/components/common_components/mini_list/mini_list.jsx");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+
+
+
+var msp = function msp(state, ownProps) {
+  var song = ownProps.song;
+  var songId = ownProps.songId;
+  var currentUserId = state.session.id;
+  var likes = state.entities.likes;
+  return {
+    song: song,
+    songId: songId,
+    likes: likes,
+    currentLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_4__["likesBy"])(likes, currentUserId),
+    songLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_4__["likesOf"])("Song", songId, likes)
+  };
+};
+
+var mdp = function mdp(dispatch) {
+  return {
+    fetchLikes: function fetchLikes() {
+      return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_3__["fetchLikes"])());
+    }
+  };
+};
+
+var LikesSession =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(LikesSession, _React$Component);
+
+  function LikesSession(props) {
+    var _this;
+
+    _classCallCheck(this, LikesSession);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(LikesSession).call(this, props));
+    _this.state = {
+      loading: true
+    };
+    return _this;
+  }
+
+  _createClass(LikesSession, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.fetchLikes();
+      this.setState({
+        loading: false
+      });
+    }
+  }, {
+    key: "renderList",
+    value: function renderList() {
+      if (this.state.loading) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.loading5
+        });
+      } else {
+        switch (this.props.klass) {
+          case "homepage":
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_mini_list_mini_list__WEBPACK_IMPORTED_MODULE_5__["default"], {
+              klass: "likes-section",
+              currentLikes: this.props.currentLikes
+            });
+
+          case "song-show-page":
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+              id: "likes-section"
+            }, "hi");
+
+          default:
+            break;
+        }
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      switch (this.props.klass) {
+        case "homepage":
+          this.likes = this.props.currentLikes;
+          break;
+
+        case "song-show-page":
+          this.likes = this.props.songLikes;
+          break;
+
+        default:
+          break;
+      }
+
+      debugger;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "likes-section"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-heart"
+      }), " ", this.likes ? this.likes.length : "0", " likes"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+        to: "",
+        onClick: function onClick(e) {
+          return e.preventDefault();
+        }
+      }, "View all")), this.renderList());
+    }
+  }]);
+
+  return LikesSession;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, mdp)(LikesSession)));
+
+/***/ }),
+
 /***/ "./frontend/components/common_components/mini_artist_profile.jsx":
 /*!***********************************************************************!*\
   !*** ./frontend/components/common_components/mini_artist_profile.jsx ***!
@@ -1210,12 +1362,15 @@ function (_React$Component) {
     value: function render() {
       var _this = this;
 
+      // debugger
       switch (this.props.klass) {
         case "likes-section":
+          // if (!this.props.latestThreeLikes || this.props.latestThreeLikes.length === 0) return <p className="ui-message">You haven't liked any songs yet! Find your jam!</p>;
           this.miniListItems = this.props.latestThreeLikes;
           break;
 
         case "song-show-page":
+          // if (!this.props.relatedThreeSongs || this.props.relatedThreeSongs.length === 0) return <p className="ui-message">No love...:(</p>;
           this.miniListItems = this.props.relatedThreeSongs;
           break;
 
@@ -1224,7 +1379,6 @@ function (_React$Component) {
       }
 
       if (!Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_6__["isEmpty"])(this.props.songs) && this.miniListItems) {
-        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.miniListItems.map(function (item) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_mini_list_item__WEBPACK_IMPORTED_MODULE_10__["default"], {
             key: item.id,
@@ -1262,63 +1416,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
 
-
-var MiniListItem =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(MiniListItem, _React$Component);
-
-  function MiniListItem(props) {
-    _classCallCheck(this, MiniListItem);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(MiniListItem).call(this, props));
-  }
-
-  _createClass(MiniListItem, [{
-    key: "render",
-    value: function render() {
-      debugger;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: this.props.song ? this.props.song.imageURL : window.song_dp
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "song-info"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/users/".concat(this.props.song.artistId)
-      }, this.props.song.artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/songs/".concat(this.props.song.id),
-        className: "title"
-      }, this.props.song.title.length > 24 ? this.props.song.title.slice(0, 24) + "..." : this.props.song.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "social-info"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-heart"
-      }), " ", this.props.songLikes.length), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        class: "fas fa-comment-alt"
-      }), " ", this.props.songComments.length))));
-    }
-  }]);
-
-  return MiniListItem;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+var MiniListItem = function MiniListItem(props) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: props.song ? props.song.imageURL : window.song_dp
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "song-info"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/users/".concat(props.song.artistId)
+  }, props.song.artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/songs/".concat(props.song.id),
+    className: "title"
+  }, props.song.title.length > 24 ? props.song.title.slice(0, 24) + "..." : props.song.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "social-info"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fas fa-heart"
+  }), " ", props.songLikes.length), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    class: "fas fa-comment-alt"
+  }), " ", props.songComments.length))));
+};
 
 /* harmony default export */ __webpack_exports__["default"] = (MiniListItem); // 14 12.25
 
@@ -3935,7 +4053,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _charts_page_charts_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./charts_page/charts_page */ "./frontend/components/homepage/charts_page/charts_page.jsx");
 /* harmony import */ var _common_components_slideshow__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../common_components/slideshow */ "./frontend/components/common_components/slideshow.jsx");
 /* harmony import */ var _who_to_follow_who_to_follow__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./who_to_follow/who_to_follow */ "./frontend/components/homepage/who_to_follow/who_to_follow.jsx");
-/* harmony import */ var _likes_section_likes_section__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./likes_section/likes_section */ "./frontend/components/homepage/likes_section/likes_section.jsx");
+/* harmony import */ var _common_components_likes_section_likes_section__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../common_components/likes_section/likes_section */ "./frontend/components/common_components/likes_section/likes_section.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4012,7 +4130,8 @@ function (_React$Component) {
         klass: "ad"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "stats"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_who_to_follow_who_to_follow__WEBPACK_IMPORTED_MODULE_8__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_likes_section_likes_section__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_who_to_follow_who_to_follow__WEBPACK_IMPORTED_MODULE_8__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_likes_section_likes_section__WEBPACK_IMPORTED_MODULE_9__["default"], {
+        klass: "homepage",
         currentUserId: this.props.currentUserId
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "history"
@@ -4025,125 +4144,6 @@ function (_React$Component) {
 
 ;
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, null)(Homepage)));
-
-/***/ }),
-
-/***/ "./frontend/components/homepage/likes_section/likes_section.jsx":
-/*!**********************************************************************!*\
-  !*** ./frontend/components/homepage/likes_section/likes_section.jsx ***!
-  \**********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var _actions_like_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/like_actions */ "./frontend/actions/like_actions.js");
-/* harmony import */ var _util_like_api_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../util/like_api_util */ "./frontend/util/like_api_util.js");
-/* harmony import */ var _common_components_mini_list_mini_list__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../common_components/mini_list/mini_list */ "./frontend/components/common_components/mini_list/mini_list.jsx");
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-
-
-
-
-
-
-
-var msp = function msp(state) {
-  var currentUserId = state.session.id;
-  var likes = state.entities.likes;
-  return {
-    likes: likes,
-    currentLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_4__["likesBy"])(likes, currentUserId)
-  };
-};
-
-var mdp = function mdp(dispatch) {
-  return {
-    fetchLikes: function fetchLikes() {
-      return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_3__["fetchLikes"])());
-    }
-  };
-};
-
-var LikesSection =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(LikesSection, _React$Component);
-
-  function LikesSection(props) {
-    var _this;
-
-    _classCallCheck(this, LikesSection);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(LikesSection).call(this, props));
-    _this.state = {
-      loading: true
-    };
-    return _this;
-  }
-
-  _createClass(LikesSection, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      this.props.fetchLikes();
-      this.setState({
-        loading: false
-      });
-    }
-  }, {
-    key: "renderList",
-    value: function renderList() {
-      if (this.state.loading) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.loading5
-        });
-      } else {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_mini_list_mini_list__WEBPACK_IMPORTED_MODULE_5__["default"], {
-          klass: "likes-section",
-          currentLikes: this.props.currentLikes
-        });
-      }
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "likes-section"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "header"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-heart"
-      }), " ", this.props.currentLikes ? this.props.currentLikes.length : "n", " likes"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-        to: ""
-      }, "View all")), this.renderList());
-    }
-  }]);
-
-  return LikesSection;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, mdp)(LikesSection)));
 
 /***/ }),
 
@@ -4843,6 +4843,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _comments_list_comments_list__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./comments_list/comments_list */ "./frontend/components/song_show_page/comments_list/comments_list.jsx");
 /* harmony import */ var _common_components_slideshow__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../common_components/slideshow */ "./frontend/components/common_components/slideshow.jsx");
 /* harmony import */ var _related_songs__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./related_songs */ "./frontend/components/song_show_page/related_songs.jsx");
+/* harmony import */ var _common_components_likes_section_likes_section__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../common_components/likes_section/likes_section */ "./frontend/components/common_components/likes_section/likes_section.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4860,6 +4861,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -4970,6 +4972,10 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_slideshow__WEBPACK_IMPORTED_MODULE_10__["default"], {
           klass: "ad"
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_related_songs__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          song: this.props.onPageSong,
+          songId: this.props.onPageSongId
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_likes_section_likes_section__WEBPACK_IMPORTED_MODULE_12__["default"], {
+          klass: "song-show-page",
           song: this.props.onPageSong,
           songId: this.props.onPageSongId
         }))));

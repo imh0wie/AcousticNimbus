@@ -10,6 +10,7 @@ import MiniArtistProfile from "../common_components/mini_artist_profile";
 import CommentsList from "./comments_list/comments_list";
 import Slideshow from "../common_components/slideshow";
 import RelatedSongs from "./related_songs";
+import LikesSection from "../common_components/likes_section/likes_section";
 
 const msp = (state, ownProps) => {
   const songId = parseInt(ownProps.match.params.songId);
@@ -89,6 +90,11 @@ class SongShowPage extends React.Component {
             <div className="sidebar">
               <Slideshow klass="ad"/>
               <RelatedSongs 
+                song={this.props.onPageSong}
+                songId={this.props.onPageSongId}
+              />
+              <LikesSection
+                klass="song-show-page"
                 song={this.props.onPageSong}
                 songId={this.props.onPageSongId}
               />

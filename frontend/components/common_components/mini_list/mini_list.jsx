@@ -50,18 +50,20 @@ class MiniList extends React.Component {
     }
 
     render() {
+        // debugger
         switch (this.props.klass) {
             case "likes-section":
+                // if (!this.props.latestThreeLikes || this.props.latestThreeLikes.length === 0) return <p className="ui-message">You haven't liked any songs yet! Find your jam!</p>;
                 this.miniListItems = this.props.latestThreeLikes;
                 break;
             case "song-show-page":
+                // if (!this.props.relatedThreeSongs || this.props.relatedThreeSongs.length === 0) return <p className="ui-message">No love...:(</p>;
                 this.miniListItems = this.props.relatedThreeSongs;
                 break;
             default:
                 break;
         }
         if (!isEmpty(this.props.songs) && this.miniListItems) {
-            debugger
             return (
                 <ul>
                     {this.miniListItems.map((item) => {
