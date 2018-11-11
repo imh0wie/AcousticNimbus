@@ -73,7 +73,6 @@ export const relatedSongsOf = (targetSongId, songs) => {
   const songIds = Object.keys(songs);
   songIds.forEach((songId) => {
     const song = songs[songId];
-    debugger
     if (song.genre === songs[targetSongId].genre) output.push(song);
   })
   return output;

@@ -89,7 +89,6 @@ class SongShowPage extends React.Component {
             <div className="sidebar">
               <Slideshow klass="ad"/>
               <RelatedSongs 
-                klass="song-show-page"
                 song={this.props.onPageSong}
                 songId={this.props.onPageSongId}
               />

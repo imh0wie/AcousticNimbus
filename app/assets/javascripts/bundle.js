@@ -1225,13 +1225,13 @@ function (_React$Component) {
 
       if (!Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_6__["isEmpty"])(this.props.songs) && this.miniListItems) {
         debugger;
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.miniListItems.map(function (like) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.miniListItems.map(function (item) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_mini_list_item__WEBPACK_IMPORTED_MODULE_10__["default"], {
-            key: like.id,
-            like: like,
-            song: _this.props.songs[like.likeableId],
-            songLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_8__["likesOf"])("Song", like.likeableId, _this.props.likes),
-            songComments: Object(_util_comment_api_util__WEBPACK_IMPORTED_MODULE_9__["commentsOf"])(like.likeableId, _this.props.comments)
+            key: item.id,
+            item: item,
+            song: _this.props.klass === "likes-section" ? _this.props.songs[item.likeableId] : item,
+            songLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_8__["likesOf"])("Song", item.likeableId, _this.props.likes),
+            songComments: Object(_util_comment_api_util__WEBPACK_IMPORTED_MODULE_9__["commentsOf"])(item.likeableId, _this.props.comments)
           });
         }));
       } else {
@@ -4793,11 +4793,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var _common_components_mini_list_mini_list__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../common_components/mini_list/mini_list */ "./frontend/components/common_components/mini_list/mini_list.jsx");
+
 
 
 
 var RelatedSongs = function RelatedSongs(props) {
-  debugger;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "related-songs"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -4809,7 +4810,11 @@ var RelatedSongs = function RelatedSongs(props) {
     onClick: function onClick(e) {
       return e.preventDefault();
     }
-  }, "View All")));
+  }, "View All"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_mini_list_mini_list__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    klass: "song-show-page",
+    song: props.song,
+    songId: props.songId
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (RelatedSongs);
@@ -4965,7 +4970,6 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_slideshow__WEBPACK_IMPORTED_MODULE_10__["default"], {
           klass: "ad"
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_related_songs__WEBPACK_IMPORTED_MODULE_11__["default"], {
-          klass: "song-show-page",
           song: this.props.onPageSong,
           songId: this.props.onPageSongId
         }))));
@@ -7123,7 +7127,6 @@ var relatedSongsOf = function relatedSongsOf(targetSongId, songs) {
   var songIds = Object.keys(songs);
   songIds.forEach(function (songId) {
     var song = songs[songId];
-    debugger;
     if (song.genre === songs[targetSongId].genre) output.push(song);
   });
   return output;

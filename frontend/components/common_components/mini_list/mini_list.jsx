@@ -64,14 +64,14 @@ class MiniList extends React.Component {
             debugger
             return (
                 <ul>
-                    {this.miniListItems.map((like) => {
+                    {this.miniListItems.map((item) => {
                         return (
                             <MiniListItem
-                            key={like.id}
-                            like={like}
-                            song={this.props.songs[like.likeableId]}
-                            songLikes={likesOf("Song", like.likeableId, this.props.likes)}
-                            songComments={commentsOf(like.likeableId, this.props.comments)}
+                            key={item.id}
+                            item={item}
+                            song={this.props.klass === "likes-section" ? this.props.songs[item.likeableId] : item}
+                            songLikes={likesOf("Song", item.likeableId, this.props.likes)}
+                            songComments={commentsOf(item.likeableId, this.props.comments)}
                             />
                         );
                     })}
