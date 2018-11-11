@@ -6839,7 +6839,7 @@ var logout = function logout() {
 /*!****************************************!*\
   !*** ./frontend/util/song_api_util.js ***!
   \****************************************/
-/*! exports provided: createSong, fetchSong, fetchSongs, latest, shuffle, songsOf, songsLikedBy, relatedSongs */
+/*! exports provided: createSong, fetchSong, fetchSongs, latest, shuffle, songsOf, songsLikedBy, relatedSongsOf */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6851,7 +6851,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "shuffle", function() { return shuffle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "songsOf", function() { return songsOf; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "songsLikedBy", function() { return songsLikedBy; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "relatedSongs", function() { return relatedSongs; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "relatedSongsOf", function() { return relatedSongsOf; });
 /* harmony import */ var _general_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./general_api_util */ "./frontend/util/general_api_util.js");
 
 var createSong = function createSong(song) {
@@ -6918,7 +6918,7 @@ var songsLikedBy = function songsLikedBy(userId, songs, likes) {
   });
   return output;
 };
-var relatedSongs = function relatedSongs(targetSongId, songs) {
+var relatedSongsOf = function relatedSongsOf(targetSongId, songs) {
   if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(songs)) return null;
   var output = [];
   var songIds = Object.keys(songs);

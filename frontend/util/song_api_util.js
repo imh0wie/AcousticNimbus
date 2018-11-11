@@ -67,7 +67,7 @@ export const songsLikedBy = (userId, songs, likes) => {
   return output;
 }
 
-export const relatedSongs = (targetSongId, songs) => {
+export const relatedSongsOf = (targetSongId, songs) => {
   if (isEmpty(songs)) return null;
   const output = [];
   const songIds = Object.keys(songs);
