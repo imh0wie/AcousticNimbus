@@ -1230,8 +1230,8 @@ function (_React$Component) {
             key: item.id,
             item: item,
             song: _this.props.klass === "likes-section" ? _this.props.songs[item.likeableId] : item,
-            songLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_8__["likesOf"])("Song", item.likeableId, _this.props.likes),
-            songComments: Object(_util_comment_api_util__WEBPACK_IMPORTED_MODULE_9__["commentsOf"])(item.likeableId, _this.props.comments)
+            songLikes: _this.props.klass === "likes-section" ? Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_8__["likesOf"])("Song", item.likeableId, _this.props.likes) : Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_8__["likesOf"])("Song", item.id, _this.props.likes),
+            songComments: _this.props.klass === "likes-section" ? Object(_util_comment_api_util__WEBPACK_IMPORTED_MODULE_9__["commentsOf"])(item.likeableId, _this.props.comments) : Object(_util_comment_api_util__WEBPACK_IMPORTED_MODULE_9__["commentsOf"])(item.id, _this.props.comments)
           });
         }));
       } else {
@@ -4810,11 +4810,11 @@ var RelatedSongs = function RelatedSongs(props) {
     onClick: function onClick(e) {
       return e.preventDefault();
     }
-  }, "View All"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_mini_list_mini_list__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }, "View All")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_mini_list_mini_list__WEBPACK_IMPORTED_MODULE_2__["default"], {
     klass: "song-show-page",
     song: props.song,
     songId: props.songId
-  })));
+  }));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (RelatedSongs);

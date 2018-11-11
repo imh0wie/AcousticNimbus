@@ -8,12 +8,12 @@ const RelatedSongs = (props) => {
             <div className="header"> 
                 <p><i className="fas fa-music"></i> Related Songs</p>
                 <Link to="" onClick={(e) => e.preventDefault()}>View All</Link>
-                <MiniList 
-                    klass="song-show-page"
-                    song={props.song}
-                    songId={props.songId}
-                />
             </div>
+            <MiniList 
+                klass="song-show-page"
+                song={props.song}
+                songId={props.songId}
+            />
         </div>
     );
 }

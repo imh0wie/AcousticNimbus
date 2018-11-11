@@ -70,8 +70,8 @@ class MiniList extends React.Component {
                             key={item.id}
                             item={item}
                             song={this.props.klass === "likes-section" ? this.props.songs[item.likeableId] : item}
-                            songLikes={likesOf("Song", item.likeableId, this.props.likes)}
-                            songComments={commentsOf(item.likeableId, this.props.comments)}
+                            songLikes={this.props.klass === "likes-section" ? likesOf("Song", item.likeableId, this.props.likes) : likesOf("Song", item.id, this.props.likes)}
+                            songComments={this.props.klass === "likes-section" ? commentsOf(item.likeableId, this.props.comments) : commentsOf(item.id, this.props.comments)}
                             />
                         );
                     })}
