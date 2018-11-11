@@ -1,9 +1,17 @@
 import React from 'react';
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import 'style-loader!css-loader!react-responsive-carousel/lib/styles/main.css';
 import 'style-loader!css-loader!react-responsive-carousel/lib/styles/carousel.css';
 import 'style-loader!css-loader!react-responsive-carousel/lib/styles/carousel.min.css';
 import { randomize } from "../../util/general_api_util";
 import { Carousel } from 'react-responsive-carousel';
+
+const msp = (state, ownProps) => {
+    return ({
+        onPageArtist: state.entities.users[ownProps.match.params.userId],
+    });
+}
  
 class Slideshow extends React.Component {
     constructor(props) {
@@ -105,7 +113,7 @@ class Slideshow extends React.Component {
     }
 }
  
-export default Slideshow;
+export default withRouter(connect(msp, null)(Slideshow));
  
 // Don't forget to include the css in your page
  

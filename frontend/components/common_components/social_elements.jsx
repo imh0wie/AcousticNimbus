@@ -4,18 +4,20 @@ import { Link, withRouter } from "react-router-dom";
 import { fetchLikes, createLike, removeLike } from "../../actions/like_actions";
 import { fetchUsers } from "../../actions/user_actions";
 import { likesOf, likeOf } from "../../util/like_api_util";
+import { followOf } from "../../util/follow_api_util";
 
 const msp = (state, ownProps) => {
     const songId = ownProps.songId;
+    const onPageArtistId = ownProps.match.params.userId;
     const likes = state.entities.likes;
     const currentUserId = state.session.id;
-    const currentUser = state.entities.users[currentUserId];
     return ({
         likes: likes,
-        currentLike: likeOf("Song", songId, currentUser, likes),
+        currentLike: likeOf("Song", songId, state.entities.users[currentUserId], likes),
         currentLikes: likesOf("Song", songId, likes),
+        onPageArtistId: onPageArtistId,
+        currentFollow: followOf(onPageArtistId, currentUserId, state.entities.follows),
         currentUserId: currentUserId,
-        currentUser: currentUser,
     });
 }
 
@@ -24,6 +26,8 @@ const mdp = (dispatch) => {
         fetchLikes: () => dispatch(fetchLikes()),
         createLike: (like) => dispatch(createLike(like)),
         removeLike: (id) => dispatch(removeLike(id)),
+        createFollow: (follow) => dispatch(createFollow(follow)), 
+        removeFollow: (id) => dispatch(removeFollow(id)), 
         fetchUsers: () => dispatch(fetchUsers()),
     })
 }

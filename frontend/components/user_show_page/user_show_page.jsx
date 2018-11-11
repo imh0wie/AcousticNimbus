@@ -4,11 +4,10 @@ import { Link, withRouter } from "react-router-dom";
 import { fetchSongs } from "../../actions/song_actions";
 import { setCurrentSong, playSong, pauseSong, setElapsedTo } from "../../actions/current_song_actions";
 import { fetchLikes, createLike, removeLike } from "../../actions/like_actions";
-import { fetchFollows, createFollow, removeFollow } from "../../actions/follow_actions";
+import { fetchFollows } from "../../actions/follow_actions";
 import { fetchComments } from "../../actions/comment_actions";
 import { fetchUsers } from "../../actions/user_actions";
 import { songsOf } from "../../util/song_api_util";
-import { followOf } from "../../util/follow_api_util";
 import Slideshow from "../common_components/slideshow"
 import Navbar from "../common_components/navbar";
 import SocialElements from "../common_components/social_elements";
@@ -28,13 +27,7 @@ const msp = (state, ownProps) => {
         likes: likes,
         comments: comments,
         currentSongs: songsOf(state.entities.users[onPageArtistId], songs),
-        currentSong: state.ui.currentSong,
-        currentFollow: followOf(onPageArtistId, currentUserId, follows),
-        currentUserId: currentUserId, 
-        currentUser: state.entities.users[currentUserId], 
-    //   currentSong: state.ui.currentSong,
-    //   currentUser: state.entities.users[session.id],
-    //   users: state.entities.users,
+        currentSong: state.ui.currentSong, 
     });
   };
   
@@ -49,8 +42,6 @@ const mdp = (dispatch) => {
         createLike: (like) => dispatch(createLike(like)),
         removeLike: (id) => dispatch(removeLike(id)),
         fetchFollows: () => dispatch(fetchFollows()),
-        createFollow: (follow) => dispatch(createFollow(follow)),
-        removeFollow: (id) => dispatch(removeFollow(id)),
         fetchComments: () => dispatch(fetchComments()),
         fetchUsers: () => dispatch(fetchUsers()),
     });
@@ -62,35 +53,25 @@ class UserShowPage extends React.Component {
     }
 
     componentDidMount() {
-
         // this.props.fetchSongs();
         // this.props.fetchLikes();
         this.props.fetchFollows();
         // this.props.fetchComments();
-        this.props.fetchUsers();
+        this.props.fetchUsers(); // for banner showing first
     }
 
     render() {
         if (this.props.onPageArtist) {
             return (
                 <div className="user-show-page">
-                    <Slideshow klass="user-show-page" onPageArtist={this.props.onPageArtist} />
+                    <Slideshow klass="user-show-page" />
                     <div className="bar">
-                        <Navbar klass="user-show-page" onPageArtistId={this.props.onPageArtistId} />
-                        <SocialElements klass="user-show-page"
-                                        onPageArtistId={this.props.onPageArtistId}
-                                        currentUserId={this.props.currentUserId}
-                                        currentFollow={this.props.currentFollow}
-                                        createFollow={this.props.createFollow}
-                                        removeFollow={this.props.removeFollow}
-                        />
+                        <Navbar klass="user-show-page" />
+                        <SocialElements klass="user-show-page"/>
                     </div>
                     <div className="content">
                         <div className="songs-list">
                             <SongsList  klass={"user-show-page"}
-                                        users={this.props.users}
-                                        likes={this.props.likes}
-                                        comments={this.props.comments}
                                         currentSongs={this.props.currentSongs}
                                         currentUserId={this.props.currentUserId}
                                         currentUser={this.props.currentUser}

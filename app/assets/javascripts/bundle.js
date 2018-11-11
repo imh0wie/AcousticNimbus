@@ -1760,11 +1760,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var msp = function msp(state) {
+var msp = function msp(state, ownProps) {
   var currentUserId = state.session.id;
+  var onPageArtistId = parseInt(ownProps.match.params.userId);
   return {
     currentUserId: currentUserId,
-    currentUser: state.entities.users[currentUserId]
+    currentUser: state.entities.users[currentUserId],
+    onPageArtistId: onPageArtistId
   };
 };
 
@@ -2828,15 +2830,17 @@ var mdp = function mdp(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var style_loader_css_loader_react_responsive_carousel_lib_styles_main_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! style-loader!css-loader!react-responsive-carousel/lib/styles/main.css */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/react-responsive-carousel/lib/styles/main.css");
-/* harmony import */ var style_loader_css_loader_react_responsive_carousel_lib_styles_main_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(style_loader_css_loader_react_responsive_carousel_lib_styles_main_css__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var style_loader_css_loader_react_responsive_carousel_lib_styles_carousel_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! style-loader!css-loader!react-responsive-carousel/lib/styles/carousel.css */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/react-responsive-carousel/lib/styles/carousel.css");
-/* harmony import */ var style_loader_css_loader_react_responsive_carousel_lib_styles_carousel_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(style_loader_css_loader_react_responsive_carousel_lib_styles_carousel_css__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var style_loader_css_loader_react_responsive_carousel_lib_styles_carousel_min_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! style-loader!css-loader!react-responsive-carousel/lib/styles/carousel.min.css */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/react-responsive-carousel/lib/styles/carousel.min.css");
-/* harmony import */ var style_loader_css_loader_react_responsive_carousel_lib_styles_carousel_min_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(style_loader_css_loader_react_responsive_carousel_lib_styles_carousel_min_css__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _util_general_api_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../util/general_api_util */ "./frontend/util/general_api_util.js");
-/* harmony import */ var react_responsive_carousel__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-responsive-carousel */ "./node_modules/react-responsive-carousel/lib/index.js");
-/* harmony import */ var react_responsive_carousel__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_responsive_carousel__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var style_loader_css_loader_react_responsive_carousel_lib_styles_main_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! style-loader!css-loader!react-responsive-carousel/lib/styles/main.css */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/react-responsive-carousel/lib/styles/main.css");
+/* harmony import */ var style_loader_css_loader_react_responsive_carousel_lib_styles_main_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(style_loader_css_loader_react_responsive_carousel_lib_styles_main_css__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var style_loader_css_loader_react_responsive_carousel_lib_styles_carousel_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! style-loader!css-loader!react-responsive-carousel/lib/styles/carousel.css */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/react-responsive-carousel/lib/styles/carousel.css");
+/* harmony import */ var style_loader_css_loader_react_responsive_carousel_lib_styles_carousel_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(style_loader_css_loader_react_responsive_carousel_lib_styles_carousel_css__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var style_loader_css_loader_react_responsive_carousel_lib_styles_carousel_min_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! style-loader!css-loader!react-responsive-carousel/lib/styles/carousel.min.css */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/react-responsive-carousel/lib/styles/carousel.min.css");
+/* harmony import */ var style_loader_css_loader_react_responsive_carousel_lib_styles_carousel_min_css__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(style_loader_css_loader_react_responsive_carousel_lib_styles_carousel_min_css__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _util_general_api_util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../util/general_api_util */ "./frontend/util/general_api_util.js");
+/* harmony import */ var react_responsive_carousel__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-responsive-carousel */ "./node_modules/react-responsive-carousel/lib/index.js");
+/* harmony import */ var react_responsive_carousel__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_responsive_carousel__WEBPACK_IMPORTED_MODULE_7__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2862,6 +2866,14 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
+
+var msp = function msp(state, ownProps) {
+  return {
+    onPageArtist: state.entities.users[ownProps.match.params.userId]
+  };
+};
+
 var Slideshow =
 /*#__PURE__*/
 function (_React$Component) {
@@ -2880,7 +2892,7 @@ function (_React$Component) {
   _createClass(Slideshow, [{
     key: "randomUserBanner",
     value: function randomUserBanner() {
-      return Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_4__["randomize"])(this.userBanners)[0];
+      return Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_6__["randomize"])(this.userBanners)[0];
     }
   }, {
     key: "render",
@@ -2889,7 +2901,7 @@ function (_React$Component) {
 
       switch (this.props.klass) {
         case "banner":
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_responsive_carousel__WEBPACK_IMPORTED_MODULE_5__["Carousel"], {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_responsive_carousel__WEBPACK_IMPORTED_MODULE_7__["Carousel"], {
             className: "carousel",
             infiniteLoop: true,
             autoPlay: true,
@@ -2925,7 +2937,7 @@ function (_React$Component) {
           }, "Start uploading today"))));
 
         case "ad":
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_responsive_carousel__WEBPACK_IMPORTED_MODULE_5__["Carousel"], {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_responsive_carousel__WEBPACK_IMPORTED_MODULE_7__["Carousel"], {
             className: "ad",
             infiniteLoop: true,
             autoPlay: true,
@@ -2962,7 +2974,7 @@ function (_React$Component) {
           })))));
 
         case "user-show-page":
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_responsive_carousel__WEBPACK_IMPORTED_MODULE_5__["Carousel"], {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_responsive_carousel__WEBPACK_IMPORTED_MODULE_7__["Carousel"], {
             className: "banner-container",
             autoPlay: false,
             showArrows: false,
@@ -2993,7 +3005,7 @@ function (_React$Component) {
   return Slideshow;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (Slideshow); // Don't forget to include the css in your page
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, null)(Slideshow))); // Don't forget to include the css in your page
 // Using webpack
 // import styles from 'react-responsive-carousel/lib/styles/carousel.min.css';
 // Using html tag:
@@ -3017,6 +3029,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_like_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/like_actions */ "./frontend/actions/like_actions.js");
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
 /* harmony import */ var _util_like_api_util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../util/like_api_util */ "./frontend/util/like_api_util.js");
+/* harmony import */ var _util_follow_api_util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../util/follow_api_util */ "./frontend/util/follow_api_util.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -3042,17 +3055,19 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 
+
 var msp = function msp(state, ownProps) {
   var songId = ownProps.songId;
+  var onPageArtistId = ownProps.match.params.userId;
   var likes = state.entities.likes;
   var currentUserId = state.session.id;
-  var currentUser = state.entities.users[currentUserId];
   return {
     likes: likes,
-    currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_5__["likeOf"])("Song", songId, currentUser, likes),
+    currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_5__["likeOf"])("Song", songId, state.entities.users[currentUserId], likes),
     currentLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_5__["likesOf"])("Song", songId, likes),
-    currentUserId: currentUserId,
-    currentUser: currentUser
+    onPageArtistId: onPageArtistId,
+    currentFollow: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_6__["followOf"])(onPageArtistId, currentUserId, state.entities.follows),
+    currentUserId: currentUserId
   };
 };
 
@@ -3067,6 +3082,32 @@ var mdp = function mdp(dispatch) {
     removeLike: function removeLike(id) {
       return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_3__["removeLike"])(id));
     },
+    createFollow: function (_createFollow) {
+      function createFollow(_x) {
+        return _createFollow.apply(this, arguments);
+      }
+
+      createFollow.toString = function () {
+        return _createFollow.toString();
+      };
+
+      return createFollow;
+    }(function (follow) {
+      return dispatch(createFollow(follow));
+    }),
+    removeFollow: function (_removeFollow) {
+      function removeFollow(_x2) {
+        return _removeFollow.apply(this, arguments);
+      }
+
+      removeFollow.toString = function () {
+        return _removeFollow.toString();
+      };
+
+      return removeFollow;
+    }(function (id) {
+      return dispatch(removeFollow(id));
+    }),
     fetchUsers: function fetchUsers() {
       return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_4__["fetchUsers"])());
     }
@@ -5985,11 +6026,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_comment_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../actions/comment_actions */ "./frontend/actions/comment_actions.js");
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
 /* harmony import */ var _util_song_api_util__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../util/song_api_util */ "./frontend/util/song_api_util.js");
-/* harmony import */ var _util_follow_api_util__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../util/follow_api_util */ "./frontend/util/follow_api_util.js");
-/* harmony import */ var _common_components_slideshow__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../common_components/slideshow */ "./frontend/components/common_components/slideshow.jsx");
-/* harmony import */ var _common_components_navbar__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../common_components/navbar */ "./frontend/components/common_components/navbar.jsx");
-/* harmony import */ var _common_components_social_elements__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../common_components/social_elements */ "./frontend/components/common_components/social_elements.jsx");
-/* harmony import */ var _common_components_songs_list_songs_list__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../common_components/songs_list/songs_list */ "./frontend/components/common_components/songs_list/songs_list.jsx");
+/* harmony import */ var _common_components_slideshow__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../common_components/slideshow */ "./frontend/components/common_components/slideshow.jsx");
+/* harmony import */ var _common_components_navbar__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../common_components/navbar */ "./frontend/components/common_components/navbar.jsx");
+/* harmony import */ var _common_components_social_elements__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../common_components/social_elements */ "./frontend/components/common_components/social_elements.jsx");
+/* harmony import */ var _common_components_songs_list_songs_list__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../common_components/songs_list/songs_list */ "./frontend/components/common_components/songs_list/songs_list.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -6023,7 +6063,6 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-
 var msp = function msp(state, ownProps) {
   var onPageArtistId = parseInt(ownProps.match.params.userId);
   var songs = state.entities.songs;
@@ -6039,13 +6078,7 @@ var msp = function msp(state, ownProps) {
     likes: likes,
     comments: comments,
     currentSongs: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_9__["songsOf"])(state.entities.users[onPageArtistId], songs),
-    currentSong: state.ui.currentSong,
-    currentFollow: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_10__["followOf"])(onPageArtistId, currentUserId, follows),
-    currentUserId: currentUserId,
-    currentUser: state.entities.users[currentUserId] //   currentSong: state.ui.currentSong,
-    //   currentUser: state.entities.users[session.id],
-    //   users: state.entities.users,
-
+    currentSong: state.ui.currentSong
   };
 };
 
@@ -6078,12 +6111,6 @@ var mdp = function mdp(dispatch) {
     fetchFollows: function fetchFollows() {
       return dispatch(Object(_actions_follow_actions__WEBPACK_IMPORTED_MODULE_6__["fetchFollows"])());
     },
-    createFollow: function createFollow(follow) {
-      return dispatch(Object(_actions_follow_actions__WEBPACK_IMPORTED_MODULE_6__["createFollow"])(follow));
-    },
-    removeFollow: function removeFollow(id) {
-      return dispatch(Object(_actions_follow_actions__WEBPACK_IMPORTED_MODULE_6__["removeFollow"])(id));
-    },
     fetchComments: function fetchComments() {
       return dispatch(Object(_actions_comment_actions__WEBPACK_IMPORTED_MODULE_7__["fetchComments"])());
     },
@@ -6111,7 +6138,7 @@ function (_React$Component) {
       // this.props.fetchLikes();
       this.props.fetchFollows(); // this.props.fetchComments();
 
-      this.props.fetchUsers();
+      this.props.fetchUsers(); // for banner showing first
     }
   }, {
     key: "render",
@@ -6119,30 +6146,20 @@ function (_React$Component) {
       if (this.props.onPageArtist) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "user-show-page"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_slideshow__WEBPACK_IMPORTED_MODULE_11__["default"], {
-          klass: "user-show-page",
-          onPageArtist: this.props.onPageArtist
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_slideshow__WEBPACK_IMPORTED_MODULE_10__["default"], {
+          klass: "user-show-page"
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "bar"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_navbar__WEBPACK_IMPORTED_MODULE_12__["default"], {
-          klass: "user-show-page",
-          onPageArtistId: this.props.onPageArtistId
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_social_elements__WEBPACK_IMPORTED_MODULE_13__["default"], {
-          klass: "user-show-page",
-          onPageArtistId: this.props.onPageArtistId,
-          currentUserId: this.props.currentUserId,
-          currentFollow: this.props.currentFollow,
-          createFollow: this.props.createFollow,
-          removeFollow: this.props.removeFollow
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_navbar__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          klass: "user-show-page"
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_social_elements__WEBPACK_IMPORTED_MODULE_12__["default"], {
+          klass: "user-show-page"
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "content"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "songs-list"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_songs_list_songs_list__WEBPACK_IMPORTED_MODULE_14__["default"], {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_songs_list_songs_list__WEBPACK_IMPORTED_MODULE_13__["default"], {
           klass: "user-show-page",
-          users: this.props.users,
-          likes: this.props.likes,
-          comments: this.props.comments,
           currentSongs: this.props.currentSongs,
           currentUserId: this.props.currentUserId,
           currentUser: this.props.currentUser,
