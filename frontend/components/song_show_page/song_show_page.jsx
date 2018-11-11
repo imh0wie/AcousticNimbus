@@ -133,9 +133,9 @@ class SongShowPage extends React.Component {
                 <CommentBox 
                   klass="song-show-page"
                   songId={this.props.onPageSongId}
-                  currentSong={this.props.currentSong}
-                  currentUser={this.props.currentUser}
-                  currentUserId={this.props.currentUserId}
+                  // currentSong={this.props.currentSong}
+                  // currentUser={this.props.currentUser}
+                  // currentUserId={this.props.currentUserId}
                 />
                 <SocialElements
                   klass="banner-player"

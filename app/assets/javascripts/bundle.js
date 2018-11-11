@@ -718,6 +718,15 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 
+var msp = function msp(state) {
+  var currentUserId = state.session.id;
+  return {
+    currentSong: state.ui.currentSong,
+    currentUserId: currentUserId,
+    currentUser: state.entities.users[currentUserId]
+  };
+};
+
 var mdp = function mdp(dispatch) {
   return {
     createComment: function createComment(comment) {
@@ -804,7 +813,7 @@ function (_React$Component) {
   return CommentBox;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(null, mdp)(CommentBox)));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, mdp)(CommentBox)));
 
 /***/ }),
 
@@ -4980,10 +4989,10 @@ function (_React$Component) {
           className: "extrovert-section"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_comment_box__WEBPACK_IMPORTED_MODULE_13__["default"], {
           klass: "song-show-page",
-          songId: this.props.onPageSongId,
-          currentSong: this.props.currentSong,
-          currentUser: this.props.currentUser,
-          currentUserId: this.props.currentUserId
+          songId: this.props.onPageSongId // currentSong={this.props.currentSong}
+          // currentUser={this.props.currentUser}
+          // currentUserId={this.props.currentUserId}
+
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_social_elements__WEBPACK_IMPORTED_MODULE_14__["default"], {
           klass: "banner-player",
           songId: this.props.onPageSongId,

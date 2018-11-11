@@ -3,6 +3,15 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { createComment } from "../../actions/comment_actions";
 
+const msp = (state) => {
+    const currentUserId = state.session.id;
+    return ({
+        currentSong: state.ui.currentSong,
+        currentUserId: currentUserId,
+        currentUser: state.entities.users[currentUserId],
+    })
+}
+
 const mdp = (dispatch) => {
     return ({
         createComment: (comment) => dispatch(createComment(comment)),
@@ -56,5 +65,5 @@ class CommentBox extends React.Component {
     }
 }
 
-export default withRouter(connect(null, mdp)(CommentBox));
+export default withRouter(connect(msp, mdp)(CommentBox));
 
