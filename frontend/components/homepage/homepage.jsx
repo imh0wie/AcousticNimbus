@@ -1,6 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
-import { Switch, Route, withRouter } from "react-router-dom";
+import { Switch, withRouter } from "react-router-dom";
 import { ProtectedRoute } from "../../util/route_util";
 import Navbar from "../common_components/navbar";
 import StreamPage from "./stream_page/stream_page";
@@ -10,45 +9,28 @@ import WhoToFollow from "./who_to_follow/who_to_follow"
 import LikesSection from "../common_components/likes_section/likes_section";
 import HiringInfoSection from "../common_components/hiring_info_section";
 
-const msp = (state) => {
-  const currentUserId = state.session.id;
-  return ({
-    currentUserId: currentUserId,
-    currentUser: state.entities.users[currentUserId],
-  });
-}
-
-class Homepage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.noneStyle = {
-      display: "none"
-    };
-  }
-
-  render() {
-    return (
-      <div className="homepage-container">
-        <div className="content">
-          <Navbar klass="homepage" currentUser={this.props.currentUser} />
-          <Switch>
-            <ProtectedRoute path="/stream" component={StreamPage} />
-            <ProtectedRoute path="/charts/top" component={ChartsPage} />
-          </Switch>
-        </div>
-        <div className="sidebar">
-          <Slideshow klass="ad"/>
-          <div className="stats">
-          </div>
-          <WhoToFollow />
-          <LikesSection klass="homepage" currentUserId={this.props.currentUserId} />
-          <div className="history">
-          </div>
-          <HiringInfoSection />
-        </div>
+const Homepage = () => {
+  return (
+    <div className="homepage-container">
+      <div className="content">
+        <Navbar klass="homepage" />
+        <Switch>
+          <ProtectedRoute path="/stream" component={StreamPage} />
+          <ProtectedRoute path="/charts/top" component={ChartsPage} />
+        </Switch>
       </div>
-    );
-  }
+      <div className="sidebar">
+        <Slideshow klass="ad"/>
+        <div className="stats">
+        </div>
+        <WhoToFollow />
+        <LikesSection klass="homepage" />
+        <div className="history">
+        </div>
+        <HiringInfoSection />
+      </div>
+    </div>
+  );
 };
 
-export default withRouter(connect(msp, null)(Homepage));
+export default withRouter(Homepage);
