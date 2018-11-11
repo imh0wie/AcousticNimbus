@@ -4593,14 +4593,12 @@ function (_React$Component) {
           className: "comments"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "header"
-        }, commentsHeader), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-          className: "song-show-page-comments-list"
-        }, this.props.currentComments.map(function (comment) {
+        }, commentsHeader), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.currentComments.map(function (comment) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_comments_list_item__WEBPACK_IMPORTED_MODULE_5__["default"], {
             key: comment.id,
             comment: comment,
             commenter: _this.props.users[comment.commenterId],
-            onPageSong: _this.props.onPageSong
+            song: _this.props.song
           });
         })));
       }
@@ -4678,6 +4676,9 @@ function (_React$Component) {
     _classCallCheck(this, CommentsListItem);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(CommentsListItem).call(this, props));
+    _this.noneStyle = {
+      display: "none"
+    };
     _this.handleRemove = _this.handleRemove.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.renderUsername = _this.renderUsername.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.renderCreationTime = _this.renderCommentCreationTime.bind(_assertThisInitialized(_assertThisInitialized(_this)));
@@ -4736,9 +4737,8 @@ function (_React$Component) {
     value: function renderDeleteButton() {
       var _this2 = this;
 
-      if (this.props.commenter.id === this.props.currentUser.id || this.props.onPageSong.artistId === this.props.currentUser.id) {
+      if (this.props.commenter.id === this.props.currentUser.id || this.props.song.artistId === this.props.currentUser.id) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          className: "delete",
           onClick: function onClick() {
             return _this2.handleRemove(_this2.props.comment.id);
           }
@@ -4750,18 +4750,22 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "song-show-page-comments-list-item"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      var _this3 = this;
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "comment-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: this.props.commenter.imageURL ? this.props.commenter.imageURL : window.user_dp,
-        className: "comments-list-item-commenter-img"
+        src: this.props.commenter.imageURL ? this.props.commenter.imageURL : window.user_dp
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.renderUsername(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.comment.body))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "date-delete"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-        className: "date"
-      }, this.renderCommentCreationTime(this.props.comment.createdAt)), this.renderDeleteButton()));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.renderCommentCreationTime(this.props.comment.createdAt)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: function onClick() {
+          return _this3.handleRemove(_this3.props.comment.id);
+        },
+        style: this.props.commenter.id === this.props.currentUser.id || this.props.song.artistId === this.props.currentUser.id ? {} : this.noneStyle
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        class: "fas fa-trash"
+      }))));
     }
   }]);
 
@@ -4915,8 +4919,10 @@ function (_React$Component) {
           song: this.props.onPageSong,
           songId: this.props.onPageSongId
         })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "song-show-page-sidebar"
-        })));
+          className: "sidebar"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_slideshow__WEBPACK_IMPORTED_MODULE_10__["default"], {
+          klass: "ad"
+        }))));
       }
     }
   }]);

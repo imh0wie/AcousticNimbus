@@ -20,6 +20,9 @@ const mdp = (dispatch) => {
 class CommentsListItem extends React.Component {
     constructor(props) {
         super(props);
+        this.noneStyle = {
+            display: "none"
+        };
         this.handleRemove = this.handleRemove.bind(this);
         this.renderUsername = this.renderUsername.bind(this);
         this.renderCreationTime = this.renderCommentCreationTime.bind(this);
@@ -63,24 +66,24 @@ class CommentsListItem extends React.Component {
     }
 
     renderDeleteButton() {
-        if (this.props.commenter.id === this.props.currentUser.id || this.props.onPageSong.artistId === this.props.currentUser.id) {
-            return <button className="delete" onClick={() => this.handleRemove(this.props.comment.id)}><i class="fas fa-trash"></i></button>
+        if (this.props.commenter.id === this.props.currentUser.id || this.props.song.artistId === this.props.currentUser.id) {
+            return <button onClick={() => this.handleRemove(this.props.comment.id)}><i class="fas fa-trash"></i></button>
         }
     }
 
     render() {
         return (
-            <li className="song-show-page-comments-list-item">
+            <li>
                 <div className="comment-container">
-                    <img src={this.props.commenter.imageURL ? this.props.commenter.imageURL : window.user_dp} className="comments-list-item-commenter-img"></img>
+                    <img src={this.props.commenter.imageURL ? this.props.commenter.imageURL : window.user_dp}></img>
                     <div>
                         {this.renderUsername()}
                         <p>{this.props.comment.body}</p>
                     </div>
                 </div>
                 <div className="date-delete">
-                    <p className="date">{this.renderCommentCreationTime(this.props.comment.createdAt)}</p>
-                    {this.renderDeleteButton()}
+                    <p>{this.renderCommentCreationTime(this.props.comment.createdAt)}</p>
+                    <button onClick={() => this.handleRemove(this.props.comment.id)} style={this.props.commenter.id === this.props.currentUser.id || this.props.song.artistId === this.props.currentUser.id ? {} : this.noneStyle}><i class="fas fa-trash"></i></button>
                 </div>
             </li>
         );

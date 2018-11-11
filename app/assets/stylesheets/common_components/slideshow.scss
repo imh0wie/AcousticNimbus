@@ -1,0 +1,85 @@
+.homepage-container .sidebar .ad {
+    margin: 75px auto;
+    width: 300px;
+    height: 250px;
+}
+
+.homepage-container .sidebar .ad .slide {
+    background: none;
+}
+
+.homepage-container .sidebar .ad1 {
+    position: absolute;
+    top: 15px;
+    right: 0;
+    width: 170px;
+    background-color: hsla(120, 0%, 75%, 0.5);
+    border-radius: 15px;
+}
+
+.homepage-container .sidebar .ad1 p {
+    font-size: 17px;
+    font-weight: bold;
+    font-style: italic;
+    color: #666;
+}
+
+.homepage-container .sidebar .ad .logos {
+    position: absolute;
+    bottom: 15px;
+    right: 10px;
+}
+
+.homepage-container .sidebar .ad .logos .upper{
+    display: flex;
+    justify-content: space-between;
+    width: 90px;
+}
+
+.homepage-container .sidebar .ad .logo {
+    width: 40px;
+    height: 40px;
+}
+////////////////////////////////////////////////////
+.song-show-page .content .sidebar .ad {
+    margin: 10px auto;
+    width: 300px;
+    height: 250px;
+}
+
+.song-show-page .content .sidebar .ad .slide {
+    background: none;
+}
+
+.song-show-page .content .sidebar .ad1 {
+    position: absolute;
+    top: 15px;
+    right: 0;
+    width: 170px;
+    background-color: hsla(120, 0%, 75%, 0.5);
+    border-radius: 15px;
+}
+
+.song-show-page .content .sidebar .ad1 p {
+    font-size: 17px;
+    font-weight: bold;
+    font-style: italic;
+    color: #666;
+}
+
+.song-show-page .content .sidebar .ad .logos {
+    position: absolute;
+    bottom: 15px;
+    right: 10px;
+}
+
+.song-show-page .content .sidebar .ad .logos .upper {
+    display: flex;
+    justify-content: space-between;
+    width: 90px;
+}
+
+.song-show-page .content .sidebar .ad .logo {
+    width: 40px;
+    height: 40px;
+}

@@ -85,8 +85,8 @@ class SongShowPage extends React.Component {
                 </div>
               </div>
             </div>
-            <div className="song-show-page-sidebar">
-              {/* <Slideshow /> */}
+            <div className="sidebar">
+              <Slideshow klass="ad"/>
             </div>
           </div>
         </div>

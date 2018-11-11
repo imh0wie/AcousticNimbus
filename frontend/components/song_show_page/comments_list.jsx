@@ -44,14 +44,14 @@ class CommentsList extends React.Component {
             return (
               <div className="comments">
                 <p className="header">{commentsHeader}</p>
-                <ul className="song-show-page-comments-list">
+                <ul>
                   {this.props.currentComments.map((comment) => {
                       return (
                       <CommentsListItem
                       key={comment.id}
                       comment={comment}
                       commenter={this.props.users[comment.commenterId]}
-                      onPageSong={this.props.onPageSong}
+                      song={this.props.song}
                       />
                       );
                   })}

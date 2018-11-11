@@ -10,20 +10,15 @@
     height: 100%;
     margin-top: 45px;
 }
-// .song-show-page-song-img {
-//     width: 340px;
-//     height: 340px;
-//     margin: 20px 30px;
-// }
 
 .song-show-page .content {
     display: flex;
-    margin: 25px 35px;
+    margin: 25px 0;
 }
 
 .song-show-page .content .social-els-container {
     width: 815px;
-    margin-right: 35px;
+    margin: 0 35px;
 }
 
 .song-show-page .content .social-els-container .extrovert-section {
@@ -171,76 +166,67 @@
     border-bottom: 1px solid #f2f2f2;
 }
 
-.song-show-page .content .social-els-container .main .description-comments .comments {
-
-}
-
-// .song-show-page-comments-header-container {
-//     border-bottom: 1px solid #f2f2f2;
-// }
-
-// .song-show-page-comments-header {
-//     color: #999;
-//     border-bottom: 1px solid #f2f2f2;
-// }
-
-// .song-show-page-comments-list {
-
-// }
-
-.song-show-page-comments-list-item {
+.song-show-page .content .social-els-container .main .description-comments .comments ul li {
     display: flex;
-    height: 45px;
+    height: 100%;
     justify-content: space-between;
-    margin: 10px 0;
+    margin: 15px 0;
 }
 
-.comment-container {
+.song-show-page .content .social-els-container .main .description-comments .comments .comment-container {
     display: flex;
 }
 
-.comment-container img {
+.song-show-page .content .social-els-container .main .description-comments .comments .comment-container img {
     width: 40px;
     height: 40px;
     margin: 0;
     margin-right: 10px;
 }
 
-.comment-container div h1 {
+.song-show-page .content .social-els-container .main .description-comments .comments .comment-container div h1 {
     font-size: 11px;
     color: #ccc;
     margin: 0px;
+    margin-bottom: 8px;
 }
 
-.comment-container .username {
+.song-show-page .content .social-els-container .main .description-comments .comments .comment-container .username {
     font-size: 12px;
     color: #999;
 }
 
-.comment-container .time {
+.song-show-page .content .social-els-container .main .description-comments .comments .comment-container p {
+    font-size: 12px;
+    color: #333;
+    margin: 0;
+    width: 500px;;
+}
+
+.song-show-page .content .social-els-container .main .description-comments .comments .comment-container .time {
     font-size: 11px;
     color: #999;
 }
 
-.comment-container .time:hover {
+.song-show-page .content .social-els-container .main .description-comments .comments .comment-container .time:hover {
     font-size: 11px;
     color: #333;
 }
 
-.date-delete {
+.song-show-page .content .social-els-container .main .description-comments .comments .date-delete {
     text-align: right;
 }
 
-.date-delete .date {
+.song-show-page .content .social-els-container .main .description-comments .comments .date-delete p {
     font-size: 12px;
     color: #999;
     margin: 0;
 }
 
-.date-delete .delete {
-    // display: none;
+.song-show-page .content .social-els-container .main .description-comments .comments .date-delete button {
     width: 25px;
     height: 25px;
+    margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 3px;
     text-align: center;
@@ -264,23 +250,11 @@
     // text-align: center;
 }
 
-
-
-.comments-list-item-commenter-container div {
-    display: flex;
-    justify-content: space-around;
-    flex-direction: column;
+.song-show-page .content .sidebar {
+    width: 355px;
+    border-left: 1px solid #f2f2f2;
 }
 
-.comments-list-item-commenter-container div p {
-    font-size: 12px;
-    margin: 0;
-}
-
-
-.song-show-page-sidebar {
-    width: 390px;
-}
 
 
 
