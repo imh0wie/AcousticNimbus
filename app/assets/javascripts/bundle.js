@@ -1233,7 +1233,8 @@ function (_React$Component) {
     value: function renderList() {
       if (this.state.loading) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.loading5
+          src: window.loading5,
+          className: "loading-sm"
         });
       }
 
@@ -1573,6 +1574,9 @@ function (_React$Component) {
       }
 
       if (!Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_6__["isEmpty"])(this.props.songs) && this.miniListItems) {
+        if (this.miniListItems.length === 0) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: "ui-msg"
+        }, "This user has not liked any songs yet.");
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.miniListItems.map(function (item) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_mini_list_item__WEBPACK_IMPORTED_MODULE_10__["default"], {
             key: item.id,
@@ -5054,7 +5058,7 @@ function (_React$Component) {
       if (!this.props.onPageSong) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loading5,
-          className: "loading"
+          className: "loading-page"
         });
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -6121,10 +6125,15 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      debugger;
+
       if (!this.props.currentSongs) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.loading5
-        });
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "popularity-section"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.loading5,
+          className: "loading"
+        }));
       }
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

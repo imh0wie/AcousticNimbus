@@ -53,8 +53,13 @@ class PopularitySection extends React.Component {
     }
     
     render () {
+        debugger
         if (!this.props.currentSongs) {
-            return <img src={window.loading5}></img>;
+            return (
+                <div className="popularity-section">
+                    <img src={window.loading5} className="loading"></img>
+                </div>
+            );
         }
         return (
             <div className="popularity-section">

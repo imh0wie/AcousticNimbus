@@ -25,6 +25,11 @@
 
 
 /////////////////////////////////////////////////////////
+.user-show-page .content .songs-list .loading {
+    width: 100px;
+    height: 100px;
+    margin: 150px auto;
+}
 
 .user-show-page .content .songs-list ul {
     width: 820px;
@@ -55,5 +60,8 @@
 .user-show-page .content .songs-list-item .header p span {
     color: #333;
 }
+
+/////////////////////////////////////////////////////////
+
 
 
