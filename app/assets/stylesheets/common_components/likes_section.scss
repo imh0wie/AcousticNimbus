@@ -1,18 +1,18 @@
-.homepage-container .sidebar .likes-section {
+.sidebar .likes-section {
     width: 300px;
     min-height: 280px;
     margin: 0 auto;
     margin-bottom: 40px;
 }
 
-.homepage-container .sidebar .likes-section .loading {
+.sidebar .likes-section .loading {
     top: 75px;
     width: 80px;
     height: 80px;
     margin: 0 auto;
 }
 
-.homepage-container .sidebar .likes-section .header {
+.sidebar .likes-section .header {
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -20,45 +20,81 @@
     border-bottom: 1px solid #f2f2f2;
 }
 
-.homepage-container .sidebar .likes-section .header p {
+.sidebar .likes-section .header p {
     margin-bottom: 3px;
 }
 
-.homepage-container .sidebar .likes-section .header a {
+.sidebar .likes-section .header a {
     color: #999;
     text-decoration: none;
 }
 
-.homepage-container .sidebar .likes-section .header a:hover {
+.sidebar .likes-section .header a:hover {
     color: #333;
 }
+////////////////////////////////////////////////
+// .homepage-container .sidebar .likes-section {
+//     width: 300px;
+//     min-height: 280px;
+//     margin: 0 auto;
+//     margin-bottom: 40px;
+// }
+
+// .homepage-container .sidebar .likes-section .loading {
+//     top: 75px;
+//     width: 80px;
+//     height: 80px;
+//     margin: 0 auto;
+// }
+
+// .homepage-container .sidebar .likes-section .header {
+//     display: flex;
+//     justify-content: space-between;
+//     width: 100%;
+//     color: #999;
+//     border-bottom: 1px solid #f2f2f2;
+// }
+
+// .homepage-container .sidebar .likes-section .header p {
+//     margin-bottom: 3px;
+// }
+
+// .homepage-container .sidebar .likes-section .header a {
+//     color: #999;
+//     text-decoration: none;
+// }
+
+// .homepage-container .sidebar .likes-section .header a:hover {
+//     color: #333;
+// }
 
 
 ////////////////////////////////////////////////////
 
-.song-show-page .content .sidebar .likes-section {
-    width: 300px;
-    margin: 0 auto;
-    margin-bottom: 40px;
-}
+// .song-show-page .content .sidebar .likes-section {
+//     width: 300px;
+//     min-height: 280px;
+//     margin: 0 auto;
+//     margin-bottom: 40px;
+// }
 
-.song-show-page .content .sidebar .likes-section .header {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    color: #999;
-    border-bottom: 1px solid #f2f2f2;
-}
+// .song-show-page .content .sidebar .likes-section .header {
+//     display: flex;
+//     justify-content: space-between;
+//     width: 100%;
+//     color: #999;
+//     border-bottom: 1px solid #f2f2f2;
+// }
 
-.song-show-page .content .sidebar .likes-section .header p {
-    margin-bottom: 3px;
-}
+// .song-show-page .content .sidebar .likes-section .header p {
+//     margin-bottom: 3px;
+// }
 
-.song-show-page .content .sidebar .likes-section .header a {
-    color: #999;
-    text-decoration: none;
-}
+// .song-show-page .content .sidebar .likes-section .header a {
+//     color: #999;
+//     text-decoration: none;
+// }
 
-.song-show-page .content .sidebar .likes-section .header a:hover {
-    color: #333;
-}
+// .song-show-page .content .sidebar .likes-section .header a:hover {
+//     color: #333;
+// }

@@ -26,11 +26,9 @@ const mdp = (dispatch) => {
 class ArtistsList extends React.Component {
     constructor(props) {
         super(props);
-        // debugger
     }
 
     componentDidMount() {
-        // debugger
         this.props.fetchSongs().then(
             this.props.fetchFollows().then(
                 this.props.fetchUsers()
@@ -52,7 +50,6 @@ class ArtistsList extends React.Component {
                 </div>
             );
         } else {
-            // debugger
             if (isEmpty(this.props.songs)) return  <img src={window.loading5} className="loading"></img>;
             return (
                 <ul>

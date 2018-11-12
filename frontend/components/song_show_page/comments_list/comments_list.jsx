@@ -31,9 +31,7 @@ class CommentsList extends React.Component {
     }
 
     render() {
-        debugger
         if (!this.props.currentComments) return <img src={window.loading5} className="loading"></img>;
-        debugger
         if (this.props.currentComments.length === 0) {
             return (
               <div className="comments-none">

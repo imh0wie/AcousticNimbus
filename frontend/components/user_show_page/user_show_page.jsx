@@ -8,6 +8,7 @@ import Navbar from "../common_components/navbar";
 import SocialElements from "../common_components/social_elements";
 import SongsList from "../common_components/songs_list/songs_list";
 import PopularitySection from "./popularity_section";
+import LikesSection from "../common_components/likes_section";
 import FollowersSection from "./followers_section";
 
 const msp = (state, ownProps) => {
@@ -47,6 +48,7 @@ class UserShowPage extends React.Component {
                         </div>
                         <div className="sidebar">
                             <PopularitySection />
+                            <LikesSection klass="user-show-page"/>
                             <FollowersSection />
                         </div>
                     </div>

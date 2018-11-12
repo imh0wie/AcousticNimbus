@@ -75,12 +75,13 @@ input[type=range]:focus {
     top: 10px;
     width: 30px;
     height: 30px;
-    margin-right: 10px;
 }
 
 .player-bar .song-info-container .song-info {
     position: relative;
     top: 10px;
+    left: 10px;
+    min-width: 100px;
 }
 
 .player-bar .song-info-container .song-info a {

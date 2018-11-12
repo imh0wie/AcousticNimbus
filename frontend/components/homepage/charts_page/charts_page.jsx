@@ -1,7 +1,7 @@
 import React from "react";
 import { FormGroup, FormControl } from 'react-bootstrap';
 import SongsList from "./songs_list/songs_list";
-
+// import Navbar from "../../common_components/navbar";
 
 class ChartsPage extends React.Component {
   constructor(props) {
@@ -31,6 +31,7 @@ class ChartsPage extends React.Component {
   render() {
     return (
       <div className="charts-page-container">
+        <Navbar klass="homepage" />
         <div className="filter-bar-container">
           <div className="order-selector-container">
             <FormGroup controlId="orderSelector">

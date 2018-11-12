@@ -5,12 +5,22 @@
 
 .homepage-container .content {
     width: 880px;
+    height: 100%;
     border-right: 1px solid #f2f2f2;
 }
 
 .homepage-container .sidebar {
-    display: fixed;
+    position: fixed;
+    right: 100px;
+    overflow: hidden;
+    -ms-overflow-style: none;
+    overflow-y: scroll;
     width: 360px;
+    height: 100%;
+}
+
+.homepage-container .sidebar::-webkit-scrollbar {
+    width: 0 !important;
 }
 
 

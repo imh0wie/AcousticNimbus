@@ -31,6 +31,7 @@ class BubblesList extends React.Component {
         this.setState({
             loading: false,
         })
+        // this.props.fetchUsers().then(this.setState({loading: false}));
     }
 
     render() {
@@ -42,6 +43,7 @@ class BubblesList extends React.Component {
                 <ul>
                     {this.props.items.map((item) => {
                         const id = item.likerId ? item.likerId : item.followerId ;
+                        if (!this.props.users[id]) return null;
                         return (
                             <BubblesListItem
                                 key={id}

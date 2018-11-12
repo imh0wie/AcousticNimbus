@@ -48,7 +48,6 @@ class MiniList extends React.Component {
     }
 
     render() {
-        // debugger
         if (isEmpty(this.props.comments)) return <img src={window.loading5} className="loading"></img>;
         switch (this.props.klass) {
             case "likes-section":

@@ -758,7 +758,7 @@ function (_React$Component) {
 
       this.setState({
         loading: false
-      });
+      }); // this.props.fetchUsers().then(this.setState({loading: false}));
     }
   }, {
     key: "render",
@@ -775,6 +775,7 @@ function (_React$Component) {
         }, "No love...:(");
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.items.map(function (item) {
           var id = item.likerId ? item.likerId : item.followerId;
+          if (!_this2.props.users[id]) return null;
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_bubbles_list_item__WEBPACK_IMPORTED_MODULE_4__["default"], {
             key: id,
             user: _this2.props.users[id]
@@ -1177,6 +1178,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 var msp = function msp(state, ownProps) {
   var song = ownProps.song;
   var songId = ownProps.songId;
+  var userId = parseInt(ownProps.match.params.userId);
   var currentUserId = state.session.id;
   var likes = state.entities.likes;
   return {
@@ -1184,7 +1186,8 @@ var msp = function msp(state, ownProps) {
     songId: songId,
     likes: likes,
     currentLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_4__["likesBy"])(likes, currentUserId),
-    songLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_4__["likesOf"])("Song", songId, likes)
+    songLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_4__["likesOf"])("Song", songId, likes),
+    userLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_4__["likesBy"])(likes, userId)
   };
 };
 
@@ -1232,23 +1235,28 @@ function (_React$Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loading5
         });
-      } else {
-        switch (this.props.klass) {
-          case "homepage":
-            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_mini_list_mini_list__WEBPACK_IMPORTED_MODULE_5__["default"], {
-              klass: "likes-section",
-              currentLikes: this.likes
-            });
+      }
 
-          case "song-show-page":
-            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_bubbles_list_bubbles_list__WEBPACK_IMPORTED_MODULE_6__["default"], {
-              klass: "song-show-page",
-              items: this.likes
-            });
+      switch (this.props.klass) {
+        case "homepage":
+        case "user-show-page":
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_mini_list_mini_list__WEBPACK_IMPORTED_MODULE_5__["default"], {
+            klass: "likes-section",
+            currentLikes: this.likes
+          });
 
-          default:
-            break;
-        }
+        case "song-show-page":
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_bubbles_list_bubbles_list__WEBPACK_IMPORTED_MODULE_6__["default"], {
+            klass: "song-show-page",
+            items: this.likes
+          });
+        // case "user-show-page":
+        //     return (
+        //         <MiniList klass="likes-section" currentLikes={this.likes} />
+        //     );
+
+        default:
+          return null;
       }
     }
   }, {
@@ -1262,6 +1270,9 @@ function (_React$Component) {
         case "song-show-page":
           this.likes = this.props.songLikes;
           break;
+
+        case "user-show-page":
+          this.likes = this.props.userLikes;
 
         default:
           break;
@@ -1541,7 +1552,6 @@ function (_React$Component) {
     value: function render() {
       var _this = this;
 
-      // debugger
       if (Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_6__["isEmpty"])(this.props.comments)) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.loading5,
         className: "loading"
@@ -3806,7 +3816,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 
-
+ // import Navbar from "../../common_components/navbar";
 
 var ChartsPage =
 /*#__PURE__*/
@@ -3855,7 +3865,9 @@ function (_React$Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "charts-page-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Navbar, {
+        klass: "homepage"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "filter-bar-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "order-selector-container"
@@ -4269,7 +4281,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _common_components_songs_list_songs_list__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../common_components/songs_list/songs_list */ "./frontend/components/common_components/songs_list/songs_list.jsx");
 
-
+ // import Navbar from "../../common_components/navbar";
 
 var StreamPage = function StreamPage() {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -4361,13 +4373,12 @@ function (_React$Component) {
   function ArtistsList(props) {
     _classCallCheck(this, ArtistsList);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(ArtistsList).call(this, props)); // debugger
+    return _possibleConstructorReturn(this, _getPrototypeOf(ArtistsList).call(this, props));
   }
 
   _createClass(ArtistsList, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      // debugger
       this.props.fetchSongs().then(this.props.fetchFollows().then(this.props.fetchUsers()));
     }
   }, {
@@ -4383,7 +4394,6 @@ function (_React$Component) {
           className: "error-message"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "We cannot recommend you any users because:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "1) you have followed all users on Acoustic Nimbus; OR"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "2) our site sucks and you are the only user..."));
       } else {
-        // debugger
         if (Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_7__["isEmpty"])(this.props.songs)) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loading5,
           className: "loading"
@@ -4688,12 +4698,10 @@ function (_React$Component) {
     value: function render() {
       var _this = this;
 
-      debugger;
       if (!this.props.currentComments) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.loading5,
         className: "loading"
       });
-      debugger;
 
       if (this.props.currentComments.length === 0) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -6181,7 +6189,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _common_components_social_elements__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../common_components/social_elements */ "./frontend/components/common_components/social_elements.jsx");
 /* harmony import */ var _common_components_songs_list_songs_list__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../common_components/songs_list/songs_list */ "./frontend/components/common_components/songs_list/songs_list.jsx");
 /* harmony import */ var _popularity_section__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./popularity_section */ "./frontend/components/user_show_page/popularity_section.jsx");
-/* harmony import */ var _followers_section__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./followers_section */ "./frontend/components/user_show_page/followers_section.jsx");
+/* harmony import */ var _common_components_likes_section__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../common_components/likes_section */ "./frontend/components/common_components/likes_section.jsx");
+/* harmony import */ var _followers_section__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./followers_section */ "./frontend/components/user_show_page/followers_section.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -6199,6 +6208,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -6267,7 +6277,9 @@ function (_React$Component) {
           klass: "user-show-page"
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "sidebar"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_popularity_section__WEBPACK_IMPORTED_MODULE_9__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_followers_section__WEBPACK_IMPORTED_MODULE_10__["default"], null))));
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_popularity_section__WEBPACK_IMPORTED_MODULE_9__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_likes_section__WEBPACK_IMPORTED_MODULE_10__["default"], {
+          klass: "user-show-page"
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_followers_section__WEBPACK_IMPORTED_MODULE_11__["default"], null))));
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loading5,

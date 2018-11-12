@@ -9,6 +9,7 @@ import BubblesList from "./bubbles_list/bubbles_list"
 const msp = (state, ownProps) => {
     const song = ownProps.song;
     const songId = ownProps.songId;
+    const userId = parseInt(ownProps.match.params.userId);
     const currentUserId = state.session.id;
     const likes = state.entities.likes;
     return ({
@@ -17,6 +18,7 @@ const msp = (state, ownProps) => {
         likes: likes,
         currentLikes: likesBy(likes, currentUserId),
         songLikes: likesOf("Song", songId, likes),
+        userLikes: likesBy(likes, userId)
     });
 }
 
@@ -48,19 +50,23 @@ class LikesSection extends React.Component {
     renderList() {
         if (this.state.loading) {
             return <img src={window.loading5}></img>;
-        } else {
-            switch (this.props.klass) {
-                case "homepage":
-                    return (
-                        <MiniList klass="likes-section" currentLikes={this.likes} />
+        }
+        switch (this.props.klass) {
+            case "homepage":
+            case "user-show-page":
+                return (
+                    <MiniList klass="likes-section" currentLikes={this.likes} />
+                );
+            case "song-show-page":
+                return (
+                    <BubblesList klass="song-show-page" items={this.likes} />
                     );
-                case "song-show-page":
-                    return (
-                        <BubblesList klass="song-show-page" items={this.likes} />
-                    );
-                default:
-                    break;
-            }
+            // case "user-show-page":
+            //     return (
+            //         <MiniList klass="likes-section" currentLikes={this.likes} />
+            //     );
+            default:
+                return null;
         }
     }
 
@@ -72,6 +78,8 @@ class LikesSection extends React.Component {
             case "song-show-page":
                 this.likes = this.props.songLikes;
                 break;
+            case "user-show-page":
+                this.likes = this.props.userLikes;
             default:
                 break;
         }
