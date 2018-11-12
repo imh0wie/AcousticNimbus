@@ -38,6 +38,9 @@ const mdp = (dispatch) => {
 class SocialElements extends React.Component {
     constructor(props) {
         super(props);
+        this.noneStyle = {
+            display: "none"
+        }
         this.handleFollow = this.handleFollow.bind(this);
     }
 
@@ -89,7 +92,13 @@ class SocialElements extends React.Component {
             case "user-show-page":
                 return (
                     <div className="buttons">
-                        <button className={this.props.currentFollow ? "following" : "follow"} onClick={(e) => this.handleFollow(e)}>{this.props.currentFollow ? "Following" : "Follow"}</button>
+                        <button 
+                            className={this.props.currentFollow ? "following" : "follow"}
+                            onClick={(e) => this.handleFollow(e)}
+                            style={this.props.onPageArtistId === this.props.currentUserId ? this.noneStyle : {}}
+                        >
+                                {this.props.currentFollow ? "Following" : "Follow"}
+                        </button>
                     </div>
                 );
         }

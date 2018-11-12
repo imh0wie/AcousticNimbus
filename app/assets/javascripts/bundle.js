@@ -3152,6 +3152,9 @@ function (_React$Component) {
     _classCallCheck(this, SocialElements);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SocialElements).call(this, props));
+    _this.noneStyle = {
+      display: "none"
+    };
     _this.handleFollow = _this.handleFollow.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
@@ -3230,7 +3233,8 @@ function (_React$Component) {
             className: this.props.currentFollow ? "following" : "follow",
             onClick: function onClick(e) {
               return _this2.handleFollow(e);
-            }
+            },
+            style: this.props.onPageArtistId === this.props.currentUserId ? this.noneStyle : {}
           }, this.props.currentFollow ? "Following" : "Follow"));
       }
     }
