@@ -10,6 +10,7 @@ import SongsList from "../common_components/songs_list/songs_list";
 import PopularitySection from "./popularity_section";
 import LikesSection from "../common_components/likes_section";
 import FollowersSection from "./followers_section";
+import HiringInfoSection from "../common_components/hiring_info_section";
 
 const msp = (state, ownProps) => {
     return ({
@@ -50,6 +51,7 @@ class UserShowPage extends React.Component {
                             <PopularitySection />
                             <LikesSection klass="user-show-page"/>
                             <FollowersSection />
+                            <HiringInfoSection />
                         </div>
                     </div>
                 </div>
