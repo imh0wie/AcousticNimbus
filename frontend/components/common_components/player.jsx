@@ -113,11 +113,6 @@ class Player extends React.Component {
                     <SocialElements
                         klass={this.klass}
                         songId={this.props.songId}
-                        currentLikes={this.props.currentLikes}
-                        currentComments={this.props.currentComments}
-                        createLike={this.props.createLike}
-                        removeLike={this.props.removeLike}
-                        currentLike={this.props.currentLike}
                         style={(this.props.klass === "banner-player") ? this.noneStyle : {}}
                     />
                 </div>

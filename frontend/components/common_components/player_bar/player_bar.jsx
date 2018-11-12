@@ -10,15 +10,16 @@ import { latest, shuffle } from "../../../util/song_api_util";
 import { likeOf } from "../../../util/like_api_util";
 
 const msp = (state) => {
+    const songs = state.entities.songs;
     const songId = state.ui.currentSong.song ? state.ui.currentSong.song.id : null;
+    const currentUserId = state.session.id;
     return {
-        latestTwelve: latest(12, state.entities.songs),
-        latestTwenty: latest(20, state.entities.songs),
-        shuffled: shuffle(12, state.entities.songs),
-        likes: state.entities.likes,
+        latestTwelve: latest(12, songs),
+        latestTwenty: latest(20, songs),
+        shuffled: shuffle(12, songs),
         currentSong: state.ui.currentSong,
-        currentUser: state.entities.users[state.session.id],
-        currentLike: likeOf("Song", songId, state.session.id, state.entities.likes),
+        currentUser: state.entities.users[currentUserId],
+        currentLike: likeOf("Song", songId, currentUserId, state.entities.likes),
     }
 }
 

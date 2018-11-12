@@ -24,7 +24,7 @@ const Navbar = (props) => {
       );
     case "user-show-page":
       return (
-        <div className="navbar">
+        <div className="navbar" style={{borderBottom: 0}}>
           <NavLink to={`/users/${props.onPageArtistId}`} activeClassName="active">Songs</NavLink> 
         </div>
       );

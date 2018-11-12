@@ -44,7 +44,7 @@ export const followOf = (followedUserId, followerId, follows) => {
 }
 
 export const followersOf = (followedUserId, follows, users) => {
-    if (isEmpty(follows)) return null;
+    if (isEmpty(follows) || isEmpty(users)) return null;
     const output = [];
     const followIds = Object.keys(follows);
     for (let i = 0; i < followIds.length; i++ ) {
@@ -52,6 +52,17 @@ export const followersOf = (followedUserId, follows, users) => {
         const follow = follows[followId];
         if (follow.followedUserId === followedUserId) output.push(users[follow.followerId]);
     }
+    return output;
+}
+
+export const followedUsersOf = (currentUser, follows, users) => {
+    if (isEmpty(follows) || isEmpty(users)) return [];
+    const followIds = Object.keys(follows);
+    const output = [];
+    followIds.forEach((followId) => {
+        const follow = follows[followId];
+        if (follow.followerId === currentUser.id) output.push(users[follow.followedUserId]);
+    })
     return output;
 }
 
@@ -65,17 +76,6 @@ export const followingsOf = (followerId, follows) => {
         if (follow.followerId === followerId) output.push(follow);
     }
     return null;
-}
-
-export const followedUsersOf = (currentUser, follows, users) => {
-    if (isEmpty(follows)) return [];
-    const followIds = Object.keys(follows);
-    const output = [];
-    followIds.forEach((followId) => {
-        const follow = follows[followId];
-        if (follow.followerId === currentUser.id) output.push(users[follow.followedUserId]);
-    })
-    return output;
 }
 
 export const followedSongs = (users, songs) => {

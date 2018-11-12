@@ -1,0 +1,18 @@
+.sidebar .popularity-section {
+    width: 300px;
+    margin: auto;
+}
+
+.sidebar .popularity-section .data {
+    display: flex;
+}
+
+.sidebar .popularity-section .data a {
+    color: #999;
+    text-decoration: none;
+}
+
+.sidebar .popularity-section .data a:hover {
+    color: #333;
+    text-decoration: none;
+}

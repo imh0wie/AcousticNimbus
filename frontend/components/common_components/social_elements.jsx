@@ -2,21 +2,23 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { fetchLikes, createLike, removeLike } from "../../actions/like_actions";
+import { createFollow, removeFollow } from "../../actions/follow_actions";
 import { fetchUsers } from "../../actions/user_actions";
 import { likesOf, likeOf } from "../../util/like_api_util";
 import { followOf } from "../../util/follow_api_util";
+import { commentsOf } from "../../util/comment_api_util";
 
 const msp = (state, ownProps) => {
     const songId = ownProps.songId;
-    const onPageArtistId = ownProps.match.params.userId;
+    const onPageArtistId = parseInt(ownProps.match.params.userId);
     const likes = state.entities.likes;
     const currentUserId = state.session.id;
     return ({
-        likes: likes,
-        currentLike: likeOf("Song", songId, state.entities.users[currentUserId], likes),
         currentLikes: likesOf("Song", songId, likes),
-        onPageArtistId: onPageArtistId,
+        currentLike: likeOf("Song", songId, state.entities.users[currentUserId], likes),
         currentFollow: followOf(onPageArtistId, currentUserId, state.entities.follows),
+        currentComments: commentsOf(songId, state.entities.comments),
+        onPageArtistId: onPageArtistId,
         currentUserId: currentUserId,
     });
 }
@@ -54,12 +56,11 @@ class SocialElements extends React.Component {
                 likeable_id: this.props.songId,
                 liker_id: this.props.currentUserId,
             }
-            debugger
             this.props.createLike(like);
         }
     }
-
-    handleFollow(e) {
+    
+    handleFollow(e) { // for user show page
         e.preventDefault();
         if (this.props.currentFollow) {
           this.props.removeFollow(this.props.currentFollow.id);
@@ -68,6 +69,7 @@ class SocialElements extends React.Component {
                 followed_user_id: this.props.onPageArtistId,
                 follower_id: this.props.currentUserId
             }
+            debugger
             this.props.createFollow(follow);
         }
     }

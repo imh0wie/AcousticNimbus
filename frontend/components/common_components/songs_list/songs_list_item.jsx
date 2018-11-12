@@ -1,6 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { Link, withRouter } from "react-router-dom";
 import Player from "../player";
+
+const msp = (state, ownProps) => {
+    return ({
+        itemArtist: state.entities.users[ownProps.itemSong.artistId],
+    });
+}
 
 class SongsListItem extends React.Component {
     constructor(props) {
@@ -45,21 +52,10 @@ class SongsListItem extends React.Component {
                     klass="item-player"
                     song={this.props.itemSong}
                     songId={this.props.itemSong.id}
-                    currentLike={this.props.currentLike}
-                    currentLikes={this.props.itemLikes}
-                    currentComments={this.props.itemComments}
-                    currentSong={this.props.currentSong}
-                    setCurrentSong={this.props.setCurrentSong}
-                    playSong={this.props.playSong}
-                    pauseSong={this.props.pauseSong}
-                    createLike={this.props.createLike}
-                    removeLike={this.props.removeLike}
-                    currentUser={this.props.currentUser}
-                    currentUserId={this.props.currentUserId}
                 />
             </li>
         );
     }
 }
 
-export default SongsListItem;
+export default withRouter(connect(msp, null)(SongsListItem));

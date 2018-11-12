@@ -2,45 +2,28 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { fetchSongs } from "../../../actions/song_actions";
-import { setCurrentSong, playSong, pauseSong, setElapsedTo } from "../../../actions/current_song_actions";
-import { fetchLikes, createLike, removeLike } from "../../../actions/like_actions";
+import { fetchLikes } from "../../../actions/like_actions";
 import { fetchFollows } from "../../../actions/follow_actions";
 import { fetchComments } from "../../../actions/comment_actions";
 import { fetchUsers } from "../../../actions/user_actions";
+import { songsOf } from "../../../util/song_api_util";
 import { followedUsersOf, followedSongs} from "../../../util/follow_api_util";
-import { likesOf, likeOf } from "../../../util/like_api_util";
-import { commentsOf } from "../../../util/comment_api_util";
 import SongsListItem from "./songs_list_item";
 
-const msp = (state) => {
+const msp = (state, ownProps) => {
     const songs = state.entities.songs;
-    const likes = state.entities.likes;
-    const follows = state.entities.follows;
-    const comments = state.entities.comments;
     const users = state.entities.users;
-    const currentUserId = state.session.id;
-    const followedArtists = followedUsersOf(state.entities.users[currentUserId], follows, users);
+    const followedArtists = followedUsersOf(users[state.session.id], state.entities.follows, users);
     return {
-        users: users,
-        likes: likes,
-        comments: comments,
         streamSongs: followedSongs(followedArtists, songs),
-        currentUserId: currentUserId,
-        currentUser: state.entities.users[currentUserId],
-        currentSong: state.ui.currentSong,
+        currentSongs: songsOf(users[parseInt(ownProps.match.params.userId)], songs),
     };
 };
 
 const mdp = (dispatch) => {
   return ({
       fetchSongs: () => dispatch(fetchSongs()),
-      setCurrentSong: (song) => dispatch(setCurrentSong(song)),
-      playSong: () => dispatch(playSong()),
-      pauseSong: () => dispatch(pauseSong()),
-      setElapsedTo: (time) => dispatch(setElapsedTo(time)),
       fetchLikes: () => dispatch(fetchLikes()),
-      createLike: (like) => dispatch(createLike(like)),
-      removeLike: (id) => dispatch(removeLike(id)),
       fetchFollows: () => dispatch(fetchFollows()),
       fetchComments: () => dispatch(fetchComments()),
       fetchUsers: () => dispatch(fetchUsers()),
@@ -58,7 +41,9 @@ class SongsList extends React.Component {
         this.props.fetchLikes();
         this.props.fetchComments();
         if (this.props.klass !== "user-show-page") {
-            // debugger
+            // This component does not need to fetch data
+            // user show page because data would have 
+            // already been fetched at this point.
             this.props.fetchFollows();
             this.props.fetchUsers();
         }
@@ -82,7 +67,7 @@ class SongsList extends React.Component {
         } else {
             if (this.songs.length === 0) {
                 // debugger
-                if (this.props.klass === "user-show-page") return <img src={window.loading5} className="loading"></img>; 
+                if (this.props.klass === "user-show-page") return <p>Well apparent </p>; 
                 // debugger
                 return <p>Stream is currently empty. Use Charts to find music & audio to listen to.</p>
             } else {
@@ -95,19 +80,6 @@ class SongsList extends React.Component {
                                 idx={idx}
                                 klass={this.props.klass}
                                 itemSong={song}
-                                itemLikes={likesOf("Song", song.id, this.props.likes)}
-                                itemComments={commentsOf(song.id, this.props.comments)}
-                                itemArtist={this.props.users[song.artistId]}
-                                currentSong={this.props.currentSong}
-                                currentLike={likeOf("Song", song.id, this.props.currentUser, this.props.likes)}
-                                currentUser={this.props.currentUser}
-                                currentUserId={this.props.currentUserId}
-                                setCurrentSong={this.props.setCurrentSong}
-                                playSong={this.props.playSong}
-                                pauseSong={this.props.pauseSong}
-                                setElapsedTo={this.props.setElapsedTo}
-                                createLike={this.props.createLike}
-                                removeLike={this.props.removeLike}
                                 />
                             );
                         })}

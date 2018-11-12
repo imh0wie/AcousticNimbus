@@ -11,7 +11,6 @@ const msp = (state) => {
       latestTwelve: latest(12, state.entities.songs),
       latestTwenty: latest(20, state.entities.songs),
       shuffled: shuffle(12, state.entities.songs),
-      // currentSong: state.ui.currentSong,
     }
 }
 
