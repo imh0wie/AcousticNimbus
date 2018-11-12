@@ -65,7 +65,6 @@ class SongsList extends React.Component {
             default:
                 break;
         }
-        debugger
         if (!this.songs || isEmpty(this.props.follows)) {
             return <img src={window.loading5} className="loading"></img>;
         } else {

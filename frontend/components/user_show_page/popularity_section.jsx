@@ -53,7 +53,6 @@ class PopularitySection extends React.Component {
     }
     
     render () {
-        debugger
         if (!this.props.currentSongs) {
             return (
                 <div className="popularity-section">
