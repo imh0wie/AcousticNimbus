@@ -1213,9 +1213,8 @@ function (_React$Component) {
     _this.state = {
       loading: true
     };
-    _this.minHeight = {
-      // minHeight: "275px",
-      display: "none"
+    _this.marginBottom = {
+      marginBottom: "30px"
     };
     return _this;
   }
@@ -1281,7 +1280,7 @@ function (_React$Component) {
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "likes-section",
-        style: this.state.loading ? this.minHeight : {}
+        style: this.props.klass === "user-show-page" ? this.marginBottom : {}
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
