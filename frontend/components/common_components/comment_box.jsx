@@ -68,6 +68,9 @@ class CommentBox extends React.Component {
                     this.className = "comment-box-container-hidden";
                 }
                 break;
+            case "song-show-page":
+                this.className = "comment-box-container"
+                break;
             default:
                 break;
         }

@@ -3,10 +3,10 @@
     background-color: #f2f2f2;
     height: 40px;
     visibility: visible;
-    transition: height 0.25s, visibility 0.25s;
-    -moz-transition: height 0.25s, visibility 0.25s; /* Firefox 4 */
-    -webkit-transition: height 0.25s, visibility 0.25s; /* Safari and Chrome */
-    -o-transition: height 0.25s, visibility 0.25s;
+    transition: height 0.25s, visibility 0.15s;
+    -moz-transition: height 0.25s, visibility 0.15s; /* Firefox 4 */
+    -webkit-transition: height 0.25s, visibility 0.15s; /* Safari and Chrome */
+    -o-transition: height 0.25s, visibility 0.15s;
 }
 
 .comment-box-container .comment-box-img {
@@ -37,10 +37,10 @@
     background-color: #f2f2f2;
     height: 0px;
     visibility: hidden;
-    transition: height 0.25s, visibility 0.25s;
-    -moz-transition: height 0.25s, visibility 0.25s; /* Firefox 4 */
-    -webkit-transition: height 0.25s, visibility 0.25s; /* Safari and Chrome */
-    -o-transition: height 0.25s, visibility 0.25s;
+    transition: height 0.25s, visibility 0.15s;
+    -moz-transition: height 0.25s, visibility 0.15s; /* Firefox 4 */
+    -webkit-transition: height 0.25s, visibility 0.15s; /* Safari and Chrome */
+    -o-transition: height 0.25s, visibility 0.15s;
 }
 
 
@@ -69,25 +69,25 @@
 
 
 ////////////////////////////////////////////////////////////
-// .song-show-page .content .social-els-container .extrovert-section .comment-box-container {
-//     display: flex;
-//     background-color: #f2f2f2;
-//     height: 40px;
-//     // width: 780px;
-// }
+.song-show-page .content .social-els-container .extrovert-section .comment-box-container {
+    display: flex;
+    background-color: #f2f2f2;
+    height: 40px;
+    // width: 780px;
+}
 
-// .song-show-page .content .social-els-container .extrovert-section .comment-box-container .comment-box-img {
-//     width: 40px;
-//     height: 40px;
-// }
+.song-show-page .content .social-els-container .extrovert-section .comment-box-container .comment-box-img {
+    width: 40px;
+    height: 40px;
+}
 
-// .song-show-page .content .social-els-container .extrovert-section .comment-box-container .comment-box {
-//     width: 758px;
-//     padding: 5px;
-//     background-color: white;
-//     margin: 5px 5px;
-// }
+.song-show-page .content .social-els-container .extrovert-section .comment-box-container .comment-box {
+    width: 758px;
+    padding: 5px;
+    background-color: white;
+    margin: 5px 5px;
+}
 
-// .song-show-page .content .social-els-container .extrovert-section .comment-box-container .submit-button {
-//     display: none;
-// }
+.song-show-page .content .social-els-container .extrovert-section .comment-box-container .submit-button {
+    display: none;
+}

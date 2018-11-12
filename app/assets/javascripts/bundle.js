@@ -945,6 +945,10 @@ function (_React$Component) {
 
           break;
 
+        case "song-show-page":
+          this.className = "comment-box-container";
+          break;
+
         default:
           break;
       }
@@ -3398,6 +3402,8 @@ function (_React$Component) {
           break;
       }
 
+      debugger;
+
       if (!this.songs || Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_9__["isEmpty"])(this.props.follows)) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loading5,
@@ -4260,7 +4266,7 @@ function (_React$Component) {
       if (this.state.loading) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loading5,
-          className: "loading"
+          className: "hp-loading"
         });
       }
 
