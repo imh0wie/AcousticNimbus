@@ -75,7 +75,19 @@ export const followingsOf = (followerId, follows) => {
         const follow = follows[followId];
         if (follow.followerId === followerId) output.push(follow);
     }
-    return null;
+    return output;
+}
+
+export const followsOf = (followerId, follows) => {
+    if (isEmpty(follows)) return null;
+    const output = [];
+    const followIds = Object.keys(follows);
+    for (let i = 0; i < followIds.length; i++ ) {
+        const followId = followIds[i];
+        const follow = follows[followId];
+        if (follow.followedUserId === followerId) output.push(follow);
+    }
+    return output;
 }
 
 export const followedSongs = (users, songs) => {

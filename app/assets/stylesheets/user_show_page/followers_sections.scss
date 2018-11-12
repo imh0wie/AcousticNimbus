@@ -1,0 +1,26 @@
+.sidebar .followers-section {
+    width: 300px;
+    margin: 0 auto;
+    margin-bottom: 40px;
+}
+
+.sidebar .followers-section .header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    color: #999;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.sidebar .followers-section .header p {
+    margin-bottom: 4px;
+}
+
+.sidebar .followers-section .header a {
+    color: #999;
+    text-decoration: none;
+}
+
+.sidebar .followers-section .header a:hover {
+    color: #333;
+}
