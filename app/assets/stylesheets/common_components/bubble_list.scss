@@ -1,8 +1,13 @@
 .sidebar .likes-section .ui-msg {
+    color: #999;
+    font-size: 13px;
+    text-align: center;
+    margin: 25px 0;
 }
 
 .sidebar .likes-section ul {
-    display: flex;}
+    display: flex;
+}
 
 .sidebar .likes-section ul li {
     margin: 0 -4px;    
@@ -16,6 +21,10 @@
 }
 
 .sidebar .followers-section .ui-msg {
+    color: #999;
+    font-size: 13px;
+    text-align: center;
+    margin: 25px 0;
 }
 
 .sidebar .followers-section ul {
