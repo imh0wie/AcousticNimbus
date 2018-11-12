@@ -3306,6 +3306,7 @@ var msp = function msp(state, ownProps) {
   var users = state.entities.users;
   var followedArtists = Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_10__["followedUsersOf"])(users[state.session.id], follows, users);
   return {
+    onPageArtist: users[parseInt(ownProps.match.params.userId)],
     follows: follows,
     streamSongs: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_10__["followedSongs"])(followedArtists, songs),
     currentSongs: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_8__["songsOf"])(users[parseInt(ownProps.match.params.userId)], songs)
@@ -3380,7 +3381,18 @@ function (_React$Component) {
         });
       } else {
         if (this.songs.length === 0) {
-          if (this.props.klass === "user-show-page") return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Well apparent ");
+          if (this.props.klass === "user-show-page") {
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+              className: "ui-msg"
+            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+              src: window.noSongs
+            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+              className: "h1"
+            }, "Nothing to hear here"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+              className: "h2"
+            }, "Follow ".concat(this.props.onPageArtist.username, " for updates on sounds they share in the future.")));
+          }
+
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Stream is currently empty. Use Charts to find music & audio to listen to.");
         } else {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.songs.map(function (song, idx) {

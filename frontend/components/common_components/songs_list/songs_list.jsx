@@ -17,6 +17,7 @@ const msp = (state, ownProps) => {
     const users = state.entities.users;
     const followedArtists = followedUsersOf(users[state.session.id], follows, users);
     return {
+        onPageArtist: users[parseInt(ownProps.match.params.userId)],
         follows: follows,
         streamSongs: followedSongs(followedArtists, songs),
         currentSongs: songsOf(users[parseInt(ownProps.match.params.userId)], songs),
@@ -68,7 +69,15 @@ class SongsList extends React.Component {
             return <img src={window.loading5} className="loading"></img>;
         } else {
             if (this.songs.length === 0) {
-                if (this.props.klass === "user-show-page") return <p>Well apparent </p>; 
+                if (this.props.klass === "user-show-page") {
+                    return (
+                        <div className="ui-msg">
+                            <img src={window.noSongs}></img>
+                            <p className="h1">Nothing to hear here</p>
+                            <p className="h2">{`Follow ${this.props.onPageArtist.username} for updates on sounds they share in the future.`}</p>
+                        </div>
+                    );
+                }
                 return <p>Stream is currently empty. Use Charts to find music & audio to listen to.</p>
             } else {
                 return (
