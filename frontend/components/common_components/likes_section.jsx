@@ -56,9 +56,7 @@ class LikesSection extends React.Component {
                 case "song-show-page":
                     debugger
                     return (
-                        <BubblesList
-                            items={this.likes}
-                        />
+                        <BubblesList klass="song-show-page" items={this.likes} />
                     );
                 default:
                     break;

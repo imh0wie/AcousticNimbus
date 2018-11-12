@@ -29,8 +29,7 @@ class UserShowPage extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchFollows();
-        this.props.fetchUsers(); // for banner showing first
+        this.props.fetchUsers().then(this.props.fetchFollows()); // for banner showing first
     }
 
     render() {

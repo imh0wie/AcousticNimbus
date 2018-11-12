@@ -752,7 +752,14 @@ function (_React$Component) {
   _createClass(BubblesList, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchUsers();
+      debugger;
+
+      if (this.props.klass !== "user-show-page") {
+        debugger;
+        this.props.fetchUsers();
+      }
+
+      debugger;
       this.setState({
         loading: false
       });
@@ -765,12 +772,13 @@ function (_React$Component) {
       debugger;
 
       if (this.state.loading) {
+        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loading5
         });
       } else {
         debugger;
-        if (this.props.items.length === 0) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        if (!this.props.items || this.props.items.length === 0) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "ui-msg"
         }, "No love...:(");
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.items.map(function (item) {
@@ -1238,6 +1246,7 @@ function (_React$Component) {
           case "song-show-page":
             debugger;
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_bubbles_list_bubbles_list__WEBPACK_IMPORTED_MODULE_6__["default"], {
+              klass: "song-show-page",
               items: this.likes
             });
 
@@ -5956,6 +5965,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _util_follow_api_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../util/follow_api_util */ "./frontend/util/follow_api_util.js");
+/* harmony import */ var _common_components_bubbles_list_bubbles_list__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../common_components/bubbles_list/bubbles_list */ "./frontend/components/common_components/bubbles_list/bubbles_list.jsx");
+
 
 
 
@@ -5980,7 +5991,10 @@ var FollowersSection = function FollowersSection(props) {
     onClick: function onClick(e) {
       return e.preventDefault();
     }
-  }, "View all")));
+  }, "View all")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_bubbles_list_bubbles_list__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    klass: "user-show-page",
+    items: props.currentFollows
+  }));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, null)(FollowersSection)));
@@ -6032,7 +6046,6 @@ var msp = function msp(state, ownProps) {
   var onPageArtistId = parseInt(ownProps.match.params.userId);
   var follows = state.entities.follows;
   var users = state.entities.users;
-  debugger;
   return {
     currentSongs: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_4__["songsOf"])(users[onPageArtistId], state.entities.songs),
     currentFollowers: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_5__["followersOf"])(onPageArtistId, follows, users),
@@ -6095,16 +6108,12 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      debugger;
-
       if (!this.props.currentSongs) {
-        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loading5
         });
       }
 
-      debugger;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "popularity-section"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -6229,8 +6238,7 @@ function (_React$Component) {
   _createClass(UserShowPage, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchFollows();
-      this.props.fetchUsers(); // for banner showing first
+      this.props.fetchUsers().then(this.props.fetchFollows()); // for banner showing first
     }
   }, {
     key: "render",

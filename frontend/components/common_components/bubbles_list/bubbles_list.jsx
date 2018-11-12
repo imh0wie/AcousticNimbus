@@ -25,7 +25,12 @@ class BubblesList extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchUsers();
+        debugger
+        if (this.props.klass !== "user-show-page") {
+            debugger
+            this.props.fetchUsers();
+        }
+        debugger
         this.setState({
             loading: false,
         })
@@ -34,10 +39,11 @@ class BubblesList extends React.Component {
     render() {
         debugger
         if (this.state.loading) {
+            debugger
             return <img src={window.loading5}></img>
         } else {
             debugger
-            if (this.props.items.length === 0) return <p className="ui-msg">No love...:(</p>;
+            if (!this.props.items || this.props.items.length === 0) return <p className="ui-msg">No love...:(</p>;
             return (
                 <ul>
                     {this.props.items.map((item) => {

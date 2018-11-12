@@ -9,7 +9,6 @@ const msp = (state, ownProps) => {
     const onPageArtistId = parseInt(ownProps.match.params.userId);
     const follows = state.entities.follows;
     const users = state.entities.users;
-    debugger
     return ({
         currentSongs: songsOf(users[onPageArtistId], state.entities.songs),
         currentFollowers: followersOf(onPageArtistId, follows, users),
@@ -54,12 +53,9 @@ class PopularitySection extends React.Component {
     }
     
     render () {
-        debugger
         if (!this.props.currentSongs) {
-            debugger
             return <img src={window.loading5}></img>;
         }
-        debugger
         return (
             <div className="popularity-section">
                <div className="data">
