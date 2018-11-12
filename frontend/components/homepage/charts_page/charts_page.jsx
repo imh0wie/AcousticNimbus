@@ -31,7 +31,6 @@ class ChartsPage extends React.Component {
   render() {
     return (
       <div className="charts-page-container">
-        <Navbar klass="homepage" />
         <div className="filter-bar-container">
           <div className="order-selector-container">
             <FormGroup controlId="orderSelector">

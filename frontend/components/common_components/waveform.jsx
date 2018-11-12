@@ -26,13 +26,6 @@ const mdp = (dispatch) => {
     });
 }
 
-
-// const mdp = (dispatch) => {
-//   return {
-//   };
-// };
-
-
 class Waveform extends React.Component {
   constructor(props) {
     super(props);
@@ -41,6 +34,14 @@ class Waveform extends React.Component {
       playing: null,
       elapsed: null,
     };
+    this.listStyle = {
+      height: "100%",
+      marginBottom: "20px",
+      zIndex: "1",
+    };
+    this.indStyle = {
+      zIndex: "1",
+    }
     this.initializeWaveform = this.initializeWaveform.bind(this);
     this.onReady = this.onReady.bind(this);
     // this.onProgress = this.onProgress.bind(this);
@@ -82,7 +83,7 @@ class Waveform extends React.Component {
           container: `#waveform${this.props.songId}`,
           waveColor: "grey",
           progressColor: "#FF5400",
-          height: 30,
+          height: 60,
           barWidth: 1,
           normalize: true, // normalize by the maximum peak instead of 1.0
           interact: true, // whether the mouse interaction will be enabled at initialization
@@ -159,7 +160,7 @@ class Waveform extends React.Component {
 
   render() {
     return (
-      <div id={`waveform${this.props.songId}`}>
+      <div id={`waveform${this.props.songId}`} style={this.props.klass === "item-player" ? this.listStyle : this.indStyle}>
       </div>
     );
   }
@@ -167,17 +168,3 @@ class Waveform extends React.Component {
 };
 
 export default withRouter(connect(msp, mdp)(Waveform));
-
-  // togglePlaying() {
-  //   this.setState({
-  //     playing: !this.state.playing,
-  //   });
-  // }
-  //
-  // jump() {
-  //   return (e) => {
-  //     this.setState({
-  //       at: e.originalArgs[0], //??
-  //     });
-  //   };
-  // }

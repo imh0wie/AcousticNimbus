@@ -3611,11 +3611,7 @@ var mdp = function mdp(dispatch) {
       return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_5__["unmuteSong"])());
     }
   };
-}; // const mdp = (dispatch) => {
-//   return {
-//   };
-// };
-
+};
 
 var Waveform =
 /*#__PURE__*/
@@ -3632,6 +3628,14 @@ function (_React$Component) {
       loaded: false,
       playing: null,
       elapsed: null
+    };
+    _this.listStyle = {
+      height: "100%",
+      marginBottom: "20px",
+      zIndex: "1"
+    };
+    _this.indStyle = {
+      zIndex: "1"
     };
     _this.initializeWaveform = _this.initializeWaveform.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.onReady = _this.onReady.bind(_assertThisInitialized(_assertThisInitialized(_this))); // this.onProgress = this.onProgress.bind(this);
@@ -3685,7 +3689,7 @@ function (_React$Component) {
             container: "#waveform".concat(this.props.songId),
             waveColor: "grey",
             progressColor: "#FF5400",
-            height: 30,
+            height: 60,
             barWidth: 1,
             normalize: true,
             // normalize by the maximum peak instead of 1.0
@@ -3770,7 +3774,8 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "waveform".concat(this.props.songId)
+        id: "waveform".concat(this.props.songId),
+        style: this.props.klass === "item-player" ? this.listStyle : this.indStyle
       });
     }
   }]);
@@ -3779,19 +3784,7 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 ;
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(msp, mdp)(Waveform))); // togglePlaying() {
-//   this.setState({
-//     playing: !this.state.playing,
-//   });
-// }
-//
-// jump() {
-//   return (e) => {
-//     this.setState({
-//       at: e.originalArgs[0], //??
-//     });
-//   };
-// }
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(msp, mdp)(Waveform)));
 
 /***/ }),
 
@@ -3879,9 +3872,7 @@ function (_React$Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "charts-page-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Navbar, {
-        klass: "homepage"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "filter-bar-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "order-selector-container"
