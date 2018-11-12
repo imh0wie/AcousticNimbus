@@ -1,6 +1,7 @@
 .sidebar .popularity-section {
     width: 300px;
-    margin: auto;
+    margin: 0 auto;
+    margin-bottom: 50px;
 }
 
 .sidebar .popularity-section .data {
@@ -10,9 +11,28 @@
 .sidebar .popularity-section .data a {
     color: #999;
     text-decoration: none;
+    padding-left: 10px;
+    padding-right: 45px;
+    border-left: 1px solid #f2f2f2;
+    margin-top: 3px;
+}
+
+.sidebar .popularity-section .data a:first-child {
+    padding-left: 0;
+    border-left: none;
 }
 
 .sidebar .popularity-section .data a:hover {
     color: #333;
     text-decoration: none;
+}
+
+.sidebar .popularity-section .data .type {
+    font-size: 12px;
+    margin: 1px 0 0 0;
+}
+
+.sidebar .popularity-section .data .number {
+    font-size: 20px;
+    margin: 0 0 1px 0;
 }
