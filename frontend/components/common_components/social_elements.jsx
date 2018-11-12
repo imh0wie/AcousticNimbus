@@ -68,7 +68,6 @@ class SocialElements extends React.Component {
                 followed_user_id: this.props.onPageArtistId,
                 follower_id: this.props.currentUserId
             }
-            debugger
             this.props.createFollow(follow);
         }
     }

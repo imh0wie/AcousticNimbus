@@ -38,7 +38,6 @@ class BubblesList extends React.Component {
             return <img src={window.loading5}></img>
         } else {
             if (!this.props.items || this.props.items.length === 0) return <p className="ui-msg">No love...:(</p>;
-            debugger
             return (
                 <ul>
                     {this.props.items.map((item) => {

@@ -57,20 +57,17 @@ export const followersOf = (followedUserId, follows, users) => {
 
 export const followedUsersOf = (currentUser, follows, users) => {
     if (isEmpty(follows) || isEmpty(users)) return null;
-    debugger
     const followIds = Object.keys(follows);
     const output = [];
     followIds.forEach((followId) => {
         const follow = follows[followId];
         if (follow.followerId === currentUser.id) output.push(users[follow.followedUserId]);
     })
-    debugger
     return output;
 }
 
 export const followingsOf = (followerId, follows) => {
     if (isEmpty(follows)) return null;
-    debugger
     const output = [];
     const followIds = Object.keys(follows);
     for (let i = 0; i < followIds.length; i++ ) {
@@ -78,7 +75,6 @@ export const followingsOf = (followerId, follows) => {
         const follow = follows[followId];
         if (follow.followerId === followerId) output.push(follow);
     }
-    debugger
     return output;
 }
 
@@ -96,13 +92,11 @@ export const followsOf = (followerId, follows) => {
 
 export const followedSongs = (users, songs) => {
     if (!users || isEmpty(songs)) return null;
-    debugger
     let output = [];
     users.forEach((user) => {
         const tracks = songsOf(user, songs);
         if (!tracks) return null;
         output = output.concat(tracks);
     })
-    debugger
     return output;
 }

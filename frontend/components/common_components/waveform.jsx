@@ -50,7 +50,6 @@ class Waveform extends React.Component {
   componentDidMount() {
     this.initializeWaveform();
     // const url = this.props.song ? this.props.song.audioURL : this.props.song.audioURL
-    // debugger
     this.waveform.load(this.props.song.audioURL);
     this.waveform.on("ready", this.onReady());
     // this.waveform.on("audioprocess", this.onProgress());
@@ -95,10 +94,8 @@ class Waveform extends React.Component {
   }
     
   onReady() {
-    // debugger
     this.waveform.setMute(true);
     if (this.props.currentSong.song && this.props.songId === this.props.currentSong.song.id) {
-      // debugger
       this.setState({
         playing: this.props.currentSong.playing,
         elapsed: this.props.currentSong.elapsed,
@@ -106,7 +103,6 @@ class Waveform extends React.Component {
       this.waveform.seekTo(this.state.elapsed);
       this.state.playing ? this.waveform.play() : this.waveform.pause();
     } else {
-      // debugger
       this.setState({
         playing: false,
         elapsed: 0,
@@ -116,9 +112,7 @@ class Waveform extends React.Component {
   }
 
   // onProgress() {
-  //   debugger
   //   if (this.props.currentSong.song && this.props.songId === this.props.currentSong.song.id && this.state.elapsed !== this.props.currentSong.elpased) {
-  //     debugger
   //     this.setState({
   //       elapsed: this.props.currentSong.elapsed,
   //     });
@@ -133,7 +127,6 @@ class Waveform extends React.Component {
   // }
 
   // onSeek(time) {
-  // debugger
   //   if (this.props.currentSong.song && this.props.songId === this.props.currentSong.song.id) {
   //     this.setState({
   //       elapsed: time,
@@ -143,17 +136,12 @@ class Waveform extends React.Component {
   // }
 
   componentWillReceiveProps(nextProps) {
-    // debugger
     if (!nextProps.currentSong.song) return;
-    // debugger
     if (this.props.songId === nextProps.currentSong.song.id && nextProps.currentSong.playing) {
-      // debugger
       this.waveform.play();
     } else if (this.props.songId === nextProps.currentSong.song.id && !nextProps.currentSong.playing) {
-      // debugger
       this.waveform.pause();
     } else if (this.props.songId !== nextProps.currentSong.song.id) {
-      // debugger
       this.setState({
         elapsed: 0,
         playing: false,
@@ -161,7 +149,6 @@ class Waveform extends React.Component {
     }
     if (this.props.songId === nextProps.currentSong.song.id &&
         this.props.currentSong.elapsed !== nextProps.currentSong.elapsed) {
-      // debugger
       this.waveform.seekTo(nextProps.currentSong.elapsed);
     }
   }
@@ -171,17 +158,13 @@ class Waveform extends React.Component {
   }
 
   render() {
-    // if (!this.state.loading) {
-      // return <img src={window.loading2} alt="" id="waveform" />;
-    // } else {
-      return (
-        <div>
-          <div id="waveform">
-          </div>
-          <div id="gradient"></div>
+    return (
+      <div>
+        <div id="waveform">
         </div>
-      );
-    // }
+        <div id="gradient"></div>
+      </div>
+    );
   }
 
 };

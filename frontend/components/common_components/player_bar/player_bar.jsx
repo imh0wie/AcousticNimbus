@@ -70,10 +70,6 @@ class PlayerBar extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    // componentWillReceiveProps() {
-    //     debugger
-    // }
-
     ref(player) {
         this.player = player;
     }

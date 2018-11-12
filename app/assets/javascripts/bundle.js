@@ -773,7 +773,6 @@ function (_React$Component) {
         if (!this.props.items || this.props.items.length === 0) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "ui-msg"
         }, "No love...:(");
-        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.items.map(function (item) {
           var id = item.likerId ? item.likerId : item.followerId;
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_bubbles_list_item__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -808,7 +807,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var BubblesListItem = function BubblesListItem(props) {
-  debugger;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     to: "/users/".concat(props.user.id)
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -2168,10 +2166,7 @@ function (_React$Component) {
     _this.handleUnslide = _this.handleUnslide.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
-  } // componentWillReceiveProps() {
-  //     debugger
-  // }
-
+  }
 
   _createClass(PlayerBar, [{
     key: "ref",
@@ -3153,7 +3148,6 @@ function (_React$Component) {
           followed_user_id: this.props.onPageArtistId,
           follower_id: this.props.currentUserId
         };
-        debugger;
         this.props.createFollow(follow);
       }
     }
@@ -3365,25 +3359,16 @@ function (_React$Component) {
           break;
       }
 
-      debugger;
-
       if (!this.songs || Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_9__["isEmpty"])(this.props.follows)) {
-        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loading5,
           className: "loading"
         });
       } else {
-        debugger;
-
         if (this.songs.length === 0) {
-          // debugger
-          if (this.props.klass === "user-show-page") return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Well apparent "); // debugger
-
+          if (this.props.klass === "user-show-page") return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Well apparent ");
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Stream is currently empty. Use Charts to find music & audio to listen to.");
         } else {
-          // debugger);
-          console.log(this.songs);
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.songs.map(function (song, idx) {
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_songs_list_item__WEBPACK_IMPORTED_MODULE_11__["default"], {
               key: song.id,
@@ -3498,7 +3483,6 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      debugger;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "songs-list-item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -3634,7 +3618,6 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.initializeWaveform(); // const url = this.props.song ? this.props.song.audioURL : this.props.song.audioURL
-      // debugger
 
       this.waveform.load(this.props.song.audioURL);
       this.waveform.on("ready", this.onReady()); // this.waveform.on("audioprocess", this.onProgress());
@@ -3693,11 +3676,9 @@ function (_React$Component) {
   }, {
     key: "onReady",
     value: function onReady() {
-      // debugger
       this.waveform.setMute(true);
 
       if (this.props.currentSong.song && this.props.songId === this.props.currentSong.song.id) {
-        // debugger
         this.setState({
           playing: this.props.currentSong.playing,
           elapsed: this.props.currentSong.elapsed
@@ -3705,7 +3686,6 @@ function (_React$Component) {
         this.waveform.seekTo(this.state.elapsed);
         this.state.playing ? this.waveform.play() : this.waveform.pause();
       } else {
-        // debugger
         this.setState({
           playing: false,
           elapsed: 0
@@ -3713,9 +3693,7 @@ function (_React$Component) {
         this.waveform.seekTo(this.state.elapsed);
       }
     } // onProgress() {
-    //   debugger
     //   if (this.props.currentSong.song && this.props.songId === this.props.currentSong.song.id && this.state.elapsed !== this.props.currentSong.elpased) {
-    //     debugger
     //     this.setState({
     //       elapsed: this.props.currentSong.elapsed,
     //     });
@@ -3729,7 +3707,6 @@ function (_React$Component) {
     //   // }
     // }
     // onSeek(time) {
-    // debugger
     //   if (this.props.currentSong.song && this.props.songId === this.props.currentSong.song.id) {
     //     this.setState({
     //       elapsed: time,
@@ -3741,17 +3718,13 @@ function (_React$Component) {
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
-      // debugger
-      if (!nextProps.currentSong.song) return; // debugger
+      if (!nextProps.currentSong.song) return;
 
       if (this.props.songId === nextProps.currentSong.song.id && nextProps.currentSong.playing) {
-        // debugger
         this.waveform.play();
       } else if (this.props.songId === nextProps.currentSong.song.id && !nextProps.currentSong.playing) {
-        // debugger
         this.waveform.pause();
       } else if (this.props.songId !== nextProps.currentSong.song.id) {
-        // debugger
         this.setState({
           elapsed: 0,
           playing: false
@@ -3759,7 +3732,6 @@ function (_React$Component) {
       }
 
       if (this.props.songId === nextProps.currentSong.song.id && this.props.currentSong.elapsed !== nextProps.currentSong.elapsed) {
-        // debugger
         this.waveform.seekTo(nextProps.currentSong.elapsed);
       }
     }
@@ -3771,14 +3743,11 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      // if (!this.state.loading) {
-      // return <img src={window.loading2} alt="" id="waveform" />;
-      // } else {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "waveform"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "gradient"
-      })); // }
+      }));
     }
   }]);
 
@@ -4190,6 +4159,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _who_to_follow_who_to_follow__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./who_to_follow/who_to_follow */ "./frontend/components/homepage/who_to_follow/who_to_follow.jsx");
 /* harmony import */ var _common_components_likes_section__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../common_components/likes_section */ "./frontend/components/common_components/likes_section.jsx");
 /* harmony import */ var _common_components_hiring_info_section__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../common_components/hiring_info_section */ "./frontend/components/common_components/hiring_info_section.jsx");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
 
@@ -4201,32 +4187,71 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var Homepage = function Homepage() {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "homepage-container"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "content"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_navbar__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    klass: "homepage"
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["ProtectedRoute"], {
-    path: "/stream",
-    component: _stream_page_stream_page__WEBPACK_IMPORTED_MODULE_4__["default"]
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["ProtectedRoute"], {
-    path: "/charts/top",
-    component: _charts_page_charts_page__WEBPACK_IMPORTED_MODULE_5__["default"]
-  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "sidebar"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_slideshow__WEBPACK_IMPORTED_MODULE_6__["default"], {
-    klass: "ad"
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "stats"
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_who_to_follow_who_to_follow__WEBPACK_IMPORTED_MODULE_7__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_likes_section__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    klass: "homepage"
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "history"
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_hiring_info_section__WEBPACK_IMPORTED_MODULE_9__["default"], null)));
-};
 
+var Homepage =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Homepage, _React$Component);
+
+  function Homepage(props) {
+    var _this;
+
+    _classCallCheck(this, Homepage);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Homepage).call(this, props));
+    _this.state = {
+      loading: true
+    };
+    return _this;
+  }
+
+  _createClass(Homepage, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.setState({
+        loading: false
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      if (this.state.loading) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.loading5,
+          className: "loading"
+        });
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "homepage-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_navbar__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        klass: "homepage"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["ProtectedRoute"], {
+        path: "/stream",
+        component: _stream_page_stream_page__WEBPACK_IMPORTED_MODULE_4__["default"]
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["ProtectedRoute"], {
+        path: "/charts/top",
+        component: _charts_page_charts_page__WEBPACK_IMPORTED_MODULE_5__["default"]
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "sidebar"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_slideshow__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        klass: "ad"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "stats"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_who_to_follow_who_to_follow__WEBPACK_IMPORTED_MODULE_7__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_likes_section__WEBPACK_IMPORTED_MODULE_8__["default"], {
+        klass: "homepage"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "history"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_hiring_info_section__WEBPACK_IMPORTED_MODULE_9__["default"], null)));
+    }
+  }]);
+
+  return Homepage;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+;
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(Homepage));
 
 /***/ }),
@@ -5762,28 +5787,21 @@ function (_React$Component) {
 
     _classCallCheck(this, SongsIndexItem);
 
-    // debugger
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SongsIndexItem).call(this, props));
     _this.renderPlayPauseSign = _this.renderPlayPauseSign.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.togglePlay = _this.togglePlay.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
-  } // componentWillReceiveProps(newProps) {
-  // }
-
+  }
 
   _createClass(SongsIndexItem, [{
     key: "togglePlay",
     value: function togglePlay(song) {
-      // debugger
       if (!this.props.currentSong.song || song.id !== this.props.currentSong.song.id) {
-        // debugger
         this.props.setCurrentSong(song);
         this.props.playSong();
       } else if (song.id === this.props.currentSong.song.id && this.props.currentSong.playing) {
-        // debugger
         this.props.pauseSong();
       } else if (song.id === this.props.currentSong.song.id && !this.props.currentSong.playing) {
-        // debugger
         this.props.playSong();
       }
     }
@@ -5792,9 +5810,7 @@ function (_React$Component) {
     value: function renderPlayPauseSign(song) {
       var _this2 = this;
 
-      // debugger
       if (!this.props.currentSong.song || song.id !== this.props.currentSong.song.id || !this.props.currentSong.playing) {
-        // debugger
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "play-sign-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -5805,7 +5821,6 @@ function (_React$Component) {
           }
         }));
       } else if (song.id === this.props.currentSong.song.id && this.props.currentSong.playing) {
-        // debugger
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "pause-sign-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -6970,19 +6985,16 @@ var followersOf = function followersOf(followedUserId, follows, users) {
 };
 var followedUsersOf = function followedUsersOf(currentUser, follows, users) {
   if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(follows) || Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(users)) return null;
-  debugger;
   var followIds = Object.keys(follows);
   var output = [];
   followIds.forEach(function (followId) {
     var follow = follows[followId];
     if (follow.followerId === currentUser.id) output.push(users[follow.followedUserId]);
   });
-  debugger;
   return output;
 };
 var followingsOf = function followingsOf(followerId, follows) {
   if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(follows)) return null;
-  debugger;
   var output = [];
   var followIds = Object.keys(follows);
 
@@ -6992,7 +7004,6 @@ var followingsOf = function followingsOf(followerId, follows) {
     if (follow.followerId === followerId) output.push(follow);
   }
 
-  debugger;
   return output;
 };
 var followsOf = function followsOf(followerId, follows) {
@@ -7010,14 +7021,12 @@ var followsOf = function followsOf(followerId, follows) {
 };
 var followedSongs = function followedSongs(users, songs) {
   if (!users || Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(songs)) return null;
-  debugger;
   var output = [];
   users.forEach(function (user) {
     var tracks = Object(_song_api_util__WEBPACK_IMPORTED_MODULE_1__["songsOf"])(user, songs);
     if (!tracks) return null;
     output = output.concat(tracks);
   });
-  debugger;
   return output;
 };
 
@@ -7308,8 +7317,7 @@ var shuffle = function shuffle(n, songs) {
   var songsToShuffle = latest(n, songs);
 
   for (var i = songsToShuffle.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1)); // debugger
-
+    var j = Math.floor(Math.random() * (i + 1));
     var _ref = [songsToShuffle[j], songsToShuffle[i]];
     songsToShuffle[i] = _ref[0];
     songsToShuffle[j] = _ref[1];
@@ -7395,19 +7403,15 @@ var editUser = function editUser(user, userId) {
   });
 };
 var suggestedArtists = function suggestedArtists(n, follows, users, currentUserId) {
-  // debugger
   if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(follows) || Object.keys(users).includes(currentUserId.toString()) && Object.keys(users).length === 1) return null;
   var output = [];
-  var userIds = Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["randomize"])(Object.keys(users)); // debugger
+  var userIds = Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["randomize"])(Object.keys(users));
 
   for (var i = 0; i < userIds.length; i++) {
-    var userId = userIds[i]; // debugger
-
-    if (userId !== currentUserId.toString() && !Object(_follow_api_util__WEBPACK_IMPORTED_MODULE_1__["followOf"])(parseInt(userId), currentUserId, follows)) output.push(users[userId]); // debugger
-
+    var userId = userIds[i];
+    if (userId !== currentUserId.toString() && !Object(_follow_api_util__WEBPACK_IMPORTED_MODULE_1__["followOf"])(parseInt(userId), currentUserId, follows)) output.push(users[userId]);
     if (output.length === n) break;
-  } // debugger
-
+  }
 
   return output;
 };

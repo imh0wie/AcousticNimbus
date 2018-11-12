@@ -64,20 +64,13 @@ class SongsList extends React.Component {
             default:
                 break;
         }
-        debugger
         if (!this.songs || isEmpty(this.props.follows)) {
-            debugger
             return <img src={window.loading5} className="loading"></img>;
         } else {
-            debugger
             if (this.songs.length === 0) {
-                // debugger
                 if (this.props.klass === "user-show-page") return <p>Well apparent </p>; 
-                // debugger
                 return <p>Stream is currently empty. Use Charts to find music & audio to listen to.</p>
             } else {
-                // debugger);
-                console.log(this.songs);
                 return (
                     <ul>
                         {this.songs.map((song, idx) => {

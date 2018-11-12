@@ -38,7 +38,6 @@ export const shuffle = (n, songs) => {
   let songsToShuffle= latest(n, songs);
   for (let i = songsToShuffle.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    // debugger
     [songsToShuffle[i], songsToShuffle[j]] = [songsToShuffle[j], songsToShuffle[i]];
   }
   return songsToShuffle;
