@@ -1,10 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
-import { fetchLikes } from "../../../actions/like_actions";
-import { likesBy, likesOf } from "../../../util/like_api_util";
-import MiniList from "../mini_list/mini_list";
-import LikesList from "./likes_list/likes_list"
+import { fetchLikes } from "../../actions/like_actions";
+import { likesBy, likesOf } from "../../util/like_api_util";
+import MiniList from "./mini_list/mini_list";
+import BubblesList from "./bubbles_list/bubbles_list"
 
 const msp = (state, ownProps) => {
     const song = ownProps.song;
@@ -56,8 +56,8 @@ class LikesSection extends React.Component {
                 case "song-show-page":
                     debugger
                     return (
-                        <LikesList
-                            likes={this.likes}
+                        <BubblesList
+                            items={this.likes}
                         />
                     );
                 default:

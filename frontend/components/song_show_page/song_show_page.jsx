@@ -10,7 +10,7 @@ import MiniArtistProfile from "../common_components/mini_artist_profile";
 import CommentsList from "./comments_list/comments_list";
 import Slideshow from "../common_components/slideshow";
 import RelatedSongs from "./related_songs";
-import LikesSection from "../common_components/likes_section/likes_section";
+import LikesSection from "../common_components/likes_section";
 import HiringInfoSection from "../common_components/hiring_info_section";
 
 const msp = (state, ownProps) => {

@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { fetchUsers } from "../../../../actions/user_actions";
-import LikesListItem from "./likes_list_item";
+import { fetchUsers } from "../../../actions/user_actions";
+import BubblesListItem from "./bubbles_list_item";
 
 const msp = (state) => {
     return ({
@@ -16,7 +16,7 @@ const mdp = (dispatch) => {
     });
 }
 
-class LikesList extends React.Component {
+class BubblesList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -37,13 +37,14 @@ class LikesList extends React.Component {
             return <img src={window.loading5}></img>
         } else {
             debugger
-            if (this.props.likes.length === 0) return <p className="ui-msg">No love...:(</p>;
+            if (this.props.items.length === 0) return <p className="ui-msg">No love...:(</p>;
             return (
                 <ul>
-                    {this.props.likes.map((like) => {
+                    {this.props.items.map((item) => {
+                        const id = item.likerId ? item.likerId : item.followerId ;
                         return (
-                            <LikesListItem
-                                liker={this.props.users[like.likerId]}
+                            <BubblesListItem
+                                user={this.props.users[id]}
                             />
                         );
                     })}
@@ -53,4 +54,4 @@ class LikesList extends React.Component {
     }
 }
 
-export default withRouter(connect(msp, mdp)(LikesList));
+export default withRouter(connect(msp, mdp)(BubblesList));
