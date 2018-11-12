@@ -11,6 +11,7 @@ const msp = (state) => {
       latestTwelve: latest(12, state.entities.songs),
       latestTwenty: latest(20, state.entities.songs),
       shuffled: shuffle(12, state.entities.songs),
+      currentSong: state.ui.currentSong,
     }
 }
 
@@ -160,7 +161,7 @@ class Waveform extends React.Component {
 
   render() {
     return (
-      <div id={`waveform${this.props.songId}`} style={this.props.klass === "item-player" ? this.listStyle : this.indStyle}>
+      <div id={this.props.klass === "banner-player" ? "waveform" : `waveform${this.props.songId}`} style={this.props.klass === "item-player" ? this.listStyle : this.indStyle}>
       </div>
     );
   }

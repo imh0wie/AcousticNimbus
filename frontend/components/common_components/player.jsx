@@ -4,6 +4,7 @@ import { Link, withRouter } from "react-router-dom";
 import { setCurrentSong, playSong, pauseSong } from "../../actions/current_song_actions";
 import Waveform from "../common_components/waveform";
 import SocialElements from "../common_components/social_elements";
+import CommentBox from "../common_components/comment_box";
 
 const msp = (state, ownProps) => {
     const klass = ownProps.klass;
@@ -112,9 +113,9 @@ class Player extends React.Component {
                         id={this.props.songId}
                         song={this.props.song}
                         songId={this.props.songId}
-                        currentSong={this.props.currentSong}
                         />
                     </div>
+                    <CommentBox klass={this.props.klass} songId={this.props.songId} />
                     <SocialElements
                         klass={this.klass}
                         songId={this.props.songId}

@@ -862,7 +862,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 var msp = function msp(state, ownProps) {
   var currentUserId = state.session.id;
   return {
-    songId: parseInt(ownProps.match.params.songId),
+    songId: parseInt(ownProps.match.params.songId) || ownProps.songId,
     currentSong: state.ui.currentSong,
     currentUserId: currentUserId,
     currentUser: state.entities.users[currentUserId]
@@ -929,8 +929,28 @@ function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
+      if (this.props.klass === "banner-player") return null;
+
+      switch (this.props.klass) {
+        case "banner-player":
+          this.className = "comment-box-container";
+          break;
+
+        case "item-player":
+          if (this.props.currentSong.song && this.props.currentSong.song.id === this.props.songId) {
+            this.className = "comment-box-container";
+          } else {
+            this.className = "comment-box-container-hidden";
+          }
+
+          break;
+
+        default:
+          break;
+      }
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "comment-box-container"
+        className: this.className
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: this.props.currentUser.imageURL ? this.props.currentUser.imageURL : window.user_dp,
         className: "comment-box-img"
@@ -939,7 +959,7 @@ function (_React$Component) {
         value: this.state.body,
         name: "comment",
         placeholder: "Write a comment",
-        className: "comment-box",
+        className: this.props.klass === "item-player" ? "comment-popup" : "comment-box",
         onChange: this.update("body")
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
@@ -1834,6 +1854,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_current_song_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/current_song_actions */ "./frontend/actions/current_song_actions.js");
 /* harmony import */ var _common_components_waveform__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../common_components/waveform */ "./frontend/components/common_components/waveform.jsx");
 /* harmony import */ var _common_components_social_elements__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../common_components/social_elements */ "./frontend/components/common_components/social_elements.jsx");
+/* harmony import */ var _common_components_comment_box__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../common_components/comment_box */ "./frontend/components/common_components/comment_box.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1851,6 +1872,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -2019,9 +2041,11 @@ function (_React$Component) {
         klass: this.props.klass,
         id: this.props.songId,
         song: this.props.song,
-        songId: this.props.songId,
-        currentSong: this.props.currentSong
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_social_elements__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        songId: this.props.songId
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_comment_box__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        klass: this.props.klass,
+        songId: this.props.songId
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_social_elements__WEBPACK_IMPORTED_MODULE_5__["default"], {
         klass: this.klass,
         songId: this.props.songId,
         style: this.props.klass === "banner-player" ? this.noneStyle : {}
@@ -3583,7 +3607,8 @@ var msp = function msp(state) {
   return {
     latestTwelve: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_6__["latest"])(12, state.entities.songs),
     latestTwenty: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_6__["latest"])(20, state.entities.songs),
-    shuffled: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_6__["shuffle"])(12, state.entities.songs)
+    shuffled: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_6__["shuffle"])(12, state.entities.songs),
+    currentSong: state.ui.currentSong
   };
 };
 
@@ -3774,7 +3799,7 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "waveform".concat(this.props.songId),
+        id: this.props.klass === "banner-player" ? "waveform" : "waveform".concat(this.props.songId),
         style: this.props.klass === "item-player" ? this.listStyle : this.indStyle
       });
     }

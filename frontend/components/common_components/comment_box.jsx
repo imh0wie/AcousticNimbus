@@ -6,7 +6,7 @@ import { createComment } from "../../actions/comment_actions";
 const msp = (state, ownProps) => {
     const currentUserId = state.session.id;
     return ({
-        songId: parseInt(ownProps.match.params.songId),
+        songId: parseInt(ownProps.match.params.songId) || ownProps.songId,
         currentSong: state.ui.currentSong,
         currentUserId: currentUserId,
         currentUser: state.entities.users[currentUserId],
@@ -53,12 +53,29 @@ class CommentBox extends React.Component {
         };
     }
 
+    
+
     render() {
+        if (this.props.klass === "banner-player") return null;
+        switch (this.props.klass) {
+            case "banner-player":
+                this.className = "comment-box-container"
+                break;
+            case "item-player":
+                if (this.props.currentSong.song && this.props.currentSong.song.id === this.props.songId) {
+                    this.className = "comment-box-container";
+                } else {
+                    this.className = "comment-box-container-hidden";
+                }
+                break;
+            default:
+                break;
+        }
         return (
-            <div className="comment-box-container">
+            <div className={this.className}>
                 <img src={this.props.currentUser.imageURL ? this.props.currentUser.imageURL : window.user_dp} className="comment-box-img"></img>
                 <form>
-                    <input type="text" value={this.state.body} name="comment" placeholder="Write a comment" className="comment-box" onChange={this.update("body")} />
+                    <input type="text" value={this.state.body} name="comment" placeholder="Write a comment" className={this.props.klass === "item-player" ? "comment-popup" : "comment-box"} onChange={this.update("body")} />
                     <input type="submit" className="submit-button" tabIndex="-1" onClick={(e) => this.handleComment(e)}/>
                 </form>
             </div>
