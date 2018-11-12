@@ -66,8 +66,8 @@ class ArtistListItem extends React.Component {
                     <div className="item-info">
                         <Link to={`/users/${this.props.artist.id}`}>{this.props.artist.username}</Link>
                         <div className="social">
-                            <p><i class="fas fa-user-friends"></i> {this.renderNumber(this.props.artistFollowers.length)}</p>
-                            <p><i class="fas fa-music"></i> {this.renderNumber(this.props.artistSongs.length)}</p>
+                            <p><i className="fas fa-user-friends"></i> {this.renderNumber(this.props.artistFollowers.length)}</p>
+                            <p><i className="fas fa-music"></i> {this.renderNumber(this.props.artistSongs.length)}</p>
                         </div>
                     </div>
                 </div>

@@ -9,7 +9,7 @@ import { followOf } from "../../util/follow_api_util";
 import { commentsOf } from "../../util/comment_api_util";
 
 const msp = (state, ownProps) => {
-    const onPageSongId = parseInt(ownProps.match.params.songId);
+    const onPageSongId = parseInt(ownProps.match.params.songId) || ownProps.songId;
     const onPageArtistId = parseInt(ownProps.match.params.userId);
     const likes = state.entities.likes;
     const currentUserId = state.session.id;
@@ -42,9 +42,7 @@ class SocialElements extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.klass === "banner-player") {
-            this.props.fetchLikes();
-        }
+        if (this.props.klass === "banner-player") this.props.fetchLikes();
     }
 
     handleLike(e) {

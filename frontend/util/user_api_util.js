@@ -27,7 +27,7 @@ export const editUser = (user, userId) => {
 
 export const suggestedArtists = (n, follows, users, currentUserId) => {
     // debugger
-    if (isEmpty(users) || (Object.keys(users).includes(currentUserId.toString()) && Object.keys(users).length === 1)) return null;
+    if (isEmpty(follows) || (Object.keys(users).includes(currentUserId.toString()) && Object.keys(users).length === 1)) return null;
     let output = [];
     const userIds = randomize(Object.keys(users));
     // debugger

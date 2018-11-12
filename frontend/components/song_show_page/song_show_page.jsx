@@ -51,14 +51,11 @@ class SongShowPage extends React.Component {
   }
 
   render() {
-    debugger
     if (!this.props.onPageSong) {
-      debugger
       return (
-        <img src={window.loading1} className="loading"></img>
+        <img src={window.loading5} className="loading"></img>
       );
     } else {
-      debugger
       return (
         <div className="song-show-page">
           <Player klass="banner-player" />

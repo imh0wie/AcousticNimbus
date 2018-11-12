@@ -7,14 +7,17 @@ import { fetchFollows } from "../../../actions/follow_actions";
 import { fetchComments } from "../../../actions/comment_actions";
 import { fetchUsers } from "../../../actions/user_actions";
 import { songsOf } from "../../../util/song_api_util";
+import { isEmpty } from "../../../util/general_api_util";
 import { followedUsersOf, followedSongs} from "../../../util/follow_api_util";
 import SongsListItem from "./songs_list_item";
 
 const msp = (state, ownProps) => {
     const songs = state.entities.songs;
+    const follows = state.entities.follows;
     const users = state.entities.users;
-    const followedArtists = followedUsersOf(users[state.session.id], state.entities.follows, users);
+    const followedArtists = followedUsersOf(users[state.session.id], follows, users);
     return {
+        follows: follows,
         streamSongs: followedSongs(followedArtists, songs),
         currentSongs: songsOf(users[parseInt(ownProps.match.params.userId)], songs),
     };
@@ -37,15 +40,16 @@ class SongsList extends React.Component {
     }
     
     componentDidMount() {
-        this.props.fetchSongs();
-        this.props.fetchLikes();
-        this.props.fetchComments();
+        this.props.fetchSongs().then(
+            this.props.fetchLikes().then(
+                this.props.fetchComments()
+            )
+        );
         if (this.props.klass !== "user-show-page") {
             // This component does not need to fetch data
             // user show page because data would have 
             // already been fetched at this point.
-            this.props.fetchFollows();
-            this.props.fetchUsers();
+            this.props.fetchFollows().then(this.props.fetchUsers());
         }
     }
 
@@ -60,17 +64,20 @@ class SongsList extends React.Component {
             default:
                 break;
         }
-        // debugger
-        if (!this.songs) {
-            // debugger
+        debugger
+        if (!this.songs || isEmpty(this.props.follows)) {
+            debugger
             return <img src={window.loading5} className="loading"></img>;
         } else {
+            debugger
             if (this.songs.length === 0) {
                 // debugger
                 if (this.props.klass === "user-show-page") return <p>Well apparent </p>; 
                 // debugger
                 return <p>Stream is currently empty. Use Charts to find music & audio to listen to.</p>
             } else {
+                // debugger);
+                console.log(this.songs);
                 return (
                     <ul>
                         {this.songs.map((song, idx) => {

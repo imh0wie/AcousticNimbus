@@ -257,7 +257,7 @@ class PlayerBar extends React.Component {
                     <img src={window.play_bar_previous} className="player-control" onClick={() => this.handlePrevious(this.props.currentSong.song)}></img>
                     {this.renderPlayPauseButton()}
                     <img src={window.play_bar_next} className="player-control" onClick={() => this.handleNext(this.props.currentSong.song)}></img>
-                    <p className={this.state.shuffle ? "shuffled" : "shuffle"} onClick={() => this.handleShuffle()}><i class="fas fa-random"></i></p>
+                    <p className={this.state.shuffle ? "shuffled" : "shuffle"} onClick={() => this.handleShuffle()}><i className="fas fa-random"></i></p>
                     <img src={window.play_bar_loop} className="player-control" onClick={() => this.handleLoop()}></img>
                 </div>
                 <div className="progress">

@@ -79,7 +79,7 @@ class SessionForm extends React.Component {
     return(
       <div className="user-form-container">
         <form onSubmit={this.handleSubmit.bind(this)} className="user-form">
-          <span onClick={this.props.closeModal}><i class="fas fa-times"></i></span>
+          <span onClick={this.props.closeModal}><i className="fas fa-times"></i></span>
           { this.formHeader() }
           <br/>
           {this.renderErrors()}

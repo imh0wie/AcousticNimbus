@@ -39,14 +39,11 @@ class ArtistsList extends React.Component {
     }
 
     render() {
-        // debugger
         if (!this.props.suggestedArtists) {
-            // debugger
             return (
                 <img src={window.loading5} className="loading"></img>
             );
         } else if (this.props.suggestedArtists.length === 0) {
-            // debugger
             return (
                 <div className="error-message">
                     <h4>We cannot recommend you any users because:</h4>
