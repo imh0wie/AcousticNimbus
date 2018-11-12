@@ -1,9 +1,15 @@
-
 .homepage-container .sidebar .likes-section {
     width: 300px;
-    min-height: 100px;
+    min-height: 275px;
     margin: 0 auto;
     margin-bottom: 40px;
+}
+
+.homepage-container .sidebar .likes-section .loading {
+    top: 75px;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
 }
 
 .homepage-container .sidebar .likes-section .header {
@@ -26,6 +32,8 @@
 .homepage-container .sidebar .likes-section .header a:hover {
     color: #333;
 }
+
+
 ////////////////////////////////////////////////////
 
 .song-show-page .content .sidebar .likes-section {

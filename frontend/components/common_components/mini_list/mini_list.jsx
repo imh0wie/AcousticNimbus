@@ -42,11 +42,18 @@ class MiniList extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchSongs().then(
-            this.props.fetchLikes().then(
+        if (this.props.klass === "likes-section") {
+            this.props.fetchSongs().then(
                 this.props.fetchComments()
-            )
-        )
+            );
+        } else {
+            this.props.fetchSongs().then(
+                this.props.fetchLikes().then(
+                    this.props.fetchComments()
+                )
+            );
+        }
+        
     }
 
     render() {
@@ -64,6 +71,7 @@ class MiniList extends React.Component {
                 break;
         }
         if (!isEmpty(this.props.songs) && this.miniListItems) {
+        // if (!isEmpty(this.props.songs) && this.miniListItems) {
             return (
                 <ul>
                     {this.miniListItems.map((item) => {
@@ -80,8 +88,8 @@ class MiniList extends React.Component {
                 </ul>
             );    
         } else {
-            if (this.props.klass === "likes-section") return null;
-            return <img src={window.loading5}></img>;
+            // if (this.props.klass === "likes-section") return null;
+            return <img src={window.loading5} className="loading"></img>;
         }
 
     }

@@ -1556,7 +1556,11 @@ function (_React$Component) {
   _createClass(MiniList, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchSongs().then(this.props.fetchLikes().then(this.props.fetchComments()));
+      if (this.props.klass === "likes-section") {
+        this.props.fetchSongs().then(this.props.fetchComments());
+      } else {
+        this.props.fetchSongs().then(this.props.fetchLikes().then(this.props.fetchComments()));
+      }
     }
   }, {
     key: "render",
@@ -1580,6 +1584,7 @@ function (_React$Component) {
       }
 
       if (!Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_6__["isEmpty"])(this.props.songs) && this.miniListItems) {
+        // if (!isEmpty(this.props.songs) && this.miniListItems) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.miniListItems.map(function (item) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_mini_list_item__WEBPACK_IMPORTED_MODULE_10__["default"], {
             key: item.id,
@@ -1590,9 +1595,10 @@ function (_React$Component) {
           });
         }));
       } else {
-        if (this.props.klass === "likes-section") return null;
+        // if (this.props.klass === "likes-section") return null;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.loading5
+          src: window.loading5,
+          className: "loading"
         });
       }
     }
