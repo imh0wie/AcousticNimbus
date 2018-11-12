@@ -2017,6 +2017,7 @@ function (_React$Component) {
         className: "waveform-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_waveform__WEBPACK_IMPORTED_MODULE_4__["default"], {
         klass: this.props.klass,
+        id: this.props.songId,
         song: this.props.song,
         songId: this.props.songId,
         currentSong: this.props.currentSong
@@ -3681,10 +3682,10 @@ function (_React$Component) {
 
         case "item-player":
           this.waveform = wavesurfer_js__WEBPACK_IMPORTED_MODULE_1___default.a.create({
-            container: "#waveform",
+            container: "#waveform".concat(this.props.songId),
             waveColor: "grey",
             progressColor: "#FF5400",
-            height: 20,
+            height: 30,
             barWidth: 1,
             normalize: true,
             // normalize by the maximum peak instead of 1.0
@@ -3768,11 +3769,9 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "waveform"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "gradient"
-      }));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "waveform".concat(this.props.songId)
+      });
     }
   }]);
 

@@ -79,10 +79,10 @@ class Waveform extends React.Component {
         break;
       case "item-player":
         this.waveform = WaveSurfer.create({
-          container: "#waveform",
+          container: `#waveform${this.props.songId}`,
           waveColor: "grey",
           progressColor: "#FF5400",
-          height: 20,
+          height: 30,
           barWidth: 1,
           normalize: true, // normalize by the maximum peak instead of 1.0
           interact: true, // whether the mouse interaction will be enabled at initialization
@@ -159,10 +159,7 @@ class Waveform extends React.Component {
 
   render() {
     return (
-      <div>
-        <div id="waveform">
-        </div>
-        <div id="gradient"></div>
+      <div id={`waveform${this.props.songId}`}>
       </div>
     );
   }

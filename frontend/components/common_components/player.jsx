@@ -109,6 +109,7 @@ class Player extends React.Component {
                     <div className="waveform-container">
                         <Waveform 
                         klass={this.props.klass}
+                        id={this.props.songId}
                         song={this.props.song}
                         songId={this.props.songId}
                         currentSong={this.props.currentSong}
