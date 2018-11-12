@@ -23,6 +23,7 @@
 
 .homepage-container .sidebar .who-to-follow {
     width: 300px;
+    min-height: 230px;
     margin: 0 auto;
     margin-bottom: 40px;
     color: #9b9b9b;
@@ -48,6 +49,7 @@
 }
 
 .homepage-container .sidebar .who-to-follow .loading {
+    top: 50px;
     width: 80px;
     height: 80px;
     margin: 0 auto;

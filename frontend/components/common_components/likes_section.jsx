@@ -32,6 +32,10 @@ class LikesSection extends React.Component {
         this.state = {
             loading: true,
         }
+        this.minHeight = {
+            // minHeight: "275px",
+            display: "none"
+        };
     }
 
     componentDidMount() {
@@ -75,8 +79,9 @@ class LikesSection extends React.Component {
             default:
                 break;
         }
+        debugger
         return (
-            <div className="likes-section">
+            <div className="likes-section" style={this.state.loading ? this.minHeight : {}}>
                 <div className="header">
                     <p><i className="fas fa-heart"></i> {this.likes ? this.likes.length : "0"} likes</p>
                     <Link to="" onClick={(e) => e.preventDefault()}>View all</Link>

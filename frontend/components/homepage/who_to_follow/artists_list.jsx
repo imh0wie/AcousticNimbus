@@ -2,21 +2,16 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { fetchSongs } from "../../../actions/song_actions";
-import { fetchFollows, createFollow, removeFollow } from "../../../actions/follow_actions";
+import { fetchFollows } from "../../../actions/follow_actions";
 import { fetchUsers } from "../../../actions/user_actions";
-import { followersOf, followOf } from "../../../util/follow_api_util";
 import { suggestedArtists } from "../../../util/user_api_util";
+import { isEmpty } from "../../../util/general_api_util";
 import ArtistsListItem from "./artists_list_item";
-import { songsOf } from "../../../util/song_api_util";
 
 const msp = (state) => {
-    // debugger
     return ({
-        suggestedArtists: suggestedArtists(3, state.entities.follows, state.entities.users, state.session.id),
         songs: state.entities.songs,
-        follows: state.entities.follows,
-        users: state.entities.users,
-        currentUser: state.entities.users[state.session.id],
+        suggestedArtists: suggestedArtists(3, state.entities.follows, state.entities.users, state.session.id),
     });
 }
 
@@ -24,8 +19,6 @@ const mdp = (dispatch) => {
     return ({
         fetchSongs: () => dispatch(fetchSongs()),
         fetchFollows: () => dispatch(fetchFollows()),
-        createFollow: (follow) => dispatch(createFollow(follow)),
-        removeFollow: (id) => dispatch(removeFollow(id)),
         fetchUsers: () => dispatch(fetchUsers()),
     });
 }
@@ -43,14 +36,6 @@ class ArtistsList extends React.Component {
                 this.props.fetchUsers()
             )
         );
-        // this.props.fetchFollows().then(
-        //     this.props.fetchUsers().then(
-        //         this.props.fetchSongs()
-        //     )
-        // );
-        // this.props.fetchSongs()
-        // this.props.fetchFollows();
-        // this.props.fetchUsers();
     }
 
     render() {
@@ -71,20 +56,14 @@ class ArtistsList extends React.Component {
             );
         } else {
             // debugger
+            if (isEmpty(this.props.songs)) return  <img src={window.loading5} className="loading"></img>;
             return (
                 <ul>
                     {this.props.suggestedArtists.map((artist) => {
-                        if (!songsOf(artist, this.props.songs)) return  <img src={window.loading5} className="loading"></img>;
                         return (
                             <ArtistsListItem 
                                 key={artist.id}
                                 artist={artist} 
-                                artistFollow={followOf(artist.id, this.props.currentUser.id, this.props.follows)}
-                                artistFollowers={followersOf(artist.id, this.props.follows, this.props.users)}
-                                artistSongs={songsOf(artist, this.props.songs)}
-                                createFollow={this.props.createFollow}
-                                removeFollow={this.props.removeFollow}
-                                currentUser={this.props.currentUser}
                             />
                         );
                     })}

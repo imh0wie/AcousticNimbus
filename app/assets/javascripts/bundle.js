@@ -1217,6 +1217,10 @@ function (_React$Component) {
     _this.state = {
       loading: true
     };
+    _this.minHeight = {
+      // minHeight: "275px",
+      display: "none"
+    };
     return _this;
   }
 
@@ -1271,8 +1275,10 @@ function (_React$Component) {
           break;
       }
 
+      debugger;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "likes-section"
+        className: "likes-section",
+        style: this.state.loading ? this.minHeight : {}
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -4274,10 +4280,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_song_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/song_actions */ "./frontend/actions/song_actions.js");
 /* harmony import */ var _actions_follow_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../actions/follow_actions */ "./frontend/actions/follow_actions.js");
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../actions/user_actions */ "./frontend/actions/user_actions.js");
-/* harmony import */ var _util_follow_api_util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../util/follow_api_util */ "./frontend/util/follow_api_util.js");
-/* harmony import */ var _util_user_api_util__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../util/user_api_util */ "./frontend/util/user_api_util.js");
+/* harmony import */ var _util_user_api_util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../util/user_api_util */ "./frontend/util/user_api_util.js");
+/* harmony import */ var _util_general_api_util__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../util/general_api_util */ "./frontend/util/general_api_util.js");
 /* harmony import */ var _artists_list_item__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./artists_list_item */ "./frontend/components/homepage/who_to_follow/artists_list_item.jsx");
-/* harmony import */ var _util_song_api_util__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../util/song_api_util */ "./frontend/util/song_api_util.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4306,15 +4311,10 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-
 var msp = function msp(state) {
-  // debugger
   return {
-    suggestedArtists: Object(_util_user_api_util__WEBPACK_IMPORTED_MODULE_7__["suggestedArtists"])(3, state.entities.follows, state.entities.users, state.session.id),
     songs: state.entities.songs,
-    follows: state.entities.follows,
-    users: state.entities.users,
-    currentUser: state.entities.users[state.session.id]
+    suggestedArtists: Object(_util_user_api_util__WEBPACK_IMPORTED_MODULE_6__["suggestedArtists"])(3, state.entities.follows, state.entities.users, state.session.id)
   };
 };
 
@@ -4325,12 +4325,6 @@ var mdp = function mdp(dispatch) {
     },
     fetchFollows: function fetchFollows() {
       return dispatch(Object(_actions_follow_actions__WEBPACK_IMPORTED_MODULE_4__["fetchFollows"])());
-    },
-    createFollow: function createFollow(follow) {
-      return dispatch(Object(_actions_follow_actions__WEBPACK_IMPORTED_MODULE_4__["createFollow"])(follow));
-    },
-    removeFollow: function removeFollow(id) {
-      return dispatch(Object(_actions_follow_actions__WEBPACK_IMPORTED_MODULE_4__["removeFollow"])(id));
     },
     fetchUsers: function fetchUsers() {
       return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_5__["fetchUsers"])());
@@ -4353,20 +4347,11 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       // debugger
-      this.props.fetchSongs().then(this.props.fetchFollows().then(this.props.fetchUsers())); // this.props.fetchFollows().then(
-      //     this.props.fetchUsers().then(
-      //         this.props.fetchSongs()
-      //     )
-      // );
-      // this.props.fetchSongs()
-      // this.props.fetchFollows();
-      // this.props.fetchUsers();
+      this.props.fetchSongs().then(this.props.fetchFollows().then(this.props.fetchUsers()));
     }
   }, {
     key: "render",
     value: function render() {
-      var _this = this;
-
       // debugger
       if (!this.props.suggestedArtists) {
         // debugger
@@ -4381,20 +4366,14 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "We cannot recommend you any users because:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "1) you have followed all users on Acoustic Nimbus; OR"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "2) our site sucks and you are the only user..."));
       } else {
         // debugger
+        if (Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_7__["isEmpty"])(this.props.songs)) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.loading5,
+          className: "loading"
+        });
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.suggestedArtists.map(function (artist) {
-          if (!Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_9__["songsOf"])(artist, _this.props.songs)) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-            src: window.loading5,
-            className: "loading"
-          });
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_artists_list_item__WEBPACK_IMPORTED_MODULE_8__["default"], {
             key: artist.id,
-            artist: artist,
-            artistFollow: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_6__["followOf"])(artist.id, _this.props.currentUser.id, _this.props.follows),
-            artistFollowers: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_6__["followersOf"])(artist.id, _this.props.follows, _this.props.users),
-            artistSongs: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_9__["songsOf"])(artist, _this.props.songs),
-            createFollow: _this.props.createFollow,
-            removeFollow: _this.props.removeFollow,
-            currentUser: _this.props.currentUser
+            artist: artist
           });
         }));
       }
@@ -4419,7 +4398,11 @@ function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var _actions_follow_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/follow_actions */ "./frontend/actions/follow_actions.js");
+/* harmony import */ var _util_follow_api_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../util/follow_api_util */ "./frontend/util/follow_api_util.js");
+/* harmony import */ var _util_song_api_util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../util/song_api_util */ "./frontend/util/song_api_util.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4441,6 +4424,33 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 
+
+
+
+
+var msp = function msp(state, ownProps) {
+  var artistId = ownProps.artist.id;
+  var follows = state.entities.follows;
+  var currentUserId = state.session.id;
+  return {
+    artistFollow: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_4__["followOf"])(artistId, currentUserId, follows),
+    artistFollowers: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_4__["followersOf"])(artistId, follows, state.entities.users),
+    artistSongs: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_5__["songsOf"])(ownProps.artist, state.entities.songs),
+    currentUserId: currentUserId
+  };
+};
+
+var mdp = function mdp(dispatch) {
+  return {
+    createFollow: function createFollow(follow) {
+      return dispatch(Object(_actions_follow_actions__WEBPACK_IMPORTED_MODULE_3__["createFollow"])(follow));
+    },
+    removeFollow: function removeFollow(id) {
+      return dispatch(Object(_actions_follow_actions__WEBPACK_IMPORTED_MODULE_3__["removeFollow"])(id));
+    }
+  };
+};
+
 var ArtistListItem =
 /*#__PURE__*/
 function (_React$Component) {
@@ -4454,9 +4464,7 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ArtistListItem).call(this, props));
     _this.handleFollow = _this.handleFollow.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
-  } // componentDidMount() {
-  // }
-
+  }
 
   _createClass(ArtistListItem, [{
     key: "handleFollow",
@@ -4464,13 +4472,11 @@ function (_React$Component) {
       e.preventDefault();
 
       if (this.props.artistFollow) {
-        // debugger
         this.props.removeFollow(this.props.artistFollow.id);
       } else {
         var follow = {
           followed_user_id: this.props.artist.id,
-          follower_id: this.props.currentUser.id // debugger
-
+          follower_id: this.props.currentUserId
         };
         this.props.createFollow(follow);
       }
@@ -4495,10 +4501,6 @@ function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      // debugger
-      // if (!this.props.artistSongs || this.props.artistFollowers) {
-      //     return <img src={window.loading5}></img>;
-      // } else {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "item-info-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -4506,7 +4508,7 @@ function (_React$Component) {
         className: "item-img"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "item-info"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
         to: "/users/".concat(this.props.artist.id)
       }, this.props.artist.username), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "social"
@@ -4518,14 +4520,14 @@ function (_React$Component) {
         onClick: function onClick(e) {
           return _this2.handleFollow(e);
         }
-      }, this.props.artistFollow ? "Following" : "Follow")); // }
+      }, this.props.artistFollow ? "Following" : "Follow"));
     }
   }]);
 
   return ArtistListItem;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (ArtistListItem);
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, mdp)(ArtistListItem)));
 
 /***/ }),
 
