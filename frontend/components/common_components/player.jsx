@@ -5,8 +5,12 @@ import { setCurrentSong, playSong, pauseSong } from "../../actions/current_song_
 import Waveform from "../common_components/waveform";
 import SocialElements from "../common_components/social_elements";
 
-const msp = (state) => {
+const msp = (state, ownProps) => {
+    const klass = ownProps.klass;
+    const songId = parseInt(ownProps.match.params.songId);
     return ({
+        songId: songId,
+        song: klass === "item-player" ? ownProps.song : state.entities.songs[songId],
         currentSong: state.ui.currentSong,
     })
 }

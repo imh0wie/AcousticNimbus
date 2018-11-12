@@ -10,7 +10,7 @@ const MiniListItem = (props) => {
                 <Link to={`/songs/${props.song.id}`} className="title">{props.song.title.length > 24 ? props.song.title.slice(0,24) + "..." : props.song.title}</Link>
                 <div className="social-info">
                     <p><i className="fas fa-heart"></i> {props.songLikes.length}</p>
-                    <p><i class="fas fa-comment-alt"></i> {props.songComments.length}</p>
+                    <p><i className="fas fa-comment-alt"></i> {props.songComments.length}</p>
                 </div>
             </div>
         </li>

@@ -7,7 +7,7 @@ import CommentsListItem from "./comments_list_item";
 
 const msp = (state, ownProps) => {
     const comments = state.entities.comments;
-    const songId = ownProps.songId;
+    const songId = parseInt(ownProps.match.params.songId);
     return ({
         users: state.entities.users,
         comments: state.entities.comments,
@@ -31,6 +31,7 @@ class CommentsList extends React.Component {
     }
 
     render() {
+        if (!this.props.currentComments) return <img src={window.loading5} className="loading"></img>;
         if (this.props.currentComments.length === 0) {
             return (
               <div className="comments-none">
@@ -51,7 +52,6 @@ class CommentsList extends React.Component {
                       key={comment.id}
                       comment={comment}
                       commenter={this.props.users[comment.commenterId]}
-                      song={this.props.song}
                       />
                       );
                   })}

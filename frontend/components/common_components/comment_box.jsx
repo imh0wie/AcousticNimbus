@@ -3,9 +3,10 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { createComment } from "../../actions/comment_actions";
 
-const msp = (state) => {
+const msp = (state, ownProps) => {
     const currentUserId = state.session.id;
     return ({
+        songId: parseInt(ownProps.match.params.songId),
         currentSong: state.ui.currentSong,
         currentUserId: currentUserId,
         currentUser: state.entities.users[currentUserId],

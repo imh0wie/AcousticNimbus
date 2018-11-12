@@ -39,7 +39,7 @@ class LikesSection extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchLikes();
+        if (this.props.klass !== "song-show-page") this.props.fetchLikes();
         this.setState({
             loading: false,
         })
@@ -52,13 +52,9 @@ class LikesSection extends React.Component {
             switch (this.props.klass) {
                 case "homepage":
                     return (
-                        <MiniList
-                            klass="likes-section"
-                            currentLikes={this.likes}
-                        />
+                        <MiniList klass="likes-section" currentLikes={this.likes} />
                     );
                 case "song-show-page":
-                    debugger
                     return (
                         <BubblesList klass="song-show-page" items={this.likes} />
                     );
@@ -79,7 +75,6 @@ class LikesSection extends React.Component {
             default:
                 break;
         }
-        debugger
         return (
             <div className="likes-section" style={this.state.loading ? this.minHeight : {}}>
                 <div className="header">

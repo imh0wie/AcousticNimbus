@@ -11,15 +11,10 @@ import { commentsOf } from "../../../util/comment_api_util";
 import MiniListItem from "./mini_list_item";
 
 const msp = (state, ownProps) => {
-    const song = ownProps.song;
-    const songId = ownProps.songId;
+    const songId = ownProps.match.params.songId;
     const songs = state.entities.songs;
     const currentLikes = ownProps.currentLikes;
     return ({
-        // songs: isEmpty(state.entities.songs) ? null : state.entities.songs,
-        // comments: isEmpty(state.entities.comments) ? null : state.entities.comments,
-        song: song,
-        songId: songId,
         songs: songs,
         likes: state.entities.likes,
         comments: state.entities.comments,
@@ -47,17 +42,14 @@ class MiniList extends React.Component {
                 this.props.fetchComments()
             );
         } else {
-            this.props.fetchSongs().then(
-                this.props.fetchLikes().then(
-                    this.props.fetchComments()
-                )
-            );
+            this.props.fetchComments();
         }
         
     }
 
     render() {
         // debugger
+        if (isEmpty(this.props.comments)) return <img src={window.loading5} className="loading"></img>;
         switch (this.props.klass) {
             case "likes-section":
                 // if (!this.props.latestThreeLikes || this.props.latestThreeLikes.length === 0) return <p className="ui-message">You haven't liked any songs yet! Find your jam!</p>;
@@ -71,7 +63,6 @@ class MiniList extends React.Component {
                 break;
         }
         if (!isEmpty(this.props.songs) && this.miniListItems) {
-        // if (!isEmpty(this.props.songs) && this.miniListItems) {
             return (
                 <ul>
                     {this.miniListItems.map((item) => {

@@ -25,31 +25,27 @@ class BubblesList extends React.Component {
     }
 
     componentDidMount() {
-        debugger
         if (this.props.klass !== "user-show-page") {
-            debugger
             this.props.fetchUsers();
         }
-        debugger
         this.setState({
             loading: false,
         })
     }
 
     render() {
-        debugger
         if (this.state.loading) {
-            debugger
             return <img src={window.loading5}></img>
         } else {
-            debugger
             if (!this.props.items || this.props.items.length === 0) return <p className="ui-msg">No love...:(</p>;
+            debugger
             return (
                 <ul>
                     {this.props.items.map((item) => {
                         const id = item.likerId ? item.likerId : item.followerId ;
                         return (
                             <BubblesListItem
+                                key={id}
                                 user={this.props.users[id]}
                             />
                         );

@@ -9,16 +9,17 @@ import { followOf } from "../../util/follow_api_util";
 import { commentsOf } from "../../util/comment_api_util";
 
 const msp = (state, ownProps) => {
-    const songId = ownProps.songId;
+    const onPageSongId = parseInt(ownProps.match.params.songId);
     const onPageArtistId = parseInt(ownProps.match.params.userId);
     const likes = state.entities.likes;
     const currentUserId = state.session.id;
     return ({
-        currentLikes: likesOf("Song", songId, likes),
-        currentLike: likeOf("Song", songId, state.entities.users[currentUserId], likes),
+        currentLikes: likesOf("Song", onPageSongId, likes),
+        currentLike: likeOf("Song", onPageSongId, state.entities.users[currentUserId], likes),
         currentFollow: followOf(onPageArtistId, currentUserId, state.entities.follows),
-        currentComments: commentsOf(songId, state.entities.comments),
+        currentComments: commentsOf(onPageSongId, state.entities.comments),
         onPageArtistId: onPageArtistId,
+        onPageSongId: onPageSongId,
         currentUserId: currentUserId,
     });
 }
@@ -53,7 +54,7 @@ class SocialElements extends React.Component {
         } else {
             const like = {
                 likeable_type: "Song",
-                likeable_id: this.props.songId,
+                likeable_id: this.props.onPageSongId,
                 liker_id: this.props.currentUserId,
             }
             this.props.createLike(like);
@@ -108,7 +109,7 @@ class SocialElements extends React.Component {
             case "item-player":
                 return (
                     <div className="right">
-                        <Link to={`/songs/${this.props.songId}`}><i className="fas fa-comment-alt"></i>{this.props.currentComments.length}</Link> 
+                        <Link to={`/songs/${this.props.onPageSongId}`}><i className="fas fa-comment-alt"></i>{this.props.currentComments.length}</Link> 
                     </div>
                 );
             case "user-show-page":
