@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import { fetchSongs } from "../../actions/song_actions";
 import { fetchFollows } from "../../actions/follow_actions";
 import { fetchUsers } from "../../actions/user_actions";
+import { isEmpty } from "../../util/general_api_util";
 import Player from "../common_components/player";
 import CommentBox from "../common_components/comment_box";
 import SocialElements from "../common_components/social_elements";
@@ -15,7 +16,7 @@ import LikesSection from "../common_components/likes_section";
 import HiringInfoSection from "../common_components/hiring_info_section";
 
 const msp = (state, ownProps) => {
-  return ({ 
+  return ({
     onPageSong: state.entities.songs[parseInt(ownProps.match.params.songId)],
     currentSong: state.ui.currentSong,
   });
