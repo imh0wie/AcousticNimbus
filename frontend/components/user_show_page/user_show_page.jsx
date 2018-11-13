@@ -28,14 +28,20 @@ const mdp = (dispatch) => {
 class UserShowPage extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            loading: true,
+        }
     }
 
     componentDidMount() {
         this.props.fetchUsers().then(this.props.fetchFollows()); // for banner showing first
+        this.setState({
+            loading: false,
+        });
     }
 
     render() {
-        if (this.props.onPageArtist) {
+        if (!this.state.loading && this.props.onPageArtist) {
             return (
                 <div className="user-show-page">
                     <Slideshow klass="user-show-page" />

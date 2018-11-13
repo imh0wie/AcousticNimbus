@@ -1274,10 +1274,6 @@ function (_React$Component) {
             klass: "song-show-page",
             items: this.likes
           });
-        // case "user-show-page":
-        //     return (
-        //         <MiniList klass="likes-section" currentLikes={this.likes} />
-        //     );
 
         default:
           return null;
@@ -5312,6 +5308,9 @@ function (_React$Component) {
     _classCallCheck(this, SongShowPage);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SongShowPage).call(this, props));
+    _this.state = {
+      loading: true
+    };
     _this.noneStyle = {
       display: "none"
     };
@@ -5327,6 +5326,10 @@ function (_React$Component) {
       // Note: likes section uses state to distinguish levels of loading for song show page
 
       this.props.fetchFollows(); // for mini artist profile 
+
+      this.setState({
+        loading: false
+      });
     }
   }, {
     key: "randomSongBanner",
@@ -5336,7 +5339,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      if (!this.props.onPageSong) {
+      if (this.state.loading || !this.props.onPageSong) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loading5,
           className: "loading-page"
@@ -6282,20 +6285,30 @@ function (_React$Component) {
   _inherits(UserShowPage, _React$Component);
 
   function UserShowPage(props) {
+    var _this;
+
     _classCallCheck(this, UserShowPage);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(UserShowPage).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(UserShowPage).call(this, props));
+    _this.state = {
+      loading: true
+    };
+    return _this;
   }
 
   _createClass(UserShowPage, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.fetchUsers().then(this.props.fetchFollows()); // for banner showing first
+
+      this.setState({
+        loading: false
+      });
     }
   }, {
     key: "render",
     value: function render() {
-      if (this.props.onPageArtist) {
+      if (!this.state.loading && this.props.onPageArtist) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "user-show-page"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_slideshow__WEBPACK_IMPORTED_MODULE_5__["default"], {

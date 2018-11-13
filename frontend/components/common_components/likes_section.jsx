@@ -60,10 +60,6 @@ class LikesSection extends React.Component {
                 return (
                     <BubblesList klass="song-show-page" items={this.likes} />
                     );
-            // case "user-show-page":
-            //     return (
-            //         <MiniList klass="likes-section" currentLikes={this.likes} />
-            //     );
             default:
                 return null;
         }

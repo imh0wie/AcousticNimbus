@@ -32,9 +32,11 @@ const mdp = (dispatch) => {
 class SongShowPage extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      loading: true,
+    }
     this.noneStyle = {display: "none"};
     this.songBanners = [window.song_banner1, window.song_banner2];
-    
   }
 
   componentDidMount() {
@@ -44,6 +46,9 @@ class SongShowPage extends React.Component {
     // Note: likes section uses state to distinguish levels of loading for song show page
     this.props.fetchFollows();
     // for mini artist profile 
+    this.setState({
+        loading: false,
+    });
   }
 
   randomSongBanner() {
@@ -51,7 +56,7 @@ class SongShowPage extends React.Component {
   }
 
   render() {
-    if (!this.props.onPageSong) {
+    if (this.state.loading || !this.props.onPageSong) {
       return (
         <img src={window.loading5} className="loading-page"></img>
       );
