@@ -3243,6 +3243,7 @@ function (_React$Component) {
     value: function renderSocialData() {
       switch (this.props.klass) {
         case "banner-player":
+          if (!this.props.currentLikes) return null;
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "right"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -3250,6 +3251,7 @@ function (_React$Component) {
           }), " ", this.props.currentLikes.length));
 
         case "item-player":
+          if (!this.props.currentComments) return null;
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "right"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {

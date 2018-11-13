@@ -107,12 +107,14 @@ class SocialElements extends React.Component {
     renderSocialData() {
         switch (this.props.klass) {
             case "banner-player":
+                if (!this.props.currentLikes) return null;
                 return (
                     <div className="right">
                         <p><i className="fas fa-heart"></i> {this.props.currentLikes.length}</p> 
                     </div>
                 );
             case "item-player":
+                if (!this.props.currentComments) return null;
                 return (
                     <div className="right">
                         <Link to={`/songs/${this.props.onPageSongId}`}><i className="fas fa-comment-alt"></i>{this.props.currentComments.length}</Link> 
