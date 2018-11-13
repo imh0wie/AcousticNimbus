@@ -25,9 +25,9 @@ export const fetchSongs = () => {
 };
 
 export const latest = (n, songs) => {
-  if (isEmpty(songs)) return [];
-  const songIds = Object.keys(songs).reverse().slice(0, n);
+  if (isEmpty(songs)) return null;
   let output = [];
+  const songIds = Object.keys(songs).reverse().slice(0, n);
   songIds.forEach((songId) => {
     output.push(songs[songId]);
   })
@@ -35,7 +35,8 @@ export const latest = (n, songs) => {
 };
 
 export const shuffle = (n, songs) => {
-  let songsToShuffle= latest(n, songs);
+  let songsToShuffle = latest(n, songs);
+  if (!songsToShuffle) return null;
   for (let i = songsToShuffle.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [songsToShuffle[i], songsToShuffle[j]] = [songsToShuffle[j], songsToShuffle[i]];

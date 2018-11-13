@@ -1,10 +1,11 @@
 import React from "react";
+import { connect } from "react-redux"
+import { withRouter } from "react-router-dom";
 import Modal from "../common_components/modal";
 import Banner from "./banner";
-import { connect } from "react-redux"
 import { openModal } from "../../actions/modal_actions";
 import SearchBar from "../common_components/search_bar";
-import SongsIndex from "./songs_index/songs_index";
+import SongsIndex from "../common_components/songs_index/songs_index";
 
 const mdp = (dispatch) => {
   return ({
@@ -33,7 +34,7 @@ class SplashPage extends React.Component {
         </div>
         <h2 className="content-header">Hear what’s trending for free in the AcousticNimbus community</h2>
         <div className="content">
-          <SongsIndex />
+          <SongsIndex klass="splash-page" />
           <br></br>
         </div>
       </div>
@@ -42,4 +43,4 @@ class SplashPage extends React.Component {
 }
 
 
-export default connect(null, mdp)(SplashPage);
+export default withRouter(connect(null, mdp)(SplashPage));
