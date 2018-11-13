@@ -41,7 +41,9 @@ class UserShowPage extends React.Component {
     }
 
     render() {
-        if (!this.state.loading && this.props.onPageArtist) {
+        if (this.state.loading || !this.props.onPageArtist) {
+            return <img src={window.loading5} className="user-show-loading"></img>
+        } else {
             return (
                 <div className="user-show-page">
                     <Slideshow klass="user-show-page" />
@@ -62,10 +64,7 @@ class UserShowPage extends React.Component {
                     </div>
                 </div>
             );
-        } else {
-            return <img src={window.loading5} className="user-show-loading"></img>
-        }
-        
+        } 
     }
 }
 

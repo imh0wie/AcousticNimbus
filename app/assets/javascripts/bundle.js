@@ -6114,6 +6114,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_song_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/song_actions */ "./frontend/actions/song_actions.js");
 /* harmony import */ var _util_song_api_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../util/song_api_util */ "./frontend/util/song_api_util.js");
 /* harmony import */ var _util_follow_api_util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../util/follow_api_util */ "./frontend/util/follow_api_util.js");
+/* harmony import */ var _util_general_api_util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../util/general_api_util */ "./frontend/util/general_api_util.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -6139,11 +6140,13 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var msp = function msp(state, ownProps) {
   var onPageArtistId = parseInt(ownProps.match.params.userId);
   var follows = state.entities.follows;
   var users = state.entities.users;
   return {
+    follows: state.entities.follows,
     currentSongs: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_4__["songsOf"])(users[onPageArtistId], state.entities.songs),
     currentFollowers: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_5__["followersOf"])(onPageArtistId, follows, users),
     currentFollowings: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_5__["followedUsersOf"])(onPageArtistId, follows, users)
@@ -6179,6 +6182,9 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.fetchSongs();
+      this.setState({
+        loading: false
+      });
     }
   }, {
     key: "renderNumber",
@@ -6205,7 +6211,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      if (!this.props.currentSongs) {
+      if (this.state.loading) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "popularity-section"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -6227,7 +6233,7 @@ function (_React$Component) {
         className: "type"
       }, "Followers"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "number"
-      }, this.renderNumber(this.props.currentFollowers.length))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+      }, Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_6__["isEmpty"])(this.props.follows) ? 0 : this.renderNumber(this.props.currentFollowers.length))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
         to: "",
         onClick: function onClick(e) {
           return e.preventDefault();
@@ -6236,7 +6242,7 @@ function (_React$Component) {
         className: "type"
       }, "Following"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "number"
-      }, this.renderNumber(this.props.currentFollowings.length))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+      }, Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_6__["isEmpty"])(this.props.follows) ? 0 : this.renderNumber(this.props.currentFollowings.length))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
         to: "",
         onClick: function onClick(e) {
           return e.preventDefault();
@@ -6245,7 +6251,7 @@ function (_React$Component) {
         className: "type"
       }, "Songs"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "number"
-      }, this.renderNumber(this.props.currentSongs.length)))));
+      }, Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_6__["isEmpty"])(this.props.songs) ? 0 : this.renderNumber(this.props.currentSongs.length)))));
     }
   }]);
 
@@ -6357,7 +6363,12 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      if (!this.state.loading && this.props.onPageArtist) {
+      if (this.state.loading || !this.props.onPageArtist) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.loading5,
+          className: "user-show-loading"
+        });
+      } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "user-show-page"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_slideshow__WEBPACK_IMPORTED_MODULE_5__["default"], {
@@ -6379,11 +6390,6 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_popularity_section__WEBPACK_IMPORTED_MODULE_9__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_likes_section__WEBPACK_IMPORTED_MODULE_10__["default"], {
           klass: "user-show-page"
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_followers_section__WEBPACK_IMPORTED_MODULE_11__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_hiring_info_section__WEBPACK_IMPORTED_MODULE_12__["default"], null))));
-      } else {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.loading5,
-          className: "user-show-loading"
-        });
       }
     }
   }]);

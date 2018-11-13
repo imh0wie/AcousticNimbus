@@ -4,12 +4,14 @@ import { Link, withRouter } from "react-router-dom";
 import { fetchSongs } from "../../actions/song_actions";
 import { songsOf } from "../../util/song_api_util";
 import { followersOf, followedUsersOf } from "../../util/follow_api_util";
+import { isEmpty } from "../../util/general_api_util";
 
 const msp = (state, ownProps) => {
     const onPageArtistId = parseInt(ownProps.match.params.userId);
     const follows = state.entities.follows;
     const users = state.entities.users;
     return ({
+        follows: state.entities.follows,
         currentSongs: songsOf(users[onPageArtistId], state.entities.songs),
         currentFollowers: followersOf(onPageArtistId, follows, users),
         currentFollowings: followedUsersOf(onPageArtistId, follows, users),
@@ -32,6 +34,9 @@ class PopularitySection extends React.Component {
 
     componentDidMount() {
         this.props.fetchSongs();
+        this.setState({
+            loading: false,
+        })
     }
 
     renderNumber(num) {
@@ -53,7 +58,7 @@ class PopularitySection extends React.Component {
     }
     
     render () {
-        if (!this.props.currentSongs) {
+        if (this.state.loading) {
             return (
                 <div className="popularity-section">
                     <img src={window.loading5} className="loading"></img>
@@ -65,15 +70,15 @@ class PopularitySection extends React.Component {
                <div className="data">
                    <Link to="" onClick={(e) => e.preventDefault()}>
                         <p className="type">Followers</p>
-                        <p className="number">{this.renderNumber(this.props.currentFollowers.length)}</p>
+                        <p className="number">{isEmpty(this.props.follows) ? 0 : this.renderNumber(this.props.currentFollowers.length)}</p>
                    </Link>
                    <Link to="" onClick={(e) => e.preventDefault()}>
                         <p className="type">Following</p>
-                        <p className="number">{this.renderNumber(this.props.currentFollowings.length)}</p>
+                        <p className="number">{isEmpty(this.props.follows) ? 0 : this.renderNumber(this.props.currentFollowings.length)}</p>
                    </Link>
                    <Link to="" onClick={(e) => e.preventDefault()}>
                         <p className="type">Songs</p>
-                        <p className="number">{this.renderNumber(this.props.currentSongs.length)}</p>
+                        <p className="number">{isEmpty(this.props.songs) ? 0 : this.renderNumber(this.props.currentSongs.length)}</p>
                     </Link>
                 </div> 
             </div>
