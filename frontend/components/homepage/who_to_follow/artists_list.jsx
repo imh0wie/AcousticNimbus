@@ -26,6 +26,9 @@ const mdp = (dispatch) => {
 class ArtistsList extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            loading: true,
+        }
     }
 
     componentDidMount() {
@@ -34,35 +37,40 @@ class ArtistsList extends React.Component {
                 this.props.fetchUsers()
             )
         );
+        this.setState({
+            loading: false,
+        })
     }
 
     render() {
-        if (!this.props.suggestedArtists) {
+        if (this.state.loading) {
             return (
                 <img src={window.loading5} className="loading"></img>
             );
-        } else if (this.props.suggestedArtists.length === 0) {
-            return (
-                <div className="error-message">
-                    <h4>We cannot recommend you any users because:</h4>
-                    <p>1) you have followed all users on Acoustic Nimbus; OR</p>
-                    <p>2) our site sucks and you are the only user...</p>
-                </div>
-            );
         } else {
-            if (isEmpty(this.props.songs)) return  <img src={window.loading5} className="loading"></img>;
-            return (
-                <ul>
-                    {this.props.suggestedArtists.map((artist) => {
-                        return (
-                            <ArtistsListItem 
-                                key={artist.id}
-                                artist={artist} 
-                            />
-                        );
-                    })}
-                </ul>
-            )
+            if (!this.props.suggestedArtists || this.props.suggestedArtists.length === 0) {
+                return (
+                    <div className="error-message">
+                        <h4>We cannot recommend you any users because:</h4>
+                        <p>1) you have followed all users on Acoustic Nimbus; OR</p>
+                        <p>2) our site sucks and you are the only user...</p>
+                    </div>
+                );
+            } else {
+                if (isEmpty(this.props.songs)) return  <img src={window.loading5} className="loading"></img>;
+                return (
+                    <ul>
+                        {this.props.suggestedArtists.map((artist) => {
+                            return (
+                                <ArtistsListItem 
+                                    key={artist.id}
+                                    artist={artist} 
+                                />
+                            );
+                        })}
+                    </ul>
+                )
+            }
         }
     } 
 }

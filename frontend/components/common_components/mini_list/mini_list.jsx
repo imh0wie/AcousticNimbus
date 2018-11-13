@@ -34,6 +34,9 @@ const mdp = (dispatch) => {
 class MiniList extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            loading: true,
+        }
     }
 
     componentDidMount() {
@@ -44,11 +47,13 @@ class MiniList extends React.Component {
         } else {
             this.props.fetchComments();
         }
-        
+        this.setState({
+            loading: false,
+        });
     }
 
     render() {
-        if (isEmpty(this.props.comments)) return <img src={window.loading5} className="loading"></img>;
+        if (isEmpty(this.props.comments)) 
         switch (this.props.klass) {
             case "likes-section":
                 // if (!this.props.latestThreeLikes || this.props.latestThreeLikes.length === 0) return <p className="ui-message">You haven't liked any songs yet! Find your jam!</p>;
@@ -61,8 +66,12 @@ class MiniList extends React.Component {
             default:
                 break;
         }
-        if (!isEmpty(this.props.songs) && this.miniListItems) {
-            if (this.miniListItems.length === 0) return <p className="ui-msg">This user has not liked any songs yet.</p>
+        if (this.state.loading) {
+            return <img src={window.loading5} className="loading"></img>;
+        } else {
+            // if (!isEmpty(this.props.songs) && this.miniListItems) {
+                
+            if (isEmpty(this.props.comments) || !isEmpty(this.props.songs) || this.miniListItems.length === 0) return <p className="ui-msg">This user has not liked any songs yet.</p>
             return (
                 <ul>
                     {this.miniListItems.map((item) => {
@@ -78,11 +87,11 @@ class MiniList extends React.Component {
                     })}
                 </ul>
             );    
-        } else {
-            // if (this.props.klass === "likes-section") return null;
-            return <img src={window.loading5} className="loading"></img>;
+            // } else {
+                // if (this.props.klass === "likes-section") return null;
+                // return <img src={window.loading5} className="loading"></img>;
+            // }
         }
-
     }
 }
 

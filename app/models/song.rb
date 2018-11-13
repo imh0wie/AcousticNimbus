@@ -14,8 +14,8 @@ class Song < ApplicationRecord
   }
   
   has_many :likes, {
-    :as => :likeable, 
-    :dependent => :destroy,
+    as: :likeable, 
+    dependent: :destroy,
   }
   has_many :comments, {
     foreign_key: :song_id,
@@ -23,8 +23,10 @@ class Song < ApplicationRecord
     dependent: :destroy,
   }
 
-  has_one_attached :audio
-  has_one_attached :image
+  has_one_attached :audio, dependent: :destroy
+  
+  has_one_attached :image, dependent: :destroy
+  
 
   # def self.by_release_time
   #   self.select("songs.*").order("songs.created_at", DESC).limit(30)

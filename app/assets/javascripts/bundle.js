@@ -1553,9 +1553,15 @@ function (_React$Component) {
   _inherits(MiniList, _React$Component);
 
   function MiniList(props) {
+    var _this;
+
     _classCallCheck(this, MiniList);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(MiniList).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(MiniList).call(this, props));
+    _this.state = {
+      loading: true
+    };
+    return _this;
   }
 
   _createClass(MiniList, [{
@@ -1566,18 +1572,17 @@ function (_React$Component) {
       } else {
         this.props.fetchComments();
       }
+
+      this.setState({
+        loading: false
+      });
     }
   }, {
     key: "render",
     value: function render() {
-      var _this = this;
+      var _this2 = this;
 
-      if (Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_6__["isEmpty"])(this.props.comments)) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: window.loading5,
-        className: "loading"
-      });
-
-      switch (this.props.klass) {
+      if (Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_6__["isEmpty"])(this.props.comments)) switch (this.props.klass) {
         case "likes-section":
           // if (!this.props.latestThreeLikes || this.props.latestThreeLikes.length === 0) return <p className="ui-message">You haven't liked any songs yet! Find your jam!</p>;
           this.miniListItems = this.props.latestThreeLikes;
@@ -1592,25 +1597,28 @@ function (_React$Component) {
           break;
       }
 
-      if (!Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_6__["isEmpty"])(this.props.songs) && this.miniListItems) {
-        if (this.miniListItems.length === 0) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      if (this.state.loading) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.loading5,
+          className: "loading"
+        });
+      } else {
+        // if (!isEmpty(this.props.songs) && this.miniListItems) {
+        if (Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_6__["isEmpty"])(this.props.comments) || !Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_6__["isEmpty"])(this.props.songs) || this.miniListItems.length === 0) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "ui-msg"
         }, "This user has not liked any songs yet.");
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.miniListItems.map(function (item) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_mini_list_item__WEBPACK_IMPORTED_MODULE_10__["default"], {
             key: item.id,
             item: item,
-            song: _this.props.klass === "likes-section" ? _this.props.songs[item.likeableId] : item,
-            songLikes: _this.props.klass === "likes-section" ? Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_8__["likesOf"])("Song", item.likeableId, _this.props.likes) : Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_8__["likesOf"])("Song", item.id, _this.props.likes),
-            songComments: _this.props.klass === "likes-section" ? Object(_util_comment_api_util__WEBPACK_IMPORTED_MODULE_9__["commentsOf"])(item.likeableId, _this.props.comments) : Object(_util_comment_api_util__WEBPACK_IMPORTED_MODULE_9__["commentsOf"])(item.id, _this.props.comments)
+            song: _this2.props.klass === "likes-section" ? _this2.props.songs[item.likeableId] : item,
+            songLikes: _this2.props.klass === "likes-section" ? Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_8__["likesOf"])("Song", item.likeableId, _this2.props.likes) : Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_8__["likesOf"])("Song", item.id, _this2.props.likes),
+            songComments: _this2.props.klass === "likes-section" ? Object(_util_comment_api_util__WEBPACK_IMPORTED_MODULE_9__["commentsOf"])(item.likeableId, _this2.props.comments) : Object(_util_comment_api_util__WEBPACK_IMPORTED_MODULE_9__["commentsOf"])(item.id, _this2.props.comments)
           });
-        }));
-      } else {
+        })); // } else {
         // if (this.props.klass === "likes-section") return null;
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.loading5,
-          className: "loading"
-        });
+        // return <img src={window.loading5} className="loading"></img>;
+        // }
       }
     }
   }]);
@@ -3614,9 +3622,15 @@ function (_React$Component) {
   _inherits(SongsList, _React$Component);
 
   function SongsList(props) {
+    var _this;
+
     _classCallCheck(this, SongsList);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(SongsList).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(SongsList).call(this, props));
+    _this.state = {
+      loading: true
+    };
+    return _this;
   }
 
   _createClass(SongsList, [{
@@ -3630,11 +3644,15 @@ function (_React$Component) {
         // already been fetched at this point.
         this.props.fetchFollows().then(this.props.fetchUsers());
       }
+
+      this.setState({
+        loading: false
+      });
     }
   }, {
     key: "render",
     value: function render() {
-      var _this = this;
+      var _this2 = this;
 
       switch (this.props.klass) {
         case "stream-page":
@@ -3649,13 +3667,13 @@ function (_React$Component) {
           break;
       }
 
-      if (!this.songs || Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_9__["isEmpty"])(this.props.follows)) {
+      if (this.state.loading) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loading5,
           className: "loading"
         });
       } else {
-        if (this.songs.length === 0) {
+        if (!this.songs || Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_9__["isEmpty"])(this.props.follows || this.songs.length === 0)) {
           if (this.props.klass === "user-show-page") {
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
               className: "ui-msg"
@@ -3674,7 +3692,7 @@ function (_React$Component) {
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_songs_list_item__WEBPACK_IMPORTED_MODULE_11__["default"], {
               key: song.id,
               idx: idx,
-              klass: _this.props.klass,
+              klass: _this2.props.klass,
               itemSong: song
             });
           }));
@@ -4652,39 +4670,50 @@ function (_React$Component) {
   _inherits(ArtistsList, _React$Component);
 
   function ArtistsList(props) {
+    var _this;
+
     _classCallCheck(this, ArtistsList);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(ArtistsList).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ArtistsList).call(this, props));
+    _this.state = {
+      loading: true
+    };
+    return _this;
   }
 
   _createClass(ArtistsList, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.fetchSongs().then(this.props.fetchFollows().then(this.props.fetchUsers()));
+      this.setState({
+        loading: false
+      });
     }
   }, {
     key: "render",
     value: function render() {
-      if (!this.props.suggestedArtists) {
+      if (this.state.loading) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loading5,
           className: "loading"
         });
-      } else if (this.props.suggestedArtists.length === 0) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "error-message"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "We cannot recommend you any users because:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "1) you have followed all users on Acoustic Nimbus; OR"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "2) our site sucks and you are the only user..."));
       } else {
-        if (Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_7__["isEmpty"])(this.props.songs)) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.loading5,
-          className: "loading"
-        });
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.suggestedArtists.map(function (artist) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_artists_list_item__WEBPACK_IMPORTED_MODULE_8__["default"], {
-            key: artist.id,
-            artist: artist
+        if (!this.props.suggestedArtists || this.props.suggestedArtists.length === 0) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "error-message"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "We cannot recommend you any users because:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "1) you have followed all users on Acoustic Nimbus; OR"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "2) our site sucks and you are the only user..."));
+        } else {
+          if (Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_7__["isEmpty"])(this.props.songs)) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+            src: window.loading5,
+            className: "loading"
           });
-        }));
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.suggestedArtists.map(function (artist) {
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_artists_list_item__WEBPACK_IMPORTED_MODULE_8__["default"], {
+              key: artist.id,
+              artist: artist
+            });
+          }));
+        }
       }
     }
   }]);
@@ -5596,7 +5625,8 @@ function (_React$Component) {
       audioURL: "",
       image: null,
       imageURL: "",
-      artistId: _this.props.currentUser.id
+      artistId: _this.props.currentUser.id,
+      uploading: false
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleImage = _this.handleImage.bind(_assertThisInitialized(_assertThisInitialized(_this)));
@@ -5618,6 +5648,7 @@ function (_React$Component) {
     value: function update(field) {
       var _this2 = this;
 
+      debugger;
       return function (e) {
         _this2.setState(_defineProperty({}, field, e.currentTarget.value));
       };
@@ -5685,6 +5716,10 @@ function (_React$Component) {
       var _this4 = this;
 
       e.preventDefault();
+      if (this.state.uploading) return null;
+      this.setState({
+        uploading: true
+      });
       var songData = new FormData();
       songData.append('song[title]', this.state.title);
       songData.append('song[genre]', this.state.genre);
@@ -5756,9 +5791,7 @@ function (_React$Component) {
         value: this.state.title,
         placeholder: "Enter a title with minimum length of 3",
         className: "upload-form-title",
-        onChange: function onChange() {
-          return _this5.update("title");
-        }
+        onChange: this.update("title")
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["FormControl"].Feedback, null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["FormGroup"], {
         controlId: "uploadFormGenre"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["ControlLabel"], {
@@ -5767,8 +5800,8 @@ function (_React$Component) {
         componentClass: "select",
         placeholder: "None",
         className: "upload-form-genre",
-        onChange: function onChange() {
-          return _this5.update("genre");
+        onChange: function onChange(e) {
+          return _this5.update(e, "genre");
         }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "Acoustic"
@@ -5838,8 +5871,8 @@ function (_React$Component) {
         type: "submit",
         value: "Upload",
         className: "upload-form-end-buttons upload-form-submit-button",
-        onClick: function onClick() {
-          return _this5.handleSubmit();
+        onClick: function onClick(e) {
+          return _this5.handleSubmit(e);
         }
       })))));
     }

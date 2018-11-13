@@ -38,6 +38,9 @@ const mdp = (dispatch) => {
 class SongsList extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            loading: true,
+        }
     }
     
     componentDidMount() {
@@ -52,6 +55,9 @@ class SongsList extends React.Component {
             // already been fetched at this point.
             this.props.fetchFollows().then(this.props.fetchUsers());
         }
+        this.setState({
+            loading: false,
+        })
     }
 
     render() {
@@ -65,10 +71,10 @@ class SongsList extends React.Component {
             default:
                 break;
         }
-        if (!this.songs || isEmpty(this.props.follows)) {
+        if (this.state.loading) {
             return <img src={window.loading5} className="loading"></img>;
         } else {
-            if (this.songs.length === 0) {
+            if (!this.songs || isEmpty(this.props.follows || this.songs.length === 0)) {
                 if (this.props.klass === "user-show-page") {
                     return (
                         <div className="ui-msg">

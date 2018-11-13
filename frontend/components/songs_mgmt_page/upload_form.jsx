@@ -33,6 +33,7 @@ class UploadForm extends React.Component {
       image: null,
       imageURL: "",
       artistId: this.props.currentUser.id,
+      uploading: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleImage = this.handleImage.bind(this);
@@ -50,6 +51,7 @@ class UploadForm extends React.Component {
   }
 
   update(field) {
+    debugger
     return (e) => {
       this.setState({ [field]: e.currentTarget.value });
     };
@@ -107,6 +109,10 @@ class UploadForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    if (this.state.uploading) return null;
+    this.setState({
+      uploading: true,
+    });
     let songData = new FormData();
     songData.append('song[title]', this.state.title);
     songData.append('song[genre]', this.state.genre);
@@ -154,13 +160,13 @@ class UploadForm extends React.Component {
                              value={this.state.title}
                              placeholder="Enter a title with minimum length of 3"
                              className="upload-form-title"
-                             onChange={() => this.update("title")}
+                             onChange={this.update("title")}
                 />
               </FormGroup>
               <FormControl.Feedback />
               <FormGroup controlId="uploadFormGenre">
                 <ControlLabel className="upload-form-data-name">Genre</ControlLabel>
-                <FormControl componentClass="select" placeholder="None" className="upload-form-genre" onChange={() => this.update("genre")}>
+                <FormControl componentClass="select" placeholder="None" className="upload-form-genre" onChange={(e) => this.update(e, "genre")}>
                     <option value="Acoustic">Acoustic</option>
                     <option value="Ambient">Ambient</option>
                     <option value="Classical">Classical</option>
@@ -199,7 +205,7 @@ class UploadForm extends React.Component {
             </div>
             <div className="upload-form-buttons-container">
               <button className="upload-form-end-buttons upload-cancel-button" onClick={() => this.props.history.push("/stream")}>Cancel</button>
-              <input type="submit" value="Upload" className="upload-form-end-buttons upload-form-submit-button" onClick={() => this.handleSubmit()} />
+              <input type="submit" value="Upload" className="upload-form-end-buttons upload-form-submit-button" onClick={(e) => this.handleSubmit(e)} />
             </div>
           </div>
         </div>
