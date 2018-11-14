@@ -37,7 +37,7 @@ class UserShowPage extends React.Component {
     }
 
     componentDidMount() {
-        if (!this.props.users) this.props.fetchUsers();
+        if (Object.keys(this.props.users).length === 1 || !this.props.users) this.props.fetchUsers();
         if (!this.props.follows) this.props.fetchFollows();
         // this.props.fetchUsers().then(this.props.fetchFollows()); // for banner showing first
         this.setState({
