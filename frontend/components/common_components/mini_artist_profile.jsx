@@ -54,7 +54,6 @@ class MiniArtistProfile extends React.Component {
       }
 
     render() {
-        debugger
         // if (!this.props.songs || !this.props.follows || !this.props.users) return <img src={window.loading5} className="loading"></img>;
         return (
             <div className="artist-info-container">

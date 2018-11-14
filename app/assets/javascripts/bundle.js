@@ -1436,8 +1436,7 @@ function (_React$Component) {
     value: function render() {
       var _this = this;
 
-      debugger; // if (!this.props.songs || !this.props.follows || !this.props.users) return <img src={window.loading5} className="loading"></img>;
-
+      // if (!this.props.songs || !this.props.follows || !this.props.users) return <img src={window.loading5} className="loading"></img>;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "artist-info-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -3359,8 +3358,6 @@ function (_React$Component) {
         default:
           break;
       }
-
-      debugger;
 
       if (!this.songs) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -5678,7 +5675,6 @@ function (_React$Component) {
     value: function update(field) {
       var _this2 = this;
 
-      debugger;
       return function (e) {
         _this2.setState(_defineProperty({}, field, e.currentTarget.value));
       };
@@ -7462,9 +7458,7 @@ var shuffle = function shuffle(n, songs) {
   return songsToShuffle;
 };
 var songsOf = function songsOf(user, songs) {
-  debugger;
   if (!songs || !user) return null;
-  debugger;
   var output = [];
   var songIds = Object.keys(songs).reverse();
   songIds.forEach(function (songId) {

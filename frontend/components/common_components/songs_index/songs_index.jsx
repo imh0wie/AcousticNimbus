@@ -34,7 +34,6 @@ class SongsIndex extends React.Component {
             default:
                 break;
         }
-        debugger
         if (!this.songs) {
             return (
                 <img src={window.loading5} className="loading"></img>

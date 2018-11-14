@@ -45,9 +45,7 @@ export const shuffle = (n, songs) => {
 };
 
 export const songsOf = (user, songs) => {
-  debugger
   if (!songs || !user) return null;
-  debugger
   const output = [];
   const songIds = Object.keys(songs).reverse();
   songIds.forEach((songId) => {
