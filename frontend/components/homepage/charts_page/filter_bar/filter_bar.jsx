@@ -1,18 +1,32 @@
 import React from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { changeOrder } from "../../../../actions/chart_actions";
+import { FormGroup, FormControl } from 'react-bootstrap';
 
 const msp = (state) => {
     return ({
-        chartsOrder: state.ui.chartsOrder,
-    })
-}
+        order: state.ui.charts.order,
+    });
+};
 
-cons mdp = (dispatch) => {
+const mdp = (dispatch) => {
     return ({
         changeOrder: (order) => dispatch(changeOrder(order)),
-    })
-}
+    });
+};
 
 class FilterBar extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    
+    update(field) {
+        return (e) => {
+            this.props.changeOrder(e.currentTarget.value)
+        };
+    }
+
     render() {
         return (
             <div className="filter-bar">
@@ -45,3 +59,5 @@ class FilterBar extends React.Component {
         )
     }
 }
+
+export default withRouter(connect(msp, mdp)(FilterBar));

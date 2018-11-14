@@ -165,7 +165,7 @@ class UploadForm extends React.Component {
               <FormControl.Feedback />
               <FormGroup controlId="uploadFormGenre">
                 <ControlLabel className="upload-form-data-name">Genre</ControlLabel>
-                <FormControl componentClass="select" placeholder="None" className="upload-form-genre" onChange={(e) => this.update(e, "genre")}>
+                <FormControl componentClass="select" placeholder="None" className="upload-form-genre" onChange={this.update("genre")}>
                     <option value="Acoustic">Acoustic</option>
                     <option value="Ambient">Ambient</option>
                     <option value="Classical">Classical</option>

@@ -8,9 +8,12 @@ const chartsReducer = (state = defaultState, action) => {
     Object.freeze(state);
     switch (action.type) {
         case "CHANGE_ORDER":
-            return merge({}, state, action.order);
+        const newState = {
+            order: action.order,
+        }
+            return merge({}, state, newState);
         default:
-            break;
+            return state;
     }
 }
 

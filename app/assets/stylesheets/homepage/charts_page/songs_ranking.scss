@@ -1,0 +1,126 @@
+.charts-page .loading {
+    position: relative;
+    top: 250px;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+}
+
+.charts-page ul {
+    // margin-top: 10px;
+    // margin-left: 30px;
+    // margin-bottom: 10px;
+    margin: 10px 0 10px 30px;
+}
+  
+.charts-page ul li {
+    display: flex;
+    height: 70px;
+    align-items: center;
+    // margin-bottom: 20px;
+}
+  
+.charts-page ul li:hover {
+    display: flex;
+    height: 70px;
+    // margin-bottom: 20px;
+    background-color:#f2f2f2;
+}
+  
+.charts-page .single {
+    font-size: 16px;
+    margin-top: 15px;
+    margin-right: 60px;
+}
+  
+.charts-page .double {
+    font-size: 16px;
+    margin-top: 15px;
+    margin-right: 50px;
+}
+  
+.charts-page .img-container {
+    width: 50px;
+    height: 50px;
+}
+  
+.charts-songs-list-item-img {
+    width: 50px;
+    height: 50px;
+}
+  
+.charts-songs-list-item-play-container {
+    display: none;
+    position: relative;
+    bottom: 40px;
+    height: 30px;
+}
+  
+.charts-songs-list-item-img:hover + .charts-songs-list-item-play-container {
+    display: block;
+    position: relative;
+    bottom: 40px;
+    height: 30px;
+}
+  
+.charts-songs-list-item-play-container:hover {
+    display: block;
+    position: relative;
+    bottom: 40px;
+    height: 30px;
+}
+  
+.charts-songs-list-item-play-sign {
+    margin: 0 auto;
+    width: 30px;
+    height: 30px;
+}
+  
+.charts-songs-list-item-pause-container {
+    display: block;
+    position: relative;
+    bottom: 38px;
+    height: 30px;
+}
+  
+.charts-songs-list-item-pause-sign {
+    margin: 0 auto;
+    bottom: 40px;
+    width: 26px;
+    height: 26px;
+}
+  
+.charts-page .song-info {
+    margin-top: 5px;
+    margin-left: 20px;
+}
+  
+.charts-page .song-info .artist {
+    display: block;
+    position: relative;
+    bottom: 10px;
+    font-size: 12px;
+    color: #999;
+    cursor: pointer;
+    text-decoration: none !important,
+}
+  
+.charts-page .song-info .artist:hover {
+    display: block;
+    position: relative;
+    bottom: 10px;
+    font-size: 12px;
+    color: #333;
+    cursor: pointer;
+    text-decoration: none !important,
+}
+  
+.charts-page .song-info .title {
+    display: block;
+    position: relative;
+    bottom: 10px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    text-decoration: none !important,
+}
