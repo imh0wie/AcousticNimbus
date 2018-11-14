@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import { fetchSongs } from "../../../../actions/song_actions";
 import { setCurrentSong, playSong, pauseSong } from "../../../../actions/current_song_actions";
 import { latest } from "../../../../util/song_api_util";
-import SongsListItem from "./songs_list_item";
+import SongsRankingItem from "./songs_ranking_item";
 
 const msp = (state) => {
   return {
@@ -23,7 +23,7 @@ const mdp = (dispatch) => {
   });
 };
 
-class SongsList extends React.Component {
+class SongsRanking extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -42,7 +42,7 @@ class SongsList extends React.Component {
         <ul className="charts-songs-list">
           {songs.map((song, idx) => {
             return (
-            <SongsListItem
+            <SongsRankingItem
               key={song.id}
               idx={idx}
               song={song}
@@ -59,4 +59,4 @@ class SongsList extends React.Component {
   }
 }
 
-export default withRouter(connect(msp, mdp)(SongsList));
+export default withRouter(connect(msp, mdp)(SongsRanking));

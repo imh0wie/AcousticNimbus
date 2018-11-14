@@ -1,6 +1,6 @@
 import React from "react";
 import { FormGroup, FormControl } from 'react-bootstrap';
-import SongsList from "./songs_list/songs_list";
+import SongsRanking from "./songs_ranking/songs_ranking";
 // import Navbar from "../../common_components/navbar";
 
 class ChartsPage extends React.Component {
@@ -30,44 +30,40 @@ class ChartsPage extends React.Component {
 
   render() {
     return (
-      <div className="charts-page-container">
-        <div className="filter-bar-container">
-          <div className="order-selector-container">
-            <FormGroup controlId="orderSelector">
-              <FormControl componentClass="select" placeholder="None" className="order-selector" onChange={this.update("order")}>
-                  <option value="newest">Newest</option>
-                  {/* <option value="topThirty">Top 30</option> */}
-              </FormControl>
-            </FormGroup>
-          </div>
-          <div className="genre-filters-container">
-            <FormGroup controlId="genreFilters">
-              <FormControl componentClass="select" placeholder="None" className="genre-filters" onChange={this.update("genres")}>
-                <option value="All">All genres</option>
-                {/* <option value="Acoustic">Acoustic</option>
-                <option value="Ambient">Ambient</option>
-                <option value="Classical">Classical</option>
-                <option value="Country">Country</option>
-                <option value="Dance/EDM">Dance/EDM</option>
-                <option value="Electronic">Electronic</option>
-                <option value="Hip-hop">Hip-hop</option>
-                <option value="Jazz">Jazz</option>
-                <option value="Metal">Metal</option>
-                <option value="Piano">Piano</option>
-                <option value="Pop">Pop</option>
-                <option value="Soul">Soul</option>
-                <option value="Rock">Rock</option>
-                <option value="World">World</option> */}
-              </FormControl>
-            </FormGroup>
-          </div>
+      <div className="charts-page">
+        <div className="filter-bar">
+          <FormGroup controlId="orderSelector">
+            <FormControl componentClass="select" placeholder="None" className="order-selector" onChange={this.update("order")}>
+                <option value="newest">Newest</option>
+                {/* <option value="topThirty">Top 30</option> */}
+            </FormControl>
+          </FormGroup>
+          <FormGroup controlId="genreFilters">
+            <FormControl componentClass="select" placeholder="None" className="genre-filters" onChange={this.update("genres")}>
+              <option value="All">All genres</option>
+              {/* <option value="Acoustic">Acoustic</option>
+              <option value="Ambient">Ambient</option>
+              <option value="Classical">Classical</option>
+              <option value="Country">Country</option>
+              <option value="Dance/EDM">Dance/EDM</option>
+              <option value="Electronic">Electronic</option>
+              <option value="Hip-hop">Hip-hop</option>
+              <option value="Jazz">Jazz</option>
+              <option value="Metal">Metal</option>
+              <option value="Piano">Piano</option>
+              <option value="Pop">Pop</option>
+              <option value="Soul">Soul</option>
+              <option value="Rock">Rock</option>
+              <option value="World">World</option> */}
+            </FormControl>
+          </FormGroup>
         </div>
         {this.renderFiltersMessage()}
         <div className="charts-songs-list-labels">
           <p className="charts-songs-list-label">#</p>
           <p className="charts-songs-list-label">Song</p>
         </div>
-        <SongsList
+        <SongsRanking
           order={this.state.order}
           genres={this.state.genres}
         />

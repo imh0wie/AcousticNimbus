@@ -144,6 +144,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /***/ }),
 
+/***/ "./frontend/actions/chart_actions.js":
+/*!*******************************************!*\
+  !*** ./frontend/actions/chart_actions.js ***!
+  \*******************************************/
+/*! exports provided: CHANGE_ORDER, changeOrder */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CHANGE_ORDER", function() { return CHANGE_ORDER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeOrder", function() { return changeOrder; });
+var CHANGE_ORDER = "CHANGE_ORDER";
+var changeOrder = function changeOrder(order) {
+  return {
+    type: CHANGE_ORDER,
+    order: order
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/actions/comment_actions.js":
 /*!*********************************************!*\
   !*** ./frontend/actions/comment_actions.js ***!
@@ -3538,9 +3559,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_comment_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../actions/comment_actions */ "./frontend/actions/comment_actions.js");
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../actions/user_actions */ "./frontend/actions/user_actions.js");
 /* harmony import */ var _util_song_api_util__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../util/song_api_util */ "./frontend/util/song_api_util.js");
-/* harmony import */ var _util_general_api_util__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../util/general_api_util */ "./frontend/util/general_api_util.js");
-/* harmony import */ var _util_follow_api_util__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../util/follow_api_util */ "./frontend/util/follow_api_util.js");
-/* harmony import */ var _songs_list_item__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./songs_list_item */ "./frontend/components/common_components/songs_list/songs_list_item.jsx");
+/* harmony import */ var _util_follow_api_util__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../util/follow_api_util */ "./frontend/util/follow_api_util.js");
+/* harmony import */ var _songs_list_item__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./songs_list_item */ "./frontend/components/common_components/songs_list/songs_list_item.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -3571,16 +3591,15 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-
 var msp = function msp(state, ownProps) {
   var songs = state.entities.songs;
   var follows = state.entities.follows;
   var users = state.entities.users;
-  var followedArtists = Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_10__["followedUsersOf"])(users[state.session.id], follows, users);
+  var followedArtists = Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_9__["followedUsersOf"])(users[state.session.id], follows, users);
   return {
     onPageArtist: users[parseInt(ownProps.match.params.userId)],
     follows: follows,
-    streamSongs: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_10__["followedSongs"])(followedArtists, songs),
+    streamSongs: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_9__["followedSongs"])(followedArtists, songs),
     currentSongs: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_8__["songsOf"])(users[parseInt(ownProps.match.params.userId)], songs)
   };
 };
@@ -3686,7 +3705,7 @@ function (_React$Component) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Stream is currently empty. Use Charts to find music & audio to listen to.");
         } else {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.songs.map(function (song, idx) {
-            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_songs_list_item__WEBPACK_IMPORTED_MODULE_11__["default"], {
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_songs_list_item__WEBPACK_IMPORTED_MODULE_10__["default"], {
               key: song.id,
               idx: idx,
               klass: _this2.props.klass,
@@ -4091,7 +4110,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
-/* harmony import */ var _songs_list_songs_list__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./songs_list/songs_list */ "./frontend/components/homepage/charts_page/songs_list/songs_list.jsx");
+/* harmony import */ var _songs_ranking_songs_ranking__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./songs_ranking/songs_ranking */ "./frontend/components/homepage/charts_page/songs_ranking/songs_ranking.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -4162,11 +4181,9 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "charts-page-container"
+        className: "charts-page"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "filter-bar-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "order-selector-container"
+        className: "filter-bar"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], {
         controlId: "orderSelector"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["FormControl"], {
@@ -4176,9 +4193,7 @@ function (_React$Component) {
         onChange: this.update("order")
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "newest"
-      }, "Newest")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "genre-filters-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], {
+      }, "Newest"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], {
         controlId: "genreFilters"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["FormControl"], {
         componentClass: "select",
@@ -4187,13 +4202,13 @@ function (_React$Component) {
         onChange: this.update("genres")
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "All"
-      }, "All genres"))))), this.renderFiltersMessage(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "All genres")))), this.renderFiltersMessage(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "charts-songs-list-labels"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "charts-songs-list-label"
       }, "#"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "charts-songs-list-label"
-      }, "Song")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_songs_list_songs_list__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }, "Song")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_songs_ranking_songs_ranking__WEBPACK_IMPORTED_MODULE_2__["default"], {
         order: this.state.order,
         genres: this.state.genres
       }));
@@ -4207,10 +4222,10 @@ function (_React$Component) {
 
 /***/ }),
 
-/***/ "./frontend/components/homepage/charts_page/songs_list/songs_list.jsx":
-/*!****************************************************************************!*\
-  !*** ./frontend/components/homepage/charts_page/songs_list/songs_list.jsx ***!
-  \****************************************************************************/
+/***/ "./frontend/components/homepage/charts_page/songs_ranking/songs_ranking.jsx":
+/*!**********************************************************************************!*\
+  !*** ./frontend/components/homepage/charts_page/songs_ranking/songs_ranking.jsx ***!
+  \**********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4223,7 +4238,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_song_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../actions/song_actions */ "./frontend/actions/song_actions.js");
 /* harmony import */ var _actions_current_song_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../actions/current_song_actions */ "./frontend/actions/current_song_actions.js");
 /* harmony import */ var _util_song_api_util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../util/song_api_util */ "./frontend/util/song_api_util.js");
-/* harmony import */ var _songs_list_item__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./songs_list_item */ "./frontend/components/homepage/charts_page/songs_list/songs_list_item.jsx");
+/* harmony import */ var _songs_ranking_item__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./songs_ranking_item */ "./frontend/components/homepage/charts_page/songs_ranking/songs_ranking_item.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4275,18 +4290,18 @@ var mdp = function mdp(dispatch) {
   };
 };
 
-var SongsList =
+var SongsRanking =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(SongsList, _React$Component);
+  _inherits(SongsRanking, _React$Component);
 
-  function SongsList(props) {
-    _classCallCheck(this, SongsList);
+  function SongsRanking(props) {
+    _classCallCheck(this, SongsRanking);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(SongsList).call(this, props));
+    return _possibleConstructorReturn(this, _getPrototypeOf(SongsRanking).call(this, props));
   }
 
-  _createClass(SongsList, [{
+  _createClass(SongsRanking, [{
     key: "componentWillMount",
     value: function componentWillMount() {
       this.props.fetchSongs();
@@ -4307,7 +4322,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "charts-songs-list"
       }, songs.map(function (song, idx) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_songs_list_item__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_songs_ranking_item__WEBPACK_IMPORTED_MODULE_6__["default"], {
           key: song.id,
           idx: idx,
           song: song,
@@ -4320,17 +4335,17 @@ function (_React$Component) {
     }
   }]);
 
-  return SongsList;
+  return SongsRanking;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, mdp)(SongsList)));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, mdp)(SongsRanking)));
 
 /***/ }),
 
-/***/ "./frontend/components/homepage/charts_page/songs_list/songs_list_item.jsx":
-/*!*********************************************************************************!*\
-  !*** ./frontend/components/homepage/charts_page/songs_list/songs_list_item.jsx ***!
-  \*********************************************************************************/
+/***/ "./frontend/components/homepage/charts_page/songs_ranking/songs_ranking_item.jsx":
+/*!***************************************************************************************!*\
+  !*** ./frontend/components/homepage/charts_page/songs_ranking/songs_ranking_item.jsx ***!
+  \***************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4360,24 +4375,24 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 
-var SongsListItem =
+var SongsRankingItem =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(SongsListItem, _React$Component);
+  _inherits(SongsRankingItem, _React$Component);
 
-  function SongsListItem(props) {
+  function SongsRankingItem(props) {
     var _this;
 
-    _classCallCheck(this, SongsListItem);
+    _classCallCheck(this, SongsRankingItem);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(SongsListItem).call(this, props)); // this.redirectToShowPage = this.redirectToShowPage.bind(this);
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(SongsRankingItem).call(this, props)); // this.redirectToShowPage = this.redirectToShowPage.bind(this);
 
     _this.togglePlay = _this.togglePlay.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.renderPlayPauseSign = _this.renderPlayPauseSign.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
-  _createClass(SongsListItem, [{
+  _createClass(SongsRankingItem, [{
     key: "togglePlay",
     value: function togglePlay(song) {
       if (!this.props.currentSong.song || song.id !== this.props.currentSong.song.id) {
@@ -4440,10 +4455,10 @@ function (_React$Component) {
     }
   }]);
 
-  return SongsListItem;
+  return SongsRankingItem;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (SongsListItem);
+/* harmony default export */ __webpack_exports__["default"] = (SongsRankingItem);
 
 /***/ }),
 
@@ -6415,6 +6430,42 @@ function (_React$Component) {
 
 /***/ }),
 
+/***/ "./frontend/reducers/charts_reducer.js":
+/*!*********************************************!*\
+  !*** ./frontend/reducers/charts_reducer.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_chart_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/chart_actions */ "./frontend/actions/chart_actions.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var defaultState = {
+  order: "newest"
+};
+
+var chartsReducer = function chartsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case "CHANGE_ORDER":
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, action.order);
+
+    default:
+      break;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (chartsReducer);
+
+/***/ }),
+
 /***/ "./frontend/reducers/comments_reducer.js":
 /*!***********************************************!*\
   !*** ./frontend/reducers/comments_reducer.js ***!
@@ -6907,12 +6958,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _modal_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modal_reducer */ "./frontend/reducers/modal_reducer.js");
 /* harmony import */ var _current_song_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./current_song_reducer */ "./frontend/reducers/current_song_reducer.js");
+/* harmony import */ var _charts_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./charts_reducer */ "./frontend/reducers/charts_reducer.js");
+
 
 
 
 var uiReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   modal: _modal_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
-  currentSong: _current_song_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
+  currentSong: _current_song_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
+  charts: _charts_reducer__WEBPACK_IMPORTED_MODULE_3__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (uiReducer);
 

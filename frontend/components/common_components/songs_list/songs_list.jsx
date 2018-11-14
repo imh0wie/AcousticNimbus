@@ -7,7 +7,6 @@ import { fetchFollows } from "../../../actions/follow_actions";
 import { fetchComments } from "../../../actions/comment_actions";
 import { fetchUsers } from "../../../actions/user_actions";
 import { songsOf } from "../../../util/song_api_util";
-import { isEmpty } from "../../../util/general_api_util";
 import { followedUsersOf, followedSongs} from "../../../util/follow_api_util";
 import SongsListItem from "./songs_list_item";
 

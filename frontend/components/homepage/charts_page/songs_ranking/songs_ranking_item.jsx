@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-class SongsListItem extends React.Component {
+class SongsRankingItem extends React.Component {
     constructor(props) {
         super(props);
         // this.redirectToShowPage = this.redirectToShowPage.bind(this);
@@ -55,4 +55,4 @@ class SongsListItem extends React.Component {
   }
 }
 
-export default SongsListItem;
+export default SongsRankingItem;
