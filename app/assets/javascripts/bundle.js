@@ -3666,17 +3666,13 @@ function (_React$Component) {
           break;
       }
 
-      if (this.state.loading || !this.props.follows) {
+      if (this.state.loading || !this.props.follows || !this.songs) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loading5,
           className: "loading"
         });
       } else {
-        if (!this.songs) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.loading5,
-          className: "loading"
-        });
-
+        // if (!this.songs) return <img src={window.loading5} className="loading"></img>;
         if (this.songs.length === 0) {
           if (this.props.klass === "user-show-page") {
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
