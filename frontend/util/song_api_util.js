@@ -25,7 +25,7 @@ export const fetchSongs = () => {
 };
 
 export const latest = (n, songs) => {
-  if (isEmpty(songs)) return null;
+  if (!songs) return null;
   let output = [];
   const songIds = Object.keys(songs).reverse().slice(0, n);
   songIds.forEach((songId) => {
@@ -45,7 +45,9 @@ export const shuffle = (n, songs) => {
 };
 
 export const songsOf = (user, songs) => {
-  if (isEmpty(songs) || !user) return null;
+  debugger
+  if (!songs || !user) return null;
+  debugger
   const output = [];
   const songIds = Object.keys(songs).reverse();
   songIds.forEach((songId) => {
@@ -57,7 +59,7 @@ export const songsOf = (user, songs) => {
 }
 
 export const songsLikedBy = (userId, songs, likes) => {
-  if (isEmpty(likes) || isEmpty(songs)) return null;
+  if (!likes || !songs) return null;
   const output = [];
   const likeIds = Object.keys(likes);
   likeIds.forEach((likeId) => {
@@ -68,7 +70,7 @@ export const songsLikedBy = (userId, songs, likes) => {
 }
 
 export const relatedSongsOf = (targetSongId, songs) => {
-  if (isEmpty(songs)) return null;
+  if (!songs) return null;
   const output = [];
   const songIds = Object.keys(songs);
   songIds.forEach((songId) => {

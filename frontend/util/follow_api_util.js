@@ -33,7 +33,7 @@ export const artistIdOf = (onPageSong) => {
 }
 
 export const followOf = (followedUserId, followerId, follows) => {
-    if (isEmpty(follows)) return null;
+    if (!follows) return null;
     const followIds = Object.keys(follows);
     for (let i = 0; i < followIds.length; i++ ) {
         const followId = followIds[i];
@@ -44,7 +44,7 @@ export const followOf = (followedUserId, followerId, follows) => {
 }
 
 export const followersOf = (followedUserId, follows, users) => {
-    if (isEmpty(follows) || isEmpty(users)) return null;
+    if (!follows || !users) return null;
     const output = [];
     const followIds = Object.keys(follows);
     for (let i = 0; i < followIds.length; i++ ) {
@@ -56,7 +56,7 @@ export const followersOf = (followedUserId, follows, users) => {
 }
 
 export const followedUsersOf = (currentUser, follows, users) => {
-    if (isEmpty(follows) || isEmpty(users)) return null;
+    if (!follows || !users) return null;
     const followIds = Object.keys(follows);
     const output = [];
     followIds.forEach((followId) => {
@@ -67,7 +67,7 @@ export const followedUsersOf = (currentUser, follows, users) => {
 }
 
 export const followingsOf = (followerId, follows) => {
-    if (isEmpty(follows)) return null;
+    if (!follows) return null;
     const output = [];
     const followIds = Object.keys(follows);
     for (let i = 0; i < followIds.length; i++ ) {
@@ -79,7 +79,7 @@ export const followingsOf = (followerId, follows) => {
 }
 
 export const followsOf = (followerId, follows) => {
-    if (isEmpty(follows)) return null;
+    if (!follows) return null;
     const output = [];
     const followIds = Object.keys(follows);
     for (let i = 0; i < followIds.length; i++ ) {
@@ -91,7 +91,7 @@ export const followsOf = (followerId, follows) => {
 }
 
 export const followedSongs = (users, songs) => {
-    if (!users || isEmpty(songs)) return null;
+    if (!users || !songs) return null;
     let output = [];
     users.forEach((user) => {
         const tracks = songsOf(user, songs);

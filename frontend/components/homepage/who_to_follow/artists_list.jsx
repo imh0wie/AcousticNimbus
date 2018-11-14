@@ -32,11 +32,14 @@ class ArtistsList extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchSongs().then(
-            this.props.fetchFollows().then(
-                this.props.fetchUsers()
-            )
-        );
+        if (!this.props.follows) this.props.fetchFollows();
+        if (!this.props.users) this.props.fetchUsers();``
+        if (!this.props.songs) this.props.fetchSongs();
+        // this.props.fetchSongs().then(
+        //     this.props.fetchFollows().then(
+        //         this.props.fetchUsers()
+        //     )
+        // );
         this.setState({
             loading: false,
         })

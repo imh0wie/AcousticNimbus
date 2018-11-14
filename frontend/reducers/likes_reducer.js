@@ -7,7 +7,7 @@ import { merge } from "lodash";
 //   likeableId: null,
 //   likerId: null,
 // };
-const likesReducer = (state = {}, action) => {
+const likesReducer = (state = null, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_LIKES:

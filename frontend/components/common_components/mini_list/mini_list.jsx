@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { fetchSongs } from "../../../actions/song_actions";
 import { fetchLikes } from "../../../actions/like_actions";
 import { fetchComments } from "../../../actions/comment_actions";
 import { isEmpty } from "../../../util/general_api_util"
@@ -25,7 +24,6 @@ const msp = (state, ownProps) => {
 
 const mdp = (dispatch) => {
     return ({
-        fetchSongs: () => dispatch(fetchSongs()),
         fetchLikes: () => dispatch(fetchLikes()),
         fetchComments: () => dispatch(fetchComments()),
     });
@@ -40,20 +38,13 @@ class MiniList extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.klass === "likes-section") {
-            this.props.fetchSongs().then(
-                this.props.fetchComments()
-            );
-        } else {
-            this.props.fetchComments();
-        }
+        this.props.fetchComments();
         this.setState({
             loading: false,
         });
     }
 
     render() {
-        if (isEmpty(this.props.comments)) 
         switch (this.props.klass) {
             case "likes-section":
                 // if (!this.props.latestThreeLikes || this.props.latestThreeLikes.length === 0) return <p className="ui-message">You haven't liked any songs yet! Find your jam!</p>;
@@ -66,12 +57,10 @@ class MiniList extends React.Component {
             default:
                 break;
         }
-        if (this.state.loading) {
+        if (this.state.loading || !this.props.comments || !this.props.songs || !this.props.likes || !this.miniListItems ) {
             return <img src={window.loading5} className="loading"></img>;
         } else {
-            // if (!isEmpty(this.props.songs) && this.miniListItems) {
-                
-            if (isEmpty(this.props.comments) || !isEmpty(this.props.songs) || this.miniListItems.length === 0) return <p className="ui-msg">This user has not liked any songs yet.</p>
+            if (this.miniListItems.length === 0) return <p className="ui-msg">This user has not liked any songs yet.</p>
             return (
                 <ul>
                     {this.miniListItems.map((item) => {

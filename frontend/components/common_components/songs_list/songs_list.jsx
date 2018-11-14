@@ -44,17 +44,20 @@ class SongsList extends React.Component {
     }
     
     componentDidMount() {
-        this.props.fetchSongs().then(
-            this.props.fetchLikes().then(
-                this.props.fetchComments()
-            )
-        );
+        if (!this.songs) this.props.fetchSongs();
         if (this.props.klass !== "user-show-page") {
             // This component does not need to fetch data
             // user show page because data would have 
             // already been fetched at this point.
             this.props.fetchFollows().then(this.props.fetchUsers());
         }
+        this.props.fetchLikes();
+        this.props.fetchComments();
+        // this.props.fetchSongs().then(
+        //     this.props.fetchLikes().then(
+        //         this.props.fetchComments()
+        //     )
+        // );
         this.setState({
             loading: false,
         })
@@ -71,10 +74,11 @@ class SongsList extends React.Component {
             default:
                 break;
         }
-        if (this.state.loading) {
+        if (this.state.loading || !this.props.follows) {
             return <img src={window.loading5} className="loading"></img>;
         } else {
-            if (!this.songs || isEmpty(this.props.follows || this.songs.length === 0)) {
+            if (!this.songs) return <img src={window.loading5} className="loading"></img>;
+            if (this.songs.length === 0) {
                 if (this.props.klass === "user-show-page") {
                     return (
                         <div className="ui-msg">

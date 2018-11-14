@@ -23,7 +23,7 @@ export const fetchLikes = () => {
 };
 
 export const likesOf = (likeableType, likeableId, likes) => {
-    if (isEmpty(likes)) return [];
+    if (!likes) return [];
     const likeIds = Object.keys(likes).reverse();
     let output = [];
     likeIds.forEach((likeId) => {
@@ -37,7 +37,7 @@ export const likesOf = (likeableType, likeableId, likes) => {
 }
 
 export const likeOf = (likeableType, likeableId, liker, likes) => {
-    if (isEmpty(likes) || !liker) return null;
+    if (!likes || !liker) return null;
     const likeIds = Object.keys(likes);
     for (let i = 0; i < likeIds.length; i++ ) {
         const likeId = likeIds[i];
@@ -48,7 +48,7 @@ export const likeOf = (likeableType, likeableId, liker, likes) => {
 }
 
 export const likesBy = (likes, userId) => {
-    if (isEmpty(likes)) return null;
+    if (!likes) return null;
     const output = [];
     const likeIds = Object.keys(likes);
     likeIds.forEach((likeId) => {

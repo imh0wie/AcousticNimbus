@@ -13,8 +13,11 @@ import FollowersSection from "./followers_section";
 import HiringInfoSection from "../common_components/hiring_info_section";
 
 const msp = (state, ownProps) => {
+    const users = state.entities.users;
     return ({
-        onPageArtist: state.entities.users[parseInt(ownProps.match.params.userId)],
+        follows: state.entities.follows,
+        users: users,
+        onPageArtist: users ? users[parseInt(ownProps.match.params.userId)] : null,
     });
 };
   
@@ -34,7 +37,9 @@ class UserShowPage extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchUsers().then(this.props.fetchFollows()); // for banner showing first
+        if (!this.props.users) this.props.fetchUsers();
+        if (!this.props.follows) this.props.fetchFollows();
+        // this.props.fetchUsers().then(this.props.fetchFollows()); // for banner showing first
         this.setState({
             loading: false,
         });

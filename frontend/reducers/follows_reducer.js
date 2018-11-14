@@ -7,7 +7,7 @@ import { merge } from "lodash";
 //   followerId: null,
 // };
 
-const followsReducer = (state = {}, action) => {
+const followsReducer = (state = null, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_FOLLOWS:

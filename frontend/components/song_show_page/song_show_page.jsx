@@ -16,8 +16,12 @@ import LikesSection from "../common_components/likes_section";
 import HiringInfoSection from "../common_components/hiring_info_section";
 
 const msp = (state, ownProps) => {
+  const songs = state.entities.songs;
   return ({
-    onPageSong: state.entities.songs[parseInt(ownProps.match.params.songId)],
+    songs: songs,
+    follows: state.entities.follows,
+    users: state.entities.users,
+    onPageSong: songs ? songs[parseInt(ownProps.match.params.songId)] : null,
     currentSong: state.ui.currentSong,
   });
 };
@@ -41,11 +45,14 @@ class SongShowPage extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchSongs();
-    this.props.fetchUsers(); 
+    // if (isEmpty(this.props.songs)) 
+    if (!this.props.songs) this.props.fetchSongs();
+    // if (Object.keys(this.props.users) === 1 ) 
+    if (Object.keys(this.props.users).length === 1 || !this.props.users) this.props.fetchUsers(); 
     // for mini artist profile and likes section
     // Note: likes section uses state to distinguish levels of loading for song show page
-    this.props.fetchFollows();
+    // if (isEmpty(this.props.follows)) 
+    if (!this.props.follows) this.props.fetchFollows();
     // for mini artist profile 
     this.setState({
         loading: false,
@@ -57,7 +64,7 @@ class SongShowPage extends React.Component {
   }
 
   render() {
-    if (this.state.loading || !this.props.onPageSong) {
+    if (this.state.loading || Object.keys(this.props.users).length === 1 || !this.props.users || !this.props.songs || !this.props.follows || !this.props.onPageSong) {
       return (
         <img src={window.loading5} className="loading-page"></img>
       );
