@@ -38,6 +38,9 @@ const mdp = (dispatch) => {
 class MiniArtistProfile extends React.Component {
     constructor(props) {
         super(props);
+        this.noneStyle = {
+            display: "none",
+        };
     }
 
     handleFollow(e) {
@@ -57,7 +60,7 @@ class MiniArtistProfile extends React.Component {
         // if (!this.props.songs || !this.props.follows || !this.props.users) return <img src={window.loading5} className="loading"></img>;
         return (
             <div className="artist-info-container">
-                <img src={this.props.songArtist ? this.props.songArtist.imageURL : window.user_dp} className="artist-img"></img>
+                <img src={this.props.songArtist.imageURL ? this.props.songArtist.imageURL : window.user_dp} className="artist-img"></img>
                 <Link to={`/users/${this.props.song.artistId}`}>{this.props.song.artist}</Link>
                 <div className="follows-songs">
                     <Link to=""><i className="fas fa-user-friends"></i> {(!this.props.follows || !this.props.users) ? 0 : followersOf(this.props.songArtist.id, this.props.follows, this.props.users).length}</Link>

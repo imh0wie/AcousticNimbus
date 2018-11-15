@@ -1432,9 +1432,15 @@ function (_React$Component) {
   _inherits(MiniArtistProfile, _React$Component);
 
   function MiniArtistProfile(props) {
+    var _this;
+
     _classCallCheck(this, MiniArtistProfile);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(MiniArtistProfile).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(MiniArtistProfile).call(this, props));
+    _this.noneStyle = {
+      display: "none"
+    };
+    return _this;
   }
 
   _createClass(MiniArtistProfile, [{
@@ -1455,13 +1461,13 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this = this;
+      var _this2 = this;
 
       // if (!this.props.songs || !this.props.follows || !this.props.users) return <img src={window.loading5} className="loading"></img>;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "artist-info-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: this.props.songArtist ? this.props.songArtist.imageURL : window.user_dp,
+        src: this.props.songArtist.imageURL ? this.props.songArtist.imageURL : window.user_dp,
         className: "artist-img"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
         to: "/users/".concat(this.props.song.artistId)
@@ -1478,7 +1484,7 @@ function (_React$Component) {
       }), " ", !this.props.songs || !this.props.users ? 0 : Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_7__["songsOf"])(this.props.songArtist, this.props.songs).length)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: this.props.currentFollow ? "following" : "follow",
         onClick: function onClick(e) {
-          return _this.handleFollow(e);
+          return _this2.handleFollow(e);
         },
         style: this.props.song.artistId === this.props.currentUserId ? this.noneStyle : {}
       }, this.props.currentFollow ? "Following" : "Follow"));
@@ -2706,8 +2712,8 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SessionForm).call(this, props));
     _this.state = {
-      username: null,
-      password: null
+      username: "",
+      password: ""
     };
     return _this;
   }
@@ -2734,8 +2740,45 @@ function (_React$Component) {
       var dummyUser = {
         username: "h0wiechan",
         password: "12345678"
-      };
-      this.props.demoLogin(dummyUser).then(this.props.closeModal); // ((dummyUser => dispatch(login(dummyUser))).then(this.props.closeModal);
+      }; // e.preventDefault();
+      // let password = '123456';
+      // this.state = {
+      //   username: '',
+      //   password: ''
+      // }
+      // const login = () => {
+      //   setTimeout(() => {
+      //     if (password.length > 0) {
+      //       this.setState({
+      //         username:"h0wiechan",
+      //         password: this.state.password.concat(password[0])
+      //       });
+      //       password = password.slice(1);
+      //       newdemo();
+      //     }
+      //     else {
+      //       dispatch(login(this.state))
+      //       .then(this.props.closeModal);
+      //     }
+      //   }, 100);
+      // }
+      // newdemo();
+      // const username = "h0wiechan".split();
+      // const password = "12345678".split();
+      // for (let i = 0; i < username.length; i++) {
+      //   const char = username[i];
+      //   this.setState({username: this.state.username + char})
+      //   // if (char === "o") {
+      //   //   this.setState({username: this.state.username - char});
+      //   //   this.setState({username: this.state.username + "0"});
+      //   // }
+      // }
+      // for (let j = 0; j < password.length; j++) {
+      //   const char = password[j];
+      //   this.setState({password: this.state.password + char})
+      // }
+
+      this.props.demoLogin(dummyUser).then(this.props.closeModal); // (dummyUser => dispatch(login(dummyUser)).then(this.props.closeModal);
     }
   }, {
     key: "formHeader",
@@ -3454,7 +3497,7 @@ var mdp = function mdp(dispatch) {
     playSong: function playSong() {
       return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_3__["playSong"])());
     },
-    pauseong: function pauseong() {
+    pauseSong: function pauseSong() {
       return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_3__["pauseSong"])());
     }
   };

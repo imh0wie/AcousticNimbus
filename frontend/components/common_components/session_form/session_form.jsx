@@ -6,8 +6,8 @@ class SessionForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: null,
-      password: null,
+      username: "",
+      password: "",
     };
   }
 
@@ -25,8 +25,47 @@ class SessionForm extends React.Component {
 
   demoLogin() {
     const dummyUser = { username: "h0wiechan", password: "12345678" };
+    // e.preventDefault();
+    // let password = '123456';
+    // this.state = {
+    //   username: '',
+    //   password: ''
+    // }
+    // const login = () => {
+    //   setTimeout(() => {
+    //     if (password.length > 0) {
+    //       this.setState({
+    //         username:"h0wiechan",
+    //         password: this.state.password.concat(password[0])
+    //       });
+    //       password = password.slice(1);
+    //       newdemo();
+    //     }
+    //     else {
+    //       dispatch(login(this.state))
+    //       .then(this.props.closeModal);
+    //     }
+    //   }, 100);
+    // }
+    // newdemo();
+    
+    // const username = "h0wiechan".split();
+    // const password = "12345678".split();
+    // for (let i = 0; i < username.length; i++) {
+    //   const char = username[i];
+    //   this.setState({username: this.state.username + char})
+    //   // if (char === "o") {
+    //   //   this.setState({username: this.state.username - char});
+    //   //   this.setState({username: this.state.username + "0"});
+    //   // }
+    // }
+    // for (let j = 0; j < password.length; j++) {
+    //   const char = password[j];
+    //   this.setState({password: this.state.password + char})
+    // }
+    
     this.props.demoLogin(dummyUser).then(this.props.closeModal);
-    // ((dummyUser => dispatch(login(dummyUser))).then(this.props.closeModal);
+    // (dummyUser => dispatch(login(dummyUser)).then(this.props.closeModal);
   }
 
   formHeader() {
