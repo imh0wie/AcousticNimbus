@@ -14,8 +14,10 @@
 }
 
 .sidebar .likes-section .user-image {
-    width: 36px;
-    margin-top: 10px;
+    width: 35px;
+    height: 35px;
+    margin: 0;
+    // margin-top: 10px;
     border: 2px solid #fff;
     border-radius: 50%;
 }
@@ -35,7 +37,8 @@
 }
 
 .sidebar .followers-section .user-image {
-    width: 36px;
+    width: 35px;
+    height: 35px;
     margin-top: 10px;
     border: 2px solid #fff;
     border-radius: 50%;

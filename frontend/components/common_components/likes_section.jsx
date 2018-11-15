@@ -7,18 +7,19 @@ import MiniList from "./mini_list/mini_list";
 import BubblesList from "./bubbles_list/bubbles_list"
 
 const msp = (state, ownProps) => {
-    const song = ownProps.song;
-    const songId = ownProps.songId;
-    const userId = parseInt(ownProps.match.params.userId);
+    const songId = ownProps.songId ? ownProps.songId : parseInt(ownProps.match.params.songId);
+    const songs = state.entities.songs;
+    const song = songs ? songs[songId] : null;
+    const userId = ownProps.match.params.userId ? parseInt(ownProps.match.params.userId) : null;
     const currentUserId = state.session.id;
     const likes = state.entities.likes;
     return ({
         song: song,
         songId: songId,
         likes: likes,
-        currentLikes: likesBy(likes, currentUserId),
-        songLikes: likesOf("Song", songId, likes),
-        userLikes: likesBy(likes, userId)
+        currentLikes: likesBy(likes, currentUserId), // current user's liked songs => songs
+        songLikes: likesOf("Song", songId, likes), // song's likes => users
+        userLikes: likesBy(likes, userId) // user's likes =>
     });
 }
 
@@ -78,6 +79,7 @@ class LikesSection extends React.Component {
             default:
                 break;
         }
+        if (!this.likes) return <div className="likes-section" style={this.props.klass === "user-show-page" ? this.marginBottom : {}}></div>;
         return (
             <div className="likes-section" style={this.props.klass === "user-show-page" ? this.marginBottom : {}}>
                 <div className="header">

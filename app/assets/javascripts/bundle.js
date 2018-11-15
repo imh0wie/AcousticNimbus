@@ -1221,9 +1221,10 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 var msp = function msp(state, ownProps) {
-  var song = ownProps.song;
-  var songId = ownProps.songId;
-  var userId = parseInt(ownProps.match.params.userId);
+  var songId = ownProps.songId ? ownProps.songId : parseInt(ownProps.match.params.songId);
+  var songs = state.entities.songs;
+  var song = songs ? songs[songId] : null;
+  var userId = ownProps.match.params.userId ? parseInt(ownProps.match.params.userId) : null;
   var currentUserId = state.session.id;
   var likes = state.entities.likes;
   return {
@@ -1231,8 +1232,11 @@ var msp = function msp(state, ownProps) {
     songId: songId,
     likes: likes,
     currentLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_4__["likesBy"])(likes, currentUserId),
+    // current user's liked songs => songs
     songLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_4__["likesOf"])("Song", songId, likes),
-    userLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_4__["likesBy"])(likes, userId)
+    // song's likes => users
+    userLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_4__["likesBy"])(likes, userId) // user's likes =>
+
   };
 };
 
@@ -1319,6 +1323,10 @@ function (_React$Component) {
           break;
       }
 
+      if (!this.likes) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "likes-section",
+        style: this.props.klass === "user-show-page" ? this.marginBottom : {}
+      });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "likes-section",
         style: this.props.klass === "user-show-page" ? this.marginBottom : {}
@@ -1616,7 +1624,7 @@ function (_React$Component) {
           break;
       }
 
-      if (this.state.loading || !this.props.comments || !this.props.songs || !this.props.likes || !this.miniListItems) {
+      if (this.state.loading || !this.props.comments || !this.props.songs || !this.props.likes) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loading5,
           className: "loading"
@@ -7129,7 +7137,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var usersReducer = function usersReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
 

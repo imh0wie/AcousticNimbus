@@ -57,7 +57,7 @@ class MiniList extends React.Component {
             default:
                 break;
         }
-        if (this.state.loading || !this.props.comments || !this.props.songs || !this.props.likes || !this.miniListItems ) {
+        if (this.state.loading || !this.props.comments || !this.props.songs || !this.props.likes) {
             return <img src={window.loading5} className="loading"></img>;
         } else {
             if (this.miniListItems.length === 0) return <p className="ui-msg">This user has not liked any songs yet.</p>
