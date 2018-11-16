@@ -4856,13 +4856,13 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      if (this.state.loading) {
+      if (this.state.loading || !this.props.suggestedArtists) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loading5,
           className: "loading"
         });
       } else {
-        if (!this.props.suggestedArtists || this.props.suggestedArtists.length === 0) {
+        if (this.props.suggestedArtists.length === 0) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "error-message"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "We cannot recommend you any users because:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "1) you have followed all users on Acoustic Nimbus; OR"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "2) our site sucks and you are the only user..."));
@@ -7137,7 +7137,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var usersReducer = function usersReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
 
