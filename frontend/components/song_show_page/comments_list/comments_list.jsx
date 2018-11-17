@@ -39,7 +39,7 @@ class CommentsList extends React.Component {
 
     render() {
         if (this.state.loading) {
-            return <img src={window.loading5} className="loading"></img>;
+            return <img src={window.loadingPizza} className="loading"></img>;
         } else {
             if (isEmpty(this.props.comments) || this.props.currentComments.length === 0) {
                 return (

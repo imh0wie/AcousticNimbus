@@ -47,7 +47,7 @@ class UserShowPage extends React.Component {
 
     render() {
         if (this.state.loading || !this.props.onPageArtist) {
-            return <img src={window.loading5} className="user-show-loading"></img>
+            return <img src={window.loadingPizza} className="user-show-loading"></img>
         } else {
             return (
                 <div className="user-show-page">

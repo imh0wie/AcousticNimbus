@@ -118,6 +118,7 @@
   justify-content: space-between;
   padding: 30px;
   width: 800px;
+  min-height: 35px;
   border-top: 1px solid #ccc;
 }
 
@@ -125,13 +126,31 @@
   display: flex;
 }
 
+.upload-form-buttons-container {
+  display: flex;
+  margin: auto 0;
+}
+
 .upload-form-end-buttons {
   border-radius: 3px;
+  margin: auto 2px;
   padding: 3px 5px;
+  color: #333;
   font-size: 12px;
+  text-decoration: none;
+}
+
+.upload-form-end-buttons:hover {
+  color: #333;
+  text-decoration: none;
 }
 
 .upload-form-submit-button {
   color: white;
   background-color: #ff4f01;
+}
+
+.loading-upload {
+  width: 35px;
+  height: 35px;
 }

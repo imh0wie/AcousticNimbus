@@ -19,7 +19,7 @@ const YourSongsListItem = (props) => {
             </div>
             <div className="right">
                 <HoverButtons songId={props.song.id} />
-                <p className="song-length">m:ss</p>
+                <p className="song-length"></p>
                 <p>{generateCreationTime(props.song.createdAt)}</p>
             </div>
         </li>

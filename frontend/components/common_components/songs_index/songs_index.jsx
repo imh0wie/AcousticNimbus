@@ -36,7 +36,7 @@ class SongsIndex extends React.Component {
         }
         if (!this.songs) {
             return (
-                <img src={window.loading5} className="loading"></img>
+                <img src={window.loadingPizza} className="loading"></img>
             );
         }
         return (

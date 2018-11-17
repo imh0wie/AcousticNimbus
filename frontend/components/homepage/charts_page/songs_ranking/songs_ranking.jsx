@@ -36,7 +36,7 @@ class SongsRanking extends React.Component {
 
   render() {
     if (!this.props.songs || this.state.loading) {
-      return <img src={window.loading5} className="loading"></img>
+      return <img src={window.loadingPizza} className="loading"></img>
     }
     return (
       <ul className="songs-ranking">

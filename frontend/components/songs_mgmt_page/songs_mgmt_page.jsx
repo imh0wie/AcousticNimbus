@@ -9,12 +9,10 @@ const SongsMgmtPage = () => {
   return (
     <div className="songs-mgmt-page">
       <Navbar klass="songs-mgmt-page"/>
-      <div>
-        <Switch>
-          <ProtectedRoute exact path="/upload" component={UploadForm} />
-          <ProtectedRoute exact path="/you/songs" component={SongsEditPage} />
-        </Switch>
-      </div>
+      <Switch>
+        <ProtectedRoute exact path="/upload" component={UploadForm} />
+        <ProtectedRoute exact path="/you/songs" component={SongsEditPage} />
+      </Switch>
     </div>
   );
 };

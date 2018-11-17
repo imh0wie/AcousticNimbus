@@ -49,7 +49,7 @@ class LikesSection extends React.Component {
 
     renderList() {
         if (this.state.loading) {
-            return <img src={window.loading5} className="loading-sm"></img>;
+            return <img src={window.loadingPizza} className="loading-sm"></img>;
         }
         switch (this.props.klass) {
             case "homepage":

@@ -19,12 +19,12 @@ const HoverButtons = (props) => {
         display: "none",
     }
     const songId = props.songId;
-    // debugger
+    debugger
     return (
         <div className="hover-buttons">
             <button style={noneStyle}><i className="fas fa-heart"></i></button>
             <button style={noneStyle}><i className="fas fa-pen"></i></button>
-            <button onClick={(songId) => props.removeSong(songId)}><i className="fas fa-trash"></i></button>
+            <button onClick={() => props.removeSong(songId)}><i className="fas fa-trash"></i></button>
         </div>
     );
 }

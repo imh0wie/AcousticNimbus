@@ -48,7 +48,7 @@ class ArtistsList extends React.Component {
     render() {
         if (this.state.loading || !this.props.suggestedArtists) {
             return (
-                <img src={window.loading5} className="loading"></img>
+                <img src={window.loadingPizza} className="loading"></img>
             );
         } else {
             if (this.props.suggestedArtists.length === 0) {
@@ -60,7 +60,7 @@ class ArtistsList extends React.Component {
                     </div>
                 );
             } else {
-                if (isEmpty(this.props.songs)) return  <img src={window.loading5} className="loading"></img>;
+                if (isEmpty(this.props.songs)) return  <img src={window.loadingPizza} className="loading"></img>;
                 return (
                     <ul>
                         {this.props.suggestedArtists.map((artist) => {

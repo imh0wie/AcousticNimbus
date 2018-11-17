@@ -796,7 +796,7 @@ function (_React$Component) {
 
       if (this.state.loading) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.loading5
+          src: window.loadingPizza
         });
       } else {
         if (!this.props.items || this.props.items.length === 0) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
@@ -1220,8 +1220,8 @@ var HoverButtons = function HoverButtons(props) {
   var noneStyle = {
     display: "none"
   };
-  var songId = props.songId; // debugger
-
+  var songId = props.songId;
+  debugger;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "hover-buttons"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -1233,7 +1233,7 @@ var HoverButtons = function HoverButtons(props) {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     className: "fas fa-pen"
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    onClick: function onClick(songId) {
+    onClick: function onClick() {
       return props.removeSong(songId);
     }
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -1349,7 +1349,7 @@ function (_React$Component) {
     value: function renderList() {
       if (this.state.loading) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.loading5,
+          src: window.loadingPizza,
           className: "loading-sm"
         });
       }
@@ -1539,7 +1539,7 @@ function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      // if (!this.props.songs || !this.props.follows || !this.props.users) return <img src={window.loading5} className="loading"></img>;
+      // if (!this.props.songs || !this.props.follows || !this.props.users) return <img src={window.loadingPizza} className="loading"></img>;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "artist-info-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -1694,7 +1694,7 @@ function (_React$Component) {
 
       if (this.state.loading || !this.props.comments || !this.props.songs || !this.props.likes) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.loading5,
+          src: window.loadingPizza,
           className: "loading"
         });
       } else {
@@ -1711,7 +1711,7 @@ function (_React$Component) {
           });
         })); // } else {
         // if (this.props.klass === "likes-section") return null;
-        // return <img src={window.loading5} className="loading"></img>;
+        // return <img src={window.loadingPizza} className="loading"></img>;
         // }
       }
     }
@@ -3507,7 +3507,7 @@ function (_React$Component) {
 
       if (!this.songs) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.loading5,
+          src: window.loadingPizza,
           className: "loading"
         });
       }
@@ -3809,11 +3809,11 @@ function (_React$Component) {
 
       if (this.state.loading || !this.props.follows || !this.songs) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.loading5,
+          src: window.loadingPizza,
           className: "loading"
         });
       } else {
-        // if (!this.songs) return <img src={window.loading5} className="loading"></img>;
+        // if (!this.songs) return <img src={window.loadingPizza} className="loading"></img>;
         if (this.songs.length === 0) {
           if (this.props.klass === "user-show-page") {
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -4509,7 +4509,7 @@ function (_React$Component) {
     value: function render() {
       if (!this.props.songs || this.state.loading) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.loading5,
+          src: window.loadingPizza,
           className: "loading"
         });
       }
@@ -4753,7 +4753,7 @@ function (_React$Component) {
     value: function render() {
       if (this.state.loading) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.loading5,
+          src: window.loadingPizza,
           className: "hp-loading"
         });
       }
@@ -4927,7 +4927,7 @@ function (_React$Component) {
     value: function render() {
       if (this.state.loading || !this.props.suggestedArtists) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.loading5,
+          src: window.loadingPizza,
           className: "loading"
         });
       } else {
@@ -4937,7 +4937,7 @@ function (_React$Component) {
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "We cannot recommend you any users because:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "1) you have followed all users on Acoustic Nimbus; OR"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "2) our site sucks and you are the only user..."));
         } else {
           if (Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_7__["isEmpty"])(this.props.songs)) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-            src: window.loading5,
+            src: window.loadingPizza,
             className: "loading"
           });
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.suggestedArtists.map(function (artist) {
@@ -5254,7 +5254,7 @@ function (_React$Component) {
 
       if (this.state.loading) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.loading5,
+          src: window.loadingPizza,
           className: "loading"
         });
       } else {
@@ -5625,7 +5625,7 @@ function (_React$Component) {
     value: function render() {
       if (this.state.loading || Object.keys(this.props.users).length === 1 || !this.props.users || !this.props.songs || !this.props.follows || !this.props.onPageSong) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.loading5,
+          src: window.loadingPizza,
           className: "loading-page"
         });
       } else {
@@ -5763,7 +5763,8 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(YourSongsList).call(this, props));
     _this.state = {
-      loading: true
+      loading: true,
+      currentSongs: _this.props.currentSongs
     };
     return _this;
   }
@@ -5777,13 +5778,22 @@ function (_React$Component) {
       });
     }
   }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      if (this.props.currentSongs !== nextProps.currentSongs) {
+        this.setState({
+          currentSongs: nextProps.currentSongs
+        });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
-      if (this.state.loading || !this.props.currentSongs) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: window.loading5,
+      if (this.state.loading || !this.state.currentSongs) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: window.loadingPizza,
         className: "loading"
       }));
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.currentSongs.map(function (song) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.state.currentSongs.map(function (song) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_your_songs_list_item__WEBPACK_IMPORTED_MODULE_5__["default"], {
           song: song
         });
@@ -5840,7 +5850,7 @@ var YourSongsListItem = function YourSongsListItem(props) {
     songId: props.song.id
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
     className: "song-length"
-  }, "m:ss"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_2__["generateCreationTime"])(props.song.createdAt))));
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_2__["generateCreationTime"])(props.song.createdAt))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(YourSongsListItem));
@@ -5875,7 +5885,7 @@ var SongsMgmtPage = function SongsMgmtPage() {
     className: "songs-mgmt-page"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_navbar__WEBPACK_IMPORTED_MODULE_3__["default"], {
     klass: "songs-mgmt-page"
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["ProtectedRoute"], {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["ProtectedRoute"], {
     exact: true,
     path: "/upload",
     component: _upload_form__WEBPACK_IMPORTED_MODULE_4__["default"]
@@ -5883,7 +5893,7 @@ var SongsMgmtPage = function SongsMgmtPage() {
     exact: true,
     path: "/you/songs",
     component: _songs_edit_page_songs_edit_page__WEBPACK_IMPORTED_MODULE_5__["default"]
-  }))));
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(SongsMgmtPage)); // class SongManagementPage extends React.Component {
@@ -6022,6 +6032,9 @@ function (_React$Component) {
       imageURL: "",
       artistId: _this.props.currentUser.id,
       uploading: false
+    };
+    _this.noneStyle = {
+      display: "none"
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleImage = _this.handleImage.bind(_assertThisInitialized(_assertThisInitialized(_this)));
@@ -6254,11 +6267,13 @@ function (_React$Component) {
         className: "required-marker"
       }, "*"), this.renderErrors()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "upload-form-buttons-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "upload-form-end-buttons upload-cancel-button",
-        onClick: function onClick() {
-          return _this5.props.history.push("/stream");
-        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: window.loadingGoku,
+        className: "loading-upload",
+        style: this.state.loading ? {} : this.noneStyle
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Link"], {
+        to: "/stream",
+        className: "upload-form-end-buttons upload-cancel-button"
       }, "Cancel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
         value: "Upload",
@@ -6591,7 +6606,7 @@ function (_React$Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "popularity-section"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.loading5,
+          src: window.loadingPizza,
           className: "loading"
         }));
       }
@@ -6745,7 +6760,7 @@ function (_React$Component) {
     value: function render() {
       if (this.state.loading || !this.props.onPageArtist) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.loading5,
+          src: window.loadingPizza,
           className: "user-show-loading"
         });
       } else {
@@ -7877,6 +7892,7 @@ var createSong = function createSong(song) {
   });
 };
 var removeSong = function removeSong(id) {
+  debugger;
   return $.ajax({
     method: "DELETE",
     url: "/api/songs/".concat(id)

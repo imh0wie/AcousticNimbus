@@ -61,7 +61,7 @@ class PopularitySection extends React.Component {
         if (this.state.loading) {
             return (
                 <div className="popularity-section">
-                    <img src={window.loading5} className="loading"></img>
+                    <img src={window.loadingPizza} className="loading"></img>
                 </div>
             );
         }

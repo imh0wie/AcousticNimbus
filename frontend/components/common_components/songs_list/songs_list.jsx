@@ -74,9 +74,9 @@ class SongsList extends React.Component {
                 break;
         }
         if (this.state.loading || !this.props.follows || !this.songs) {
-            return <img src={window.loading5} className="loading"></img>;
+            return <img src={window.loadingPizza} className="loading"></img>;
         } else {
-            // if (!this.songs) return <img src={window.loading5} className="loading"></img>;
+            // if (!this.songs) return <img src={window.loadingPizza} className="loading"></img>;
             if (this.songs.length === 0) {
                 if (this.props.klass === "user-show-page") {
                     return (

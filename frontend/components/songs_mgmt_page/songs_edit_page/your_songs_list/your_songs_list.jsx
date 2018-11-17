@@ -22,6 +22,7 @@ class YourSongsList extends React.Component {
         super(props);
         this.state = {
             loading: true,
+            currentSongs: this.props.currentSongs,
         }
     }
 
@@ -32,11 +33,19 @@ class YourSongsList extends React.Component {
         });
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (this.props.currentSongs !== nextProps.currentSongs) {
+            this.setState({
+                currentSongs: nextProps.currentSongs,
+            })
+        }
+    }
+
     render() {
-        if (this.state.loading || !this.props.currentSongs) return <ul><img src={window.loading5} className="loading"></img></ul>;
+        if (this.state.loading || !this.state.currentSongs) return <ul><img src={window.loadingPizza} className="loading"></img></ul>;
         return (
             <ul>
-                {this.props.currentSongs.map((song) => {
+                {this.state.currentSongs.map((song) => {
                     return <YourSongsListItem song={song} />;
                 })}
             </ul>

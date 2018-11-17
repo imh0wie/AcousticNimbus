@@ -25,7 +25,7 @@ class Homepage extends React.Component {
 
   render() {
     if (this.state.loading) {
-      return <img src={window.loading5} className="hp-loading"></img>
+      return <img src={window.loadingPizza} className="hp-loading"></img>
     }
     return (
       <div className="homepage">

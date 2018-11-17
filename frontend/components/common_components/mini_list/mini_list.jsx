@@ -58,7 +58,7 @@ class MiniList extends React.Component {
                 break;
         }
         if (this.state.loading || !this.props.comments || !this.props.songs || !this.props.likes) {
-            return <img src={window.loading5} className="loading"></img>;
+            return <img src={window.loadingPizza} className="loading"></img>;
         } else {
             if (this.miniListItems.length === 0) return <p className="ui-msg">This user has not liked any songs yet.</p>
             return (
@@ -78,7 +78,7 @@ class MiniList extends React.Component {
             );    
             // } else {
                 // if (this.props.klass === "likes-section") return null;
-                // return <img src={window.loading5} className="loading"></img>;
+                // return <img src={window.loadingPizza} className="loading"></img>;
             // }
         }
     }
