@@ -9,9 +9,11 @@ import { merge } from "lodash";
 // };
 const likesReducer = (state = null, action) => {
   Object.freeze(state);
+  let newState;
   switch (action.type) {
     case RECEIVE_LIKES:
-      return merge({}, action.likes);
+      newState = action.likes;
+      return merge({}, newState);
     default:
       return state;
   }

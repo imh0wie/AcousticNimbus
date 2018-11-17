@@ -10,6 +10,8 @@
     json.artistId song.artist.id
     json.imageURL song.image_url
     json.audioURL song.audio_url
+    json.likesCount song.likes_count
+    json.commentsCount song.comments_count
     json.createdAt song.created_at
   end 
 end 

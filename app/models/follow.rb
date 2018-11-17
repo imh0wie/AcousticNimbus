@@ -11,4 +11,8 @@ class Follow < ApplicationRecord
     foreign_key: :follower_id,
     class_name: :User
   }
+
+  def followed_songs
+    self.followed_user.includes(:songs => [:likes_count, :comments_count])
+  end
 end

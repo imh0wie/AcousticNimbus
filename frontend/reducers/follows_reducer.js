@@ -9,9 +9,11 @@ import { merge } from "lodash";
 
 const followsReducer = (state = null, action) => {
   Object.freeze(state);
+  let newState;
   switch (action.type) {
     case RECEIVE_FOLLOWS:
-      return merge({}, action.follows);
+      newState = action.follows;
+      return merge({}, newState);
     default:
       return state;
   }
