@@ -3720,7 +3720,7 @@ var msp = function msp(state, ownProps) {
   var songs = state.entities.songs;
   var follows = state.entities.follows;
   var users = state.entities.users;
-  var followedArtists = Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_9__["followedUsersOf"])(users[state.session.id], follows, users);
+  var followedArtists = Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_9__["followedUsersOf"])(state.session.id, follows, users);
   return {
     onPageArtist: users[parseInt(ownProps.match.params.userId)],
     follows: follows,
@@ -5774,12 +5774,15 @@ function (_React$Component) {
     value: function componentDidMount() {
       this.props.fetchSongs();
       this.setState({
-        loading: false
+        loading: false,
+        currentSongs: this.props.currentSongs
       });
     }
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
+      debugger;
+
       if (this.props.currentSongs !== nextProps.currentSongs) {
         this.setState({
           currentSongs: nextProps.currentSongs
@@ -5793,6 +5796,7 @@ function (_React$Component) {
         src: window.loadingPizza,
         className: "loading"
       }));
+      debugger;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.state.currentSongs.map(function (song) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_your_songs_list_item__WEBPACK_IMPORTED_MODULE_5__["default"], {
           song: song
@@ -6033,8 +6037,9 @@ function (_React$Component) {
       artistId: _this.props.currentUser.id,
       uploading: false
     };
-    _this.noneStyle = {
-      display: "none"
+    _this.showStyle = {
+      display: "block" // opacity: "1",
+
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleImage = _this.handleImage.bind(_assertThisInitialized(_assertThisInitialized(_this)));
@@ -6156,6 +6161,7 @@ function (_React$Component) {
         autoPlay: true,
         controls: true
       }) : null;
+      debugger;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         className: "upload-form-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -6270,7 +6276,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.loadingGoku,
         className: "loading-upload",
-        style: this.state.loading ? {} : this.noneStyle
+        style: this.state.uploading ? this.showStyle : {}
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Link"], {
         to: "/stream",
         className: "upload-form-end-buttons upload-cancel-button"
@@ -7546,13 +7552,13 @@ var followersOf = function followersOf(followedUserId, follows, users) {
 
   return output;
 };
-var followedUsersOf = function followedUsersOf(currentUser, follows, users) {
+var followedUsersOf = function followedUsersOf(currentUserId, follows, users) {
   if (!follows || !users) return null;
   var followIds = Object.keys(follows);
   var output = [];
   followIds.forEach(function (followId) {
     var follow = follows[followId];
-    if (follow.followerId === currentUser.id) output.push(users[follow.followedUserId]);
+    if (follow.followerId === currentUserId) output.push(users[follow.followedUserId]);
   });
   return output;
 };

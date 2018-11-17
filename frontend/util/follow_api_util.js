@@ -55,13 +55,13 @@ export const followersOf = (followedUserId, follows, users) => {
     return output;
 }
 
-export const followedUsersOf = (currentUser, follows, users) => {
+export const followedUsersOf = (currentUserId, follows, users) => {
     if (!follows || !users) return null;
     const followIds = Object.keys(follows);
     const output = [];
     followIds.forEach((followId) => {
         const follow = follows[followId];
-        if (follow.followerId === currentUser.id) output.push(users[follow.followedUserId]);
+        if (follow.followerId === currentUserId) output.push(users[follow.followedUserId]);
     })
     return output;
 }

@@ -14,7 +14,7 @@ const msp = (state, ownProps) => {
     const songs = state.entities.songs;
     const follows = state.entities.follows;
     const users = state.entities.users;
-    const followedArtists = followedUsersOf(users[state.session.id], follows, users);
+    const followedArtists = followedUsersOf(state.session.id, follows, users);
     return {
         onPageArtist: users[parseInt(ownProps.match.params.userId)],
         follows: follows,

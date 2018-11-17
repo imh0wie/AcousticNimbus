@@ -150,7 +150,14 @@
   background-color: #ff4f01;
 }
 
+.upload-form-submit-button:hover {
+  color: white;
+  background-color: #ff8000;
+}
+
 .loading-upload {
+  display: none;
   width: 35px;
   height: 35px;
+  // opacity: 0;
 }

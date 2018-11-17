@@ -35,8 +35,9 @@ class UploadForm extends React.Component {
       artistId: this.props.currentUser.id,
       uploading: false,
     };
-    this.noneStyle = {
-      display: "none",
+    this.showStyle = {
+      display: "block",
+      // opacity: "1",
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleImage = this.handleImage.bind(this);
@@ -135,6 +136,7 @@ class UploadForm extends React.Component {
   render () {
     const imagePreview = this.state.imageURL ? <img src={this.state.imageURL} className="song-image-preview" /> : null;
     const audioPreview = this.state.audioURL ? <ReactAudioPlayer src={this.state.audioURL} className="upload-audio-preview" autoPlay controls /> : null;
+    debugger
     return (
       <form className="upload-form-container">
         <div className="upload-form-header">
@@ -206,7 +208,7 @@ class UploadForm extends React.Component {
               {this.renderErrors()}
             </div>
             <div className="upload-form-buttons-container">
-              <img src={window.loadingGoku} className="loading-upload" style={this.state.loading ? {} : this.noneStyle}></img>
+              <img src={window.loadingGoku} className="loading-upload" style={this.state.uploading ? this.showStyle : {}}></img>
               <Link to="/stream" className="upload-form-end-buttons upload-cancel-button">Cancel</Link>
               <input type="submit" value="Upload" className="upload-form-end-buttons upload-form-submit-button" onClick={(e) => this.handleSubmit(e)} />
             </div>

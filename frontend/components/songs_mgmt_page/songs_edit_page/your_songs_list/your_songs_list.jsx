@@ -30,10 +30,12 @@ class YourSongsList extends React.Component {
         this.props.fetchSongs();
         this.setState({
             loading: false,
+            currentSongs: this.props.currentSongs,
         });
     }
 
     componentWillReceiveProps(nextProps) {
+        debugger
         if (this.props.currentSongs !== nextProps.currentSongs) {
             this.setState({
                 currentSongs: nextProps.currentSongs,
@@ -43,6 +45,7 @@ class YourSongsList extends React.Component {
 
     render() {
         if (this.state.loading || !this.state.currentSongs) return <ul><img src={window.loadingPizza} className="loading"></img></ul>;
+        debugger
         return (
             <ul>
                 {this.state.currentSongs.map((song) => {
