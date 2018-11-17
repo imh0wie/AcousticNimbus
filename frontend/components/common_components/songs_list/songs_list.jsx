@@ -19,7 +19,7 @@ const msp = (state, ownProps) => {
         onPageArtist: users[parseInt(ownProps.match.params.userId)],
         follows: follows,
         streamSongs: followedSongs(followedArtists, songs),
-        currentSongs: songsOf(users[parseInt(ownProps.match.params.userId)], songs),
+        currentSongs: songsOf(parseInt(ownProps.match.params.userId), songs),
     };
 };
 

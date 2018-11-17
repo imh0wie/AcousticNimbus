@@ -19,6 +19,16 @@ class Api::SongsController < ApplicationController
       render json: @song.errors.full_messages, status: 401
     end
   end
+
+  def destroy
+    @song = Song.find(params[:id])
+    if @song.destroy
+      @songs = Song.all
+      render :index
+    else
+      render @song.errors.full_messages, status: 401
+    end
+  end  
   
   def update
     @song = Song.find(params[:id])

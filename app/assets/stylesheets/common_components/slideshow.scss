@@ -1,14 +1,14 @@
-.homepage-container .sidebar .ad {
+.homepage .sidebar .ad {
     margin: 75px auto;
     width: 300px;
     height: 250px;
 }
 
-.homepage-container .sidebar .ad .slide {
+.homepage .sidebar .ad .slide {
     background: none;
 }
 
-.homepage-container .sidebar .ad1 {
+.homepage .sidebar .ad1 {
     position: absolute;
     top: 15px;
     right: 0;
@@ -17,26 +17,26 @@
     border-radius: 15px;
 }
 
-.homepage-container .sidebar .ad1 p {
+.homepage .sidebar .ad1 p {
     font-size: 17px;
     font-weight: bold;
     font-style: italic;
     color: #666;
 }
 
-.homepage-container .sidebar .ad .logos {
+.homepage .sidebar .ad .logos {
     position: absolute;
     bottom: 15px;
     right: 10px;
 }
 
-.homepage-container .sidebar .ad .logos .upper{
+.homepage .sidebar .ad .logos .upper{
     display: flex;
     justify-content: space-between;
     width: 90px;
 }
 
-.homepage-container .sidebar .ad .logo {
+.homepage .sidebar .ad .logo {
     width: 40px;
     height: 40px;
 }

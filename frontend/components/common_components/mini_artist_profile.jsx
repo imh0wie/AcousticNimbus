@@ -64,7 +64,7 @@ class MiniArtistProfile extends React.Component {
                 <Link to={`/users/${this.props.song.artistId}`}>{this.props.song.artist}</Link>
                 <div className="follows-songs">
                     <Link to=""><i className="fas fa-user-friends"></i> {(!this.props.follows || !this.props.users) ? 0 : followersOf(this.props.songArtist.id, this.props.follows, this.props.users).length}</Link>
-                    <Link to=""><i className="fas fa-music"></i> {(!this.props.songs || !this.props.users) ? 0 : songsOf(this.props.songArtist, this.props.songs).length}</Link>
+                    <Link to=""><i className="fas fa-music"></i> {(!this.props.songs || !this.props.users) ? 0 : songsOf(this.props.songArtist.id, this.props.songs).length}</Link>
                 </div>
                 <button className={this.props.currentFollow ? "following" : "follow"}
                         onClick={(e) => this.handleFollow(e)}

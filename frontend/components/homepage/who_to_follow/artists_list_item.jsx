@@ -12,7 +12,7 @@ const msp = (state, ownProps) => {
     return ({
         artistFollow: followOf(artistId, currentUserId, follows),
         artistFollowers: followersOf(artistId, follows, state.entities.users),
-        artistSongs: songsOf(ownProps.artist, state.entities.songs),
+        artistSongs: songsOf(artistId, state.entities.songs),
         currentUserId: currentUserId,
     })
 }

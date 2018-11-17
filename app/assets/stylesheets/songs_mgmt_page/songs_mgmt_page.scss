@@ -1,55 +1,11 @@
-.song-mgmt-page-container {
+.songs-mgmt-page {
   height: 100vh;
+  margin-top: 45px;
   // width: 1240px;
   // min-height: 1000px;
   // margin: 0 auto;
   // background-color: white;
 }
-
-.song-mgmt-navbar-container {
-  position: relative;
-  top: 45px;
-  height: 50px;
-  border-bottom: 1px solid #ccc;
-}
-
-.song-mgmt-navbar {
-  display: flex;
-  width: 1180px;
-  margin: 0 auto;
-}
-
-.song-mgmt-navbar-button-container {
-    position: relative;
-    top: 20px;
-    margin-right: 20px;
-  // margin: 0px 15px 0px 0px;
-  // border-bottom: 1px solid #ff4d01;
-  // font-size: 14px;
-}
-
-.song-mgmt-navbar-button {
-  font-size: 14px;
-  color: black;
-  text-decoration: none !important;
-  // padding: 15px 0px;
-}
-
-.song-mgmt-navbar-button:hover {
-  font-size: 14px;
-  color: black;
-  text-decoration: none !important;
-  // padding: 15px 0px;
-}
-
-.on {
-  color: #ff5400;
-}
-
-.on:hover {
-  color: #ff5400;
-}
-
 
 .upload-form-subheader {
   display: block;

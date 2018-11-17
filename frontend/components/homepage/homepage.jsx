@@ -28,7 +28,7 @@ class Homepage extends React.Component {
       return <img src={window.loading5} className="hp-loading"></img>
     }
     return (
-      <div className="homepage-container">
+      <div className="homepage">
         <div className="content">
           <Navbar klass="homepage" />
           <Switch>

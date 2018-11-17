@@ -20,7 +20,8 @@ const App = () => {
           <ProtectedRoute path="/charts/top" component={Homepage} />
           <ProtectedRoute path="/stream" component={Homepage} />
           <ProtectedRoute path="/upload" component={SongsMgmtPage} />
-          <ProtectedRoute path="/you/collection" component={SongsMgmtPage} />
+          <ProtectedRoute path="/you/songs" component={SongsMgmtPage} />
+          {/* <ProtectedRoute path="/you/collection" component={SongsMgmtPage} /> */}
           <ProtectedRoute exact path="/songs/:songId" component={SongShowPage} />
           <ProtectedRoute exact path="/users/:userId" component={UserShowPage} />
         </Switch>

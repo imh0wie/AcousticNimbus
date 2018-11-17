@@ -18,6 +18,16 @@ export const createSong = (songToServer) => {
   };
 };
 
+export const removeSong = (idToServer) => {
+  return dispatch => {
+      return SongAPIUtil.removeSong(idToServer).then(
+          (songsFromServer) => {
+              return dispatch(receiveSongs(songsFromServer));
+          }
+      );
+  };
+};
+
 export const fetchSong = (songToServerId) => {
   return dispatch => {
     return SongAPIUtil.fetchSong(songToServerId).then(

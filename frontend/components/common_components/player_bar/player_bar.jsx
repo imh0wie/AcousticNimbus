@@ -2,7 +2,6 @@ import React from "react";
 import ReactPlayer from "react-player";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
-import { fetchSongs } from "../../../actions/song_actions";
 import { fetchLikes, createLike, removeLike } from "../../../actions/like_actions";
 import { setCurrentSong, playSong, pauseSong, setElapsedTo, muteSong, unmuteSong } from "../../../actions/current_song_actions";
 import { openModal } from "../../../actions/modal_actions";
@@ -25,7 +24,6 @@ const msp = (state) => {
 
 const mdp = (dispatch) => {
     return ({
-        fetchSongs: () => dispatch(fetchSongs()),
         fetchLikes: () => dispatch(fetchLikes()),
         createLike: (like) => dispatch(createLike(like)),
         removeLike: (id) => dispatch(removeLike(id)),

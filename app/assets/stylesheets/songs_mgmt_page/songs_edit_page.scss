@@ -1,0 +1,120 @@
+.songs-edit-page {
+    width: 1180px;
+    margin: 0 auto;
+}
+
+.songs-edit-page header {
+    color: #333;
+    font-size: 32px;
+    font-weight: bold;
+    margin: 30px 0 10px 0;
+}
+
+.songs-edit-page .bar {
+    height: 60px;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.songs-edit-page ul {
+    min-height: 350px;
+}
+
+.songs-edit-page .loading{
+    width: 100px;
+    height: 100px;
+    margin: 200px auto;
+}
+
+.songs-edit-page ul li {
+    display: flex;
+    justify-content: space-between;
+}
+
+.songs-edit-page ul li:hover {
+    background-color: #f2f2f2;
+    border-radius: 3px;
+}
+
+.songs-edit-page .left {
+    display: flex;
+    height: 65px;
+    margin: 5px 0 5px 45px;
+}
+
+.songs-edit-page .left img {
+    width: 50px;
+    height: 50px;
+    margin: auto 0;
+    margin-right: 10px;
+}
+
+.songs-edit-page .left .song-info {
+    margin: auto 0;
+}
+
+.songs-edit-page .left .artist {
+    color: #999;
+    font-size: 14px;
+    margin: 0;
+}
+
+.songs-edit-page .left .artist:hover {
+    color: #333;
+}
+
+.songs-edit-page .left .title {
+    color: #333;
+    font-size: 14px;
+    margin: 0;
+}
+
+.songs-edit-page .left .social-info {
+    display: flex;
+}
+
+.songs-edit-page .left .social-info p {
+    color: #999;
+    font-size: 12.25px;
+    margin: 0;
+    margin-right: 10px;
+}
+
+.songs-edit-page .right {
+    display: flex;
+    height: 65px;
+    margin: 5px 15px 5px 0;
+}
+
+.songs-edit-page .right .hover-buttons {
+    display: flex;
+}
+
+.songs-edit-page .right .hover-buttons button {
+    width: 20px;
+    height: 20px;
+    margin: auto 0;
+    color: #333;
+    font-size: 11px;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.songs-edit-page .right .hover-buttons button:hover {
+    border-color: #f2f2f2;
+}
+
+.songs-edit-page .right p {
+    min-width: 80px;
+    color: #999;
+    font-size: 12.25px;
+    margin: auto 0;
+    margin-left: 30px;
+}
+
+.songs-edit-page .right.song-length {
+    min-width: 30px;
+    color: #333;
+    margin-left: 210px;
+}
+

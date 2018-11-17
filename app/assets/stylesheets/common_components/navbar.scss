@@ -1,4 +1,4 @@
-.homepage-container .content .navbar {
+.homepage .content .navbar {
     width: 820px;
     height: auto;
     border-bottom: 1px solid #f2f2f2;
@@ -6,7 +6,7 @@
     margin-top: 70px;
 }
 
-.homepage-container .content .navbar a {
+.homepage .content .navbar a {
     position: relative;
     top: 12px;
     color: #333;
@@ -15,6 +15,10 @@
     text-decoration: none;
     margin-right: 35px;
     padding-bottom: 5px;
+}
+
+.homepage .content .navbar a:hover {
+    border-bottom: 1px solid #333;
 }
 
 .user-show-page .bar .navbar {
@@ -35,26 +39,44 @@
     padding-bottom: 5px;
 }
 
-.user-show-page .bar .navbar a {
-    position: relative;
-    top: 21px;
+.user-show-page .bar .navbar a:hover {
+    border-bottom: 1px solid #333;
+}
+
+.songs-mgmt-page .navbar {
+    display: table-cell;
+    vertical-align: middle;
+    width: 1240px;
+    height: 50px;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.songs-mgmt-page .navbar a {
+    height: 50px;
+    margin-right: 25px;
+    padding: 16px 0;
     color: #333;
-    font-size: 18px;
-    font-weight: bold;
     text-decoration: none;
-    margin-right: 35px;
-    padding-bottom: 5px;
+}
+
+.songs-mgmt-page .navbar a:hover {
+    border-bottom: 1px solid #333;
+}
+
+.songs-mgmt-page .navbar a:first-child {
+    margin-left: 30px;
+    height: 50px;
 }
 
 .active {
-    border-bottom: 1px solid #FB5400;
     color: #ff5400 !important;
+    border-bottom: 1px solid #FB5400;
 }
 
 .active:hover {
-    font-size: 24px;
-    text-decoration: none !important;
     color: #ff5400;
+    border-bottom: 1px solid #FB5400 !important;
+    text-decoration: none !important;
 }
 
 

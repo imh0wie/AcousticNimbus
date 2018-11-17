@@ -94,7 +94,7 @@ export const followedSongs = (users, songs) => {
     if (!users || !songs) return null;
     let output = [];
     users.forEach((user) => {
-        const tracks = songsOf(user, songs);
+        const tracks = songsOf(user.id, songs);
         if (!tracks) return null;
         output = output.concat(tracks);
     })

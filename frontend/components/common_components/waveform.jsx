@@ -2,7 +2,6 @@ import React from "react";
 import WaveSurfer from "wavesurfer.js";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
-import { fetchSongs } from "../../actions/song_actions";
 import { setCurrentSong, playSong, pauseSong, setElapsedTo, muteSong, unmuteSong } from "../../actions/current_song_actions";
 import { latest, shuffle } from "../../util/song_api_util";
 
@@ -17,7 +16,6 @@ const msp = (state) => {
 
 const mdp = (dispatch) => {
     return ({
-        fetchSongs: () => dispatch(fetchSongs()),
         setCurrentSong: (song) => dispatch(setCurrentSong(song)),
         playSong: () => dispatch(playSong()),
         pauseSong: () => dispatch(pauseSong()),

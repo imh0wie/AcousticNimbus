@@ -1,18 +1,18 @@
 import React from "react";
 import { Switch, withRouter } from "react-router-dom";
 import { ProtectedRoute } from "../../util/route_util";
-import SongsMgmtNavbar from "./songs_mgmt_navbar";
+import Navbar from "../common_components/navbar";
 import UploadForm from "./upload_form";
-// import PersonalSongs from "./edit_page/personal_songs";
+import SongsEditPage from "./songs_edit_page/songs_edit_page";
 
 const SongsMgmtPage = () => {
   return (
-    <div className="song-mgmt-page-container">
-      <SongsMgmtNavbar />
+    <div className="songs-mgmt-page">
+      <Navbar klass="songs-mgmt-page"/>
       <div>
         <Switch>
           <ProtectedRoute exact path="/upload" component={UploadForm} />
-          <ProtectedRoute exact path="/you/songs" component={UploadForm} />
+          <ProtectedRoute exact path="/you/songs" component={SongsEditPage} />
         </Switch>
       </div>
     </div>

@@ -1,4 +1,4 @@
-.homepage-container .sidebar .who-to-follow {
+.homepage .sidebar .who-to-follow {
     width: 300px;
     min-height: 230px;
     margin: 0 auto;
@@ -6,7 +6,7 @@
     color: #9b9b9b;
 }
 
-.homepage-container .sidebar .who-to-follow .header {
+.homepage .sidebar .who-to-follow .header {
     display: flex;
     justify-content: space-between;
     width: 300px;
@@ -15,17 +15,17 @@
     border-bottom: 1px solid #f2f2f2;
 }
 
-.homepage-container .sidebar .who-to-follow .header p {
+.homepage .sidebar .who-to-follow .header p {
     margin: 0;
     margin-bottom: 3px;
 }
 
-.homepage-container .sidebar .who-to-follow .header .refresh:hover {
+.homepage .sidebar .who-to-follow .header .refresh:hover {
     color: #333;
     cursor: pointer;
 }
 
-.homepage-container .sidebar .who-to-follow .loading {
+.homepage .sidebar .who-to-follow .loading {
     position: relative;
     top: 50px;
     width: 80px;
@@ -33,66 +33,66 @@
     margin: 0 auto;
 }
 
-.homepage-container .sidebar .who-to-follow .error-message h4 {
+.homepage .sidebar .who-to-follow .error-message h4 {
     font-size: 13px;
 }
 
-.homepage-container .sidebar .who-to-follow .error-message p {
+.homepage .sidebar .who-to-follow .error-message p {
     font-size: 11px;
 }
 
-.homepage-container .sidebar .who-to-follow ul {
+.homepage .sidebar .who-to-follow ul {
     margin: 0;
     margin-top: 15px;
 }
 
-.homepage-container .sidebar .who-to-follow ul li {
+.homepage .sidebar .who-to-follow ul li {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
 }
 
-.homepage-container .sidebar .who-to-follow .item-info-container {
+.homepage .sidebar .who-to-follow .item-info-container {
     display: flex;
 }
 
-.homepage-container .sidebar .who-to-follow .item-info-container img {
+.homepage .sidebar .who-to-follow .item-info-container img {
     width: 50px;
     height: 50px;
     margin-right: 10px;
 }
 
-.homepage-container .sidebar .who-to-follow .item-info-container .item-info {
+.homepage .sidebar .who-to-follow .item-info-container .item-info {
     height: auto;
     margin: auto 0;
 }
 
-.homepage-container .sidebar .who-to-follow .item-info-container .item-info a {
+.homepage .sidebar .who-to-follow .item-info-container .item-info a {
     color: #333;
     font-size: 14px;
     margin: 0;
     text-decoration: none;
 }
 
-.homepage-container .sidebar .who-to-follow .item-info-container .item-info .social {
+.homepage .sidebar .who-to-follow .item-info-container .item-info .social {
     display: flex;
     justify-content: space-between;
     width: 80px;
     height: auto;
 }
 
-.homepage-container .sidebar .who-to-follow .item-info-container .item-info .social p {
+.homepage .sidebar .who-to-follow .item-info-container .item-info .social p {
     color: #999;
     font-size: 12.25px;
     margin: 0;
 }
 
-.homepage-container .sidebar .who-to-follow .item-info-container .item-info .social p:hover {
+.homepage .sidebar .who-to-follow .item-info-container .item-info .social p:hover {
     color: #333;
     cursor: pointer;
 }
 
-.homepage-container .sidebar .who-to-follow button {
+.homepage .sidebar .who-to-follow button {
     height: 100%;
     min-width: 25px;
     font-size: 11px;

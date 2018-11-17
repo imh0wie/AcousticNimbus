@@ -10,6 +10,13 @@ export const createSong = (song) => {
   });
 };
 
+export const removeSong = (id) => {
+  return $.ajax({
+      method: "DELETE",
+      url: `/api/songs/${id}`,
+  })
+}
+
 export const fetchSong = (id) => {
   return $.ajax({
     method: "GET",
@@ -44,14 +51,14 @@ export const shuffle = (n, songs) => {
   return songsToShuffle;
 };
 
-export const songsOf = (user, songs) => {
-  if (!songs || !user) return null;
+export const songsOf = (userId, songs) => {
+  if (!songs || !userId) return null;
   const output = [];
   const songIds = Object.keys(songs).reverse();
   songIds.forEach((songId) => {
     const id = parseInt(songId);
     const song = songs[id];
-    if (user.id === song.artistId) output.push(song);
+    if (userId === song.artistId) output.push(song);
   })
   return output;
 }
