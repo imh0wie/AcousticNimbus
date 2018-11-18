@@ -816,7 +816,8 @@ function (_React$Component) {
 
       if (this.state.loading) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.loadingPizza
+          src: window.loadingPizza,
+          className: "loading"
         });
       } else {
         if (!this.props.items || this.props.items.length === 0) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
@@ -1478,7 +1479,7 @@ function (_React$Component) {
         className: "header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-heart"
-      }), " ", this.likes ? this.likes.length : "0", " likes"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+      }), this.likes ? this.likes.length : "0", " ", this.likes.length > 1 ? "likes" : "like"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
         to: "",
         onClick: function onClick(e) {
           return e.preventDefault();
@@ -1768,11 +1769,13 @@ function (_React$Component) {
           break;
       }
 
+      debugger;
+
       if (this.state.loading || !this.props.comments || !this.props.songs || !this.props.likes) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loadingPizza,
           className: "loading"
-        });
+        }));
       } else {
         if (this.miniListItems.length === 0) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "ui-msg"
@@ -3587,6 +3590,10 @@ function (_React$Component) {
           src: window.loadingPizza,
           className: "loading"
         });
+      } else if (this.songs.length === 0) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: "ui-msg"
+        }, "There are no songs on Acoustic Nimbus by far :(");
       }
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.songs.map(function (song) {
@@ -7202,7 +7209,6 @@ var followsReducer = function followsReducer() {
   switch (action.type) {
     case _actions_follow_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_FOLLOWS"]:
       newState = Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, action.follows);
-      debugger;
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, newState);
 
     default:

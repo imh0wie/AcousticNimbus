@@ -38,6 +38,10 @@ class SongsIndex extends React.Component {
             return (
                 <img src={window.loadingPizza} className="loading"></img>
             );
+        } else if (this.songs.length === 0) {
+            return (
+                <p className="ui-msg">There are no songs on Acoustic Nimbus by far :(</p>
+            );
         }
         return (
             <ul>

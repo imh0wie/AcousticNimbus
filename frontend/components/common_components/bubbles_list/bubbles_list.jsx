@@ -36,7 +36,7 @@ class BubblesList extends React.Component {
 
     render() {
         if (this.state.loading) {
-            return <img src={window.loadingPizza}></img>
+            return <img src={window.loadingPizza} className="loading"></img>
         } else {
             if (!this.props.items || this.props.items.length === 0) return <p className="ui-msg">No love...:(</p>;
             return (

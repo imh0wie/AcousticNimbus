@@ -57,8 +57,9 @@ class MiniList extends React.Component {
             default:
                 break;
         }
+        debugger
         if (this.state.loading || !this.props.comments || !this.props.songs || !this.props.likes) {
-            return <img src={window.loadingPizza} className="loading"></img>;
+            return <ul><img src={window.loadingPizza} className="loading"></img></ul>;
         } else {
             if (this.miniListItems.length === 0) return <p className="ui-msg">This user has not liked any songs yet.</p>
             return (

@@ -43,18 +43,31 @@
 }
 
 .splash-page .content {
-  display: table-cell;
-  vertical-align: middle;
+  // display: table-cell;
+  // vertical-align: middle;
   width: 1240px;
-  height: 530px;
+  // height: 530px;
   margin: 0 auto;
 }
 
 .splash-page .content .loading {
+  position: relative;
+  top: 50px;
   width: 100px;
   height: 100px;
   margin: 0 auto;
 }
+
+.splash-page .content .ui-msg {
+  position: relative;
+  top: 100px;
+  color: #999;
+  font-family: 'Anton', sans-serif;
+  font-size: 32px;
+  margin: 0 auto;
+  width: 613px;
+}
+
 
 .splash-page .content ul {
   display: flex;

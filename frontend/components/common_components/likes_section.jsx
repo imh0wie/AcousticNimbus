@@ -83,7 +83,7 @@ class LikesSection extends React.Component {
         return (
             <div className="likes-section" style={this.props.klass === "user-show-page" ? this.marginBottom : {}}>
                 <div className="header">
-                    <p><i className="fas fa-heart"></i> {this.likes ? this.likes.length : "0"} likes</p>
+                    <p><i className="fas fa-heart"></i>{this.likes ? this.likes.length : "0"} {this.likes.length > 1 ? "likes" : "like"}</p>
                     <Link to="" onClick={(e) => e.preventDefault()}>View all</Link>
                 </div>
                 {this.renderList()}
