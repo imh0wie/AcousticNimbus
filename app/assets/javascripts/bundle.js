@@ -5989,9 +5989,11 @@ var YourSongsListItem = function YourSongsListItem(props) {
     src: props.song.imageURL ? props.song.imageURL : window.song_dp
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "song-info"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/users/".concat(props.song.artistId),
     className: "artist"
-  }, props.song.artist.length > 30 ? "".concat(props.song.artist.slice(0, 30), "...") : props.song.artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+  }, props.song.artist.length > 30 ? "".concat(props.song.artist.slice(0, 30), "...") : props.song.artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/songs/".concat(props.song.id),
     className: "title"
   }, props.song.title.length > 30 ? "".concat(props.song.title.slice(0, 30), "...") : props.song.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "social-info"

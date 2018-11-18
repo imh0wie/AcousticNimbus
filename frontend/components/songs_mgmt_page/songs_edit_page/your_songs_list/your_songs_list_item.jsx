@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { generateSongLength, generateCreationTime } from "../../../../util/general_api_util";
 import HoverButtons from "../../../common_components/hover_buttons";
 
@@ -9,8 +9,8 @@ const YourSongsListItem = (props) => {
             <div className="left">
                 <img src={props.song.imageURL ? props.song.imageURL : window.song_dp}></img>
                 <div className="song-info">
-                    <p className="artist">{props.song.artist.length > 30 ? `${props.song.artist.slice(0, 30)}...` : props.song.artist}</p>
-                    <p className="title">{props.song.title.length > 30 ? `${props.song.title.slice(0, 30)}...` : props.song.title}</p>
+                    <Link to={`/users/${props.song.artistId}`} className="artist">{props.song.artist.length > 30 ? `${props.song.artist.slice(0, 30)}...` : props.song.artist}</Link>
+                    <Link to={`/songs/${props.song.id}`} className="title">{props.song.title.length > 30 ? `${props.song.title.slice(0, 30)}...` : props.song.title}</Link>
                     <div className="social-info">
                         <p><i className="fas fa-heart"></i></p>
                         <p><i className="fas fa-comment-alt"></i></p>

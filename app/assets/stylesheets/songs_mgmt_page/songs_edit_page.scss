@@ -60,19 +60,29 @@
 }
 
 .songs-edit-page .left .artist {
+    display: block;
     color: #999;
     font-size: 14px;
     margin: 0;
+    text-decoration: none;
 }
 
 .songs-edit-page .left .artist:hover {
     color: #333;
+    text-decoration: none;
 }
 
 .songs-edit-page .left .title {
+    display: block;
     color: #333;
     font-size: 14px;
     margin: 0;
+    text-decoration: none;
+}
+
+.songs-edit-page .left .title:hover {
+    color: #333;
+    text-decoration: none;
 }
 
 .songs-edit-page .left .social-info {
