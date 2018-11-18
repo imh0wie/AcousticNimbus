@@ -6311,7 +6311,6 @@ function (_React$Component) {
         autoPlay: true,
         controls: true
       }) : null;
-      debugger;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         className: "upload-form-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -7014,7 +7013,7 @@ var commentsReducer = function commentsReducer() {
 
   switch (action.type) {
     case _actions_comment_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_COMMENTS"]:
-      newState = action.comments;
+      newState = Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, action.comments);
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, newState);
 
     default:
@@ -7202,7 +7201,8 @@ var followsReducer = function followsReducer() {
 
   switch (action.type) {
     case _actions_follow_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_FOLLOWS"]:
-      newState = action.follows;
+      newState = Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, action.follows);
+      debugger;
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, newState);
 
     default:
@@ -7242,7 +7242,7 @@ var likesReducer = function likesReducer() {
 
   switch (action.type) {
     case _actions_like_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_LIKES"]:
-      newState = action.likes;
+      newState = Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, action.likes);
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, newState);
 
     default:
@@ -7493,7 +7493,7 @@ var songsReducer = function songsReducer() {
 
   switch (action.type) {
     case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_SONG"]:
-      newState = _defineProperty({}, action.song.id, action.song);
+      newState = Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, _defineProperty({}, action.song.id, action.song));
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, newState);
 
     case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_SONGS"]:
@@ -7561,10 +7561,12 @@ var usersReducer = function usersReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
+  var newState;
 
   switch (action.type) {
     case _actions_user_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_USERS"]:
-      return Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, action.users);
+      newState = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, action.users);
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, newState);
 
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_CURRENT_USER"]:
       return Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, state, _defineProperty({}, action.currentUser.id, action.currentUser));

@@ -136,7 +136,6 @@ class UploadForm extends React.Component {
   render () {
     const imagePreview = this.state.imageURL ? <img src={this.state.imageURL} className="song-image-preview" /> : null;
     const audioPreview = this.state.audioURL ? <ReactAudioPlayer src={this.state.audioURL} className="upload-audio-preview" autoPlay controls /> : null;
-    debugger
     return (
       <form className="upload-form-container">
         <div className="upload-form-header">

@@ -12,7 +12,7 @@ const likesReducer = (state = null, action) => {
   let newState;
   switch (action.type) {
     case RECEIVE_LIKES:
-      newState = action.likes;
+      newState = merge({}, action.likes);
       return merge({}, newState);
     default:
       return state;

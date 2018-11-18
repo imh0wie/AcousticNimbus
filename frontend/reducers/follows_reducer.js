@@ -12,7 +12,8 @@ const followsReducer = (state = null, action) => {
   let newState;
   switch (action.type) {
     case RECEIVE_FOLLOWS:
-      newState = action.follows;
+      newState = merge({}, action.follows);
+      debugger
       return merge({}, newState);
     default:
       return state;
