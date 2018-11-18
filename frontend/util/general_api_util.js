@@ -18,6 +18,7 @@ export const randomize = (array) => {
 }
 
 export const generateCreationTime = (date) => {
+    if (!date) return "0 second ago";
     const itemLife = Math.abs(new Date() - new Date(date)) / 1000;
     if (itemLife < 60) {
         const unit = Math.floor(itemLife) > 1 ? "seconds" : "second";
