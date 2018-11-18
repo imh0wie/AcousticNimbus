@@ -35,8 +35,8 @@ class LikesSection extends React.Component {
         this.state = {
             loading: true,
         }
-        this.marginBottom = {
-            marginBottom: "30px"
+        this.customStyle = {
+            minHeight: "75px"
         };
     }
 
@@ -81,9 +81,9 @@ class LikesSection extends React.Component {
         }
         if (!this.likes) return <div className="likes-section" style={this.props.klass === "user-show-page" ? this.marginBottom : {}}></div>;
         return (
-            <div className="likes-section" style={this.props.klass === "user-show-page" ? this.marginBottom : {}}>
+            <div className="likes-section" style={this.props.klass === "user-show-page" ? this.customStyle : {}}>
                 <div className="header">
-                    <p><i className="fas fa-heart"></i>{this.likes ? this.likes.length : "0"} {this.likes.length > 1 ? "likes" : "like"}</p>
+                    <p><i className="fas fa-heart"></i> {this.likes ? this.likes.length : "0"} {this.likes.length > 1 ? "likes" : "like"}</p>
                     <Link to="" onClick={(e) => e.preventDefault()}>View all</Link>
                 </div>
                 {this.renderList()}

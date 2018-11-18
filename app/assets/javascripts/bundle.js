@@ -1407,8 +1407,8 @@ function (_React$Component) {
     _this.state = {
       loading: true
     };
-    _this.marginBottom = {
-      marginBottom: "30px"
+    _this.customStyle = {
+      minHeight: "75px"
     };
     return _this;
   }
@@ -1474,12 +1474,12 @@ function (_React$Component) {
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "likes-section",
-        style: this.props.klass === "user-show-page" ? this.marginBottom : {}
+        style: this.props.klass === "user-show-page" ? this.customStyle : {}
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-heart"
-      }), this.likes ? this.likes.length : "0", " ", this.likes.length > 1 ? "likes" : "like"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+      }), " ", this.likes ? this.likes.length : "0", " ", this.likes.length > 1 ? "likes" : "like"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
         to: "",
         onClick: function onClick(e) {
           return e.preventDefault();
