@@ -34,7 +34,6 @@ class YourSongsList extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.currentSongs !== nextProps.currentSongs) {
-            debugger
             this.setState({
                 loading: false,
                 currentSongs: nextProps.currentSongs,

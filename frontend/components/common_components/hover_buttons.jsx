@@ -30,7 +30,6 @@ class HoverButtons extends React.Component {
     }
 
     deleteSong() {
-        debugger
         this.props.toggleReloading().then(this.props.removeSong(this.props.songId))
         // this.props.toggleReloading();
         // this.props.removeSong(this.props.songId);

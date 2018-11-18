@@ -11,10 +11,9 @@ export const createSong = (song) => {
 };
 
 export const removeSong = (id) => {
-  debugger
   return $.ajax({
-      method: "DELETE",
-      url: `/api/songs/${id}`,
+    method: "DELETE",
+    url: `/api/songs/${id}`,
   })
 }
 

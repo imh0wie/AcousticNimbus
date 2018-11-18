@@ -1285,7 +1285,6 @@ function (_React$Component) {
   _createClass(HoverButtons, [{
     key: "deleteSong",
     value: function deleteSong() {
-      debugger;
       this.props.toggleReloading().then(this.props.removeSong(this.props.songId)); // this.props.toggleReloading();
       // this.props.removeSong(this.props.songId);
     }
@@ -2157,10 +2156,8 @@ function (_React$Component) {
   }, {
     key: "renderUploadTime",
     value: function renderUploadTime(date) {
-      debugger;
       if (!date) return "0 second ago";
       var itemLife = Math.abs(new Date() - new Date(date)) / 1000;
-      debugger;
 
       if (itemLife < 60) {
         var unit = Math.floor(itemLife) > 1 ? "seconds" : "second";
@@ -5933,7 +5930,6 @@ function (_React$Component) {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
       if (this.props.currentSongs !== nextProps.currentSongs) {
-        debugger;
         this.setState({
           loading: false,
           currentSongs: nextProps.currentSongs
@@ -8085,7 +8081,6 @@ var createSong = function createSong(song) {
   });
 };
 var removeSong = function removeSong(id) {
-  debugger;
   return $.ajax({
     method: "DELETE",
     url: "/api/songs/".concat(id)
