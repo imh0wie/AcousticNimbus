@@ -38,6 +38,7 @@ class SongsRanking extends React.Component {
     if (!this.props.songs || this.state.loading) {
       return <img src={window.loadingPizza} className="loading"></img>
     }
+    if (this.props.songs.length === 0) return <p className="ui-msg">There are currently no songs on Acoustic Nimbus :(</p>;
     return (
       <ul className="songs-ranking">
         {this.props.songs.map((song, idx) => {

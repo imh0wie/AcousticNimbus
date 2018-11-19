@@ -4596,6 +4596,9 @@ function (_React$Component) {
         });
       }
 
+      if (this.props.songs.length === 0) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "ui-msg"
+      }, "There are currently no songs on Acoustic Nimbus :(");
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "songs-ranking"
       }, this.props.songs.map(function (song, idx) {
