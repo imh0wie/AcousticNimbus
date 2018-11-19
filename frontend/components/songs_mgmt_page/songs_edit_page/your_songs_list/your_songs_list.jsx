@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { fetchSongs } from "../../../../actions/song_actions"
 import { songsOf } from "../../../../util/song_api_util";
 import YourSongsListItem from "./your_songs_list_item";
@@ -42,7 +42,15 @@ class YourSongsList extends React.Component {
     }
 
     render() {
-        if (this.state.loading || !this.state.currentSongs) return <ul><img src={window.loadingPizza} className="loading"></img></ul>;
+        if (this.state.loading || !this.state.currentSongs) return <div className="container"><img src={window.loadingPizza} className="loading"></img></div>;
+        if (this.state.currentSongs) {
+            return (
+                <div className="container">
+                    <p>You haven't uploaded any songs yet.</p>
+                    <Link to="/upload"><button>Upload now</button></Link>
+                </div>
+            );
+        }
         return (
             <ul>
                 {this.state.currentSongs.map((song, idx) => {

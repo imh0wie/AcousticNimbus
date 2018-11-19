@@ -22,15 +22,42 @@
     border-bottom: 1px solid #f2f2f2;
 }
 
-.songs-edit-page ul {
+.songs-edit-page .container {
     min-height: 350px;
 }
 
-.songs-edit-page .loading{
+.songs-edit-page .container .loading{
     width: 100px;
     height: 100px;
     margin: 200px auto;
 }
+
+.songs-edit-page .container p {
+    color: #999;
+    font-size: 24px;
+    margin: 200px 0 50px 0;
+    text-align: center;
+}
+
+.songs-edit-page .container a {
+    text-decoration: none;
+}
+
+.songs-edit-page .container button {
+    display: block;
+    margin: 0px auto;
+    padding: 8px 16px;
+    color: white;
+    font-size: 16px;
+    border: 1px solid #FB5400;
+    border-radius: 3px;
+    background-color: #FB5400;
+}
+
+// .songs-edit-page ul {
+//     min-height: 350px;
+// }
+
 
 .songs-edit-page ul li {
     display: flex;

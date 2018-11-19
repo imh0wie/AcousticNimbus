@@ -5947,10 +5947,21 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      if (this.state.loading || !this.state.currentSongs) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      if (this.state.loading || !this.state.currentSongs) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.loadingPizza,
         className: "loading"
       }));
+
+      if (this.state.currentSongs) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "container"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "You haven't uploaded any songs yet."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+          to: "/upload"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Upload now")));
+      }
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.state.currentSongs.map(function (song, idx) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_your_songs_list_item__WEBPACK_IMPORTED_MODULE_5__["default"], {
           song: song,
