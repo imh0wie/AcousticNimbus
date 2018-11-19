@@ -4951,9 +4951,13 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 var msp = function msp(state) {
+  var follows = state.entities.follows;
+  var users = state.entities.users;
   return {
     songs: state.entities.songs,
-    suggestedArtists: Object(_util_user_api_util__WEBPACK_IMPORTED_MODULE_6__["suggestedArtists"])(3, state.entities.follows, state.entities.users, state.session.id)
+    follows: follows,
+    users: users,
+    suggestedArtists: Object(_util_user_api_util__WEBPACK_IMPORTED_MODULE_6__["suggestedArtists"])(3, follows, users, state.session.id)
   };
 };
 
@@ -4992,8 +4996,7 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       if (!this.props.follows) this.props.fetchFollows();
-      if (!this.props.users) this.props.fetchUsers();
-      "";
+      if (!this.props.users || Object.keys(this.props.users).length === 1) this.props.fetchUsers();
       if (!this.props.songs) this.props.fetchSongs(); // this.props.fetchSongs().then(
       //     this.props.fetchFollows().then(
       //         this.props.fetchUsers()
@@ -5007,7 +5010,10 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      debugger;
+
       if (this.state.loading || !this.props.suggestedArtists) {
+        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loadingPizza,
           className: "loading"
@@ -5018,10 +5024,7 @@ function (_React$Component) {
             className: "error-message"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "We cannot recommend you any users because:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "1) you have followed all users on Acoustic Nimbus; OR"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "2) our site sucks and you are the only user..."));
         } else {
-          if (Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_7__["isEmpty"])(this.props.songs)) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-            src: window.loadingPizza,
-            className: "loading"
-          });
+          // if (isEmpty(this.props.songs)) return  <img src={window.loadingPizza} className="loading"></img>;
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.suggestedArtists.map(function (artist) {
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_artists_list_item__WEBPACK_IMPORTED_MODULE_8__["default"], {
               key: artist.id,
@@ -8204,13 +8207,13 @@ var editUser = function editUser(user, userId) {
   });
 };
 var suggestedArtists = function suggestedArtists(n, follows, users, currentUserId) {
-  if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(follows) || Object.keys(users).includes(currentUserId.toString()) && Object.keys(users).length === 1) return null;
+  if (!follows || !users) return null;
   var output = [];
   var userIds = Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["randomize"])(Object.keys(users));
 
   for (var i = 0; i < userIds.length; i++) {
-    var userId = userIds[i];
-    if (userId !== currentUserId.toString() && !Object(_follow_api_util__WEBPACK_IMPORTED_MODULE_1__["followOf"])(parseInt(userId), currentUserId, follows)) output.push(users[userId]);
+    var userId = parseInt(userIds[i]);
+    if (userId !== currentUserId && !Object(_follow_api_util__WEBPACK_IMPORTED_MODULE_1__["followOf"])(userId, currentUserId, follows)) output.push(users[userId]);
     if (output.length === n) break;
   }
 

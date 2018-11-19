@@ -26,12 +26,12 @@ export const editUser = (user, userId) => {
 };
 
 export const suggestedArtists = (n, follows, users, currentUserId) => {
-    if (isEmpty(follows) || (Object.keys(users).includes(currentUserId.toString()) && Object.keys(users).length === 1)) return null;
+    if (!follows || !users) return null;
     let output = [];
     const userIds = randomize(Object.keys(users));
     for (let i = 0; i < userIds.length; i++) {
-        const userId = userIds[i];
-        if (userId !== currentUserId.toString() && !followOf(parseInt(userId), currentUserId, follows)) output.push(users[userId]);
+        const userId = parseInt(userIds[i]);
+        if (userId !== currentUserId && !followOf(userId, currentUserId, follows)) output.push(users[userId]);
         if (output.length === n) break;
     }
     return output;

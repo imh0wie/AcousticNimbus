@@ -9,9 +9,13 @@ import { isEmpty } from "../../../util/general_api_util";
 import ArtistsListItem from "./artists_list_item";
 
 const msp = (state) => {
+    const follows = state.entities.follows;
+    const users = state.entities.users;
     return ({
         songs: state.entities.songs,
-        suggestedArtists: suggestedArtists(3, state.entities.follows, state.entities.users, state.session.id),
+        follows: follows,
+        users: users,
+        suggestedArtists: suggestedArtists(3, follows, users, state.session.id),
     });
 }
 
@@ -33,7 +37,7 @@ class ArtistsList extends React.Component {
 
     componentDidMount() {
         if (!this.props.follows) this.props.fetchFollows();
-        if (!this.props.users) this.props.fetchUsers();``
+        if (!this.props.users || Object.keys(this.props.users).length === 1) this.props.fetchUsers();
         if (!this.props.songs) this.props.fetchSongs();
         // this.props.fetchSongs().then(
         //     this.props.fetchFollows().then(
@@ -46,7 +50,9 @@ class ArtistsList extends React.Component {
     }
 
     render() {
+        debugger
         if (this.state.loading || !this.props.suggestedArtists) {
+            debugger
             return (
                 <img src={window.loadingPizza} className="loading"></img>
             );
@@ -60,7 +66,7 @@ class ArtistsList extends React.Component {
                     </div>
                 );
             } else {
-                if (isEmpty(this.props.songs)) return  <img src={window.loadingPizza} className="loading"></img>;
+                // if (isEmpty(this.props.songs)) return  <img src={window.loadingPizza} className="loading"></img>;
                 return (
                     <ul>
                         {this.props.suggestedArtists.map((artist) => {
