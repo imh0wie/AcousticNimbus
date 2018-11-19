@@ -709,22 +709,9 @@ var App = function App() {
     path: "/users/:userId",
     component: _user_show_page_user_show_page__WEBPACK_IMPORTED_MODULE_8__["default"]
   }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_player_bar_player_bar__WEBPACK_IMPORTED_MODULE_9__["default"], null));
-}; // Move back when user page exists:
-// <Route exact path="/users/:userId" component={SongMgmtPage} />
-// <HeaderBarContainer />
-// <ProtectedRoute exact path="/upload" component={SongMgmtPage} />
-// <ProtectedRoute exact path="/songs/:songId" component={SongShowPageContainer} />
+};
 
-
-/* harmony default export */ __webpack_exports__["default"] = (App); // before switch:
-// <AuthRoute exact path="/" component={}/>
-// <header>
-//   <Link to="/" className="header-link">
-//     <h1>Acoustic Nimbus</h1>
-//   </Link>
-//   <img src="../../app/assets/images/slideshow-img1.jpg" alt="img1" width="100" height="100" />
-//   <GreetingContainer />
-// </header>
+/* harmony default export */ __webpack_exports__["default"] = (App);
 
 /***/ }),
 
@@ -1153,10 +1140,7 @@ function (_React$Component) {
   }]);
 
   return HeaderBar;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component); // <iframe src="https://giphy.com/embed/wsWcsrfMXjJgk" width="480" height="264" frameBorder="0" className="giphy-embed" allowFullScreen></iframe>
-// <img src="slideshow-img1.jpg" alt="img1" className="header-background"></img>
-// <img src="images/header-background.gif" alt="header-background" className="header-background"></img>
-
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, mdp)(HeaderBar)));
 
@@ -5013,10 +4997,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      debugger;
-
       if (this.state.loading || !this.props.suggestedArtists) {
-        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loadingPizza,
           className: "loading"

@@ -50,9 +50,7 @@ class ArtistsList extends React.Component {
     }
 
     render() {
-        debugger
         if (this.state.loading || !this.props.suggestedArtists) {
-            debugger
             return (
                 <img src={window.loadingPizza} className="loading"></img>
             );
