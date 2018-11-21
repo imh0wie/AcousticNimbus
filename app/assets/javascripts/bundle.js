@@ -5938,7 +5938,7 @@ function (_React$Component) {
         className: "loading"
       }));
 
-      if (this.state.currentSongs) {
+      if (this.state.currentSongs.length === 0) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "You haven't uploaded any songs yet."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {

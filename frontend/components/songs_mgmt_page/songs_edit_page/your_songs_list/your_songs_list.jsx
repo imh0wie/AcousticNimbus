@@ -43,7 +43,7 @@ class YourSongsList extends React.Component {
 
     render() {
         if (this.state.loading || !this.state.currentSongs) return <div className="container"><img src={window.loadingPizza} className="loading"></img></div>;
-        if (this.state.currentSongs) {
+        if (this.state.currentSongs.length === 0) {
             return (
                 <div className="container">
                     <p>You haven't uploaded any songs yet.</p>
