@@ -5692,7 +5692,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      if (this.state.loading || Object.keys(this.props.users).length === 1 || !this.props.users || !this.props.songs || !this.props.follows || !this.props.onPageSong) {
+      if (this.state.loading || !this.props.users || !this.props.songs || !this.props.follows || !this.props.onPageSong) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loadingPizza,
           className: "loading-page"
@@ -6695,6 +6695,7 @@ var msp = function msp(state, ownProps) {
   var follows = state.entities.follows;
   var users = state.entities.users;
   return {
+    songs: state.entities.songs,
     follows: state.entities.follows,
     currentSongs: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_4__["songsOf"])(onPageArtistId, state.entities.songs),
     currentFollowers: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_5__["followersOf"])(onPageArtistId, follows, users),

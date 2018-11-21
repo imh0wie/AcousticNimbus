@@ -64,7 +64,7 @@ class SongShowPage extends React.Component {
   }
 
   render() {
-    if (this.state.loading || Object.keys(this.props.users).length === 1 || !this.props.users || !this.props.songs || !this.props.follows || !this.props.onPageSong) {
+    if (this.state.loading || !this.props.users || !this.props.songs || !this.props.follows || !this.props.onPageSong) {
       return (
         <img src={window.loadingPizza} className="loading-page"></img>
       );
