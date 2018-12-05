@@ -5072,6 +5072,7 @@ var msp = function msp(state, ownProps) {
   var artistId = ownProps.artist.id;
   var follows = state.entities.follows;
   var currentUserId = state.session.id;
+  debugger;
   return {
     artistFollow: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_4__["followOf"])(artistId, currentUserId, follows),
     artistFollowers: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_4__["followersOf"])(artistId, follows, state.entities.users),
@@ -5124,6 +5125,8 @@ function (_React$Component) {
   }, {
     key: "renderNumber",
     value: function renderNumber(data) {
+      debugger;
+
       if (data < 1000) {
         return data;
       } else if (data < 10000) {
@@ -5141,6 +5144,8 @@ function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
+      debugger;
+      if (!this.props.artistSongs) return null;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "item-info-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
