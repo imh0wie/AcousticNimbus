@@ -9,7 +9,6 @@ const msp = (state, ownProps) => {
     const artistId = ownProps.artist.id;
     const follows = state.entities.follows;
     const currentUserId = state.session.id;
-    debugger
     return ({
         artistFollow: followOf(artistId, currentUserId, follows),
         artistFollowers: followersOf(artistId, follows, state.entities.users),
@@ -46,7 +45,6 @@ class ArtistListItem extends React.Component {
     }
 
     renderNumber(data) {
-        debugger
         if (data < 1000) {
             return data;
         } else if (data < 10000) {
@@ -61,7 +59,6 @@ class ArtistListItem extends React.Component {
     }
 
     render() {
-        debugger
         if (!this.props.artistSongs) return null;
         return (
             <li>
