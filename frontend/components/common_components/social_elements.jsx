@@ -13,9 +13,11 @@ const msp = (state, ownProps) => {
     const onPageArtistId = parseInt(ownProps.match.params.userId);
     const likes = state.entities.likes;
     const currentUserId = state.session.id;
+    debugger
     return ({
         currentLikes: likesOf("Song", onPageSongId, likes),
-        currentLike: likeOf("Song", onPageSongId, state.entities.users[currentUserId], likes),
+        // currentLike: likeOf("Song", onPageSongId, state.entities.users[currentUserId], likes),
+        currentLike: likeOf(ownProps.song.likes, currentUserId),
         currentFollow: followOf(onPageArtistId, currentUserId, state.entities.follows),
         // currentComments: commentsOf(onPageSongId, state.entities.comments),
         currentComments: state.entities.comments ? state.entities.comments.bySong[onPageSongId] : null,
@@ -55,9 +57,7 @@ class SocialElements extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        debugger
         if (nextProps.currentComments && this.state.commentsCount !== nextProps.currentComments.length) {
-            debugger
             this.setState({
                 commentsCount: nextProps.currentComments.length,
             });

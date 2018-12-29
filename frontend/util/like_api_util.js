@@ -36,13 +36,22 @@ export const likesOf = (likeableType, likeableId, likes) => {
     return output;
 }
 
-export const likeOf = (likeableType, likeableId, liker, likes) => {
-    if (!likes || !liker) return null;
-    const likeIds = Object.keys(likes);
-    for (let i = 0; i < likeIds.length; i++ ) {
-        const likeId = likeIds[i];
-        const like = likes[likeId];
-        if (like.likeableType === likeableType && like.likeableId === likeableId && like.likerId === liker.id) return like;
+// export const likeOf = (likeableType, likeableId, liker, likes) => {
+//     if (!likes || !liker) return null;
+//     const likeIds = Object.keys(likes);
+//     for (let i = 0; i < likeIds.length; i++ ) {
+//         const likeId = likeIds[i];
+//         const like = likes[likeId];
+//         if (like.likeableType === likeableType && like.likeableId === likeableId && like.likerId === liker.id) return like;
+//     }
+//     return null;
+// }
+
+export const likeOf = (likes, likerId) => {
+    if (!likes || !likerId) return null;
+    for (let i = 0; i < likes.length; i++) {
+        const like = likes[i];
+        if (like.likerId === likerId) return like;
     }
     return null;
 }

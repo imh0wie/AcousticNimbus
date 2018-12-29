@@ -34,11 +34,7 @@ const msp = (state, ownProps) => {
 const mdp = (dispatch) => {
   return ({
       fetchSongs: () => dispatch(fetchSongs()),
-    //   fetchLikes: () => dispatch(fetchLikes()),
-    //   fetchFollows: () => dispatch(fetchFollows()),
       fetchFollowingsOf: (followerId) => dispatch(fetchFollowingsOf(followerId)),
-    //   fetchComments: () => dispatch(fetchComments()),
-    //   fetchUsers: () => dispatch(fetchUsers()),
   });
 };
 
@@ -59,15 +55,7 @@ class SongsList extends React.Component {
             // user show page because data would have 
             // already been fetched at this point.
             this.props.fetchFollowingsOf(this.props.currentUserId);
-            // this.props.fetchFollowingsOf(this.props.currentUserId).then(this.props.fetchUsers());
         }
-        // this.props.fetchLikes();
-        // this.props.fetchComments();
-        // this.props.fetchSongs().then(
-        //     this.props.fetchLikes().then(
-        //         this.props.fetchComments()
-        //     )
-        // );
         this.setState({
             loading: false,
         })
@@ -87,7 +75,6 @@ class SongsList extends React.Component {
         if (this.state.loading || !this.props.follows || !this.songs) {
             return <img src={window.loadingPizza} className="loading"></img>;
         } else {
-            // if (!this.songs) return <img src={window.loadingPizza} className="loading"></img>;
             if (this.songs.length === 0) {
                 if (this.props.klass === "user-show-page") {
                     return (

@@ -28,7 +28,7 @@ export const fetchFollowingsOf = (followerId) => {
         method: "GET",
         url: "/api/follows",
         data: {
-            followerId: followerId,
+            follower_id: followerId,
         },
     });
 }

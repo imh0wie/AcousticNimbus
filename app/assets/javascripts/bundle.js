@@ -562,6 +562,7 @@ var fetchSong = function fetchSong(songToServerId) {
 var fetchSongs = function fetchSongs() {
   return function (dispatch) {
     return _util_song_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchSongs"]().then(function (songsFromServer) {
+      debugger;
       return dispatch(receiveSongs(songsFromServer));
     }, function (errors) {
       return dispatch(receiveSongsErrors(errors.responseJSON));
@@ -3323,9 +3324,11 @@ var msp = function msp(state, ownProps) {
   var onPageArtistId = parseInt(ownProps.match.params.userId);
   var likes = state.entities.likes;
   var currentUserId = state.session.id;
+  debugger;
   return {
     currentLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likesOf"])("Song", onPageSongId, likes),
-    currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])("Song", onPageSongId, state.entities.users[currentUserId], likes),
+    // currentLike: likeOf("Song", onPageSongId, state.entities.users[currentUserId], likes),
+    currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(ownProps.song.likes, currentUserId),
     currentFollow: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_7__["followOf"])(onPageArtistId, currentUserId, state.entities.follows),
     // currentComments: commentsOf(onPageSongId, state.entities.comments),
     currentComments: state.entities.comments ? state.entities.comments.bySong[onPageSongId] : null,
@@ -3389,10 +3392,7 @@ function (_React$Component) {
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
-      debugger;
-
       if (nextProps.currentComments && this.state.commentsCount !== nextProps.currentComments.length) {
-        debugger;
         this.setState({
           commentsCount: nextProps.currentComments.length
         });
@@ -3845,13 +3845,9 @@ var mdp = function mdp(dispatch) {
     fetchSongs: function fetchSongs() {
       return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["fetchSongs"])());
     },
-    //   fetchLikes: () => dispatch(fetchLikes()),
-    //   fetchFollows: () => dispatch(fetchFollows()),
     fetchFollowingsOf: function fetchFollowingsOf(followerId) {
       return dispatch(Object(_actions_follow_actions__WEBPACK_IMPORTED_MODULE_5__["fetchFollowingsOf"])(followerId));
-    } //   fetchComments: () => dispatch(fetchComments()),
-    //   fetchUsers: () => dispatch(fetchUsers()),
-
+    }
   };
 };
 
@@ -3881,15 +3877,8 @@ function (_React$Component) {
         // This component does not need to fetch data
         // user show page because data would have 
         // already been fetched at this point.
-        this.props.fetchFollowingsOf(this.props.currentUserId); // this.props.fetchFollowingsOf(this.props.currentUserId).then(this.props.fetchUsers());
-      } // this.props.fetchLikes();
-      // this.props.fetchComments();
-      // this.props.fetchSongs().then(
-      //     this.props.fetchLikes().then(
-      //         this.props.fetchComments()
-      //     )
-      // );
-
+        this.props.fetchFollowingsOf(this.props.currentUserId);
+      }
 
       this.setState({
         loading: false
@@ -3919,7 +3908,6 @@ function (_React$Component) {
           className: "loading"
         });
       } else {
-        // if (!this.songs) return <img src={window.loadingPizza} className="loading"></img>;
         if (this.songs.length === 0) {
           if (this.props.klass === "user-show-page") {
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -7752,7 +7740,7 @@ var fetchFollowingsOf = function fetchFollowingsOf(followerId) {
     method: "GET",
     url: "/api/follows",
     data: {
-      followerId: followerId
+      follower_id: followerId
     }
   });
 };
@@ -7974,15 +7962,23 @@ var likesOf = function likesOf(likeableType, likeableId, likes) {
     }
   });
   return output;
-};
-var likeOf = function likeOf(likeableType, likeableId, liker, likes) {
-  if (!likes || !liker) return null;
-  var likeIds = Object.keys(likes);
+}; // export const likeOf = (likeableType, likeableId, liker, likes) => {
+//     if (!likes || !liker) return null;
+//     const likeIds = Object.keys(likes);
+//     for (let i = 0; i < likeIds.length; i++ ) {
+//         const likeId = likeIds[i];
+//         const like = likes[likeId];
+//         if (like.likeableType === likeableType && like.likeableId === likeableId && like.likerId === liker.id) return like;
+//     }
+//     return null;
+// }
 
-  for (var i = 0; i < likeIds.length; i++) {
-    var likeId = likeIds[i];
-    var like = likes[likeId];
-    if (like.likeableType === likeableType && like.likeableId === likeableId && like.likerId === liker.id) return like;
+var likeOf = function likeOf(likes, likerId) {
+  if (!likes || !likerId) return null;
+
+  for (var i = 0; i < likes.length; i++) {
+    var like = likes[i];
+    if (like.likerId === likerId) return like;
   }
 
   return null;
