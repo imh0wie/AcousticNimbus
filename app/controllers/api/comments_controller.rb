@@ -8,6 +8,7 @@ class Api::CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     if @comment.save
       @comments = Comment.all
+      @song_ids = @comments.map { |comment| comment.song_id }.uniq
       render :index
     else
       render @comment.errors.full_messages, status: 401

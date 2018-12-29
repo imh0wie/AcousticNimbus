@@ -3,33 +3,42 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { fetchSongs } from "../../../actions/song_actions";
 import { fetchLikes } from "../../../actions/like_actions";
-import { fetchFollows } from "../../../actions/follow_actions";
+import { fetchFollows, fetchFollowingsOf } from "../../../actions/follow_actions";
 import { fetchComments } from "../../../actions/comment_actions";
 import { fetchUsers } from "../../../actions/user_actions";
 import { songsOf } from "../../../util/song_api_util";
-import { followedUsersOf, followedSongs} from "../../../util/follow_api_util";
+import { followedUsersOf, followedSongs, followingsOf} from "../../../util/follow_api_util";
 import SongsListItem from "./songs_list_item";
 
 const msp = (state, ownProps) => {
+    // return ({
+    //     follows: followingsOf(state.session.id, state.entities.follows),
+    //     songs: state.entities.songs,
+
+    // });
+
     const songs = state.entities.songs;
     const follows = state.entities.follows;
     const users = state.entities.users;
-    const followedArtists = followedUsersOf(state.session.id, follows, users);
+    const currentUserId = state.session.id;
+    const followedArtists = followedUsersOf(currentUserId, follows, users);
     return {
         onPageArtist: users[parseInt(ownProps.match.params.userId)],
-        follows: follows,
-        streamSongs: followedSongs(followedArtists, songs),
+        follows: follows, // homepage
+        streamSongs: followedSongs(follows, songs), // homepageå
         currentSongs: songsOf(parseInt(ownProps.match.params.userId), songs),
+        currentUserId: currentUserId,
     };
 };
 
 const mdp = (dispatch) => {
   return ({
       fetchSongs: () => dispatch(fetchSongs()),
-      fetchLikes: () => dispatch(fetchLikes()),
-      fetchFollows: () => dispatch(fetchFollows()),
-      fetchComments: () => dispatch(fetchComments()),
-      fetchUsers: () => dispatch(fetchUsers()),
+    //   fetchLikes: () => dispatch(fetchLikes()),
+    //   fetchFollows: () => dispatch(fetchFollows()),
+      fetchFollowingsOf: (followerId) => dispatch(fetchFollowingsOf(followerId)),
+    //   fetchComments: () => dispatch(fetchComments()),
+    //   fetchUsers: () => dispatch(fetchUsers()),
   });
 };
 
@@ -43,15 +52,17 @@ class SongsList extends React.Component {
     }
     
     componentDidMount() {
+
         if (!this.songs) this.props.fetchSongs();
         if (this.props.klass !== "user-show-page") {
             // This component does not need to fetch data
             // user show page because data would have 
             // already been fetched at this point.
-            this.props.fetchFollows().then(this.props.fetchUsers());
+            this.props.fetchFollowingsOf(this.props.currentUserId);
+            // this.props.fetchFollowingsOf(this.props.currentUserId).then(this.props.fetchUsers());
         }
-        this.props.fetchLikes();
-        this.props.fetchComments();
+        // this.props.fetchLikes();
+        // this.props.fetchComments();
         // this.props.fetchSongs().then(
         //     this.props.fetchLikes().then(
         //         this.props.fetchComments()

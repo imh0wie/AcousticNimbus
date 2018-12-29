@@ -17,7 +17,8 @@ const msp = (state, ownProps) => {
         currentLikes: likesOf("Song", onPageSongId, likes),
         currentLike: likeOf("Song", onPageSongId, state.entities.users[currentUserId], likes),
         currentFollow: followOf(onPageArtistId, currentUserId, state.entities.follows),
-        currentComments: commentsOf(onPageSongId, state.entities.comments),
+        // currentComments: commentsOf(onPageSongId, state.entities.comments),
+        currentComments: state.entities.comments ? state.entities.comments.bySong[onPageSongId] : null,
         onPageArtistId: onPageArtistId,
         onPageSongId: onPageSongId,
         currentUserId: currentUserId,
@@ -41,6 +42,11 @@ class SocialElements extends React.Component {
         this.noneStyle = {
             display: "none"
         }
+        this.state = {
+            likesCount: this.props.song.likesCount,
+            commentsCount: this.props.song.commentsCount,
+            liked: this.props.song.likers.includes(this.props.currentUserId),
+        }
         this.handleFollow = this.handleFollow.bind(this);
     }
 
@@ -48,17 +54,37 @@ class SocialElements extends React.Component {
         if (this.props.klass === "banner-player") this.props.fetchLikes();
     }
 
+    componentWillReceiveProps(nextProps) {
+        debugger
+        if (nextProps.currentComments && this.state.commentsCount !== nextProps.currentComments.length) {
+            debugger
+            this.setState({
+                commentsCount: nextProps.currentComments.length,
+            });
+        }
+    }
+
     handleLike(e) {
         e.preventDefault();
-        if (this.props.currentLike) {
-            this.props.removeLike(this.props.currentLike.id);
+        if (this.state.liked) {
+            this.props.removeLike(this.props.currentLike.id).then(
+                this.setState({
+                    likesCount: this.state.likesCount - 1,
+                    liked: !this.state.liked,
+                })
+            );
         } else {
             const like = {
                 likeable_type: "Song",
                 likeable_id: this.props.onPageSongId,
                 liker_id: this.props.currentUserId,
             }
-            this.props.createLike(like);
+            this.props.createLike(like).then(
+                this.setState({
+                    likesCount: this.state.likesCount + 1,
+                    liked: !this.state.liked,
+                })
+            );
         }
     }
     
@@ -86,7 +112,8 @@ class SocialElements extends React.Component {
             case "item-player":
                 return (
                     <div className="left">
-                        <p className={this.props.currentLike ? "liked-button" : "like-button"} onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> {this.props.currentLikes.length}</p>
+                        <p className={this.state.liked ? "liked-button" : "like-button"} onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> {this.state.likesCount}</p>
+                        {/* <p className={this.props.currentLike ? "liked-button" : "like-button"} onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> {this.props.currentLikes.length}</p> */}
                     </div>
                 );
             case "user-show-page":
@@ -114,10 +141,10 @@ class SocialElements extends React.Component {
                     </div>
                 );
             case "item-player":
-                if (!this.props.currentComments) return null;
+                // if (!this.props.currentComments) return null;
                 return (
                     <div className="right">
-                        <Link to={`/songs/${this.props.onPageSongId}`}><i className="fas fa-comment-alt"></i>{this.props.currentComments.length}</Link> 
+                        <Link to={`/songs/${this.props.onPageSongId}`}><i className="fas fa-comment-alt"></i> {this.state.commentsCount}</Link> 
                     </div>
                 );
             case "user-show-page":

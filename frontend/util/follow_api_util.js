@@ -23,6 +23,16 @@ export const fetchFollows = () => {
     });
 };
 
+export const fetchFollowingsOf = (followerId) => {
+    return $.ajax({
+        method: "GET",
+        url: "/api/follows",
+        data: {
+            followerId: followerId,
+        },
+    });
+}
+
 export const artistIdOf = (onPageSong) => {
     return onPageSong ? onPageSong.artistId : null;
     // if (onPageSong) {
@@ -56,7 +66,7 @@ export const followersOf = (followedUserId, follows, users) => {
 }
 
 export const followedUsersOf = (currentUserId, follows, users) => {
-    if (!follows || !users) return null;
+    if (!follows || isEmpty(users) || !currentUserId) return null;
     const followIds = Object.keys(follows);
     const output = [];
     followIds.forEach((followId) => {
@@ -90,13 +100,29 @@ export const followsOf = (followerId, follows) => {
     return output;
 }
 
-export const followedSongs = (users, songs) => {
-    if (!users || !songs) return null;
+// export const followedSongs = (users, songs) => {
+//     if (!users || !songs) return null;
+//     let output = [];
+//     console.log(users);
+//     users.forEach((user) => {
+//         const tracks = songsOf(user.id, songs);
+//         if (!tracks) return null;
+//         output = output.concat(tracks);
+//     })
+//     return output;
+// }
+
+export const followedSongs = (follows, songs) => {
+    if (!follows || !songs) return null;
+    // debugger
+    follows = follows.byFollowedUserId;
+    // debugger
     let output = [];
-    users.forEach((user) => {
-        const tracks = songsOf(user.id, songs);
-        if (!tracks) return null;
-        output = output.concat(tracks);
-    })
+    const songIds = Object.keys(songs);
+    songIds.forEach(songId => {
+        const song = songs[songId];
+        if (follows[song.artistId]) output.push(song);
+    });
+    // debugger
     return output;
 }

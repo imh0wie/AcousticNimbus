@@ -32,6 +32,16 @@ export const fetchFollows = () => {
     };
 };
 
+export const fetchFollowingsOf = (followerId) => {
+    return (dispatch) => {
+      return FollowAPIUtil.fetchFollowingsOf(followerId).then(
+        (followsFromServer) => {
+          return dispatch(receiveFollows(followsFromServer));
+        }
+      );
+    };
+};
+
 const receiveFollows = (follows) => {
     return {
       type: RECEIVE_FOLLOWS,

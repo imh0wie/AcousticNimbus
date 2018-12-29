@@ -4,7 +4,10 @@ export const createComment = (comment) => {
     return $.ajax({
         method: "POST",
         url: "/api/comments",
-        data: {comment},
+        data: {
+            comment: comment,
+            song_id: comment.song_id,
+        },
     });
 }
 

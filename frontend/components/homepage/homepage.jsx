@@ -40,8 +40,8 @@ class Homepage extends React.Component {
           <Slideshow klass="ad"/>
           <div className="stats">
           </div>
-          <WhoToFollow />
-          <LikesSection klass="homepage" />
+          {/* <WhoToFollow /> */}
+          {/* <LikesSection klass="homepage" /> */}
           <div className="history">
           </div>
           <HiringInfoSection />

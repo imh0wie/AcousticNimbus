@@ -30,6 +30,9 @@ class Player extends React.Component {
         this.noneStyle = {
             display: "none",
         }
+        this.state = {
+            commentsCount: this.props.song.commentsCount,
+        }
         this.klass = this.props.klass === "banner-player" ? "none" : this.props.klass;
     }
 
@@ -116,9 +119,10 @@ class Player extends React.Component {
                         songId={this.props.songId}
                         />
                     </div>
-                    <CommentBox klass={this.props.klass} songId={this.props.songId} />
+                    <CommentBox klass={this.props.klass} songId={this.props.songId} /> 
                     <SocialElements
                         klass={this.klass}
+                        song={this.props.song}
                         songId={this.props.songId}
                         style={(this.props.klass === "banner-player") ? this.noneStyle : {}}
                     />

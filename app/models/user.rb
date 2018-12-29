@@ -3,7 +3,12 @@ class User < ApplicationRecord
   validates :username, :session_token, uniqueness: true
   validates :password, length: { minimum: 6 }, allow_nil: true
 
-  has_many :songs, dependent: :destroy
+  has_many :songs, {
+    foreign_key: :artist_id,
+    class_name: :Song,
+    dependent: :destroy,
+  }
+
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
 
@@ -27,7 +32,7 @@ class User < ApplicationRecord
   
   has_many :followings, {
     through: :interests,
-    source: :followed_user_id,
+    source: :followed_user,
     dependent: :destroy,
   }
 
@@ -52,6 +57,18 @@ class User < ApplicationRecord
     self.session_token = SecureRandom.urlsafe_base64
     self.save!
     self.session_token
+  end
+
+  def followers_count
+    self.followers.size
+  end
+  
+  def followings_count
+    self.followings.size
+  end
+
+  def songs_count
+    self.songs.size
   end
 
   private
