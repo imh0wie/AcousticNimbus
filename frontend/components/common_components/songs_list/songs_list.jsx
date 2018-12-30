@@ -2,26 +2,16 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { fetchSongs } from "../../../actions/song_actions";
-import { fetchLikes } from "../../../actions/like_actions";
-import { fetchFollows, fetchFollowingsOf } from "../../../actions/follow_actions";
-import { fetchComments } from "../../../actions/comment_actions";
-import { fetchUsers } from "../../../actions/user_actions";
+import { fetchFollowingsOf } from "../../../actions/follow_actions";
 import { songsOf } from "../../../util/song_api_util";
-import { followedUsersOf, followedSongs, followingsOf} from "../../../util/follow_api_util";
+import { followedSongs} from "../../../util/follow_api_util";
 import SongsListItem from "./songs_list_item";
 
 const msp = (state, ownProps) => {
-    // return ({
-    //     follows: followingsOf(state.session.id, state.entities.follows),
-    //     songs: state.entities.songs,
-
-    // });
-
     const songs = state.entities.songs;
     const follows = state.entities.follows;
     const users = state.entities.users;
     const currentUserId = state.session.id;
-    const followedArtists = followedUsersOf(currentUserId, follows, users);
     return {
         onPageArtist: users[parseInt(ownProps.match.params.userId)],
         follows: follows, // homepage
@@ -48,7 +38,6 @@ class SongsList extends React.Component {
     }
     
     componentDidMount() {
-
         if (!this.songs) this.props.fetchSongs();
         if (this.props.klass !== "user-show-page") {
             // This component does not need to fetch data
@@ -72,10 +61,10 @@ class SongsList extends React.Component {
             default:
                 break;
         }
-        if (this.state.loading || !this.props.follows || !this.songs) {
+        if (this.state.loading || !this.props.follows) {
             return <img src={window.loadingPizza} className="loading"></img>;
         } else {
-            if (this.songs.length === 0) {
+            if (!this.songs || this.songs.length === 0) {
                 if (this.props.klass === "user-show-page") {
                     return (
                         <div className="ui-msg">

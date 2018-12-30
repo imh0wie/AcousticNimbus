@@ -8,6 +8,16 @@ export const fetchUsers = () => {
     })
 }
 
+export const fetchThreeRandomUsers = (currentUserId) => {
+    return $.ajax({
+        method: "GET",
+        url: "/api/users",
+        data: {
+            current_user_id: currentUserId,
+        },
+    })
+}
+
 export const fetchUser = (userId) => {
     return $.ajax({
         method: 'GET',

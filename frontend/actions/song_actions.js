@@ -45,7 +45,6 @@ export const fetchSongs = () => {
   return (dispatch) => {
     return SongAPIUtil.fetchSongs().then(
       (songsFromServer) => {
-        debugger
         return dispatch(receiveSongs(songsFromServer));
       },
       (errors) => {

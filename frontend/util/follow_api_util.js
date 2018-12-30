@@ -113,16 +113,17 @@ export const followsOf = (followerId, follows) => {
 // }
 
 export const followedSongs = (follows, songs) => {
-    if (!follows || !songs) return null;
-    // debugger
+    if (isEmpty(follows) || !follows || !songs) return null;
+    debugger
     follows = follows.byFollowedUserId;
-    // debugger
+    debugger
     let output = [];
     const songIds = Object.keys(songs);
     songIds.forEach(songId => {
         const song = songs[songId];
+        debugger
         if (follows[song.artistId]) output.push(song);
     });
-    // debugger
+    debugger
     return output;
 }

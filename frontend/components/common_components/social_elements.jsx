@@ -13,7 +13,6 @@ const msp = (state, ownProps) => {
     const onPageArtistId = parseInt(ownProps.match.params.userId);
     const likes = state.entities.likes;
     const currentUserId = state.session.id;
-    debugger
     return ({
         currentLikes: likesOf("Song", onPageSongId, likes),
         // currentLike: likeOf("Song", onPageSongId, state.entities.users[currentUserId], likes),
@@ -141,7 +140,6 @@ class SocialElements extends React.Component {
                     </div>
                 );
             case "item-player":
-                // if (!this.props.currentComments) return null;
                 return (
                     <div className="right">
                         <Link to={`/songs/${this.props.onPageSongId}`}><i className="fas fa-comment-alt"></i> {this.state.commentsCount}</Link> 

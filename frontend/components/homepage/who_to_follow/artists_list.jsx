@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { fetchSongs } from "../../../actions/song_actions";
 import { fetchFollows } from "../../../actions/follow_actions";
-import { fetchUsers } from "../../../actions/user_actions";
+import { fetchUsers, fetchThreeRandomUsers } from "../../../actions/user_actions";
 import { suggestedArtists } from "../../../util/user_api_util";
 import { isEmpty } from "../../../util/general_api_util";
 import ArtistsListItem from "./artists_list_item";
@@ -11,11 +11,14 @@ import ArtistsListItem from "./artists_list_item";
 const msp = (state) => {
     const follows = state.entities.follows;
     const users = state.entities.users;
+    const currentUserId = state.session.id;
     return ({
         songs: state.entities.songs,
         follows: follows,
         users: users,
-        suggestedArtists: suggestedArtists(3, follows, users, state.session.id),
+        // suggestedArtists: suggestedArtists(3, follows, users, currentUserId),
+        suggestedArtists: state.entities.users.randomThree,
+        currentUserId: currentUserId,
     });
 }
 
@@ -23,6 +26,7 @@ const mdp = (dispatch) => {
     return ({
         fetchSongs: () => dispatch(fetchSongs()),
         fetchFollows: () => dispatch(fetchFollows()),
+        fetchThreeRandomUsers: (currentUserId) => dispatch(fetchThreeRandomUsers(currentUserId)),
         fetchUsers: () => dispatch(fetchUsers()),
     });
 }
@@ -36,9 +40,10 @@ class ArtistsList extends React.Component {
     }
 
     componentDidMount() {
-        if (!this.props.follows) this.props.fetchFollows();
-        if (!this.props.users || Object.keys(this.props.users).length === 1) this.props.fetchUsers();
-        if (!this.props.songs) this.props.fetchSongs();
+        this.props.fetchThreeRandomUsers(this.props.currentUserId);
+        // if (!this.props.follows) this.props.fetchFollows();
+        // if (!this.props.users || Object.keys(this.props.users).length === 1) this.props.fetchUsers();
+        // if (!this.props.songs) this.props.fetchSongs();
         // this.props.fetchSongs().then(
         //     this.props.fetchFollows().then(
         //         this.props.fetchUsers()

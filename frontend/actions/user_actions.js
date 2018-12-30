@@ -13,6 +13,17 @@ export const fetchUsers = () => {
     }
 };
 
+export const fetchThreeRandomUsers = (currentUserId) => {
+    return (dispatch) => {
+        return UserAPIUtil.fetchThreeRandomUsers(currentUserId).then(
+            (usersFromServer) => {
+                debugger
+                return dispatch(receiveUsers(usersFromServer));
+            }
+        );
+    }
+};
+
 export const fetchUser = (userId) => {
     return (dispatch) => {
         return UserAPIUtil.fetchUser(userId).then(

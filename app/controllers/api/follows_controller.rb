@@ -1,7 +1,9 @@
 class Api::FollowsController < ApplicationController
   def index
+    debugger
     if params[:follower_id]
       @follows = Follow.where(:follower_id => params[:follower_id])
+      debugger
     else
       @follows = Follow.all
     end
