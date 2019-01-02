@@ -7,3 +7,4 @@ json.set! :byFollowedUserId do
     end
   end
 end
+

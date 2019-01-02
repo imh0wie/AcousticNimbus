@@ -101,4 +101,11 @@
     border: 1px solid #e5e5e5;
     margin: auto 0;
     padding: 1px 5px;
+    transition: all 0.5s ease;
+}
+
+.homepage .sidebar .who-to-follow button.following {
+    color: #FB5400;
+    border: 1px solid #FB5400;
+    transition: all 0.5s ease;
 }

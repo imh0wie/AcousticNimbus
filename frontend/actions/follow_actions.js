@@ -1,6 +1,7 @@
 import * as FollowAPIUtil from "../util/follow_api_util";
 
 export const RECEIVE_FOLLOWS = "RECEIVE_FOLLOWS";
+// export const RECEIVE_PERSONAL_FOLLOWS = "RECEIVE_PERSONAL_FOLLOWS";
 
 export const createFollow = (followToServer) => {
   return dispatch => {

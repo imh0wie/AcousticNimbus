@@ -184,7 +184,6 @@ var RECEIVE_COMMENTS = "RECEIVE_COMMENTS";
 var createComment = function createComment(commentToServer) {
   return function (dispatch) {
     return _util_comment_api_util__WEBPACK_IMPORTED_MODULE_0__["createComment"](commentToServer).then(function (commentsFromServer) {
-      debugger;
       dispatch(receiveComments(commentsFromServer));
     });
   };
@@ -301,7 +300,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchFollowingsOf", function() { return fetchFollowingsOf; });
 /* harmony import */ var _util_follow_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/follow_api_util */ "./frontend/util/follow_api_util.js");
 
-var RECEIVE_FOLLOWS = "RECEIVE_FOLLOWS";
+var RECEIVE_FOLLOWS = "RECEIVE_FOLLOWS"; // export const RECEIVE_PERSONAL_FOLLOWS = "RECEIVE_PERSONAL_FOLLOWS";
+
 var createFollow = function createFollow(followToServer) {
   return function (dispatch) {
     return _util_follow_api_util__WEBPACK_IMPORTED_MODULE_0__["createFollow"](followToServer).then(function (followsFromServer) {
@@ -4887,7 +4887,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _common_components_songs_list_songs_list__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../common_components/songs_list/songs_list */ "./frontend/components/common_components/songs_list/songs_list.jsx");
 
- // import Navbar from "../../common_components/navbar";
+
 
 var StreamPage = function StreamPage() {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -4954,12 +4954,13 @@ var msp = function msp(state) {
   var follows = state.entities.follows;
   var users = state.entities.users;
   var currentUserId = state.session.id;
+  debugger;
   return {
     songs: state.entities.songs,
     follows: follows,
     users: users,
     // suggestedArtists: suggestedArtists(3, follows, users, currentUserId),
-    suggestedArtists: state.entities.users.randomThree,
+    randomThree: Object(_util_user_api_util__WEBPACK_IMPORTED_MODULE_6__["suggestedArtists"])(state.entities.users.randomThree),
     currentUserId: currentUserId
   };
 };
@@ -5017,19 +5018,19 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      if (this.state.loading || !this.props.suggestedArtists) {
+      if (this.state.loading || !this.props.randomThree) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loadingPizza,
           className: "loading"
         });
       } else {
-        if (this.props.suggestedArtists.length === 0) {
+        if (this.props.randomThree.length === 0) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "error-message"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "We cannot recommend you any users because:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "1) you have followed all users on Acoustic Nimbus; OR"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "2) our site sucks and you are the only user..."));
         } else {
           // if (isEmpty(this.props.songs)) return  <img src={window.loadingPizza} className="loading"></img>;
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.suggestedArtists.map(function (artist) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.randomThree.map(function (artist) {
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_artists_list_item__WEBPACK_IMPORTED_MODULE_8__["default"], {
               key: artist.id,
               artist: artist
@@ -5089,13 +5090,13 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 var msp = function msp(state, ownProps) {
-  var artistId = ownProps.artist.id;
-  var follows = state.entities.follows;
+  var artistId = ownProps.artist.id; // const follows = state.entities.follows;
+
   var currentUserId = state.session.id;
   return {
-    artistFollow: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_4__["followOf"])(artistId, currentUserId, follows),
-    artistFollowers: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_4__["followersOf"])(artistId, follows, state.entities.users),
-    artistSongs: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_5__["songsOf"])(artistId, state.entities.songs),
+    artistFollow: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_4__["followOf"])(artistId, currentUserId, state.entities.follows.interests),
+    // artistFollowers: followersOf(artistId, follows, state.entities.users),
+    // artistSongs: songsOf(artistId, state.entities.songs),
     currentUserId: currentUserId
   };
 };
@@ -5122,6 +5123,9 @@ function (_React$Component) {
     _classCallCheck(this, ArtistListItem);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ArtistListItem).call(this, props));
+    _this.state = {
+      followed: false
+    };
     _this.handleFollow = _this.handleFollow.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
@@ -5131,14 +5135,18 @@ function (_React$Component) {
     value: function handleFollow(e) {
       e.preventDefault();
 
-      if (this.props.artistFollow) {
-        this.props.removeFollow(this.props.artistFollow.id);
+      if (this.state.followed) {
+        this.props.removeFollow(this.props.artistFollow.id).then(this.setState({
+          followed: !this.state.followed
+        }));
       } else {
         var follow = {
           followed_user_id: this.props.artist.id,
           follower_id: this.props.currentUserId
         };
-        this.props.createFollow(follow);
+        this.props.createFollow(follow).then(this.setState({
+          followed: !this.state.followed
+        }));
       }
     }
   }, {
@@ -5161,7 +5169,7 @@ function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      if (!this.props.artistSongs) return null;
+      // if (!this.props.artistSongs) return null;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "item-info-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -5175,13 +5183,14 @@ function (_React$Component) {
         className: "social"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-user-friends"
-      }), " ", this.renderNumber(this.props.artistFollowers.length)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      }), " ", this.renderNumber(this.props.artist.followersCount)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-music"
-      }), " ", this.renderNumber(this.props.artistSongs.length))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }), " ", this.renderNumber(this.props.artist.songsCount))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: this.state.followed ? "following" : "",
         onClick: function onClick(e) {
           return _this2.handleFollow(e);
         }
-      }, this.props.artistFollow ? "Following" : "Follow"));
+      }, this.state.followed ? "Following" : "Follow"));
     }
   }]);
 
@@ -7227,7 +7236,10 @@ var followsReducer = function followsReducer() {
   switch (action.type) {
     case _actions_follow_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_FOLLOWS"]:
       newState = Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, action.follows);
-      return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, newState);
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, newState);
+    // case RECEIVE_PERSONAL_FOLLOWS:
+    //   newState = merge({}, action.follows);
+    //   return merge({}, state, newState);
 
     default:
       return state;
@@ -7590,7 +7602,7 @@ var usersReducer = function usersReducer() {
   switch (action.type) {
     case _actions_user_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_USERS"]:
       newState = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, action.users);
-      return Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, newState);
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, state, newState);
 
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_CURRENT_USER"]:
       return Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, state, _defineProperty({}, action.currentUser.id, action.currentUser));
@@ -7714,7 +7726,8 @@ var createFollow = function createFollow(follow) {
     method: "POST",
     url: "/api/follows",
     data: {
-      follow: follow
+      follow: follow,
+      current_user_id: follow.follower_id
     }
   });
 };
@@ -7820,17 +7833,13 @@ var followsOf = function followsOf(followerId, follows) {
 
 var followedSongs = function followedSongs(follows, songs) {
   if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(follows) || !follows || !songs) return null;
-  debugger;
   follows = follows.byFollowedUserId;
-  debugger;
   var output = [];
   var songIds = Object.keys(songs);
   songIds.forEach(function (songId) {
     var song = songs[songId];
-    debugger;
     if (follows[song.artistId]) output.push(song);
   });
-  debugger;
   return output;
 };
 
@@ -8267,16 +8276,27 @@ var editUser = function editUser(user, userId) {
     contentType: false,
     processData: false
   });
-};
-var suggestedArtists = function suggestedArtists(n, follows, users, currentUserId) {
-  if (!follows || !users) return null;
+}; // export const suggestedArtists = (n, follows, users, currentUserId) => {
+//     if (!follows || !users) return null;
+//     let output = [];
+//     const userIds = randomize(Object.keys(users));
+//     for (let i = 0; i < userIds.length; i++) {
+//         const userId = parseInt(userIds[i]);
+//         if (userId !== currentUserId && !followOf(userId, currentUserId, follows)) output.push(users[userId]);
+//         if (output.length === n) break;
+//     }
+//     return output;
+// }
+
+var suggestedArtists = function suggestedArtists(users) {
+  if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(users) || !users) return null;
   var output = [];
   var userIds = Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["randomize"])(Object.keys(users));
 
   for (var i = 0; i < userIds.length; i++) {
     var userId = parseInt(userIds[i]);
-    if (userId !== currentUserId && !Object(_follow_api_util__WEBPACK_IMPORTED_MODULE_1__["followOf"])(userId, currentUserId, follows)) output.push(users[userId]);
-    if (output.length === n) break;
+    var user = users[userId];
+    output.push(user);
   }
 
   return output;

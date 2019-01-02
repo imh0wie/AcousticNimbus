@@ -12,12 +12,13 @@ const msp = (state) => {
     const follows = state.entities.follows;
     const users = state.entities.users;
     const currentUserId = state.session.id;
+    debugger
     return ({
         songs: state.entities.songs,
         follows: follows,
         users: users,
         // suggestedArtists: suggestedArtists(3, follows, users, currentUserId),
-        suggestedArtists: state.entities.users.randomThree,
+        randomThree: suggestedArtists(state.entities.users.randomThree),
         currentUserId: currentUserId,
     });
 }
@@ -55,12 +56,12 @@ class ArtistsList extends React.Component {
     }
 
     render() {
-        if (this.state.loading || !this.props.suggestedArtists) {
+        if (this.state.loading || !this.props.randomThree) {
             return (
                 <img src={window.loadingPizza} className="loading"></img>
             );
         } else {
-            if (this.props.suggestedArtists.length === 0) {
+            if (this.props.randomThree.length === 0) {
                 return (
                     <div className="error-message">
                         <h4>We cannot recommend you any users because:</h4>
@@ -72,7 +73,7 @@ class ArtistsList extends React.Component {
                 // if (isEmpty(this.props.songs)) return  <img src={window.loadingPizza} className="loading"></img>;
                 return (
                     <ul>
-                        {this.props.suggestedArtists.map((artist) => {
+                        {this.props.randomThree.map((artist) => {
                             return (
                                 <ArtistsListItem 
                                     key={artist.id}

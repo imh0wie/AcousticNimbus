@@ -13,7 +13,10 @@ const followsReducer = (state = null, action) => {
   switch (action.type) {
     case RECEIVE_FOLLOWS:
       newState = merge({}, action.follows);
-      return merge({}, newState);
+      return merge({}, state, newState);
+    // case RECEIVE_PERSONAL_FOLLOWS:
+    //   newState = merge({}, action.follows);
+    //   return merge({}, state, newState);
     default:
       return state;
   }

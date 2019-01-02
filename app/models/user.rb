@@ -12,14 +12,14 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
 
-  has_many :attention, {
+  has_many :attentions, {
     foreign_key: :followed_user_id,
     class_name: :Follow,
     dependent: :destroy,
   }
 
   has_many :followers, {
-    through: :attention,
+    through: :attentions,
     source: :follower,
     dependent: :destroy,
   }
@@ -71,6 +71,15 @@ class User < ApplicationRecord
     self.songs.size
   end
 
+  def follower_ids
+    # debugger
+    # followers = self.followers
+    # followers = []
+    # # self.joins(:attentions).pluck('attentions.follower_id')
+    # followers.each do |attention|
+    #   follower_ids << attention.followerid
+    # end
+  end
   private
 
   def ensure_session_token!

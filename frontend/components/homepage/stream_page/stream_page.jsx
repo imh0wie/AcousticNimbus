@@ -1,6 +1,5 @@
 import React from "react";
 import SongsList from "../../common_components/songs_list/songs_list";  
-// import Navbar from "../../common_components/navbar";
 
 const StreamPage = () => {
   return (

@@ -5,7 +5,10 @@ export const createFollow = (follow) => {
     return $.ajax({
         method: "POST",
         url: "/api/follows",
-        data: { follow },
+        data: { 
+            follow: follow,
+            current_user_id: follow.follower_id,
+        },
     });
 };
 
@@ -114,16 +117,12 @@ export const followsOf = (followerId, follows) => {
 
 export const followedSongs = (follows, songs) => {
     if (isEmpty(follows) || !follows || !songs) return null;
-    debugger
     follows = follows.byFollowedUserId;
-    debugger
     let output = [];
     const songIds = Object.keys(songs);
     songIds.forEach(songId => {
         const song = songs[songId];
-        debugger
         if (follows[song.artistId]) output.push(song);
     });
-    debugger
     return output;
 }

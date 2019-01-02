@@ -5,7 +5,6 @@ export const createComment = (commentToServer) => {
     return dispatch => {
         return CommentAPIUtil.createComment(commentToServer).then(
             (commentsFromServer) => {
-                debugger
                 dispatch(receiveComments(commentsFromServer));
             }
         );

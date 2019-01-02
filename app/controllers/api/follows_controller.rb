@@ -1,9 +1,7 @@
 class Api::FollowsController < ApplicationController
   def index
-    debugger
     if params[:follower_id]
       @follows = Follow.where(:follower_id => params[:follower_id])
-      debugger
     else
       @follows = Follow.all
     end
@@ -13,8 +11,22 @@ class Api::FollowsController < ApplicationController
   def create
     @follow = Follow.new(follow_params)
     if @follow.save
-      @follows = Follow.all
-      render :index
+      # @followed_users = User.joins(:attentions)
+      #                       .select('user.*')
+      #                       .where.('follows.follower_id = ?', params[:current_user_id])
+      #                       .group('users.id')
+      #                       .order('RANDOM()')
+      @interests = Follow.select(:id, :followed_user_id, :follower_id)
+                         .where('follower_id = ?', params[:current_user_id])
+      # @followers = User.joins(:interests)
+      #                  .select('user.*')
+      #                  .where.('follows.followed_user_id = ?', params[:current_user_id])
+      #                  .group('users.id')
+      #                  .order('RANDOM()')
+      @attentions = Follow.select(:id, :followed_user_id, :follower_id)
+                          .where('followed_user_id = ?', params[:current_user_id])
+      # @follows = Follow.all
+      render :show
     else
       render @follow.errors.full_messages, status: 401
     end
@@ -24,7 +36,7 @@ class Api::FollowsController < ApplicationController
     @follow = Follow.find(params[:id])
     if @follow.destroy
       @follows = Follow.all
-      render :index
+      render :show
     else
       render @follow.errors.full_messages, status: 401
     end
