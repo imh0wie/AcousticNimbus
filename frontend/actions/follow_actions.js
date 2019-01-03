@@ -13,9 +13,9 @@ export const createFollow = (followToServer) => {
   };
 };
 
-export const removeFollow = (idToServer) => {
+export const removeFollow = (followToServer) => {
   return dispatch => {
-    return FollowAPIUtil.removeFollow(idToServer).then(
+    return FollowAPIUtil.removeFollow(followToServer).then(
       (followsFromServer) => {
         return dispatch(receiveFollows(followsFromServer));
       }

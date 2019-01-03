@@ -10,7 +10,7 @@ const msp = (state, ownProps) => {
     // const follows = state.entities.follows;
     const currentUserId = state.session.id;
     return ({
-        artistFollow: followOf(artistId, currentUserId, state.entities.follows.interests),
+        artistFollow: followOf(artistId, currentUserId, state.entities.follows),
         // artistFollowers: followersOf(artistId, follows, state.entities.users),
         // artistSongs: songsOf(artistId, state.entities.songs),
         currentUserId: currentUserId,
@@ -20,9 +20,8 @@ const msp = (state, ownProps) => {
 const mdp = (dispatch) => {
     return ({
         createFollow: (follow) => dispatch(createFollow(follow)),
-        removeFollow: (id) => dispatch(removeFollow(id)),
-
-    })
+        removeFollow: (follow) => dispatch(removeFollow(follow)),
+    });
 }
 
 class ArtistListItem extends React.Component {
@@ -37,7 +36,7 @@ class ArtistListItem extends React.Component {
     handleFollow(e) {
         e.preventDefault();
         if (this.state.followed) {
-            this.props.removeFollow(this.props.artistFollow.id).then(
+            this.props.removeFollow(this.props.artistFollow).then(
                 this.setState({
                     followed: !this.state.followed,
                 })

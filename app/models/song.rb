@@ -35,6 +35,7 @@ class Song < ApplicationRecord
   def comments_count
     self.comments.size
   end
+
   # def self.by_release_time
   #   self.select("songs.*").order("songs.created_at", DESC).limit(30)
   # end

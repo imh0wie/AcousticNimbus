@@ -31,6 +31,16 @@ export const fetchSongs = () => {
   });
 };
 
+export const fetchFollowedSongsOf = (userId) => {
+  return $.ajax({
+    method: "GET",
+    url: "/api/songs",
+    data: {
+      current_user_id: userId,
+  },
+  });
+};
+
 export const latest = (n, songs) => {
   if (!songs) return null;
   let output = [];
@@ -82,6 +92,13 @@ export const relatedSongsOf = (targetSongId, songs) => {
     const song = songs[songId];
     if (song.genre === songs[targetSongId].genre) output.push(song);
   })
+  return output;
+}
+
+export const followedSongs = (songs) => {
+  if (!songs) return null;
+  debugger
+  const output = Object.values(songs.followedSongs).reverse();
   return output;
 }
 

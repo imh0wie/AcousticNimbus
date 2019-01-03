@@ -17,7 +17,6 @@ export const fetchThreeRandomUsers = (currentUserId) => {
     return (dispatch) => {
         return UserAPIUtil.fetchThreeRandomUsers(currentUserId).then(
             (usersFromServer) => {
-                debugger
                 return dispatch(receiveUsers(usersFromServer));
             }
         );

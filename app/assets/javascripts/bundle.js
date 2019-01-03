@@ -309,9 +309,9 @@ var createFollow = function createFollow(followToServer) {
     });
   };
 };
-var removeFollow = function removeFollow(idToServer) {
+var removeFollow = function removeFollow(followToServer) {
   return function (dispatch) {
-    return _util_follow_api_util__WEBPACK_IMPORTED_MODULE_0__["removeFollow"](idToServer).then(function (followsFromServer) {
+    return _util_follow_api_util__WEBPACK_IMPORTED_MODULE_0__["removeFollow"](followToServer).then(function (followsFromServer) {
       return dispatch(receiveFollows(followsFromServer));
     });
   };
@@ -515,7 +515,7 @@ var receiveSessionErrors = function receiveSessionErrors(errors) {
 /*!******************************************!*\
   !*** ./frontend/actions/song_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_SONG, RECEIVE_SONGS, RECEIVE_SONG_ERRORS, RECEIVE_SONGS_ERRORS, createSong, removeSong, fetchSong, fetchSongs */
+/*! exports provided: RECEIVE_SONG, RECEIVE_SONGS, RECEIVE_SONG_ERRORS, RECEIVE_SONGS_ERRORS, createSong, removeSong, fetchSong, fetchSongs, fetchFollowedSongs */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -528,6 +528,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeSong", function() { return removeSong; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchSong", function() { return fetchSong; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchSongs", function() { return fetchSongs; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchFollowedSongs", function() { return fetchFollowedSongs; });
 /* harmony import */ var _util_song_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/song_api_util */ "./frontend/util/song_api_util.js");
 
 var RECEIVE_SONG = "RECEIVE_SONG";
@@ -562,6 +563,17 @@ var fetchSong = function fetchSong(songToServerId) {
 var fetchSongs = function fetchSongs() {
   return function (dispatch) {
     return _util_song_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchSongs"]().then(function (songsFromServer) {
+      debugger;
+      return dispatch(receiveSongs(songsFromServer));
+    }, function (errors) {
+      return dispatch(receiveSongsErrors(errors.responseJSON));
+    });
+  };
+};
+var fetchFollowedSongs = function fetchFollowedSongs(userId) {
+  return function (dispatch) {
+    return _util_song_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchFollowedSongsOf"](userId).then(function (songsFromServer) {
+      debugger;
       return dispatch(receiveSongs(songsFromServer));
     }, function (errors) {
       return dispatch(receiveSongsErrors(errors.responseJSON));
@@ -631,7 +643,6 @@ var fetchUsers = function fetchUsers() {
 var fetchThreeRandomUsers = function fetchThreeRandomUsers(currentUserId) {
   return function (dispatch) {
     return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchThreeRandomUsers"](currentUserId).then(function (usersFromServer) {
-      debugger;
       return dispatch(receiveUsers(usersFromServer));
     });
   };
@@ -3790,8 +3801,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_song_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/song_actions */ "./frontend/actions/song_actions.js");
 /* harmony import */ var _actions_follow_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../actions/follow_actions */ "./frontend/actions/follow_actions.js");
 /* harmony import */ var _util_song_api_util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../util/song_api_util */ "./frontend/util/song_api_util.js");
-/* harmony import */ var _util_follow_api_util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../util/follow_api_util */ "./frontend/util/follow_api_util.js");
-/* harmony import */ var _songs_list_item__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./songs_list_item */ "./frontend/components/common_components/songs_list/songs_list_item.jsx");
+/* harmony import */ var _songs_list_item__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./songs_list_item */ "./frontend/components/common_components/songs_list/songs_list_item.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -3815,7 +3825,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-
+ // import { followedSongs } from "../../../util/follow_api_util";
 
 
 
@@ -3823,25 +3833,26 @@ var msp = function msp(state, ownProps) {
   var songs = state.entities.songs;
   var follows = state.entities.follows;
   var users = state.entities.users;
-  var currentUserId = state.session.id;
+  var currentUserId = state.session.id; // debugger
+
   return {
     onPageArtist: users[parseInt(ownProps.match.params.userId)],
     follows: follows,
     // homepage
-    streamSongs: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_6__["followedSongs"])(follows, songs),
-    // homepageå
-    currentSongs: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_5__["songsOf"])(parseInt(ownProps.match.params.userId), songs),
+    // streamSongs: followedSongs(follows, songs), // homepageå
+    streamSongs: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_5__["followedSongs"])(songs),
+    // homepage
+    // currentSongs: songsOf(parseInt(ownProps.match.params.userId), songs),
     currentUserId: currentUserId
   };
 };
 
 var mdp = function mdp(dispatch) {
   return {
-    fetchSongs: function fetchSongs() {
-      return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["fetchSongs"])());
-    },
-    fetchFollowingsOf: function fetchFollowingsOf(followerId) {
-      return dispatch(Object(_actions_follow_actions__WEBPACK_IMPORTED_MODULE_4__["fetchFollowingsOf"])(followerId));
+    //   fetchSongs: () => dispatch(fetchSongs()),
+    //   fetchFollowingsOf: (followerId) => dispatch(fetchFollowingsOf(followerId)),
+    fetchFollowedSongs: function fetchFollowedSongs(userId) {
+      return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["fetchFollowedSongs"])(userId));
     }
   };
 };
@@ -3866,13 +3877,21 @@ function (_React$Component) {
   _createClass(SongsList, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      if (!this.songs) this.props.fetchSongs();
+      // if (!this.songs) this.props.fetchSongs();
+      // if (this.props.klass !== "user-show-page") {
+      //     // This component does not need to fetch data
+      //     // user show page because data would have 
+      //     // already been fetched at this point.
+      //     this.props.fetchFollowingsOf(this.props.currentUserId);
+      // }
+      switch (this.props.klass) {
+        case "stream-page":
+          if (!this.songs) this.props.fetchFollowedSongs(this.props.currentUserId);
+          break;
 
-      if (this.props.klass !== "user-show-page") {
-        // This component does not need to fetch data
-        // user show page because data would have 
-        // already been fetched at this point.
-        this.props.fetchFollowingsOf(this.props.currentUserId);
+        case "user-show-page":
+          if (!this.songs) ;
+          break;
       }
 
       this.setState({
@@ -3897,13 +3916,17 @@ function (_React$Component) {
           break;
       }
 
-      if (this.state.loading || !this.props.follows) {
+      debugger;
+
+      if (this.state.loading || !this.songs) {
+        // debugger
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loadingPizza,
           className: "loading"
         });
       } else {
-        if (!this.songs || this.songs.length === 0) {
+        // debugger
+        if (this.songs.length === 0) {
           if (this.props.klass === "user-show-page") {
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
               className: "ui-msg"
@@ -3919,7 +3942,7 @@ function (_React$Component) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Stream is currently empty. Use Charts to find music & audio to listen to.");
         } else {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.songs.map(function (song, idx) {
-            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_songs_list_item__WEBPACK_IMPORTED_MODULE_7__["default"], {
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_songs_list_item__WEBPACK_IMPORTED_MODULE_6__["default"], {
               key: song.id,
               idx: idx,
               klass: _this2.props.klass,
@@ -4954,7 +4977,6 @@ var msp = function msp(state) {
   var follows = state.entities.follows;
   var users = state.entities.users;
   var currentUserId = state.session.id;
-  debugger;
   return {
     songs: state.entities.songs,
     follows: follows,
@@ -5094,7 +5116,7 @@ var msp = function msp(state, ownProps) {
 
   var currentUserId = state.session.id;
   return {
-    artistFollow: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_4__["followOf"])(artistId, currentUserId, state.entities.follows.interests),
+    artistFollow: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_4__["followOf"])(artistId, currentUserId, state.entities.follows),
     // artistFollowers: followersOf(artistId, follows, state.entities.users),
     // artistSongs: songsOf(artistId, state.entities.songs),
     currentUserId: currentUserId
@@ -5106,8 +5128,8 @@ var mdp = function mdp(dispatch) {
     createFollow: function createFollow(follow) {
       return dispatch(Object(_actions_follow_actions__WEBPACK_IMPORTED_MODULE_3__["createFollow"])(follow));
     },
-    removeFollow: function removeFollow(id) {
-      return dispatch(Object(_actions_follow_actions__WEBPACK_IMPORTED_MODULE_3__["removeFollow"])(id));
+    removeFollow: function removeFollow(follow) {
+      return dispatch(Object(_actions_follow_actions__WEBPACK_IMPORTED_MODULE_3__["removeFollow"])(follow));
     }
   };
 };
@@ -5136,7 +5158,7 @@ function (_React$Component) {
       e.preventDefault();
 
       if (this.state.followed) {
-        this.props.removeFollow(this.props.artistFollow.id).then(this.setState({
+        this.props.removeFollow(this.props.artistFollow).then(this.setState({
           followed: !this.state.followed
         }));
       } else {
@@ -7731,10 +7753,14 @@ var createFollow = function createFollow(follow) {
     }
   });
 };
-var removeFollow = function removeFollow(id) {
+var removeFollow = function removeFollow(follow) {
   return $.ajax({
     method: "DELETE",
-    url: "/api/follows/".concat(id)
+    url: "/api/follows/".concat(follow.id),
+    data: {
+      id: follow.id,
+      current_user_id: follow.follower_id
+    }
   });
 };
 var fetchFollows = function fetchFollows() {
@@ -7765,7 +7791,7 @@ var followOf = function followOf(followedUserId, followerId, follows) {
 
   for (var i = 0; i < followIds.length; i++) {
     var followId = followIds[i];
-    var follow = follows[followId];
+    var follow = follows.interests[followId];
     if (follow.followedUserId === followedUserId && follow.followerId === followerId) return follow;
   }
 
@@ -8125,7 +8151,7 @@ var logout = function logout() {
 /*!****************************************!*\
   !*** ./frontend/util/song_api_util.js ***!
   \****************************************/
-/*! exports provided: createSong, removeSong, fetchSong, fetchSongs, latest, shuffle, songsOf, songsLikedBy, relatedSongsOf */
+/*! exports provided: createSong, removeSong, fetchSong, fetchSongs, fetchFollowedSongsOf, latest, shuffle, songsOf, songsLikedBy, relatedSongsOf, followedSongs */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8134,11 +8160,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeSong", function() { return removeSong; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchSong", function() { return fetchSong; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchSongs", function() { return fetchSongs; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchFollowedSongsOf", function() { return fetchFollowedSongsOf; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "latest", function() { return latest; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "shuffle", function() { return shuffle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "songsOf", function() { return songsOf; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "songsLikedBy", function() { return songsLikedBy; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "relatedSongsOf", function() { return relatedSongsOf; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "followedSongs", function() { return followedSongs; });
 /* harmony import */ var _general_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./general_api_util */ "./frontend/util/general_api_util.js");
 
 var createSong = function createSong(song) {
@@ -8166,6 +8194,15 @@ var fetchSongs = function fetchSongs() {
   return $.ajax({
     method: "GET",
     url: "/api/songs"
+  });
+};
+var fetchFollowedSongsOf = function fetchFollowedSongsOf(userId) {
+  return $.ajax({
+    method: "GET",
+    url: "/api/songs",
+    data: {
+      current_user_id: userId
+    }
   });
 };
 var latest = function latest(n, songs) {
@@ -8220,6 +8257,12 @@ var relatedSongsOf = function relatedSongsOf(targetSongId, songs) {
     if (song.genre === songs[targetSongId].genre) output.push(song);
   });
   return output;
+};
+var followedSongs = function followedSongs(songs) {
+  if (!songs) return null;
+  debugger;
+  var output = Object.values(songs.followedSongs).reverse();
+  return output;
 }; // const isEmpty = (obj) => {
 //   for (let key in obj) {
 //       if (obj.hasOwnProperty(key)) return false;
@@ -8247,10 +8290,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _follow_api_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./follow_api_util */ "./frontend/util/follow_api_util.js");
 
 
-var fetchUsers = function fetchUsers() {
+var fetchUsers = function fetchUsers(currentUserId) {
   return $.ajax({
     method: "GET",
-    url: "/api/users"
+    url: "/api/users",
+    data: {
+      current_user_id: currentUserId
+    }
   });
 };
 var fetchThreeRandomUsers = function fetchThreeRandomUsers(currentUserId) {

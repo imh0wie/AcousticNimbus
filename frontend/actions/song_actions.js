@@ -45,6 +45,21 @@ export const fetchSongs = () => {
   return (dispatch) => {
     return SongAPIUtil.fetchSongs().then(
       (songsFromServer) => {
+        debugger
+        return dispatch(receiveSongs(songsFromServer));
+      },
+      (errors) => {
+        return dispatch(receiveSongsErrors(errors.responseJSON));
+      },
+    );
+  };
+};
+
+export const fetchFollowedSongs = (userId) => {
+  return (dispatch) => {
+    return SongAPIUtil.fetchFollowedSongsOf(userId).then(
+      (songsFromServer) => {
+        debugger
         return dispatch(receiveSongs(songsFromServer));
       },
       (errors) => {

@@ -71,6 +71,14 @@ class User < ApplicationRecord
     self.songs.size
   end
 
+  def followed_songs
+    followed_users = self.followings.includes(:songs)
+    followed_songs = []
+    followed_users.each { |followed_user| followed_songs.concat(followed_user.songs) }
+    followed_songs.sort_by! { |song| song.created_at }
+    followed_songs
+  end
+
   def follower_ids
     # debugger
     # followers = self.followers

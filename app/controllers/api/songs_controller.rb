@@ -1,7 +1,11 @@
 class Api::SongsController < ApplicationController
-
   def index
-    @songs = Song.all
+    if params[:current_user_id]
+      @current_user = User.find(params[:current_user_id])
+      @followed_songs = @current_user.followed_songs
+    else
+      @songs = Song.all
+    end
     render :index
   end
   

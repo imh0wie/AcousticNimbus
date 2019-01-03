@@ -16,13 +16,13 @@ class Api::FollowsController < ApplicationController
       #                       .where.('follows.follower_id = ?', params[:current_user_id])
       #                       .group('users.id')
       #                       .order('RANDOM()')
-      @interests = Follow.select(:id, :followed_user_id, :follower_id)
-                         .where('follower_id = ?', params[:current_user_id])
       # @followers = User.joins(:interests)
       #                  .select('user.*')
       #                  .where.('follows.followed_user_id = ?', params[:current_user_id])
       #                  .group('users.id')
       #                  .order('RANDOM()')
+      @interests = Follow.select(:id, :followed_user_id, :follower_id)
+                         .where('follower_id = ?', params[:current_user_id])
       @attentions = Follow.select(:id, :followed_user_id, :follower_id)
                           .where('followed_user_id = ?', params[:current_user_id])
       # @follows = Follow.all
@@ -35,7 +35,10 @@ class Api::FollowsController < ApplicationController
   def destroy
     @follow = Follow.find(params[:id])
     if @follow.destroy
-      @follows = Follow.all
+      @interests = Follow.select(:id, :followed_user_id, :follower_id)
+                         .where('follower_id = ?', params[:current_user_id])
+      @attentions = Follow.select(:id, :followed_user_id, :follower_id)
+                          .where('followed_user_id = ?', params[:current_user_id])
       render :show
     else
       render @follow.errors.full_messages, status: 401

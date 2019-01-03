@@ -1,10 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { fetchSongs } from "../../../actions/song_actions";
+import { fetchSongs, fetchFollowedSongs } from "../../../actions/song_actions";
 import { fetchFollowingsOf } from "../../../actions/follow_actions";
-import { songsOf } from "../../../util/song_api_util";
-import { followedSongs} from "../../../util/follow_api_util";
+import { songsOf, followedSongs } from "../../../util/song_api_util";
+// import { followedSongs } from "../../../util/follow_api_util";
 import SongsListItem from "./songs_list_item";
 
 const msp = (state, ownProps) => {
@@ -12,19 +12,22 @@ const msp = (state, ownProps) => {
     const follows = state.entities.follows;
     const users = state.entities.users;
     const currentUserId = state.session.id;
+    // debugger
     return {
         onPageArtist: users[parseInt(ownProps.match.params.userId)],
         follows: follows, // homepage
-        streamSongs: followedSongs(follows, songs), // homepageå
-        currentSongs: songsOf(parseInt(ownProps.match.params.userId), songs),
+        // streamSongs: followedSongs(follows, songs), // homepageå
+        streamSongs: followedSongs(songs), // homepage
+        // currentSongs: songsOf(parseInt(ownProps.match.params.userId), songs),
         currentUserId: currentUserId,
     };
 };
 
 const mdp = (dispatch) => {
   return ({
-      fetchSongs: () => dispatch(fetchSongs()),
-      fetchFollowingsOf: (followerId) => dispatch(fetchFollowingsOf(followerId)),
+    //   fetchSongs: () => dispatch(fetchSongs()),
+    //   fetchFollowingsOf: (followerId) => dispatch(fetchFollowingsOf(followerId)),
+      fetchFollowedSongs: (userId) => dispatch(fetchFollowedSongs(userId)),
   });
 };
 
@@ -38,12 +41,20 @@ class SongsList extends React.Component {
     }
     
     componentDidMount() {
-        if (!this.songs) this.props.fetchSongs();
-        if (this.props.klass !== "user-show-page") {
-            // This component does not need to fetch data
-            // user show page because data would have 
-            // already been fetched at this point.
-            this.props.fetchFollowingsOf(this.props.currentUserId);
+        // if (!this.songs) this.props.fetchSongs();
+        // if (this.props.klass !== "user-show-page") {
+        //     // This component does not need to fetch data
+        //     // user show page because data would have 
+        //     // already been fetched at this point.
+        //     this.props.fetchFollowingsOf(this.props.currentUserId);
+        // }
+        switch (this.props.klass) {
+            case "stream-page":
+                if (!this.songs) this.props.fetchFollowedSongs(this.props.currentUserId);
+                break;
+            case "user-show-page":
+                if (!this.songs);          
+                break;
         }
         this.setState({
             loading: false,
@@ -61,10 +72,13 @@ class SongsList extends React.Component {
             default:
                 break;
         }
-        if (this.state.loading || !this.props.follows) {
+        debugger
+        if (this.state.loading || !this.songs) {
+            // debugger
             return <img src={window.loadingPizza} className="loading"></img>;
         } else {
-            if (!this.songs || this.songs.length === 0) {
+            // debugger
+            if (this.songs.length === 0) {
                 if (this.props.klass === "user-show-page") {
                     return (
                         <div className="ui-msg">

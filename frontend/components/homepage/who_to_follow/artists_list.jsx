@@ -12,7 +12,6 @@ const msp = (state) => {
     const follows = state.entities.follows;
     const users = state.entities.users;
     const currentUserId = state.session.id;
-    debugger
     return ({
         songs: state.entities.songs,
         follows: follows,

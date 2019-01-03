@@ -12,10 +12,14 @@ export const createFollow = (follow) => {
     });
 };
 
-export const removeFollow = (id) => {
+export const removeFollow = (follow) => {
     return $.ajax({
         method: "DELETE",
-        url: `/api/follows/${id}`,
+        url: `/api/follows/${follow.id}`,
+        data: { 
+            id: follow.id,
+            current_user_id: follow.follower_id,
+        },
     });
 }
 
@@ -50,7 +54,7 @@ export const followOf = (followedUserId, followerId, follows) => {
     const followIds = Object.keys(follows);
     for (let i = 0; i < followIds.length; i++ ) {
         const followId = followIds[i];
-        const follow = follows[followId];
+        const follow = follows.interests[followId];
         if (follow.followedUserId === followedUserId && follow.followerId === followerId) return follow;
     }
     return null;
