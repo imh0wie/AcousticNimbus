@@ -79,15 +79,20 @@ class User < ApplicationRecord
     followed_songs
   end
 
-  def follower_ids
-    # debugger
-    # followers = self.followers
-    # followers = []
-    # # self.joins(:attentions).pluck('attentions.follower_id')
-    # followers.each do |attention|
-    #   follower_ids << attention.followerid
-    # end
+  def current_likes
+    likes = self.likes.includes(:song)
+    debugger
+    output = []
+    likes.each do |like|
+      debugger
+      like_obj = like.merge(like.likeable)
+      debugger
+      output << like_obj
+    end
+    debugger
+    output
   end
+
   private
 
   def ensure_session_token!

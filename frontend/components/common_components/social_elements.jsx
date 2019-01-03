@@ -14,9 +14,9 @@ const msp = (state, ownProps) => {
     const likes = state.entities.likes;
     const currentUserId = state.session.id;
     return ({
-        currentLikes: likesOf("Song", onPageSongId, likes),
+        currentLikes: likes,
         // currentLike: likeOf("Song", onPageSongId, state.entities.users[currentUserId], likes),
-        currentLike: likeOf(ownProps.song.likes, currentUserId),
+        currentLike: likes ? likeOf(currentUserId, "Song", onPageSongId, likes) : likeOf(currentUserId, "Song", onPageSongId, ownProps.song.likes),
         currentFollow: followOf(onPageArtistId, currentUserId, state.entities.follows),
         // currentComments: commentsOf(onPageSongId, state.entities.comments),
         currentComments: state.entities.comments ? state.entities.comments.bySong[onPageSongId] : null,
@@ -30,7 +30,7 @@ const mdp = (dispatch) => {
     return ({
         fetchLikes: () => dispatch(fetchLikes()),
         createLike: (like) => dispatch(createLike(like)),
-        removeLike: (id) => dispatch(removeLike(id)),
+        removeLike: (like) => dispatch(removeLike(like)),
         createFollow: (follow) => dispatch(createFollow(follow)), 
         removeFollow: (id) => dispatch(removeFollow(id)), 
         fetchUsers: () => dispatch(fetchUsers()),
@@ -44,10 +44,11 @@ class SocialElements extends React.Component {
             display: "none"
         }
         this.state = {
+            currentLike: this.props.currentLike,
             likesCount: this.props.song.likesCount,
             commentsCount: this.props.song.commentsCount,
-            liked: this.props.song.likers.includes(this.props.currentUserId),
         }
+        debugger
         this.handleFollow = this.handleFollow.bind(this);
     }
 
@@ -56,6 +57,14 @@ class SocialElements extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        debugger
+        if (nextProps.currentLikes !== this.props.currentLikes) {
+            debugger
+            this.setState({
+                currentLike: likeOf(nextProps.currentUserId, "Song", nextProps.onPageSongId, nextProps.currentLikes)
+            });
+            debugger
+        }
         if (nextProps.currentComments && this.state.commentsCount !== nextProps.currentComments.length) {
             this.setState({
                 commentsCount: nextProps.currentComments.length,
@@ -65,25 +74,35 @@ class SocialElements extends React.Component {
 
     handleLike(e) {
         e.preventDefault();
-        if (this.state.liked) {
-            this.props.removeLike(this.props.currentLike.id).then(
+        if (this.state.currentLike) {
+            const like = {
+                id: this.state.currentLike.id,
+                likeable_type: this.state.currentLike.likeableType,
+                likeable_id: this.state.currentLike.likeableId,
+                liker_id: this.state.currentLike.likerId,
+            }
+            debugger
+            this.props.removeLike(like).then(
                 this.setState({
                     likesCount: this.state.likesCount - 1,
-                    liked: !this.state.liked,
+                    currentLike: null,
                 })
             );
+            debugger
         } else {
             const like = {
                 likeable_type: "Song",
                 likeable_id: this.props.onPageSongId,
                 liker_id: this.props.currentUserId,
             }
+            debugger
             this.props.createLike(like).then(
                 this.setState({
                     likesCount: this.state.likesCount + 1,
-                    liked: !this.state.liked,
+                    currentLike: likeOf(this.props.currentUserId, "Song", this.props.onPageSongId, this.props.currentLikes),
                 })
             );
+            debugger
         }
     }
     
@@ -105,13 +124,13 @@ class SocialElements extends React.Component {
             case "banner-player":
                 return (
                     <div className="left">
-                        <button className={this.props.currentLike ? "liked-button" : "like-button"} onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> {this.props.currentLike ? "Liked" : "Like"}</button>
+                        <button className={this.state.currentLike ? "liked-button" : "like-button"} onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> {this.state.currentLike ? "Liked" : "Like"}</button>
                     </div>
                 );
             case "item-player":
                 return (
                     <div className="left">
-                        <p className={this.state.liked ? "liked-button" : "like-button"} onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> {this.state.likesCount}</p>
+                        <p className={this.state.currentLike ? "liked-button" : "like-button"} onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> {this.state.likesCount}</p>
                         {/* <p className={this.props.currentLike ? "liked-button" : "like-button"} onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> {this.props.currentLikes.length}</p> */}
                     </div>
                 );

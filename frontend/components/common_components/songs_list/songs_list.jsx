@@ -12,7 +12,6 @@ const msp = (state, ownProps) => {
     const follows = state.entities.follows;
     const users = state.entities.users;
     const currentUserId = state.session.id;
-    // debugger
     return {
         onPageArtist: users[parseInt(ownProps.match.params.userId)],
         follows: follows, // homepage
@@ -72,12 +71,9 @@ class SongsList extends React.Component {
             default:
                 break;
         }
-        debugger
         if (this.state.loading || !this.songs) {
-            // debugger
             return <img src={window.loadingPizza} className="loading"></img>;
         } else {
-            // debugger
             if (this.songs.length === 0) {
                 if (this.props.klass === "user-show-page") {
                     return (

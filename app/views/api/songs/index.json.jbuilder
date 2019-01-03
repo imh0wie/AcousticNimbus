@@ -18,7 +18,6 @@ json.set! :followedSongs do
           json.likerId like.liker_id
         end
       end
-      json.likers song.likes.map { |like| like.liker_id }
       json.likesCount song.likes_count
       json.commentsCount song.comments_count
       json.createdAt song.created_at

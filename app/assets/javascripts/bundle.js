@@ -344,29 +344,33 @@ var receiveFollows = function receiveFollows(follows) {
 /*!******************************************!*\
   !*** ./frontend/actions/like_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_LIKES, createLike, removeLike, fetchLikes */
+/*! exports provided: RECEIVE_EXTRA_LIKES, RECEIVE_LESS_LIKES, createLike, removeLike, fetchLikes */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_LIKES", function() { return RECEIVE_LIKES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_EXTRA_LIKES", function() { return RECEIVE_EXTRA_LIKES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_LESS_LIKES", function() { return RECEIVE_LESS_LIKES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createLike", function() { return createLike; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeLike", function() { return removeLike; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchLikes", function() { return fetchLikes; });
 /* harmony import */ var _util_like_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/like_api_util */ "./frontend/util/like_api_util.js");
 
-var RECEIVE_LIKES = "RECEIVE_LIKES";
+var RECEIVE_EXTRA_LIKES = "RECEIVE_EXTRA_LIKES";
+var RECEIVE_LESS_LIKES = "RECEIVE_LESS_LIKES";
 var createLike = function createLike(likeToServer) {
   return function (dispatch) {
     return _util_like_api_util__WEBPACK_IMPORTED_MODULE_0__["createLike"](likeToServer).then(function (likesFromServer) {
-      return dispatch(receiveLikes(likesFromServer));
+      debugger;
+      return dispatch(receiveExtraLikes(likesFromServer));
     });
   };
 };
-var removeLike = function removeLike(idToServer) {
+var removeLike = function removeLike(likeToServer) {
   return function (dispatch) {
-    return _util_like_api_util__WEBPACK_IMPORTED_MODULE_0__["removeLike"](idToServer).then(function (likesFromServer) {
-      return dispatch(receiveLikes(likesFromServer));
+    return _util_like_api_util__WEBPACK_IMPORTED_MODULE_0__["removeLike"](likeToServer).then(function (likesFromServer) {
+      debugger;
+      return dispatch(receiveLessLikes(likesFromServer));
     });
   };
 };
@@ -378,9 +382,16 @@ var fetchLikes = function fetchLikes() {
   };
 };
 
-var receiveLikes = function receiveLikes(likes) {
+var receiveExtraLikes = function receiveExtraLikes(likes) {
   return {
-    type: RECEIVE_LIKES,
+    type: RECEIVE_EXTRA_LIKES,
+    likes: likes
+  };
+};
+
+var receiveLessLikes = function receiveLessLikes(likes) {
+  return {
+    type: RECEIVE_LESS_LIKES,
     likes: likes
   };
 };
@@ -563,7 +574,6 @@ var fetchSong = function fetchSong(songToServerId) {
 var fetchSongs = function fetchSongs() {
   return function (dispatch) {
     return _util_song_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchSongs"]().then(function (songsFromServer) {
-      debugger;
       return dispatch(receiveSongs(songsFromServer));
     }, function (errors) {
       return dispatch(receiveSongsErrors(errors.responseJSON));
@@ -573,7 +583,6 @@ var fetchSongs = function fetchSongs() {
 var fetchFollowedSongs = function fetchFollowedSongs(userId) {
   return function (dispatch) {
     return _util_song_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchFollowedSongsOf"](userId).then(function (songsFromServer) {
-      debugger;
       return dispatch(receiveSongs(songsFromServer));
     }, function (errors) {
       return dispatch(receiveSongsErrors(errors.responseJSON));
@@ -3344,9 +3353,9 @@ var msp = function msp(state, ownProps) {
   var likes = state.entities.likes;
   var currentUserId = state.session.id;
   return {
-    currentLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likesOf"])("Song", onPageSongId, likes),
+    currentLikes: likes,
     // currentLike: likeOf("Song", onPageSongId, state.entities.users[currentUserId], likes),
-    currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(ownProps.song.likes, currentUserId),
+    currentLike: likes ? Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(currentUserId, "Song", onPageSongId, likes) : Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(currentUserId, "Song", onPageSongId, ownProps.song.likes),
     currentFollow: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_7__["followOf"])(onPageArtistId, currentUserId, state.entities.follows),
     // currentComments: commentsOf(onPageSongId, state.entities.comments),
     currentComments: state.entities.comments ? state.entities.comments.bySong[onPageSongId] : null,
@@ -3364,8 +3373,8 @@ var mdp = function mdp(dispatch) {
     createLike: function createLike(like) {
       return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_3__["createLike"])(like));
     },
-    removeLike: function removeLike(id) {
-      return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_3__["removeLike"])(id));
+    removeLike: function removeLike(like) {
+      return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_3__["removeLike"])(like));
     },
     createFollow: function createFollow(follow) {
       return dispatch(Object(_actions_follow_actions__WEBPACK_IMPORTED_MODULE_4__["createFollow"])(follow));
@@ -3394,10 +3403,11 @@ function (_React$Component) {
       display: "none"
     };
     _this.state = {
+      currentLike: _this.props.currentLike,
       likesCount: _this.props.song.likesCount,
-      commentsCount: _this.props.song.commentsCount,
-      liked: _this.props.song.likers.includes(_this.props.currentUserId)
+      commentsCount: _this.props.song.commentsCount
     };
+    debugger;
     _this.handleFollow = _this.handleFollow.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
@@ -3410,6 +3420,16 @@ function (_React$Component) {
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
+      debugger;
+
+      if (nextProps.currentLikes !== this.props.currentLikes) {
+        debugger;
+        this.setState({
+          currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(nextProps.currentUserId, "Song", nextProps.onPageSongId, nextProps.currentLikes)
+        });
+        debugger;
+      }
+
       if (nextProps.currentComments && this.state.commentsCount !== nextProps.currentComments.length) {
         this.setState({
           commentsCount: nextProps.currentComments.length
@@ -3421,21 +3441,31 @@ function (_React$Component) {
     value: function handleLike(e) {
       e.preventDefault();
 
-      if (this.state.liked) {
-        this.props.removeLike(this.props.currentLike.id).then(this.setState({
-          likesCount: this.state.likesCount - 1,
-          liked: !this.state.liked
-        }));
-      } else {
+      if (this.state.currentLike) {
         var like = {
+          id: this.state.currentLike.id,
+          likeable_type: this.state.currentLike.likeableType,
+          likeable_id: this.state.currentLike.likeableId,
+          liker_id: this.state.currentLike.likerId
+        };
+        debugger;
+        this.props.removeLike(like).then(this.setState({
+          likesCount: this.state.likesCount - 1,
+          currentLike: null
+        }));
+        debugger;
+      } else {
+        var _like = {
           likeable_type: "Song",
           likeable_id: this.props.onPageSongId,
           liker_id: this.props.currentUserId
         };
-        this.props.createLike(like).then(this.setState({
+        debugger;
+        this.props.createLike(_like).then(this.setState({
           likesCount: this.state.likesCount + 1,
-          liked: !this.state.liked
+          currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(this.props.currentUserId, "Song", this.props.onPageSongId, this.props.currentLikes)
         }));
+        debugger;
       }
     }
   }, {
@@ -3464,19 +3494,19 @@ function (_React$Component) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "left"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-            className: this.props.currentLike ? "liked-button" : "like-button",
+            className: this.state.currentLike ? "liked-button" : "like-button",
             onClick: function onClick(e) {
               return _this2.handleLike(e);
             }
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             className: "fas fa-heart"
-          }), " ", this.props.currentLike ? "Liked" : "Like"));
+          }), " ", this.state.currentLike ? "Liked" : "Like"));
 
         case "item-player":
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "left"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-            className: this.state.liked ? "liked-button" : "like-button",
+            className: this.state.currentLike ? "liked-button" : "like-button",
             onClick: function onClick(e) {
               return _this2.handleLike(e);
             }
@@ -3833,8 +3863,7 @@ var msp = function msp(state, ownProps) {
   var songs = state.entities.songs;
   var follows = state.entities.follows;
   var users = state.entities.users;
-  var currentUserId = state.session.id; // debugger
-
+  var currentUserId = state.session.id;
   return {
     onPageArtist: users[parseInt(ownProps.match.params.userId)],
     follows: follows,
@@ -3916,16 +3945,12 @@ function (_React$Component) {
           break;
       }
 
-      debugger;
-
       if (this.state.loading || !this.songs) {
-        // debugger
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loadingPizza,
           className: "loading"
         });
       } else {
-        // debugger
         if (this.songs.length === 0) {
           if (this.props.klass === "user-show-page") {
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -7299,7 +7324,11 @@ var likesReducer = function likesReducer() {
   var newState;
 
   switch (action.type) {
-    case _actions_like_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_LIKES"]:
+    case _actions_like_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_EXTRA_LIKES"]:
+      newState = Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, action.likes);
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, newState);
+
+    case _actions_like_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_LESS_LIKES"]:
       newState = Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, action.likes);
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, newState);
 
@@ -7968,10 +7997,13 @@ var createLike = function createLike(like) {
     }
   });
 };
-var removeLike = function removeLike(id) {
+var removeLike = function removeLike(like) {
   return $.ajax({
     method: "DELETE",
-    url: "/api/likes/".concat(id)
+    url: "/api/likes/".concat(like.id),
+    data: {
+      like: like
+    }
   });
 };
 var fetchLikes = function fetchLikes() {
@@ -8003,13 +8035,23 @@ var likesOf = function likesOf(likeableType, likeableId, likes) {
 //     }
 //     return null;
 // }
+// export const likeOf = (likes, likerId) => {
+//     if (!likes || !likerId) return null;
+//     for (let i = 0; i < likes.length; i++) {
+//         const like = likes[i];
+//         if (like.likerId === likerId) return like;
+//     }
+//     return null;
+// }
 
-var likeOf = function likeOf(likes, likerId) {
-  if (!likes || !likerId) return null;
+var likeOf = function likeOf(likerId, likeableType, likeableId, likes) {
+  if (!likes) return null;
+  likes = Object.values(likes);
 
   for (var i = 0; i < likes.length; i++) {
     var like = likes[i];
-    if (like.likerId === likerId) return like;
+    debugger;
+    if (like.likerId === likerId && like.likeableType === likeableType && like.likeableId === likeableId) return like;
   }
 
   return null;
@@ -8260,7 +8302,6 @@ var relatedSongsOf = function relatedSongsOf(targetSongId, songs) {
 };
 var followedSongs = function followedSongs(songs) {
   if (!songs) return null;
-  debugger;
   var output = Object.values(songs.followedSongs).reverse();
   return output;
 }; // const isEmpty = (obj) => {

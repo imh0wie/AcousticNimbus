@@ -1,22 +1,25 @@
 import * as LikeAPIUtil from "../util/like_api_util";
 
-export const RECEIVE_LIKES = "RECEIVE_LIKES";
+export const RECEIVE_EXTRA_LIKES = "RECEIVE_EXTRA_LIKES";
+export const RECEIVE_LESS_LIKES = "RECEIVE_LESS_LIKES";
 
 export const createLike = (likeToServer) => {
   return dispatch => {
     return LikeAPIUtil.createLike(likeToServer).then(
       (likesFromServer) => {
-        return dispatch(receiveLikes(likesFromServer));
+        debugger
+        return dispatch(receiveExtraLikes(likesFromServer));
       }
     );
   };
 };
 
-export const removeLike = (idToServer) => {
+export const removeLike = (likeToServer) => {
   return dispatch => {
-    return LikeAPIUtil.removeLike(idToServer).then(
+    return LikeAPIUtil.removeLike(likeToServer).then(
       (likesFromServer) => {
-        return dispatch(receiveLikes(likesFromServer));
+        debugger
+        return dispatch(receiveLessLikes(likesFromServer));
       }
     )
   }
@@ -32,9 +35,16 @@ export const fetchLikes = () => {
     };
 };
 
-const receiveLikes = (likes) => {
+const receiveExtraLikes = (likes) => {
     return {
-      type: RECEIVE_LIKES,
+      type: RECEIVE_EXTRA_LIKES,
+      likes: likes,
+    };
+};
+
+const receiveLessLikes = (likes) => {
+    return {
+      type: RECEIVE_LESS_LIKES,
       likes: likes,
     };
 };

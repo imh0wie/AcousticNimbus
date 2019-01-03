@@ -7,7 +7,8 @@ class Api::LikesController < ApplicationController
   def create
     @like = Like.new(like_params)
     if @like.save
-      @likes = Like.all
+      # @current_user = User.find(params[:like][:liker_id])
+      @current_likes = Like.where(liker_id: params[:like][:liker_id])
       render :index
     else
       render @like.errors.full_messages, status: 401
@@ -15,9 +16,10 @@ class Api::LikesController < ApplicationController
   end
 
   def destroy
-    @like = Like.find(params[:id])
+    @like = Like.find(params[:like][:id])
     if @like.destroy
-      @likes = Like.all
+      # @current_user = User.find(params[:like][:liker_id])
+      @current_likes = Like.where(liker_id: params[:like][:liker_id])
       render :index
     else
       render @like.errors.full_messages, status: 401
