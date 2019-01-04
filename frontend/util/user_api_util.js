@@ -51,13 +51,16 @@ export const editUser = (user, userId) => {
 // }
 
 export const suggestedArtists = (users) => {
-    if (isEmpty(users) || !users) return null;
+    if (!users) return null;
     let output = [];
-    const userIds = randomize(Object.keys(users));
-    for (let i = 0; i < userIds.length; i++) {
-        const userId = parseInt(userIds[i]);
-        const user = users[userId];
+    if (isEmpty(users)) return output;
+    users = randomize(Object.values(users));
+    let i = 0;
+    while (output.length < 3) {
+        const user = users[i];
         output.push(user);
+        if (output.length === 3) break;
+        i++;
     }
     return output;
 }

@@ -48,7 +48,6 @@ class SocialElements extends React.Component {
             likesCount: this.props.song.likesCount,
             commentsCount: this.props.song.commentsCount,
         }
-        debugger
         this.handleFollow = this.handleFollow.bind(this);
     }
 
@@ -57,13 +56,10 @@ class SocialElements extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        debugger
         if (nextProps.currentLikes !== this.props.currentLikes) {
-            debugger
             this.setState({
                 currentLike: likeOf(nextProps.currentUserId, "Song", nextProps.onPageSongId, nextProps.currentLikes)
             });
-            debugger
         }
         if (nextProps.currentComments && this.state.commentsCount !== nextProps.currentComments.length) {
             this.setState({
@@ -81,28 +77,24 @@ class SocialElements extends React.Component {
                 likeable_id: this.state.currentLike.likeableId,
                 liker_id: this.state.currentLike.likerId,
             }
-            debugger
             this.props.removeLike(like).then(
                 this.setState({
                     likesCount: this.state.likesCount - 1,
                     currentLike: null,
                 })
             );
-            debugger
         } else {
             const like = {
                 likeable_type: "Song",
                 likeable_id: this.props.onPageSongId,
                 liker_id: this.props.currentUserId,
             }
-            debugger
             this.props.createLike(like).then(
                 this.setState({
                     likesCount: this.state.likesCount + 1,
                     currentLike: likeOf(this.props.currentUserId, "Song", this.props.onPageSongId, this.props.currentLikes),
                 })
             );
-            debugger
         }
     }
     

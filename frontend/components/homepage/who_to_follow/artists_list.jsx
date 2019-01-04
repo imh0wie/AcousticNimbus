@@ -18,7 +18,7 @@ const msp = (state) => {
         users: users,
         // suggestedArtists: suggestedArtists(3, follows, users, currentUserId),
         randomThree: suggestedArtists(state.entities.users.randomThree),
-        currentUserId: currentUserId,
+        // currentUserId: currentUserId,
     });
 }
 
@@ -26,7 +26,7 @@ const mdp = (dispatch) => {
     return ({
         fetchSongs: () => dispatch(fetchSongs()),
         fetchFollows: () => dispatch(fetchFollows()),
-        fetchThreeRandomUsers: (currentUserId) => dispatch(fetchThreeRandomUsers(currentUserId)),
+        // fetchThreeRandomUsers: (currentUserId) => dispatch(fetchThreeRandomUsers(currentUserId)),
         fetchUsers: () => dispatch(fetchUsers()),
     });
 }

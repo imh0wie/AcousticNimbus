@@ -625,34 +625,34 @@ var receiveSongsErrors = function receiveSongsErrors(errors) {
 /*!******************************************!*\
   !*** ./frontend/actions/user_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_USER, RECEIVE_USERS, fetchUsers, fetchThreeRandomUsers, fetchUser, editUser, receiveUser, receiveUsers */
+/*! exports provided: RECEIVE_RANDOM_THREE_USERS, RECEIVE_USER, fetchUsers, fetchThreeRandomUsers, fetchUser, editUser, receiveUser, receiveRandomThreeUsers */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_RANDOM_THREE_USERS", function() { return RECEIVE_RANDOM_THREE_USERS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_USER", function() { return RECEIVE_USER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_USERS", function() { return RECEIVE_USERS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUsers", function() { return fetchUsers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchThreeRandomUsers", function() { return fetchThreeRandomUsers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUser", function() { return fetchUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editUser", function() { return editUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveUser", function() { return receiveUser; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveUsers", function() { return receiveUsers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveRandomThreeUsers", function() { return receiveRandomThreeUsers; });
 /* harmony import */ var _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/user_api_util */ "./frontend/util/user_api_util.js");
 
+var RECEIVE_RANDOM_THREE_USERS = 'RECEIVE_RANDOM_THREE_USERS';
 var RECEIVE_USER = 'RECEIVE_USER';
-var RECEIVE_USERS = 'RECEIVE_USERS';
 var fetchUsers = function fetchUsers() {
   return function (dispatch) {
     return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchUsers"]().then(function (usersFromServer) {
-      return dispatch(receiveUsers(usersFromServer));
+      return dispatch(receiveRandomThreeUsers(usersFromServer));
     });
   };
 };
 var fetchThreeRandomUsers = function fetchThreeRandomUsers(currentUserId) {
   return function (dispatch) {
     return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchThreeRandomUsers"](currentUserId).then(function (usersFromServer) {
-      return dispatch(receiveUsers(usersFromServer));
+      return dispatch(receiveRandomThreeUsers(usersFromServer));
     });
   };
 };
@@ -676,9 +676,9 @@ var receiveUser = function receiveUser(user) {
     user: user
   };
 };
-var receiveUsers = function receiveUsers(users) {
+var receiveRandomThreeUsers = function receiveRandomThreeUsers(users) {
   return {
-    type: RECEIVE_USERS,
+    type: RECEIVE_RANDOM_THREE_USERS,
     users: users
   };
 };
@@ -3407,7 +3407,6 @@ function (_React$Component) {
       likesCount: _this.props.song.likesCount,
       commentsCount: _this.props.song.commentsCount
     };
-    debugger;
     _this.handleFollow = _this.handleFollow.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
@@ -3420,14 +3419,10 @@ function (_React$Component) {
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
-      debugger;
-
       if (nextProps.currentLikes !== this.props.currentLikes) {
-        debugger;
         this.setState({
           currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(nextProps.currentUserId, "Song", nextProps.onPageSongId, nextProps.currentLikes)
         });
-        debugger;
       }
 
       if (nextProps.currentComments && this.state.commentsCount !== nextProps.currentComments.length) {
@@ -3448,24 +3443,20 @@ function (_React$Component) {
           likeable_id: this.state.currentLike.likeableId,
           liker_id: this.state.currentLike.likerId
         };
-        debugger;
         this.props.removeLike(like).then(this.setState({
           likesCount: this.state.likesCount - 1,
           currentLike: null
         }));
-        debugger;
       } else {
         var _like = {
           likeable_type: "Song",
           likeable_id: this.props.onPageSongId,
           liker_id: this.props.currentUserId
         };
-        debugger;
         this.props.createLike(_like).then(this.setState({
           likesCount: this.state.likesCount + 1,
           currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(this.props.currentUserId, "Song", this.props.onPageSongId, this.props.currentLikes)
         }));
-        debugger;
       }
     }
   }, {
@@ -5007,8 +4998,8 @@ var msp = function msp(state) {
     follows: follows,
     users: users,
     // suggestedArtists: suggestedArtists(3, follows, users, currentUserId),
-    randomThree: Object(_util_user_api_util__WEBPACK_IMPORTED_MODULE_6__["suggestedArtists"])(state.entities.users.randomThree),
-    currentUserId: currentUserId
+    randomThree: Object(_util_user_api_util__WEBPACK_IMPORTED_MODULE_6__["suggestedArtists"])(state.entities.users.randomThree) // currentUserId: currentUserId,
+
   };
 };
 
@@ -5020,9 +5011,7 @@ var mdp = function mdp(dispatch) {
     fetchFollows: function fetchFollows() {
       return dispatch(Object(_actions_follow_actions__WEBPACK_IMPORTED_MODULE_4__["fetchFollows"])());
     },
-    fetchThreeRandomUsers: function fetchThreeRandomUsers(currentUserId) {
-      return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_5__["fetchThreeRandomUsers"])(currentUserId));
-    },
+    // fetchThreeRandomUsers: (currentUserId) => dispatch(fetchThreeRandomUsers(currentUserId)),
     fetchUsers: function fetchUsers() {
       return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_5__["fetchUsers"])());
     }
@@ -5259,21 +5248,51 @@ function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _artists_list__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./artists_list */ "./frontend/components/homepage/who_to_follow/artists_list.jsx");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
+/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/user_actions */ "./frontend/actions/user_actions.js");
+/* harmony import */ var _artists_list__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./artists_list */ "./frontend/components/homepage/who_to_follow/artists_list.jsx");
 
 
 
-var WhoToFollow = function WhoToFollow() {
+
+
+
+var msp = function msp(state) {
+  return {
+    currentUserId: state.session.id
+  };
+};
+
+var mdp = function mdp(dispatch) {
+  return {
+    fetchThreeRandomUsers: function fetchThreeRandomUsers(currentUserId) {
+      return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_3__["fetchThreeRandomUsers"])(currentUserId));
+    }
+  };
+};
+
+var WhoToFollow = function WhoToFollow(props) {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "who-to-follow"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "header"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     className: "fas fa-user-friends"
-  }), " Who to follow")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_artists_list__WEBPACK_IMPORTED_MODULE_1__["default"], null));
+  }), " Who to follow"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    className: "refresh",
+    onClick: function onClick() {
+      return props.fetchThreeRandomUsers(props.currentUserId);
+    }
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fas fa-redo-alt"
+  }), " Refresh")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_artists_list__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    currentUserId: props.currentUserId,
+    fetchThreeRandomUsers: props.fetchThreeRandomUsers
+  }));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (WhoToFollow);
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, mdp)(WhoToFollow)));
 
 /***/ }),
 
@@ -7649,11 +7668,13 @@ var usersReducer = function usersReducer() {
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
   var newState;
+  var oldState;
 
   switch (action.type) {
-    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_USERS"]:
-      newState = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, action.users);
-      return Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, state, newState);
+    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_RANDOM_THREE_USERS"]:
+      newState = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, state, action.users);
+      debugger;
+      return newState;
 
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_CURRENT_USER"]:
       return Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, state, _defineProperty({}, action.currentUser.id, action.currentUser));
@@ -8376,14 +8397,17 @@ var editUser = function editUser(user, userId) {
 // }
 
 var suggestedArtists = function suggestedArtists(users) {
-  if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(users) || !users) return null;
+  if (!users) return null;
   var output = [];
-  var userIds = Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["randomize"])(Object.keys(users));
+  if (Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])(users)) return output;
+  users = Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["randomize"])(Object.values(users));
+  var i = 0;
 
-  for (var i = 0; i < userIds.length; i++) {
-    var userId = parseInt(userIds[i]);
-    var user = users[userId];
+  while (output.length < 3) {
+    var user = users[i];
     output.push(user);
+    if (output.length === 3) break;
+    i++;
   }
 
   return output;

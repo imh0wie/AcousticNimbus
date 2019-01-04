@@ -1,13 +1,13 @@
 import * as UserAPIUtil from '../util/user_api_util';
 
+export const RECEIVE_RANDOM_THREE_USERS = 'RECEIVE_RANDOM_THREE_USERS';
 export const RECEIVE_USER = 'RECEIVE_USER';
-export const RECEIVE_USERS = 'RECEIVE_USERS';
 
 export const fetchUsers = () => {
     return (dispatch) => {
         return UserAPIUtil.fetchUsers().then(
             (usersFromServer) => {
-                return dispatch(receiveUsers(usersFromServer));
+                return dispatch(receiveRandomThreeUsers(usersFromServer));
             }
         );
     }
@@ -17,7 +17,7 @@ export const fetchThreeRandomUsers = (currentUserId) => {
     return (dispatch) => {
         return UserAPIUtil.fetchThreeRandomUsers(currentUserId).then(
             (usersFromServer) => {
-                return dispatch(receiveUsers(usersFromServer));
+                return dispatch(receiveRandomThreeUsers(usersFromServer));
             }
         );
     }
@@ -50,9 +50,9 @@ export const receiveUser = (user) => {
     };
 };
 
-export const receiveUsers = (users) => {
+export const receiveRandomThreeUsers = (users) => {
     return {
-        type: RECEIVE_USERS,
+        type: RECEIVE_RANDOM_THREE_USERS,
         users: users,
     }
 }
