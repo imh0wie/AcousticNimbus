@@ -1,14 +1,16 @@
 class Api::UsersController < ApplicationController
   def index
     @users = User.all
-    @random_three_users = User.joins(:attentions)
-                              .select('users.*')
-                              .where.not('follows.follower_id = ?', params[:current_user_id])
-                              .group('users.id')
-                              .order('RANDOM()')
-                              .first(3)
-                              .shuffle
-    @current_user = params[:current_user_id]
+    followed_users = Follow.where(follower_id: params[:current_user_id]).select(:followed_user_id)
+    @random_three_users = User.where.not(id: followed_users)
+                              .where.not(id: params[:current_user_id]).shuffle.first(3)
+    # @random_three_users = User.joins(:attentions)
+    #                           .select('users.*')
+    #                           .where.not('follows.follower_id = ?', params[:current_user_id])
+    #                           .group('users.id')
+    #                           .order('RANDOM()')
+    #                           .first(3)
+    #                           .shuffle
     render :index
   end
 

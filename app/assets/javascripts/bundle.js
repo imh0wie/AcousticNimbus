@@ -5126,11 +5126,13 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 var msp = function msp(state, ownProps) {
-  var artistId = ownProps.artist.id; // const follows = state.entities.follows;
-
+  var artistId = ownProps.artist.id;
+  var follows = state.entities.follows;
   var currentUserId = state.session.id;
   return {
-    artistFollow: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_4__["followOf"])(artistId, currentUserId, state.entities.follows),
+    currentFollowings: follows ? Object.values(follows.interests) : null,
+    currentFollowers: follows ? Object.values(follows.interests) : null,
+    // artistFollow: followOf(artistId, currentUserId, state.entities.follows),
     // artistFollowers: followersOf(artistId, follows, state.entities.users),
     // artistSongs: songsOf(artistId, state.entities.songs),
     currentUserId: currentUserId
@@ -5160,29 +5162,34 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ArtistListItem).call(this, props));
     _this.state = {
-      followed: false
+      artistFollow: false
     };
     _this.handleFollow = _this.handleFollow.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
   _createClass(ArtistListItem, [{
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      if (this.props.currentFollowings !== nextProps.currentFollowings) {
+        this.setState({
+          artistFollow: nextProps.currentFollowings[this.props.artist.id]
+        });
+      }
+    }
+  }, {
     key: "handleFollow",
     value: function handleFollow(e) {
       e.preventDefault();
 
-      if (this.state.followed) {
-        this.props.removeFollow(this.props.artistFollow).then(this.setState({
-          followed: !this.state.followed
-        }));
+      if (this.state.artistFollow) {
+        this.props.removeFollow(this.state.artistFollow);
       } else {
         var follow = {
           followed_user_id: this.props.artist.id,
           follower_id: this.props.currentUserId
         };
-        this.props.createFollow(follow).then(this.setState({
-          followed: !this.state.followed
-        }));
+        this.props.createFollow(follow);
       }
     }
   }, {
@@ -5222,11 +5229,11 @@ function (_React$Component) {
       }), " ", this.renderNumber(this.props.artist.followersCount)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-music"
       }), " ", this.renderNumber(this.props.artist.songsCount))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: this.state.followed ? "following" : "",
+        className: this.state.artistFollow ? "following" : "",
         onClick: function onClick(e) {
           return _this2.handleFollow(e);
         }
-      }, this.state.followed ? "Following" : "Follow"));
+      }, this.state.artistFollow ? "Following" : "Follow"));
     }
   }]);
 

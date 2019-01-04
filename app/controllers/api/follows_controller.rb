@@ -10,6 +10,7 @@ class Api::FollowsController < ApplicationController
   
   def create
     @follow = Follow.new(follow_params)
+    debugger
     if @follow.save
       # @followed_users = User.joins(:attentions)
       #                       .select('user.*')

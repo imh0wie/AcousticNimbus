@@ -7,10 +7,12 @@ import { songsOf } from "../../../util/song_api_util";
 
 const msp = (state, ownProps) => {
     const artistId = ownProps.artist.id;
-    // const follows = state.entities.follows;
+    const follows = state.entities.follows;
     const currentUserId = state.session.id;
     return ({
-        artistFollow: followOf(artistId, currentUserId, state.entities.follows),
+        currentFollowings: follows ? Object.values(follows.interests) : null,
+        currentFollowers: follows ? Object.values(follows.interests) : null,
+        // artistFollow: followOf(artistId, currentUserId, state.entities.follows),
         // artistFollowers: followersOf(artistId, follows, state.entities.users),
         // artistSongs: songsOf(artistId, state.entities.songs),
         currentUserId: currentUserId,
@@ -28,29 +30,29 @@ class ArtistListItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            followed: false,
+            artistFollow: false,
         }
         this.handleFollow = this.handleFollow.bind(this);
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (this.props.currentFollowings !== nextProps.currentFollowings) {
+            this.setState({
+                artistFollow: nextProps.currentFollowings[this.props.artist.id]
+            });
+        }
+    }
+
     handleFollow(e) {
         e.preventDefault();
-        if (this.state.followed) {
-            this.props.removeFollow(this.props.artistFollow).then(
-                this.setState({
-                    followed: !this.state.followed,
-                })
-            );
+        if (this.state.artistFollow) {
+            this.props.removeFollow(this.state.artistFollow);
         } else {
             const follow = {
                 followed_user_id: this.props.artist.id,
                 follower_id: this.props.currentUserId,
             }
-            this.props.createFollow(follow).then(
-                this.setState({
-                    followed: !this.state.followed,
-                })
-            );
+            this.props.createFollow(follow);
         }
     }
 
@@ -85,7 +87,7 @@ class ArtistListItem extends React.Component {
                     </div>
                 </div>
                 {/* <button onClick={(e) => this.handleFollow(e)}>{this.props.artistFollow ? "Following" : "Follow"}</button> */}
-                <button className={this.state.followed ? "following" : ""} onClick={(e) => this.handleFollow(e)}>{this.state.followed ? "Following" : "Follow"}</button>
+                <button className={this.state.artistFollow ? "following" : ""} onClick={(e) => this.handleFollow(e)}>{this.state.artistFollow ? "Following" : "Follow"}</button>
             </li>
         );
     }
