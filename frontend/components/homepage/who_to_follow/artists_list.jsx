@@ -17,7 +17,7 @@ const msp = (state) => {
         follows: follows,
         users: users,
         // suggestedArtists: suggestedArtists(3, follows, users, currentUserId),
-        randomThree: suggestedArtists(state.entities.users.randomThree),
+        randomThree: suggestedArtists(users.randomThree),
         // currentUserId: currentUserId,
     });
 }
@@ -69,6 +69,7 @@ class ArtistsList extends React.Component {
                     </div>
                 );
             } else {
+                debugger
                 // if (isEmpty(this.props.songs)) return  <img src={window.loadingPizza} className="loading"></img>;
                 return (
                     <ul>

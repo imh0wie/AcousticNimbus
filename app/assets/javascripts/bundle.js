@@ -305,6 +305,7 @@ var RECEIVE_FOLLOWS = "RECEIVE_FOLLOWS"; // export const RECEIVE_PERSONAL_FOLLOW
 var createFollow = function createFollow(followToServer) {
   return function (dispatch) {
     return _util_follow_api_util__WEBPACK_IMPORTED_MODULE_0__["createFollow"](followToServer).then(function (followsFromServer) {
+      debugger;
       return dispatch(receiveFollows(followsFromServer));
     });
   };
@@ -312,6 +313,7 @@ var createFollow = function createFollow(followToServer) {
 var removeFollow = function removeFollow(followToServer) {
   return function (dispatch) {
     return _util_follow_api_util__WEBPACK_IMPORTED_MODULE_0__["removeFollow"](followToServer).then(function (followsFromServer) {
+      debugger;
       return dispatch(receiveFollows(followsFromServer));
     });
   };
@@ -361,7 +363,6 @@ var RECEIVE_LESS_LIKES = "RECEIVE_LESS_LIKES";
 var createLike = function createLike(likeToServer) {
   return function (dispatch) {
     return _util_like_api_util__WEBPACK_IMPORTED_MODULE_0__["createLike"](likeToServer).then(function (likesFromServer) {
-      debugger;
       return dispatch(receiveExtraLikes(likesFromServer));
     });
   };
@@ -369,7 +370,6 @@ var createLike = function createLike(likeToServer) {
 var removeLike = function removeLike(likeToServer) {
   return function (dispatch) {
     return _util_like_api_util__WEBPACK_IMPORTED_MODULE_0__["removeLike"](likeToServer).then(function (likesFromServer) {
-      debugger;
       return dispatch(receiveLessLikes(likesFromServer));
     });
   };
@@ -625,12 +625,13 @@ var receiveSongsErrors = function receiveSongsErrors(errors) {
 /*!******************************************!*\
   !*** ./frontend/actions/user_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_RANDOM_THREE_USERS, RECEIVE_USER, fetchUsers, fetchThreeRandomUsers, fetchUser, editUser, receiveUser, receiveRandomThreeUsers */
+/*! exports provided: RECEIVE_RANDOM_THREE_USERS, EMPTY_RANDOM_THREE_USERS, RECEIVE_USER, fetchUsers, fetchThreeRandomUsers, fetchUser, editUser, receiveUser, receiveRandomThreeUsers, emptyRandomThreeUsers */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_RANDOM_THREE_USERS", function() { return RECEIVE_RANDOM_THREE_USERS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EMPTY_RANDOM_THREE_USERS", function() { return EMPTY_RANDOM_THREE_USERS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_USER", function() { return RECEIVE_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUsers", function() { return fetchUsers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchThreeRandomUsers", function() { return fetchThreeRandomUsers; });
@@ -638,9 +639,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editUser", function() { return editUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveUser", function() { return receiveUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveRandomThreeUsers", function() { return receiveRandomThreeUsers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "emptyRandomThreeUsers", function() { return emptyRandomThreeUsers; });
 /* harmony import */ var _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/user_api_util */ "./frontend/util/user_api_util.js");
 
 var RECEIVE_RANDOM_THREE_USERS = 'RECEIVE_RANDOM_THREE_USERS';
+var EMPTY_RANDOM_THREE_USERS = 'EMPTY_RANDOM_THREE_USERS';
 var RECEIVE_USER = 'RECEIVE_USER';
 var fetchUsers = function fetchUsers() {
   return function (dispatch) {
@@ -680,6 +683,12 @@ var receiveRandomThreeUsers = function receiveRandomThreeUsers(users) {
   return {
     type: RECEIVE_RANDOM_THREE_USERS,
     users: users
+  };
+};
+var emptyRandomThreeUsers = function emptyRandomThreeUsers(defaultState) {
+  return {
+    type: EMPTY_RANDOM_THREE_USERS,
+    defaultState: defaultState
   };
 };
 
@@ -3356,7 +3365,7 @@ var msp = function msp(state, ownProps) {
     currentLikes: likes,
     // currentLike: likeOf("Song", onPageSongId, state.entities.users[currentUserId], likes),
     currentLike: likes ? Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(currentUserId, "Song", onPageSongId, likes) : Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(currentUserId, "Song", onPageSongId, ownProps.song.likes),
-    currentFollow: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_7__["followOf"])(onPageArtistId, currentUserId, state.entities.follows),
+    // currentFollow: followOf(onPageArtistId, currentUserId, state.entities.follows),
     // currentComments: commentsOf(onPageSongId, state.entities.comments),
     currentComments: state.entities.comments ? state.entities.comments.bySong[onPageSongId] : null,
     onPageArtistId: onPageArtistId,
@@ -4998,7 +5007,7 @@ var msp = function msp(state) {
     follows: follows,
     users: users,
     // suggestedArtists: suggestedArtists(3, follows, users, currentUserId),
-    randomThree: Object(_util_user_api_util__WEBPACK_IMPORTED_MODULE_6__["suggestedArtists"])(state.entities.users.randomThree) // currentUserId: currentUserId,
+    randomThree: Object(_util_user_api_util__WEBPACK_IMPORTED_MODULE_6__["suggestedArtists"])(users.randomThree) // currentUserId: currentUserId,
 
   };
 };
@@ -5065,7 +5074,8 @@ function (_React$Component) {
             className: "error-message"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "We cannot recommend you any users because:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "1) you have followed all users on Acoustic Nimbus; OR"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "2) our site sucks and you are the only user..."));
         } else {
-          // if (isEmpty(this.props.songs)) return  <img src={window.loadingPizza} className="loading"></img>;
+          debugger; // if (isEmpty(this.props.songs)) return  <img src={window.loadingPizza} className="loading"></img>;
+
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.randomThree.map(function (artist) {
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_artists_list_item__WEBPACK_IMPORTED_MODULE_8__["default"], {
               key: artist.id,
@@ -5131,7 +5141,7 @@ var msp = function msp(state, ownProps) {
   var currentUserId = state.session.id;
   return {
     currentFollowings: follows ? Object.values(follows.interests) : null,
-    currentFollowers: follows ? Object.values(follows.interests) : null,
+    currentFollowers: follows ? Object.values(follows.attentions) : null,
     // artistFollow: followOf(artistId, currentUserId, state.entities.follows),
     // artistFollowers: followersOf(artistId, follows, state.entities.users),
     // artistSongs: songsOf(artistId, state.entities.songs),
@@ -5162,7 +5172,7 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ArtistListItem).call(this, props));
     _this.state = {
-      artistFollow: false
+      artistFollow: _this.props.currentFollowings ? Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_4__["followOf"])(_this.props.artist.id, _this.props.currentFollowings) : false
     };
     _this.handleFollow = _this.handleFollow.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
@@ -5171,25 +5181,29 @@ function (_React$Component) {
   _createClass(ArtistListItem, [{
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
+      // debugger
       if (this.props.currentFollowings !== nextProps.currentFollowings) {
+        // debugger
         this.setState({
-          artistFollow: nextProps.currentFollowings[this.props.artist.id]
-        });
+          artistFollow: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_4__["followOf"])(this.props.artist.id, nextProps.currentFollowings)
+        }); // debugger
       }
     }
   }, {
     key: "handleFollow",
     value: function handleFollow(e) {
-      e.preventDefault();
+      e.preventDefault(); // debugger
 
       if (this.state.artistFollow) {
-        this.props.removeFollow(this.state.artistFollow);
+        // debugger
+        this.props.removeFollow(this.state.artistFollow); // debugger
       } else {
         var follow = {
           followed_user_id: this.props.artist.id,
-          follower_id: this.props.currentUserId
+          follower_id: this.props.currentUserId // debugger
+
         };
-        this.props.createFollow(follow);
+        this.props.createFollow(follow); // debugger
       }
     }
   }, {
@@ -5212,7 +5226,6 @@ function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      // if (!this.props.artistSongs) return null;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "item-info-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -5259,6 +5272,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/user_actions */ "./frontend/actions/user_actions.js");
 /* harmony import */ var _artists_list__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./artists_list */ "./frontend/components/homepage/who_to_follow/artists_list.jsx");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -5266,8 +5299,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var msp = function msp(state) {
+  var currentUserId = state.session.id;
   return {
-    currentUserId: state.session.id
+    currentUser: state.entities.users[currentUserId],
+    currentUserId: currentUserId
   };
 };
 
@@ -5275,29 +5310,79 @@ var mdp = function mdp(dispatch) {
   return {
     fetchThreeRandomUsers: function fetchThreeRandomUsers(currentUserId) {
       return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_3__["fetchThreeRandomUsers"])(currentUserId));
+    },
+    emptyRandomThreeUsers: function emptyRandomThreeUsers(defaultState) {
+      return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_3__["emptyRandomThreeUsers"])(defaultState));
     }
   };
 };
 
-var WhoToFollow = function WhoToFollow(props) {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "who-to-follow"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "header"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-    className: "fas fa-user-friends"
-  }), " Who to follow"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-    className: "refresh",
-    onClick: function onClick() {
-      return props.fetchThreeRandomUsers(props.currentUserId);
+var WhoToFollow =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(WhoToFollow, _React$Component);
+
+  function WhoToFollow(props) {
+    var _this;
+
+    _classCallCheck(this, WhoToFollow);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(WhoToFollow).call(this, props));
+    _this.state = _defineProperty({
+      randomThree: null
+    }, props.currentUserId, props.currentUser);
+    return _this;
+  }
+
+  _createClass(WhoToFollow, [{
+    key: "refresh",
+    value: function refresh() {
+      this.props.emptyRandomThreeUsers(this.state);
+      this.props.fetchThreeRandomUsers(this.props.currentUserId);
     }
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-    className: "fas fa-redo-alt"
-  }), " Refresh")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_artists_list__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    currentUserId: props.currentUserId,
-    fetchThreeRandomUsers: props.fetchThreeRandomUsers
-  }));
-};
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "who-to-follow"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-user-friends"
+      }), " Who to follow"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "refresh",
+        onClick: function onClick() {
+          return _this2.refresh();
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-redo-alt"
+      }), " Refresh")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_artists_list__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        currentUserId: this.props.currentUserId,
+        fetchThreeRandomUsers: this.props.fetchThreeRandomUsers
+      }));
+    }
+  }]);
+
+  return WhoToFollow;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component); // const WhoToFollow = (props) => {
+//     const defaultState = {
+//         randomThree: null,
+//         [props.currentUserId]: props.currentUser,
+//     }
+//     return (
+//         <div className="who-to-follow">
+//             <div className="header"> 
+//                 <p><i className="fas fa-user-friends"></i> Who to follow</p>
+//                 <p className="refresh" onClick={() => props.emptyRandomThreeUsers(defaultState).then(props.fetchThreeRandomUsers(props.currentUserId))}><i className="fas fa-redo-alt"></i> Refresh</p>
+//             </div>
+//             <ArtistsList currentUserId={props.currentUserId}
+//                          fetchThreeRandomUsers={props.fetchThreeRandomUsers} />
+//         </div>
+//     );
+// }
+
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, mdp)(WhoToFollow)));
 
@@ -7309,7 +7394,7 @@ var followsReducer = function followsReducer() {
   switch (action.type) {
     case _actions_follow_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_FOLLOWS"]:
       newState = Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, action.follows);
-      return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, newState);
+      return newState;
     // case RECEIVE_PERSONAL_FOLLOWS:
     //   newState = merge({}, action.follows);
     //   return merge({}, state, newState);
@@ -7675,12 +7760,14 @@ var usersReducer = function usersReducer() {
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
   var newState;
-  var oldState;
 
   switch (action.type) {
     case _actions_user_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_RANDOM_THREE_USERS"]:
       newState = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, state, action.users);
-      debugger;
+      return newState;
+
+    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_0__["EMPTY_RANDOM_THREE_USERS"]:
+      newState = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, action.defaultState);
       return newState;
 
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_CURRENT_USER"]:
@@ -7841,15 +7928,23 @@ var artistIdOf = function artistIdOf(onPageSong) {
   // } else {
   //     return null;
   // }
-};
-var followOf = function followOf(followedUserId, followerId, follows) {
-  if (!follows) return null;
-  var followIds = Object.keys(follows);
+}; // export const followOf = (followedUserId, followerId, follows) => {
+//     if (!follows) return null;
+//     const followIds = Object.keys(follows);
+//     for (let i = 0; i < followIds.length; i++ ) {
+//         const followId = followIds[i];
+//         const follow = follows.interests[followId];
+//         if (follow.followedUserId === followedUserId && follow.followerId === followerId) return follow;
+//     }
+//     return null;
+// }
 
-  for (var i = 0; i < followIds.length; i++) {
-    var followId = followIds[i];
-    var follow = follows.interests[followId];
-    if (follow.followedUserId === followedUserId && follow.followerId === followerId) return follow;
+var followOf = function followOf(userId, followsArr) {
+  if (!followsArr) return null;
+
+  for (var i = 0; i < followsArr.length; i++) {
+    var follow = followsArr[i];
+    if (follow.followed_user_id === userId) return follow;
   }
 
   return null;
@@ -8078,7 +8173,6 @@ var likeOf = function likeOf(likerId, likeableType, likeableId, likes) {
 
   for (var i = 0; i < likes.length; i++) {
     var like = likes[i];
-    debugger;
     if (like.likerId === likerId && like.likeableType === likeableType && like.likeableId === likeableId) return like;
   }
 
@@ -8329,7 +8423,9 @@ var relatedSongsOf = function relatedSongsOf(targetSongId, songs) {
   return output;
 };
 var followedSongs = function followedSongs(songs) {
-  if (!songs) return null;
+  // debugger
+  if (!songs) return null; // debugger
+
   var output = Object.values(songs.followedSongs).reverse();
   return output;
 }; // const isEmpty = (obj) => {
@@ -8410,7 +8506,7 @@ var suggestedArtists = function suggestedArtists(users) {
   users = Object(_general_api_util__WEBPACK_IMPORTED_MODULE_0__["randomize"])(Object.values(users));
   var i = 0;
 
-  while (output.length < 3) {
+  while (i < users.length) {
     var user = users[i];
     output.push(user);
     if (output.length === 3) break;

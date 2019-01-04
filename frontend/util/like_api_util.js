@@ -62,7 +62,6 @@ export const likeOf = (likerId, likeableType, likeableId, likes) => {
     likes = Object.values(likes);
     for (let i = 0; i < likes.length; i++) {
         const like = likes[i];
-        debugger
         if (like.likerId === likerId && like.likeableType === likeableType && like.likeableId === likeableId) return like;
     }
     return null;

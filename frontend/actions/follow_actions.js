@@ -7,6 +7,7 @@ export const createFollow = (followToServer) => {
   return dispatch => {
     return FollowAPIUtil.createFollow(followToServer).then(
       (followsFromServer) => {
+        debugger
         return dispatch(receiveFollows(followsFromServer));
       }
     );
@@ -17,6 +18,7 @@ export const removeFollow = (followToServer) => {
   return dispatch => {
     return FollowAPIUtil.removeFollow(followToServer).then(
       (followsFromServer) => {
+        debugger
         return dispatch(receiveFollows(followsFromServer));
       }
     )

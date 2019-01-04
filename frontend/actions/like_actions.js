@@ -7,7 +7,6 @@ export const createLike = (likeToServer) => {
   return dispatch => {
     return LikeAPIUtil.createLike(likeToServer).then(
       (likesFromServer) => {
-        debugger
         return dispatch(receiveExtraLikes(likesFromServer));
       }
     );
@@ -18,7 +17,6 @@ export const removeLike = (likeToServer) => {
   return dispatch => {
     return LikeAPIUtil.removeLike(likeToServer).then(
       (likesFromServer) => {
-        debugger
         return dispatch(receiveLessLikes(likesFromServer));
       }
     )

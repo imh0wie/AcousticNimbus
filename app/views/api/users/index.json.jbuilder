@@ -1,5 +1,5 @@
 json.set! :randomThree do
-  @random_three_users.each do |user|
+  @recommended_users.each do |user|
     json.set! user.id do
       json.id user.id
       json.username user.username

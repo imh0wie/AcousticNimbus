@@ -10,7 +10,6 @@ class Api::FollowsController < ApplicationController
   
   def create
     @follow = Follow.new(follow_params)
-    debugger
     if @follow.save
       # @followed_users = User.joins(:attentions)
       #                       .select('user.*')
@@ -26,7 +25,6 @@ class Api::FollowsController < ApplicationController
                          .where('follower_id = ?', params[:current_user_id])
       @attentions = Follow.select(:id, :followed_user_id, :follower_id)
                           .where('followed_user_id = ?', params[:current_user_id])
-      # @follows = Follow.all
       render :show
     else
       render @follow.errors.full_messages, status: 401

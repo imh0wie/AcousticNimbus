@@ -81,15 +81,11 @@ class User < ApplicationRecord
 
   def current_likes
     likes = self.likes.includes(:song)
-    debugger
     output = []
     likes.each do |like|
-      debugger
       like_obj = like.merge(like.likeable)
-      debugger
       output << like_obj
     end
-    debugger
     output
   end
 

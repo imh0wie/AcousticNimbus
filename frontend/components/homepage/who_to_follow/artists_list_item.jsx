@@ -11,7 +11,7 @@ const msp = (state, ownProps) => {
     const currentUserId = state.session.id;
     return ({
         currentFollowings: follows ? Object.values(follows.interests) : null,
-        currentFollowers: follows ? Object.values(follows.interests) : null,
+        currentFollowers: follows ? Object.values(follows.attentions) : null,
         // artistFollow: followOf(artistId, currentUserId, state.entities.follows),
         // artistFollowers: followersOf(artistId, follows, state.entities.users),
         // artistSongs: songsOf(artistId, state.entities.songs),
@@ -30,29 +30,37 @@ class ArtistListItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            artistFollow: false,
+            artistFollow: this.props.currentFollowings ? followOf(this.props.artist.id, this.props.currentFollowings) : false,
         }
         this.handleFollow = this.handleFollow.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
+        // debugger
         if (this.props.currentFollowings !== nextProps.currentFollowings) {
+            // debugger
             this.setState({
-                artistFollow: nextProps.currentFollowings[this.props.artist.id]
+                artistFollow: followOf(this.props.artist.id, nextProps.currentFollowings)
             });
+            // debugger
         }
     }
 
     handleFollow(e) {
         e.preventDefault();
+        // debugger
         if (this.state.artistFollow) {
+            // debugger
             this.props.removeFollow(this.state.artistFollow);
+            // debugger
         } else {
             const follow = {
                 followed_user_id: this.props.artist.id,
                 follower_id: this.props.currentUserId,
             }
+            // debugger
             this.props.createFollow(follow);
+            // debugger
         }
     }
 
@@ -71,7 +79,6 @@ class ArtistListItem extends React.Component {
     }
 
     render() {
-        // if (!this.props.artistSongs) return null;
         return (
             <li>
                 <div className="item-info-container">

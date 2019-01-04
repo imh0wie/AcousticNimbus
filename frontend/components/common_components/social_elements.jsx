@@ -17,7 +17,7 @@ const msp = (state, ownProps) => {
         currentLikes: likes,
         // currentLike: likeOf("Song", onPageSongId, state.entities.users[currentUserId], likes),
         currentLike: likes ? likeOf(currentUserId, "Song", onPageSongId, likes) : likeOf(currentUserId, "Song", onPageSongId, ownProps.song.likes),
-        currentFollow: followOf(onPageArtistId, currentUserId, state.entities.follows),
+        // currentFollow: followOf(onPageArtistId, currentUserId, state.entities.follows),
         // currentComments: commentsOf(onPageSongId, state.entities.comments),
         currentComments: state.entities.comments ? state.entities.comments.bySong[onPageSongId] : null,
         onPageArtistId: onPageArtistId,

@@ -56,7 +56,7 @@ export const suggestedArtists = (users) => {
     if (isEmpty(users)) return output;
     users = randomize(Object.values(users));
     let i = 0;
-    while (output.length < 3) {
+    while (i < users.length) {
         const user = users[i];
         output.push(user);
         if (output.length === 3) break;

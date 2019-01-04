@@ -1,3 +1,5 @@
+defaultState = {}
+
 json.set! :interests do
   @interests.each do |interest|
     json.set! interest.followed_user_id do

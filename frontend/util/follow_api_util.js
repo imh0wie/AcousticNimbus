@@ -49,13 +49,22 @@ export const artistIdOf = (onPageSong) => {
     // }
 }
 
-export const followOf = (followedUserId, followerId, follows) => {
-    if (!follows) return null;
-    const followIds = Object.keys(follows);
-    for (let i = 0; i < followIds.length; i++ ) {
-        const followId = followIds[i];
-        const follow = follows.interests[followId];
-        if (follow.followedUserId === followedUserId && follow.followerId === followerId) return follow;
+// export const followOf = (followedUserId, followerId, follows) => {
+//     if (!follows) return null;
+//     const followIds = Object.keys(follows);
+//     for (let i = 0; i < followIds.length; i++ ) {
+//         const followId = followIds[i];
+//         const follow = follows.interests[followId];
+//         if (follow.followedUserId === followedUserId && follow.followerId === followerId) return follow;
+//     }
+//     return null;
+// }
+
+export const followOf = (userId, followsArr) => {
+    if (!followsArr) return null;
+    for (let i = 0; i < followsArr.length; i++) {
+        const follow = followsArr[i];
+        if (follow.followed_user_id === userId) return follow;
     }
     return null;
 }
