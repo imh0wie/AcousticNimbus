@@ -4,6 +4,7 @@ export const RECEIVE_SONG = "RECEIVE_SONG";
 export const RECEIVE_SONGS = "RECEIVE_SONGS";
 export const RECEIVE_SONG_ERRORS = "RECEIVE_SONG_ERRORS";
 export const RECEIVE_SONGS_ERRORS = "RECEIVE_SONGS_ERRORS";
+export const EMPTY_FOLLOWED_SONGS = "EMPTY_FOLLOWED_SONGS";
 
 export const createSong = (songToServer) => {
   return dispatch => {
@@ -66,6 +67,16 @@ export const fetchFollowedSongs = (userId) => {
     );
   };
 };
+
+export const emptyFollowedSongs = () => {
+  // const defaultState = {
+  //   followedSongs: null,
+  // };
+  return {
+    type: EMPTY_FOLLOWED_SONGS,
+    // defaultState: defaultState,
+  };
+}
 
 const receiveSong = ({ song }) => {
   return {

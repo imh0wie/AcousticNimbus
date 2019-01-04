@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import { fetchSongs, fetchFollowedSongs } from "../../../actions/song_actions";
 import { fetchFollowingsOf } from "../../../actions/follow_actions";
 import { songsOf, followedSongs } from "../../../util/song_api_util";
+import { areIdenticalArrs } from "../../../util/general_api_util";
 // import { followedSongs } from "../../../util/follow_api_util";
 import SongsListItem from "./songs_list_item";
 
@@ -58,6 +59,17 @@ class SongsList extends React.Component {
         this.setState({
             loading: false,
         })
+    }
+
+    componentWillReceiveProps(nextProps) {
+        // debugger)
+        if (this.props.streamSongs) this.oldSongs = this.props.streamSongs.map(song => song.id);
+        if (nextProps.streamSongs) this.newSongs = nextProps.streamSongs.map(song => song.id);
+        if (!this.songs || !areIdenticalArrs(this.oldSongs, this.newSongs)) {
+        // if (this.props.streamSongs !== nextProps.streamSongs) {
+        //     debugger
+            this.props.fetchFollowedSongs(this.props.currentUserId);
+        }
     }
 
     render() {

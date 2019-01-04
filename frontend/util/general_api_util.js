@@ -9,6 +9,31 @@ export const isEmpty = (obj) => {
     return true;
 }
 
+export const areIdenticalObjs = (obj1, obj2) => {
+    if (!obj1 || !obj2) return false
+    if (Object.keys(obj1).length !== Object.keys(obj2).length) return false;
+    debugger
+    for (let key in obj1) {
+        if (obj1[key] !== obj2[key]) return false;
+    }
+    return obj;
+}
+
+export const areIdenticalArrs = (arr1, arr2) => {
+    if (!arr1 || !arr2) return false
+    if (arr1.length !== arr2.length) return false;
+    for (let i = 0; i < arr1.length; i++) {
+        const el1 = arr1[i];
+        const el2 = arr2[i];
+        if (typeof el1 === "object" && typeof el2 === "object") {
+            if (!areIdenticalObjs(el1, el2)) return false
+        } else {
+            if (el1 !== el2) return false;
+        }
+    }
+    return true;
+}
+
 export const randomize = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));

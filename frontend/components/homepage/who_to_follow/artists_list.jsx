@@ -5,7 +5,6 @@ import { fetchSongs } from "../../../actions/song_actions";
 import { fetchFollows } from "../../../actions/follow_actions";
 import { fetchUsers, fetchThreeRandomUsers } from "../../../actions/user_actions";
 import { suggestedArtists } from "../../../util/user_api_util";
-import { isEmpty } from "../../../util/general_api_util";
 import ArtistsListItem from "./artists_list_item";
 
 const msp = (state) => {
@@ -16,9 +15,8 @@ const msp = (state) => {
         songs: state.entities.songs,
         follows: follows,
         users: users,
-        // suggestedArtists: suggestedArtists(3, follows, users, currentUserId),
         randomThree: suggestedArtists(users.randomThree),
-        // currentUserId: currentUserId,
+        currentUserId: currentUserId,
     });
 }
 
@@ -26,7 +24,7 @@ const mdp = (dispatch) => {
     return ({
         fetchSongs: () => dispatch(fetchSongs()),
         fetchFollows: () => dispatch(fetchFollows()),
-        // fetchThreeRandomUsers: (currentUserId) => dispatch(fetchThreeRandomUsers(currentUserId)),
+        fetchThreeRandomUsers: (currentUserId) => dispatch(fetchThreeRandomUsers(currentUserId)),
         fetchUsers: () => dispatch(fetchUsers()),
     });
 }
@@ -41,14 +39,6 @@ class ArtistsList extends React.Component {
 
     componentDidMount() {
         this.props.fetchThreeRandomUsers(this.props.currentUserId);
-        // if (!this.props.follows) this.props.fetchFollows();
-        // if (!this.props.users || Object.keys(this.props.users).length === 1) this.props.fetchUsers();
-        // if (!this.props.songs) this.props.fetchSongs();
-        // this.props.fetchSongs().then(
-        //     this.props.fetchFollows().then(
-        //         this.props.fetchUsers()
-        //     )
-        // );
         this.setState({
             loading: false,
         })
@@ -69,8 +59,6 @@ class ArtistsList extends React.Component {
                     </div>
                 );
             } else {
-                debugger
-                // if (isEmpty(this.props.songs)) return  <img src={window.loadingPizza} className="loading"></img>;
                 return (
                     <ul>
                         {this.props.randomThree.map((artist) => {

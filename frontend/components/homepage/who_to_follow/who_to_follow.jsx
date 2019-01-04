@@ -41,7 +41,7 @@ class WhoToFollow extends React.Component {
                     <p className="refresh" onClick={() => this.refresh()}><i className="fas fa-redo-alt"></i> Refresh</p>
                 </div>
                 <ArtistsList currentUserId={this.props.currentUserId}
-                            fetchThreeRandomUsers={this.props.fetchThreeRandomUsers} />
+                             fetchThreeRandomUsers={this.props.fetchThreeRandomUsers} />
             </div>
         );
     }
