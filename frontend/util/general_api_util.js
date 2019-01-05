@@ -12,7 +12,6 @@ export const isEmpty = (obj) => {
 export const areIdenticalObjs = (obj1, obj2) => {
     if (!obj1 || !obj2) return false
     if (Object.keys(obj1).length !== Object.keys(obj2).length) return false;
-    debugger
     for (let key in obj1) {
         if (obj1[key] !== obj2[key]) return false;
     }

@@ -1,5 +1,6 @@
 import { RECEIVE_SONG, RECEIVE_SONGS, EMPTY_FOLLOWED_SONGS } from "../actions/song_actions";
 import { merge } from "lodash";
+
 const songsReducer = (state = null, action) => {
   Object.freeze(state);
   let newState;
@@ -11,7 +12,8 @@ const songsReducer = (state = null, action) => {
       newState = action.songs;
       return merge({}, newState);
     case EMPTY_FOLLOWED_SONGS:
-      return null;
+      newState = action.defaultState;
+      return newState;
     default:
       return state;
   }

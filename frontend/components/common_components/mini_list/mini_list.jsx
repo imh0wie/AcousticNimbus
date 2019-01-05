@@ -32,55 +32,32 @@ const mdp = (dispatch) => {
 class MiniList extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            loading: true,
-        }
-    }
-
-    componentDidMount() {
-        this.props.fetchComments();
-        this.setState({
-            loading: false,
-        });
     }
 
     render() {
         switch (this.props.klass) {
             case "likes-section":
-                // if (!this.props.latestThreeLikes || this.props.latestThreeLikes.length === 0) return <p className="ui-message">You haven't liked any songs yet! Find your jam!</p>;
-                this.miniListItems = this.props.latestThreeLikes;
+                this.miniListItems = this.props.likedSongs;
                 break;
             case "song-show-page":
-                // if (!this.props.relatedThreeSongs || this.props.relatedThreeSongs.length === 0) return <p className="ui-message">No love...:(</p>;
                 this.miniListItems = this.props.relatedThreeSongs;
                 break;
             default:
                 break;
         }
-        if (this.state.loading || !this.props.comments || !this.props.songs || !this.props.likes) {
-            return <ul><img src={window.loadingPizza} className="loading"></img></ul>;
-        } else {
-            if (this.miniListItems.length === 0) return <p className="ui-msg">This user has not liked any songs yet.</p>
-            return (
-                <ul>
-                    {this.miniListItems.map((item) => {
-                        return (
-                            <MiniListItem
-                            key={item.id}
-                            item={item}
-                            song={this.props.klass === "likes-section" ? this.props.songs[item.likeableId] : item}
-                            songLikes={this.props.klass === "likes-section" ? likesOf("Song", item.likeableId, this.props.likes) : likesOf("Song", item.id, this.props.likes)}
-                            songComments={this.props.klass === "likes-section" ? commentsOf(item.likeableId, this.props.comments) : commentsOf(item.id, this.props.comments)}
-                            />
-                        );
-                    })}
-                </ul>
-            );    
-            // } else {
-                // if (this.props.klass === "likes-section") return null;
-                // return <img src={window.loadingPizza} className="loading"></img>;
-            // }
-        }
+        if (this.miniListItems.length === 0) return <p className="ui-msg">This user has not liked any songs yet.</p>
+        return (
+            <ul>
+                {this.miniListItems.map((item) => {
+                    return (
+                        <MiniListItem
+                        key={item.id}
+                        song={item}
+                        />
+                    );
+                })}
+            </ul>
+        );
     }
 }
 

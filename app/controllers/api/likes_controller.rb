@@ -7,7 +7,6 @@ class Api::LikesController < ApplicationController
   def create
     @like = Like.new(like_params)
     if @like.save
-      # @current_user = User.find(params[:like][:liker_id])
       @current_likes = Like.where(liker_id: params[:like][:liker_id])
       render :index
     else
@@ -18,7 +17,6 @@ class Api::LikesController < ApplicationController
   def destroy
     @like = Like.find(params[:like][:id])
     if @like.destroy
-      # @current_user = User.find(params[:like][:liker_id])
       @current_likes = Like.where(liker_id: params[:like][:liker_id])
       render :index
     else

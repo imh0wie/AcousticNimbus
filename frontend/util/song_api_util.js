@@ -31,13 +31,13 @@ export const fetchSongs = () => {
   });
 };
 
-export const fetchFollowedSongsOf = (userId) => {
+export const fetchRelevantSongsOf = (userId) => {
   return $.ajax({
     method: "GET",
     url: "/api/songs",
     data: {
       current_user_id: userId,
-  },
+    },
   });
 };
 
@@ -95,9 +95,9 @@ export const relatedSongsOf = (targetSongId, songs) => {
   return output;
 }
 
-export const followedSongs = (songs) => {
+export const likedSongsJsonToArr = (songs) => {
   if (!songs) return null;
-  const output = Object.values(songs.followedSongs).reverse();
+  const output = Object.values(songs.likedSongs);
   return output;
 }
 

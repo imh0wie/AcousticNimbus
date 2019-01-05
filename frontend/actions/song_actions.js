@@ -55,9 +55,9 @@ export const fetchSongs = () => {
   };
 };
 
-export const fetchFollowedSongs = (userId) => {
+export const fetchRelevantSongs = (userId) => {
   return (dispatch) => {
-    return SongAPIUtil.fetchFollowedSongsOf(userId).then(
+    return SongAPIUtil.fetchRelevantSongsOf(userId).then(
       (songsFromServer) => {
         return dispatch(receiveSongs(songsFromServer));
       },
@@ -68,15 +68,25 @@ export const fetchFollowedSongs = (userId) => {
   };
 };
 
-export const emptyFollowedSongs = () => {
-  // const defaultState = {
-  //   followedSongs: null,
-  // };
+// export const fetchLikedSongs = (userId) => {
+//   return (dispatch) => {
+//     return SongAPIUtil.fetchLikedSongsOf(userId).then(
+//       (songsFromServer) => {
+//         return dispatch(receiveSongs(songsFromServer));
+//       },
+//       (errors) => {
+//         return dispatch(receiveSongsErrors(errors.responseJSON));
+//       },
+//     );
+//   };
+// };
+
+export const emptyFollowedSongs = (defaultState) => {
   return {
     type: EMPTY_FOLLOWED_SONGS,
-    // defaultState: defaultState,
+    defaultState: defaultState,
   };
-}
+};
 
 const receiveSong = ({ song }) => {
   return {

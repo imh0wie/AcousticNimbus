@@ -41,7 +41,7 @@ class Homepage extends React.Component {
           <div className="stats">
           </div>
           <WhoToFollow />
-          {/* <LikesSection klass="homepage" /> */}
+          {/* <LikesSection klass="homepage" />r */}
           <div className="history">
           </div>
           <HiringInfoSection />

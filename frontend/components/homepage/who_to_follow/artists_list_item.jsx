@@ -1,13 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
-import { fetchFollowedSongs, emptyFollowedSongs } from "../../../actions/song_actions";
+import { fetchRelevantSongs, emptyFollowedSongs } from "../../../actions/song_actions";
 import { createFollow, removeFollow } from "../../../actions/follow_actions";
 
 const msp = (state) => {
     const follows = state.entities.follows;
     const currentUserId = state.session.id;
     return ({
+        songs: state.entities.songs,
         currentFollowings: follows ? Object.values(follows.interests) : null,
         currentFollowers: follows ? Object.values(follows.attentions) : null,
         currentUserId: currentUserId,
@@ -18,8 +19,8 @@ const mdp = (dispatch) => {
     return ({
         createFollow: (follow) => dispatch(createFollow(follow)),
         removeFollow: (follow) => dispatch(removeFollow(follow)),
-        fetchFollowedSongs: (userId) => dispatch(fetchFollowedSongs(userId)),
-        emptyFollowedSongs: () => dispatch(emptyFollowedSongs()),
+        fetchRelevantSongs: (userId) => dispatch(fetchRelevantSongs(userId)),
+        emptyFollowedSongs: (defaultState) => dispatch(emptyFollowedSongs(defaultState)),
     });
 }
 
@@ -37,9 +38,13 @@ class ArtistListItem extends React.Component {
         const follow = {
             followed_user_id: this.props.artist.id,
             follower_id: this.props.currentUserId,
-        }
+        };
+        const defaultState = {
+            followedSongs: null,
+            likedSongs: this.props.songs.likedSongs,
+        };
         this.props.createFollow(follow);
-        this.props.emptyFollowedSongs();
+        this.props.emptyFollowedSongs(defaultState);
     }
 
     renderNumber(data) {
