@@ -56,6 +56,19 @@ export const fetchSongs = () => {
   };
 };
 
+export const fetchSongsOf = (userId) => {
+  return (dispatch) => {
+    return SongAPIUtil.fetchSongsOf(userId).then(
+      (songsFromServer) => {
+        return dispatch(receiveSongs(songsFromServer));
+      },
+      (errors) => {
+        return dispatch(receiveSongsErrors(errors.responseJSON));
+      },
+    );
+  };
+};
+
 export const fetchRelevantSongs = (userId) => {
   return (dispatch) => {
     return SongAPIUtil.fetchRelevantSongsOf(userId).then(

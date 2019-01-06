@@ -13,8 +13,8 @@ class Api::SongsController < ApplicationController
         #                    .where(likes: { liker_id: params[:current_user_id] })
         #                    .select('songs.*, likes.id AS like_id')
       end
-    else
-      @songs = Song.all
+    elsif params[:user_id]
+      @songs_of_specific_user = Song.where(artist_id: params[:user_id]).select("*")
     end
     render :index
   end

@@ -5,13 +5,13 @@ export const EMPTY_RANDOM_THREE_USERS = 'EMPTY_RANDOM_THREE_USERS';
 export const RECEIVE_USER = 'RECEIVE_USER';
 
 export const fetchUsers = () => {
-    return (dispatch) => {
-        return UserAPIUtil.fetchUsers().then(
-            (usersFromServer) => {
-                return dispatch(receiveRandomThreeUsers(usersFromServer));
-            }
-        );
-    }
+    // return (dispatch) => {
+    //     return UserAPIUtil.fetchUsers().then(
+    //         (usersFromServer) => {
+    //             return dispatch(receiveRandomThreeUsers(usersFromServer));
+    //         }
+    //     );
+    // }
 };
 
 export const fetchThreeRandomUsers = (currentUserId) => {
@@ -23,8 +23,6 @@ export const fetchThreeRandomUsers = (currentUserId) => {
         );
     }
 };
-
-
 
 export const fetchUser = (userId) => {
     return (dispatch) => {

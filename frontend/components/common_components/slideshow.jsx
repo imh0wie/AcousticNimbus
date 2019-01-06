@@ -9,7 +9,7 @@ import { Carousel } from 'react-responsive-carousel';
 
 const msp = (state, ownProps) => {
     return ({
-        onPageArtist: state.entities.users[ownProps.match.params.userId],
+        // onPageArtist: state.entities.users[ownProps.match.params.userId],
     });
 }
  

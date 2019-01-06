@@ -14,8 +14,8 @@ export const removeSong = (id) => {
   return $.ajax({
     method: "DELETE",
     url: `/api/songs/${id}`,
-  })
-}
+  });
+};
 
 export const fetchSong = (id) => {
   return $.ajax({
@@ -28,6 +28,16 @@ export const fetchSongs = () => {
   return $.ajax({
     method: "GET",
     url: "/api/songs",
+  });
+};
+
+export const fetchSongsOf = (userId) => {
+  return $.ajax({
+    method: "GET",
+    url: "/api/songs",
+    data: {
+      user_id: userId
+    }
   });
 };
 
@@ -97,7 +107,7 @@ export const songsOf = (userId, songs) => {
     if (userId === song.artistId) output.push(song);
   })
   return output;
-}
+};
 
 export const songsLikedBy = (userId, songs, likes) => {
   if (!likes || !songs) return null;
@@ -108,7 +118,7 @@ export const songsLikedBy = (userId, songs, likes) => {
       if (like.likeableType === "Song" && like.likerId === userId) output.push(songs[like.likeableId]);
   })
   return output;
-}
+};
 
 export const relatedSongsOf = (targetSongId, songs) => {
   if (!songs) return null;
@@ -119,13 +129,13 @@ export const relatedSongsOf = (targetSongId, songs) => {
     if (song.genre === songs[targetSongId].genre) output.push(song);
   })
   return output;
-}
+};
 
 export const likedSongsJsonToArr = (songs) => {
   if (!songs) return null;
   const output = Object.values(songs.likedSongs);
   return output;
-}
+};
 
 // const isEmpty = (obj) => {
 //   for (let key in obj) {

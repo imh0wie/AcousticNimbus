@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { fetchRelevantSongs } from "../../../actions/song_actions";
+import { fetchRelevantSongs, fetchSongsOf } from "../../../actions/song_actions";
 import SongsListItem from "./songs_list_item";
 
 const msp = (state, ownProps) => {
@@ -13,7 +13,7 @@ const msp = (state, ownProps) => {
         onPageArtist: users[parseInt(ownProps.match.params.userId)],
         follows: follows, // homepage
         streamSongs: songs && songs.followedSongs ? Object.values(songs.followedSongs).reverse() : null, // homepage
-        // currentSongs: songsOf(parseInt(ownProps.match.params.userId), songs),
+        currentSongs: songs && songs.songsOfSpecificUser ? Object.values(songs.songsOfSpecificUser).reverse() : null, // user-show-page
         currentUserId: currentUserId,
     };
 };
@@ -21,6 +21,7 @@ const msp = (state, ownProps) => {
 const mdp = (dispatch) => {
   return ({
       fetchRelevantSongs: (userId) => dispatch(fetchRelevantSongs(userId)),
+      fetchSongsOf: (userId) => dispatch(fetchSongsOf(userId))
   });
 };
 
@@ -39,7 +40,15 @@ class SongsList extends React.Component {
                 if (!this.songs) this.props.fetchRelevantSongs(this.props.currentUserId);
                 break;
             case "user-show-page":
-                if (!this.songs);          
+                if (!this.songs) { 
+                    this.props.fetchSongsOf(this.props.onPageArtist.id).then(
+                        this.setState({
+                            loading: false
+                        })
+                    );
+                }       
+                break;
+            default:
                 break;
         }
         this.setState({
