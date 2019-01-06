@@ -61,8 +61,8 @@ class UserShowPage extends React.Component {
                 <div className="user-show-page">
                     <Slideshow klass="user-show-page" onPageArtist={this.props.onPageArtist} />
                     <div className="bar">
-                        <Navbar klass="user-show-page" />
-                        {/* <SocialElements klass="user-show-page" /> */}
+                        <Navbar klass="user-show-page" onPageArtistId={this.props.onPageArtistId} />
+                        <SocialElements klass="user-show-page" />
                     </div>
                     <div className="content">
                         <div className="songs-list">

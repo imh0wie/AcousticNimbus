@@ -44,6 +44,7 @@ class LikesSection extends React.Component {
         this.customStyle = {
             minHeight: "75px"
         };
+        this.counter = 0;
     }
 
     // componentDidMount() {
@@ -62,7 +63,7 @@ class LikesSection extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.klass !== "song-show-page") {
-            if ((!this.props.songs || !this.props.songs.likedSongs) && nextProps.songs) {
+            if (((!this.props.songs || !this.props.songs.likedSongs) && nextProps.songs && nextProps.songs.likedSongs)) {
                 this.setState({
                     loading: false,
                     likedSongs: Object.values(nextProps.songs.likedSongs),
@@ -75,7 +76,10 @@ class LikesSection extends React.Component {
                 };
                 this.props.emptyLikedSongs(defaultState);
                 this.props.fetchLikedSongs(this.props.currentUserId);
-                // this.setState({
+                this.setState({
+                    likedSongs: Object.values(nextProps.songs.likedSongs),
+                });
+            // this.setState({
                 //     likedSongs: Object.values(nextProps.songs.likedSongs),
                 // });
             }
@@ -134,7 +138,6 @@ class LikesSection extends React.Component {
 
     renderList() {
         if (this.state.loading || !this.likes) {
-            debugger
             return <img src={window.loadingPizza} className="loading-sm"></img>;
         }
         switch (this.props.klass) {

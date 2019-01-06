@@ -8,7 +8,7 @@ const msp = (state, ownProps) => {
   return ({
     currentUserId: currentUserId,
     currentUser: state.entities.users[currentUserId],
-    onPageArtistId: onPageArtistId,
+    // onPageArtistId: onPageArtistId,
   });
 }
 

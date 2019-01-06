@@ -15,9 +15,10 @@ const msp = (state, ownProps) => {
     const currentUserId = state.session.id;
     return ({
         songs: state.entities.songs,
+        follows: state.entities.follows,
         currentLikes: likes,
         // currentLike: likeOf("Song", onPageSongId, state.entities.users[currentUserId], likes),
-        currentLike: likes ? likeOf(currentUserId, "Song", onPageSongId, likes) : likeOf(currentUserId, "Song", onPageSongId, ownProps.song.likes),
+        currentLike: ownProps.klass === "item-player" ? (likes ? likeOf(currentUserId, "Song", onPageSongId, likes) : likeOf(currentUserId, "Song", onPageSongId, ownProps.song.likes)) : null,
         // currentFollow: followOf(onPageArtistId, currentUserId, state.entities.follows),
         // currentComments: commentsOf(onPageSongId, state.entities.comments),
         currentComments: state.entities.comments ? state.entities.comments.bySong[onPageSongId] : null,
@@ -44,10 +45,16 @@ class SocialElements extends React.Component {
         this.noneStyle = {
             display: "none"
         }
-        this.state = {
-            currentLike: this.props.currentLike,
-            likesCount: this.props.song.likesCount,
-            commentsCount: this.props.song.commentsCount,
+        switch (this.props.klass) {
+            case "item-player":
+                this.state = {
+                    currentLike: this.props.currentLike,
+                    likesCount: this.props.song.likesCount,
+                    commentsCount: this.props.song.commentsCount,
+                }
+                break;
+            case "user-show-page":
+                break;
         }
         this.handleFollow = this.handleFollow.bind(this);
     }

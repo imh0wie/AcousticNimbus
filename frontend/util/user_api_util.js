@@ -1,5 +1,4 @@
 import { isEmpty, randomize } from "./general_api_util";
-import { followOf } from "./follow_api_util";
 
 export const fetchUsers = (currentUserId) => {
     return $.ajax({

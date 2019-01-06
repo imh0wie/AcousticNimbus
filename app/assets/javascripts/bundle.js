@@ -1499,6 +1499,7 @@ function (_React$Component) {
     _this.customStyle = {
       minHeight: "75px"
     };
+    _this.counter = 0;
     return _this;
   } // componentDidMount() {
   //     debugger
@@ -1519,7 +1520,7 @@ function (_React$Component) {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
       if (this.props.klass !== "song-show-page") {
-        if ((!this.props.songs || !this.props.songs.likedSongs) && nextProps.songs) {
+        if ((!this.props.songs || !this.props.songs.likedSongs) && nextProps.songs && nextProps.songs.likedSongs) {
           this.setState({
             loading: false,
             likedSongs: Object.values(nextProps.songs.likedSongs)
@@ -1532,7 +1533,10 @@ function (_React$Component) {
             likedSongs: null
           };
           this.props.emptyLikedSongs(defaultState);
-          this.props.fetchLikedSongs(this.props.currentUserId); // this.setState({
+          this.props.fetchLikedSongs(this.props.currentUserId);
+          this.setState({
+            likedSongs: Object.values(nextProps.songs.likedSongs)
+          }); // this.setState({
           //     likedSongs: Object.values(nextProps.songs.likedSongs),
           // });
         } // if (nextProps.songs && !nextProps.songs.likedSongs) {
@@ -1594,7 +1598,6 @@ function (_React$Component) {
     key: "renderList",
     value: function renderList() {
       if (this.state.loading || !this.likes) {
-        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loadingPizza,
           className: "loading-sm"
@@ -2079,8 +2082,8 @@ var msp = function msp(state, ownProps) {
   var onPageArtistId = parseInt(ownProps.match.params.userId);
   return {
     currentUserId: currentUserId,
-    currentUser: state.entities.users[currentUserId],
-    onPageArtistId: onPageArtistId
+    currentUser: state.entities.users[currentUserId] // onPageArtistId: onPageArtistId,
+
   };
 };
 
@@ -3433,9 +3436,10 @@ var msp = function msp(state, ownProps) {
   var currentUserId = state.session.id;
   return {
     songs: state.entities.songs,
+    follows: state.entities.follows,
     currentLikes: likes,
     // currentLike: likeOf("Song", onPageSongId, state.entities.users[currentUserId], likes),
-    currentLike: likes ? Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(currentUserId, "Song", onPageSongId, likes) : Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(currentUserId, "Song", onPageSongId, ownProps.song.likes),
+    currentLike: ownProps.klass === "item-player" ? likes ? Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(currentUserId, "Song", onPageSongId, likes) : Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(currentUserId, "Song", onPageSongId, ownProps.song.likes) : null,
     // currentFollow: followOf(onPageArtistId, currentUserId, state.entities.follows),
     // currentComments: commentsOf(onPageSongId, state.entities.comments),
     currentComments: state.entities.comments ? state.entities.comments.bySong[onPageSongId] : null,
@@ -3482,11 +3486,20 @@ function (_React$Component) {
     _this.noneStyle = {
       display: "none"
     };
-    _this.state = {
-      currentLike: _this.props.currentLike,
-      likesCount: _this.props.song.likesCount,
-      commentsCount: _this.props.song.commentsCount
-    };
+
+    switch (_this.props.klass) {
+      case "item-player":
+        _this.state = {
+          currentLike: _this.props.currentLike,
+          likesCount: _this.props.song.likesCount,
+          commentsCount: _this.props.song.commentsCount
+        };
+        break;
+
+      case "user-show-page":
+        break;
+    }
+
     _this.handleFollow = _this.handleFollow.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
@@ -3934,6 +3947,7 @@ var msp = function msp(state, ownProps) {
   var currentUserId = state.session.id;
   return {
     onPageArtist: users[parseInt(ownProps.match.params.userId)],
+    songs: songs,
     follows: follows,
     // homepage
     streamSongs: songs && songs.followedSongs ? Object.values(songs.followedSongs).reverse() : null,
@@ -3969,6 +3983,7 @@ function (_React$Component) {
     _this.state = {
       loading: true
     };
+    _this.counter = 0;
     return _this;
   }
 
@@ -3977,6 +3992,7 @@ function (_React$Component) {
     value: function componentDidMount() {
       switch (this.props.klass) {
         case "stream-page":
+          debugger;
           if (!this.songs) this.props.fetchRelevantSongs(this.props.currentUserId);
           break;
 
@@ -4000,9 +4016,15 @@ function (_React$Component) {
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps() {
-      if (!this.songs) {
+      debugger;
+
+      if (!this.songs && this.counter > 0) {
+        debugger;
         this.props.fetchRelevantSongs(this.props.currentUserId);
       }
+
+      debugger;
+      this.counter += 1;
     }
   }, {
     key: "render",
@@ -7188,6 +7210,9 @@ function (_React$Component) {
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "bar"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_navbar__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          klass: "user-show-page",
+          onPageArtistId: this.props.onPageArtistId
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_social_elements__WEBPACK_IMPORTED_MODULE_8__["default"], {
           klass: "user-show-page"
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "content"
@@ -8592,8 +8617,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editUser", function() { return editUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "suggestedArtists", function() { return suggestedArtists; });
 /* harmony import */ var _general_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./general_api_util */ "./frontend/util/general_api_util.js");
-/* harmony import */ var _follow_api_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./follow_api_util */ "./frontend/util/follow_api_util.js");
-
 
 var fetchUsers = function fetchUsers(currentUserId) {
   return $.ajax({

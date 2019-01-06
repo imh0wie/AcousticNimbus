@@ -11,6 +11,7 @@ const msp = (state, ownProps) => {
     const currentUserId = state.session.id;
     return {
         onPageArtist: users[parseInt(ownProps.match.params.userId)],
+        songs: songs,
         follows: follows, // homepage
         streamSongs: songs && songs.followedSongs ? Object.values(songs.followedSongs).reverse() : null, // homepage
         currentSongs: songs && songs.songsOfSpecificUser ? Object.values(songs.songsOfSpecificUser).reverse() : null, // user-show-page
@@ -32,11 +33,13 @@ class SongsList extends React.Component {
         this.state = {
             loading: true,
         }
+        this.counter = 0;
     }
     
     componentDidMount() {
         switch (this.props.klass) {
             case "stream-page":
+                debugger
                 if (!this.songs) this.props.fetchRelevantSongs(this.props.currentUserId);
                 break;
             case "user-show-page":
@@ -57,9 +60,13 @@ class SongsList extends React.Component {
     }
 
     componentWillReceiveProps() {
-        if (!this.songs) {
+        debugger
+        if (!this.songs && this.counter > 0) {
+            debugger
             this.props.fetchRelevantSongs(this.props.currentUserId);
         }
+        debugger
+        this.counter += 1;
     }
 
     render() {
