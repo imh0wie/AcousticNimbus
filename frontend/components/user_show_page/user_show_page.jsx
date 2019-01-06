@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { fetchSongsOf } from "../../actions/song_actions";
+import { fetchSongsOf, emptySongsOfSpecificUser } from "../../actions/song_actions";
 import { fetchFollows } from "../../actions/follow_actions";
 import { fetchUser, fetchUsers } from "../../actions/user_actions";
 import Slideshow from "../common_components/slideshow"
@@ -30,7 +30,8 @@ const mdp = (dispatch) => {
         fetchSongsOf: (userId) => dispatch(fetchSongsOf(userId)),
         fetchFollows: () => dispatch(fetchFollows()),
         fetchUsers: () => dispatch(fetchUsers()),
-        fetchUser: (userId) => dispatch(fetchUser(userId))
+        fetchUser: (userId) => dispatch(fetchUser(userId)),
+        emptySongsOfSpecificUser: (userId) => dispatch(emptySongsOfSpecificUser(userId))
     });
 };
 
@@ -43,6 +44,11 @@ class UserShowPage extends React.Component {
     }
 
     componentDidMount() {
+        const defaultState = {
+            followedSongs: this.props.songs ? this.props.songs.followedSongs : null,
+            likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
+        }
+        this.props.emptySongsOfSpecificUser(defaultState);
         this.props.fetchUser(this.props.onPageArtistId);
         this.props.fetchSongsOf(this.props.onPageArtistId);
         // if (Object.keys(this.props.users).length === 1 || !this.props.users) this.props.fetchUsers();
@@ -66,7 +72,7 @@ class UserShowPage extends React.Component {
                     </div>
                     <div className="content">
                         <div className="songs-list">
-                            <SongsList  klass="user-show-page" />
+                            <SongsList klass="user-show-page" />
                         </div>
                         <div className="sidebar">
                             {/* <PopularitySection /> */}

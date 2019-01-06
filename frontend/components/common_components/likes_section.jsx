@@ -73,6 +73,7 @@ class LikesSection extends React.Component {
                 const defaultState = {
                     followedSongs: this.props.songs.followedSongs,
                     likedSongs: null,
+                    songsOfSpecificUser: this.props.songs.songsOfSpecficUser ? this.props.songs.songsOfSpecficUser : null,
                 };
                 this.props.emptyLikedSongs(defaultState);
                 this.props.fetchLikedSongs(this.props.currentUserId);

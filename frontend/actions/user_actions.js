@@ -65,3 +65,9 @@ export const emptyRandomThreeUsers = (defaultState) => {
     }
 }
 
+export const emptySongsOfSpecificUser = (defaultState) => {
+    return {
+        type: EMPTY_SONGS_OF_SPECIFIC_USER,
+        defaultState: defaultState,
+    }
+}

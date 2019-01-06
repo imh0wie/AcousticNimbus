@@ -39,7 +39,6 @@ class SongsList extends React.Component {
     componentDidMount() {
         switch (this.props.klass) {
             case "stream-page":
-                debugger
                 if (!this.songs) this.props.fetchRelevantSongs(this.props.currentUserId);
                 break;
             case "user-show-page":
@@ -60,12 +59,9 @@ class SongsList extends React.Component {
     }
 
     componentWillReceiveProps() {
-        debugger
         if (!this.songs && this.counter > 0) {
-            debugger
             this.props.fetchRelevantSongs(this.props.currentUserId);
         }
-        debugger
         this.counter += 1;
     }
 

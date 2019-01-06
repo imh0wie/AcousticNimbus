@@ -4,6 +4,7 @@ export const RECEIVE_SONG = "RECEIVE_SONG";
 export const RECEIVE_SONGS = "RECEIVE_SONGS";
 export const RECEIVE_SONG_ERRORS = "RECEIVE_SONG_ERRORS";
 export const RECEIVE_SONGS_ERRORS = "RECEIVE_SONGS_ERRORS";
+export const EMPTY_SONGS_OF_SPECIFIC_USER = "EMPTY_SONGS_OF_SPECIFIC_USER";
 export const EMPTY_FOLLOWED_SONGS = "EMPTY_FOLLOWED_SONGS";
 export const EMPTY_LIKED_SONGS = "EMPTY_LIKED_SONGS";
 
@@ -105,6 +106,13 @@ export const fetchLikedSongs = (userId) => {
         return dispatch(receiveSongsErrors(errors.responseJSON));
       },
     );
+  };
+};
+
+export const emptySongsOfSpecificUser = (defaultState) => {
+  return {
+    type: EMPTY_SONGS_OF_SPECIFIC_USER,
+    defaultState: defaultState,
   };
 };
 

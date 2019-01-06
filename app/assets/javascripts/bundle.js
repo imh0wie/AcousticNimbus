@@ -524,7 +524,7 @@ var receiveSessionErrors = function receiveSessionErrors(errors) {
 /*!******************************************!*\
   !*** ./frontend/actions/song_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_SONG, RECEIVE_SONGS, RECEIVE_SONG_ERRORS, RECEIVE_SONGS_ERRORS, EMPTY_FOLLOWED_SONGS, EMPTY_LIKED_SONGS, createSong, removeSong, fetchSong, fetchSongs, fetchSongsOf, fetchRelevantSongs, fetchFollowedSongs, fetchLikedSongs, emptyFollowedSongs, emptyLikedSongs */
+/*! exports provided: RECEIVE_SONG, RECEIVE_SONGS, RECEIVE_SONG_ERRORS, RECEIVE_SONGS_ERRORS, EMPTY_SONGS_OF_SPECIFIC_USER, EMPTY_FOLLOWED_SONGS, EMPTY_LIKED_SONGS, createSong, removeSong, fetchSong, fetchSongs, fetchSongsOf, fetchRelevantSongs, fetchFollowedSongs, fetchLikedSongs, emptySongsOfSpecificUser, emptyFollowedSongs, emptyLikedSongs */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -533,6 +533,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_SONGS", function() { return RECEIVE_SONGS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_SONG_ERRORS", function() { return RECEIVE_SONG_ERRORS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_SONGS_ERRORS", function() { return RECEIVE_SONGS_ERRORS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EMPTY_SONGS_OF_SPECIFIC_USER", function() { return EMPTY_SONGS_OF_SPECIFIC_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EMPTY_FOLLOWED_SONGS", function() { return EMPTY_FOLLOWED_SONGS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EMPTY_LIKED_SONGS", function() { return EMPTY_LIKED_SONGS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createSong", function() { return createSong; });
@@ -543,6 +544,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchRelevantSongs", function() { return fetchRelevantSongs; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchFollowedSongs", function() { return fetchFollowedSongs; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchLikedSongs", function() { return fetchLikedSongs; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "emptySongsOfSpecificUser", function() { return emptySongsOfSpecificUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "emptyFollowedSongs", function() { return emptyFollowedSongs; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "emptyLikedSongs", function() { return emptyLikedSongs; });
 /* harmony import */ var _util_song_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/song_api_util */ "./frontend/util/song_api_util.js");
@@ -551,6 +553,7 @@ var RECEIVE_SONG = "RECEIVE_SONG";
 var RECEIVE_SONGS = "RECEIVE_SONGS";
 var RECEIVE_SONG_ERRORS = "RECEIVE_SONG_ERRORS";
 var RECEIVE_SONGS_ERRORS = "RECEIVE_SONGS_ERRORS";
+var EMPTY_SONGS_OF_SPECIFIC_USER = "EMPTY_SONGS_OF_SPECIFIC_USER";
 var EMPTY_FOLLOWED_SONGS = "EMPTY_FOLLOWED_SONGS";
 var EMPTY_LIKED_SONGS = "EMPTY_LIKED_SONGS";
 var createSong = function createSong(songToServer) {
@@ -623,6 +626,12 @@ var fetchLikedSongs = function fetchLikedSongs(userId) {
     });
   };
 };
+var emptySongsOfSpecificUser = function emptySongsOfSpecificUser(defaultState) {
+  return {
+    type: EMPTY_SONGS_OF_SPECIFIC_USER,
+    defaultState: defaultState
+  };
+};
 var emptyFollowedSongs = function emptyFollowedSongs(defaultState) {
   return {
     type: EMPTY_FOLLOWED_SONGS,
@@ -671,7 +680,7 @@ var receiveSongsErrors = function receiveSongsErrors(errors) {
 /*!******************************************!*\
   !*** ./frontend/actions/user_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_RANDOM_THREE_USERS, EMPTY_RANDOM_THREE_USERS, RECEIVE_USER, fetchUsers, fetchThreeRandomUsers, fetchUser, editUser, receiveUser, receiveRandomThreeUsers, emptyRandomThreeUsers */
+/*! exports provided: RECEIVE_RANDOM_THREE_USERS, EMPTY_RANDOM_THREE_USERS, RECEIVE_USER, fetchUsers, fetchThreeRandomUsers, fetchUser, editUser, receiveUser, receiveRandomThreeUsers, emptyRandomThreeUsers, emptySongsOfSpecificUser */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -686,6 +695,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveUser", function() { return receiveUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveRandomThreeUsers", function() { return receiveRandomThreeUsers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "emptyRandomThreeUsers", function() { return emptyRandomThreeUsers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "emptySongsOfSpecificUser", function() { return emptySongsOfSpecificUser; });
 /* harmony import */ var _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/user_api_util */ "./frontend/util/user_api_util.js");
 
 var RECEIVE_RANDOM_THREE_USERS = 'RECEIVE_RANDOM_THREE_USERS';
@@ -735,6 +745,12 @@ var receiveRandomThreeUsers = function receiveRandomThreeUsers(users) {
 var emptyRandomThreeUsers = function emptyRandomThreeUsers(defaultState) {
   return {
     type: EMPTY_RANDOM_THREE_USERS,
+    defaultState: defaultState
+  };
+};
+var emptySongsOfSpecificUser = function emptySongsOfSpecificUser(defaultState) {
+  return {
+    type: EMPTY_SONGS_OF_SPECIFIC_USER,
     defaultState: defaultState
   };
 };
@@ -1530,7 +1546,8 @@ function (_React$Component) {
         if (!this.props.likes && this.props.likes !== nextProps.likes || this.props.likes && Object.keys(this.props.likes).length !== Object.keys(nextProps.likes).length) {
           var defaultState = {
             followedSongs: this.props.songs.followedSongs,
-            likedSongs: null
+            likedSongs: null,
+            songsOfSpecificUser: this.props.songs.songsOfSpecficUser ? this.props.songs.songsOfSpecficUser : null
           };
           this.props.emptyLikedSongs(defaultState);
           this.props.fetchLikedSongs(this.props.currentUserId);
@@ -3992,7 +4009,6 @@ function (_React$Component) {
     value: function componentDidMount() {
       switch (this.props.klass) {
         case "stream-page":
-          debugger;
           if (!this.songs) this.props.fetchRelevantSongs(this.props.currentUserId);
           break;
 
@@ -4016,14 +4032,10 @@ function (_React$Component) {
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps() {
-      debugger;
-
       if (!this.songs && this.counter > 0) {
-        debugger;
         this.props.fetchRelevantSongs(this.props.currentUserId);
       }
 
-      debugger;
       this.counter += 1;
     }
   }, {
@@ -5279,7 +5291,8 @@ function (_React$Component) {
       };
       var defaultState = {
         followedSongs: null,
-        likedSongs: this.props.songs.likedSongs
+        likedSongs: this.props.songs.likedSongs,
+        songsOfSpecificUsers: this.props.songs.songsOfSpecificUsers ? this.props.songs.songsOfSpecificUsers : null
       };
       this.props.createFollow(follow);
       this.props.emptyFollowedSongs(defaultState);
@@ -7160,6 +7173,9 @@ var mdp = function mdp(dispatch) {
     },
     fetchUser: function fetchUser(userId) {
       return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_5__["fetchUser"])(userId));
+    },
+    emptySongsOfSpecificUser: function emptySongsOfSpecificUser(userId) {
+      return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["emptySongsOfSpecificUser"])(userId));
     }
   };
 };
@@ -7184,6 +7200,11 @@ function (_React$Component) {
   _createClass(UserShowPage, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      var defaultState = {
+        followedSongs: this.props.songs ? this.props.songs.followedSongs : null,
+        likedSongs: this.props.songs ? this.props.songs.likedSongs : null
+      };
+      this.props.emptySongsOfSpecificUser(defaultState);
       this.props.fetchUser(this.props.onPageArtistId);
       this.props.fetchSongsOf(this.props.onPageArtistId); // if (Object.keys(this.props.users).length === 1 || !this.props.users) this.props.fetchUsers();
       // if (!this.props.follows) this.props.fetchFollows();
@@ -7789,6 +7810,7 @@ var songsReducer = function songsReducer() {
       newState = action.songs;
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, newState);
 
+    case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["EMPTY_SONGS_OF_SPECIFIC_USER"]:
     case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["EMPTY_FOLLOWED_SONGS"]:
       newState = action.defaultState;
       return newState;
