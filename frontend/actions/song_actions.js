@@ -5,6 +5,7 @@ export const RECEIVE_SONGS = "RECEIVE_SONGS";
 export const RECEIVE_SONG_ERRORS = "RECEIVE_SONG_ERRORS";
 export const RECEIVE_SONGS_ERRORS = "RECEIVE_SONGS_ERRORS";
 export const EMPTY_FOLLOWED_SONGS = "EMPTY_FOLLOWED_SONGS";
+export const EMPTY_LIKED_SONGS = "EMPTY_LIKED_SONGS";
 
 export const createSong = (songToServer) => {
   return dispatch => {
@@ -68,22 +69,42 @@ export const fetchRelevantSongs = (userId) => {
   };
 };
 
-// export const fetchLikedSongs = (userId) => {
-//   return (dispatch) => {
-//     return SongAPIUtil.fetchLikedSongsOf(userId).then(
-//       (songsFromServer) => {
-//         return dispatch(receiveSongs(songsFromServer));
-//       },
-//       (errors) => {
-//         return dispatch(receiveSongsErrors(errors.responseJSON));
-//       },
-//     );
-//   };
-// };
+export const fetchFollowedSongs = (userId) => {
+  return (dispatch) => {
+    return SongAPIUtil.fetchFollowedSongsOf(userId).then(
+      (songsFromServer) => {
+        return dispatch(receiveSongs(songsFromServer));
+      },
+      (errors) => {
+        return dispatch(receiveSongsErrors(errors.responseJSON));
+      },
+    );
+  };
+};
+
+export const fetchLikedSongs = (userId) => {
+  return (dispatch) => {
+    return SongAPIUtil.fetchLikedSongsOf(userId).then(
+      (songsFromServer) => {
+        return dispatch(receiveSongs(songsFromServer));
+      },
+      (errors) => {
+        return dispatch(receiveSongsErrors(errors.responseJSON));
+      },
+    );
+  };
+};
 
 export const emptyFollowedSongs = (defaultState) => {
   return {
     type: EMPTY_FOLLOWED_SONGS,
+    defaultState: defaultState,
+  };
+};
+
+export const emptyLikedSongs = (defaultState) => {
+  return {
+    type: EMPTY_LIKED_SONGS,
     defaultState: defaultState,
   };
 };

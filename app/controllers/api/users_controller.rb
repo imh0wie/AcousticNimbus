@@ -4,8 +4,6 @@ class Api::UsersController < ApplicationController
     @recommended_users = User.where.not(id: followed_users)
                              .where.not(id: params[:current_user_id])
                              .shuffle
-                            #  .first(3)
-    # debugger
     render :index
   end
 

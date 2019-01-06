@@ -47,9 +47,7 @@ class SongsList extends React.Component {
         })
     }
 
-    componentWillReceiveProps(nextProps) {
-        // if (this.props.streamSongs) this.oldSongs = this.props.streamSongs.map(song => song.id);
-        // if (nextProps.streamSongs) this.newSongs = nextProps.streamSongs.map(song => song.id);
+    componentWillReceiveProps() {
         if (!this.songs) {
             this.props.fetchRelevantSongs(this.props.currentUserId);
         }

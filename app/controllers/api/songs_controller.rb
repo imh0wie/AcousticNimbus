@@ -1,10 +1,18 @@
 class Api::SongsController < ApplicationController
   def index
     if params[:current_user_id]
-      followings = Follow.where(follower_id: params[:current_user_id]).select(:followed_user_id)
-      likes = Like.where(liker_id: params[:current_user_id]).select(:likeable_id).order('created_at DESC')
-      @followed_songs = Song.where(artist_id: followings)
-      @liked_songs = Song.where(id: likes)
+      if params[:fetching_followed_songs]
+        followings = Follow.where(follower_id: params[:current_user_id]).select(:followed_user_id)
+        @followed_songs = Song.where(artist_id: followings)
+      end
+      if params[:fetching_liked_songs]
+        likes = Like.where(liker_id: params[:current_user_id]).select(:likeable_id)
+        @liked_songs = Song.where(id: likes).select('*')
+        @likes = Like.where(liker_id: params[:current_user_id]).select(:id)
+        # @liked_songs = Song.includes(:likes)
+        #                    .where(likes: { liker_id: params[:current_user_id] })
+        #                    .select('songs.*, likes.id AS like_id')
+      end
     else
       @songs = Song.all
     end

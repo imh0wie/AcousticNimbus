@@ -37,6 +37,32 @@ export const fetchRelevantSongsOf = (userId) => {
     url: "/api/songs",
     data: {
       current_user_id: userId,
+      fetching_followed_songs: true,
+      fetching_liked_songs: true,
+    },
+  });
+};
+
+export const fetchFollowedSongsOf = (userId) => {
+  return $.ajax({
+    method: "GET",
+    url: "/api/songs",
+    data: {
+      current_user_id: userId,
+      fetching_followed_songs: true,
+      fetching_liked_songs: false,
+    },
+  });
+};
+
+export const fetchLikedSongsOf = (userId) => {
+  return $.ajax({
+    method: "GET",
+    url: "/api/songs",
+    data: {
+      current_user_id: userId,
+      fetching_followed_songs: false,
+      fetching_liked_songs: true,
     },
   });
 };

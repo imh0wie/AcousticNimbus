@@ -37,7 +37,7 @@ class MiniList extends React.Component {
     render() {
         switch (this.props.klass) {
             case "likes-section":
-                this.miniListItems = this.props.likedSongs;
+                this.miniListItems = this.props.likedSongs.slice(0, 3);
                 break;
             case "song-show-page":
                 this.miniListItems = this.props.relatedThreeSongs;

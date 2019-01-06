@@ -14,6 +14,7 @@ const msp = (state, ownProps) => {
     const likes = state.entities.likes;
     const currentUserId = state.session.id;
     return ({
+        songs: state.entities.songs,
         currentLikes: likes,
         // currentLike: likeOf("Song", onPageSongId, state.entities.users[currentUserId], likes),
         currentLike: likes ? likeOf(currentUserId, "Song", onPageSongId, likes) : likeOf(currentUserId, "Song", onPageSongId, ownProps.song.likes),
@@ -77,26 +78,25 @@ class SocialElements extends React.Component {
                 likeable_id: this.state.currentLike.likeableId,
                 liker_id: this.state.currentLike.likerId,
             }
-            this.props.removeLike(like).then(
-                this.setState({
-                    likesCount: this.state.likesCount - 1,
-                    currentLike: null,
-                })
-            );
+            this.props.removeLike(like);
+            this.setState({
+                likesCount: this.state.likesCount - 1,
+                currentLike: null,
+            });
         } else {
             const like = {
                 likeable_type: "Song",
                 likeable_id: this.props.onPageSongId,
                 liker_id: this.props.currentUserId,
-            }
-            this.props.createLike(like).then(
-                this.setState({
-                    likesCount: this.state.likesCount + 1,
-                    currentLike: likeOf(this.props.currentUserId, "Song", this.props.onPageSongId, this.props.currentLikes),
-                })
-            );
+            };
+            this.props.createLike(like);
+            this.setState({
+                likesCount: this.state.likesCount + 1,
+                currentLike: likeOf(this.props.currentUserId, "Song", this.props.onPageSongId, this.props.currentLikes),
+            });
         }
     }
+
     
     handleFollow(e) { // for user show page
         e.preventDefault();

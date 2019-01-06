@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { fetchLikes } from "../../actions/like_actions";
-import { fetchRelevantSongs } from "../../actions/song_actions";
+import { fetchLikedSongs, emptyLikedSongs } from "../../actions/song_actions";
 import { likesBy, likesOf } from "../../util/like_api_util";
 import { likedSongsJsonToArr } from "../../util/song_api_util";
 import MiniList from "./mini_list/mini_list";
@@ -29,7 +29,8 @@ const msp = (state, ownProps) => {
 const mdp = (dispatch) => {
     return ({
         fetchLikes: () => dispatch(fetchLikes()),
-        fetchRelevantSongs: (userId) => dispatch(fetchRelevantSongs(userId)),
+        fetchLikedSongs: (userId) => dispatch(fetchLikedSongs(userId)),
+        emptyLikedSongs: (defaultState) => dispatch(emptyLikedSongs(defaultState))
     })
 }
 
@@ -37,7 +38,7 @@ class LikesSection extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            likedSongs: likedSongsJsonToArr(this.props.songs),
+            likedSongs: this.props.songs && this.props.songs.likedSongs ? Object.values(this.props.songs.likedSongs) : null,
             loading: true,
         }
         this.customStyle = {
@@ -60,15 +61,41 @@ class LikesSection extends React.Component {
     // }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.songs !== "song-show-page") {
-            if (!this.props.songs && !nextProps.songs) {
-                return;
-            } else if (!this.props.songs || this.props.songs.likedSongs.length !== nextProps.songs.likedSongs.length) {
+        if (this.props.klass !== "song-show-page") {
+            if ((!this.props.songs || !this.props.songs.likedSongs) && nextProps.songs) {
                 this.setState({
                     loading: false,
                     likedSongs: Object.values(nextProps.songs.likedSongs),
                 });
             }
+            if ((!this.props.likes && this.props.likes !== nextProps.likes) || (this.props.likes && Object.keys(this.props.likes).length !== Object.keys(nextProps.likes).length)) {
+                const defaultState = {
+                    followedSongs: this.props.songs.followedSongs,
+                    likedSongs: null,
+                };
+                this.props.emptyLikedSongs(defaultState);
+                this.props.fetchLikedSongs(this.props.currentUserId);
+                // this.setState({
+                //     likedSongs: Object.values(nextProps.songs.likedSongs),
+                // });
+            }
+            // if (nextProps.songs && !nextProps.songs.likedSongs) {
+            //     this.props.fetchLikedSongs(this.props.currentUserId);
+            //     this.setState({
+            //         likedSongs: Object.values(nextProps.songs.likedSongs),
+            //     });
+            // }
+            // if (!this.props.songs && !nextProps.songs) {
+            //     return;
+            // } else if (!this.props.songs || this.props.songs.likedSongs.length !== nextProps.songs.likedSongs.length) {
+            //     this.setState({
+            //         loading: false,
+            //         likedSongs: Object.values(nextProps.songs.likedSongs),
+            //     });
+            // }
+            // if (!this.likes) {
+
+            // }
             // if (!this.props.likes && !nextProps.likes) {
             //     return;
             // } else if (!this.props.likes || this.props.likes.likedSongs.length !== nextProps.likes.likedSongs.length) {
@@ -114,7 +141,7 @@ class LikesSection extends React.Component {
             case "homepage":
             case "user-show-page":
                 return (
-                    <MiniList klass="likes-section" likedSongs={this.likes} />
+                    <MiniList klass="likes-section" likedSongs={this.likes.reverse()} />
                 );
             case "song-show-page":
                 return (
