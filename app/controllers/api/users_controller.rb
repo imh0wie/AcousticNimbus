@@ -19,6 +19,7 @@ class Api::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    # @user_attentions = Follow.select('*').where(followed_user_id: params[:id])
     render :show
   end
 

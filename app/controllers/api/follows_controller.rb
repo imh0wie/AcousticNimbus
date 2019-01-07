@@ -36,8 +36,8 @@ class Api::FollowsController < ApplicationController
     if @follow.destroy
       @interests = Follow.select(:id, :followed_user_id, :follower_id)
                          .where('follower_id = ?', params[:current_user_id])
-      @attentions = Follow.select(:id, :followed_user_id, :follower_id)
-                          .where('followed_user_id = ?', params[:current_user_id])
+      # @attentions = Follow.select(:id, :followed_user_id, :follower_id)
+      #                     .where('followed_user_id = ?', params[:current_user_id])
       render :show
     else
       render @follow.errors.full_messages, status: 401

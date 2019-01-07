@@ -31,9 +31,9 @@ export const removeSong = (idToServer) => {
   };
 };
 
-export const fetchSong = (songToServerId) => {
+export const fetchSong = (songIdToServer) => {
   return dispatch => {
-    return SongAPIUtil.fetchSong(songToServerId).then(
+    return SongAPIUtil.fetchSong(songIdToServer).then(
       (songFromServer) => {
         return dispatch(receiveSong(songFromServer));
       },

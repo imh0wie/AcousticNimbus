@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { fetchRelevantSongs, fetchSongsOf } from "../../../actions/song_actions";
+import { fetchRelevantSongs, fetchSongsOf, emptySongsOfSpecificUser } from "../../../actions/song_actions";
 import SongsListItem from "./songs_list_item";
 
 const msp = (state, ownProps) => {
@@ -22,7 +22,8 @@ const msp = (state, ownProps) => {
 const mdp = (dispatch) => {
   return ({
       fetchRelevantSongs: (userId) => dispatch(fetchRelevantSongs(userId)),
-      fetchSongsOf: (userId) => dispatch(fetchSongsOf(userId))
+      fetchSongsOf: (userId) => dispatch(fetchSongsOf(userId)),
+      emptySongsOfSpecificUser: (defaultState) => dispatch(emptySongsOfSpecificUser(defaultState)),
   });
 };
 
@@ -42,13 +43,19 @@ class SongsList extends React.Component {
                 if (!this.songs) this.props.fetchRelevantSongs(this.props.currentUserId);
                 break;
             case "user-show-page":
-                if (!this.songs) { 
+                // if (!this.songs) {
+                    const defaultState = {
+                        followedSongs: this.props.songs ? this.props.songs.followedSongs : null,
+                        likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
+                        songsOfSpecificUser: null,
+                    }
+                    this.props.emptySongsOfSpecificUser(defaultState);
                     this.props.fetchSongsOf(this.props.onPageArtist.id).then(
                         this.setState({
                             loading: false
                         })
                     );
-                }       
+                // }       
                 break;
             default:
                 break;
@@ -59,10 +66,22 @@ class SongsList extends React.Component {
     }
 
     componentWillReceiveProps() {
-        if (!this.songs && this.counter > 0) {
-            this.props.fetchRelevantSongs(this.props.currentUserId);
+        switch (this.props.klass) {
+            case "stream-page":
+                if (!this.songs && this.counter > 0) {
+                    this.props.fetchRelevantSongs(this.props.currentUserId);
+                }
+                this.counter += 1;
+                break;
+            case "user-show-page":
+                if (!this.songs && this.counter > 1) {
+                    this.props.fetchRelevantSongs(this.props.currentUserId);
+                }
+                this.counter += 1;
+                break;
+            default:
+                break;
         }
-        this.counter += 1;
     }
 
     render() {

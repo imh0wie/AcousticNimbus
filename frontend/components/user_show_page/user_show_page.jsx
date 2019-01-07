@@ -1,9 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { fetchSongsOf, emptySongsOfSpecificUser } from "../../actions/song_actions";
-import { fetchFollows } from "../../actions/follow_actions";
-import { fetchUser, fetchUsers } from "../../actions/user_actions";
+import { fetchUser } from "../../actions/user_actions";
 import Slideshow from "../common_components/slideshow"
 import Navbar from "../common_components/navbar";
 import SocialElements from "../common_components/social_elements";
@@ -27,11 +25,7 @@ const msp = (state, ownProps) => {
   
 const mdp = (dispatch) => {
     return ({
-        fetchSongsOf: (userId) => dispatch(fetchSongsOf(userId)),
-        fetchFollows: () => dispatch(fetchFollows()),
-        fetchUsers: () => dispatch(fetchUsers()),
         fetchUser: (userId) => dispatch(fetchUser(userId)),
-        emptySongsOfSpecificUser: (userId) => dispatch(emptySongsOfSpecificUser(userId))
     });
 };
 
@@ -44,23 +38,14 @@ class UserShowPage extends React.Component {
     }
 
     componentDidMount() {
-        const defaultState = {
-            followedSongs: this.props.songs ? this.props.songs.followedSongs : null,
-            likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
-        }
-        this.props.emptySongsOfSpecificUser(defaultState);
         this.props.fetchUser(this.props.onPageArtistId);
-        this.props.fetchSongsOf(this.props.onPageArtistId);
-        // if (Object.keys(this.props.users).length === 1 || !this.props.users) this.props.fetchUsers();
-        // if (!this.props.follows) this.props.fetchFollows();
-        // this.props.fetchUsers().then(this.props.fetchFollows()); // for banner showing first
         this.setState({
             loading: false,
         });
     }
 
     render() {
-        if (this.state.loading || !this.props.songs || !this.props.onPageArtist) {
+        if (this.state.loading || !this.props.onPageArtist) { // || !this.props.songs) {
             return <img src={window.loadingPizza} className="user-show-loading"></img>
         } else {
             return (

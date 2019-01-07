@@ -60,11 +60,11 @@ export const artistIdOf = (onPageSong) => {
 //     return null;
 // }
 
-export const followOf = (userId, followsArr) => {
-    if (!followsArr) return null;
-    for (let i = 0; i < followsArr.length; i++) {
-        const follow = followsArr[i];
-        if (follow.followed_user_id === userId) return follow;
+export const followOf = (followedUserId, follows) => {
+    if (!follows) return null;
+    for (let i = 0; i < follows.length; i++) {
+        const follow = follows[i];
+        if (follow.followedUserId === followedUserId) return follow;
     }
     return null;
 }

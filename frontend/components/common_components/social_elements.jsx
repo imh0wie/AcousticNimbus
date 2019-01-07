@@ -12,14 +12,15 @@ const msp = (state, ownProps) => {
     const onPageSongId = parseInt(ownProps.match.params.songId) || ownProps.songId;
     const onPageArtistId = parseInt(ownProps.match.params.userId);
     const likes = state.entities.likes;
+    const follows = state.entities.follows;
     const currentUserId = state.session.id;
     return ({
         songs: state.entities.songs,
-        follows: state.entities.follows,
+        follows: follows,
         currentLikes: likes,
         // currentLike: likeOf("Song", onPageSongId, state.entities.users[currentUserId], likes),
         currentLike: ownProps.klass === "item-player" ? (likes ? likeOf(currentUserId, "Song", onPageSongId, likes) : likeOf(currentUserId, "Song", onPageSongId, ownProps.song.likes)) : null,
-        // currentFollow: followOf(onPageArtistId, currentUserId, state.entities.follows),
+        currentFollow: ownProps.klass === "user-show-page" ? (follows ? followOf(onPageArtistId, follows) : (state.entities.users[onPageArtistId] ? state.entities.users[onPageArtistId].attentions[onPageArtistId] : null)) : null,
         // currentComments: commentsOf(onPageSongId, state.entities.comments),
         currentComments: state.entities.comments ? state.entities.comments.bySong[onPageSongId] : null,
         onPageArtistId: onPageArtistId,
@@ -54,6 +55,9 @@ class SocialElements extends React.Component {
                 }
                 break;
             case "user-show-page":
+                this.state = {
+                    currentFollow: this.props.currentFollow,
+                }
                 break;
         }
         this.handleFollow = this.handleFollow.bind(this);
@@ -73,6 +77,13 @@ class SocialElements extends React.Component {
             this.setState({
                 commentsCount: nextProps.currentComments.length,
             });
+        }
+        debugger
+        if ((!this.props.follows && nextProps.follows) || (nextProps.follows && Object.values(this.props.follows.interests).length !== Object.values(nextProps.follows.interests).length)) {
+            debugger
+            this.setState({
+                currentFollow: followOf(this.props.onPageArtistId, nextProps.follows.interests),
+            })
         }
     }
 
@@ -108,13 +119,14 @@ class SocialElements extends React.Component {
     handleFollow(e) { // for user show page
         e.preventDefault();
         if (this.props.currentFollow) {
-          this.props.removeFollow(this.props.currentFollow.id);
+            this.props.removeFollow(this.state.currentFollow);
         } else {
             const follow = {
                 followed_user_id: this.props.onPageArtistId,
                 follower_id: this.props.currentUserId
             }
             this.props.createFollow(follow);
+            debugger
         }
     }
 
@@ -137,11 +149,11 @@ class SocialElements extends React.Component {
                 return (
                     <div className="buttons">
                         <button 
-                            className={this.props.currentFollow ? "following" : "follow"}
+                            className={this.state.currentFollow ? "following" : "follow"}
                             onClick={(e) => this.handleFollow(e)}
                             style={this.props.onPageArtistId === this.props.currentUserId ? this.noneStyle : {}}
                         >
-                                {this.props.currentFollow ? "Following" : "Follow"}
+                                {this.state.currentFollow ? "Following" : "Follow"}
                         </button>
                     </div>
                 );

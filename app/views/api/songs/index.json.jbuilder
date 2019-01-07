@@ -68,7 +68,7 @@ end
 
 if @songs_of_specific_user
   if @songs_of_specific_user.length === 0
-    json.songOfSpecificUser defaultState
+    json.songsOfSpecificUser defaultState
   else
     json.set! :songsOfSpecificUser do
       @songs_of_specific_user.each_with_index do |song|

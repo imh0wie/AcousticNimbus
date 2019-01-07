@@ -10,7 +10,7 @@ const msp = (state) => {
     return ({
         songs: state.entities.songs,
         currentFollowings: follows ? Object.values(follows.interests) : null,
-        currentFollowers: follows ? Object.values(follows.attentions) : null,
+        // currentFollowers: follows ? Object.values(follows.attentions) : null,
         currentUserId: currentUserId,
     })
 }
