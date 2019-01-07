@@ -680,13 +680,14 @@ var receiveSongsErrors = function receiveSongsErrors(errors) {
 /*!******************************************!*\
   !*** ./frontend/actions/user_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_RANDOM_THREE_USERS, EMPTY_RANDOM_THREE_USERS, RECEIVE_USER, fetchUsers, fetchThreeRandomUsers, fetchUser, editUser, receiveUser, receiveRandomThreeUsers, emptyRandomThreeUsers */
+/*! exports provided: RECEIVE_RANDOM_THREE_USERS, EMPTY_RANDOM_THREE_USERS, EMPTY_INDIVIDUAL_USER, RECEIVE_USER, fetchUsers, fetchThreeRandomUsers, fetchUser, editUser, receiveUser, receiveRandomThreeUsers, emptyRandomThreeUsers, emptyIndividualUser */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_RANDOM_THREE_USERS", function() { return RECEIVE_RANDOM_THREE_USERS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EMPTY_RANDOM_THREE_USERS", function() { return EMPTY_RANDOM_THREE_USERS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EMPTY_INDIVIDUAL_USER", function() { return EMPTY_INDIVIDUAL_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_USER", function() { return RECEIVE_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUsers", function() { return fetchUsers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchThreeRandomUsers", function() { return fetchThreeRandomUsers; });
@@ -695,10 +696,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveUser", function() { return receiveUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveRandomThreeUsers", function() { return receiveRandomThreeUsers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "emptyRandomThreeUsers", function() { return emptyRandomThreeUsers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "emptyIndividualUser", function() { return emptyIndividualUser; });
 /* harmony import */ var _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/user_api_util */ "./frontend/util/user_api_util.js");
 
 var RECEIVE_RANDOM_THREE_USERS = 'RECEIVE_RANDOM_THREE_USERS';
 var EMPTY_RANDOM_THREE_USERS = 'EMPTY_RANDOM_THREE_USERS';
+var EMPTY_INDIVIDUAL_USER = 'EMPTY_INDIVIDUAL_USER';
 var RECEIVE_USER = 'RECEIVE_USER';
 var fetchUsers = function fetchUsers() {// return (dispatch) => {
   //     return UserAPIUtil.fetchUsers().then(
@@ -744,6 +747,12 @@ var receiveRandomThreeUsers = function receiveRandomThreeUsers(users) {
 var emptyRandomThreeUsers = function emptyRandomThreeUsers(defaultState) {
   return {
     type: EMPTY_RANDOM_THREE_USERS,
+    defaultState: defaultState
+  };
+};
+var emptyIndividualUser = function emptyIndividualUser(defaultState) {
+  return {
+    type: EMPTY_INDIVIDUAL_USER,
     defaultState: defaultState
   };
 };
@@ -1136,8 +1145,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
-/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var _actions_song_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/song_actions */ "./frontend/actions/song_actions.js");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1162,8 +1172,10 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var msp = function msp(state, ownProps) {
   return {
+    song: state.entities.songs,
     currentUser: state.entities.users[state.session.id],
     // currentURL: ownProps.history.location.pathname,
     currentURL: ownProps.location.pathname
@@ -1173,13 +1185,16 @@ var msp = function msp(state, ownProps) {
 var mdp = function mdp(dispatch) {
   return {
     login: function login(user) {
-      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_3__["login"])(user));
+      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_4__["login"])(user));
     },
     logout: function logout() {
-      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_3__["logout"])());
+      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_4__["logout"])());
     },
     openModal: function openModal(modal) {
-      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__["openModal"])(modal));
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_5__["openModal"])(modal));
+    },
+    emptyFollowedSongs: function emptyFollowedSongs(defaultState) {
+      return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["emptyFollowedSongs"])(defaultState));
     }
   };
 };
@@ -1196,6 +1211,16 @@ function (_React$Component) {
   }
 
   _createClass(HeaderBar, [{
+    key: "goToHomepage",
+    value: function goToHomepage() {
+      var defaultState = {
+        followedSongs: null,
+        likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
+        songsOfSpecificUsers: this.props.songs ? this.props.songs.songsOfSpecificUsers : null
+      };
+      this.props.emptyFollowedSongs(defaultState);
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this = this;
@@ -1208,12 +1233,18 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "inner-bar"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-          to: "/stream"
+          to: "/stream",
+          onClick: function onClick() {
+            return _this.goToHomepage();
+          }
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.barLogo,
           className: "logo"
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-          to: "/stream"
+          to: "/stream",
+          onClick: function onClick() {
+            return _this.goToHomepage();
+          }
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: this.props.currentURL.indexOf("/stream") > -1 || this.props.currentURL.indexOf("/charts") > -1 ? "home selected" : "home"
         }, "Home")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -3503,7 +3534,7 @@ function (_React$Component) {
     switch (_this.props.klass) {
       case "item-player":
         _this.state = {
-          currentLike: _this.props.klass === "item-player" ? _this.props.likes ? Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(_this.props.currentUserId, "Song", _this.props.onPageSongId, _this.props.likes) : Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(_this.props.currentUserId, "Song", _this.props.onPageSongId, _this.props.song.likes) : null,
+          currentLike: _this.props.likes ? Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(_this.props.currentUserId, "Song", _this.props.onPageSongId, _this.props.likes) : Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(_this.props.currentUserId, "Song", _this.props.onPageSongId, _this.props.song.likes),
           currentComments: _this.props.comments ? _this.props.comments.bySong[onPageSongId] : null,
           likesCount: _this.props.song.likesCount,
           commentsCount: _this.props.song.commentsCount
@@ -3512,7 +3543,7 @@ function (_React$Component) {
 
       case "user-show-page":
         _this.state = {
-          currentFollow: _this.props.klass === "user-show-page" ? _this.props.follows ? Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_7__["followOf"])(_this.props.onPageArtistId, _this.props.follows) : _this.props.users[_this.props.onPageArtistId] ? _this.props.users[_this.props.onPageArtistId].attentions[_this.props.onPageArtistId] : null : null
+          currentFollow: _this.props.follows ? Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_7__["followOf"])(_this.props.onPageArtistId, _this.props.follows) : _this.props.users.individualUser[_this.props.onPageArtistId] ? _this.props.users.individualUser[_this.props.onPageArtistId].attentions[_this.props.onPageArtistId] : null
         };
         break;
 
@@ -4078,7 +4109,7 @@ var msp = function msp(state, ownProps) {
   var users = state.entities.users;
   var currentUserId = state.session.id;
   return {
-    onPageArtist: users[parseInt(ownProps.match.params.userId)],
+    // onPageArtist: users.individualUser[parseInt(ownProps.match.params.userId)],
     songs: songs,
     follows: follows,
     // homepage
@@ -4100,6 +4131,9 @@ var mdp = function mdp(dispatch) {
     },
     emptySongsOfSpecificUser: function emptySongsOfSpecificUser(defaultState) {
       return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["emptySongsOfSpecificUser"])(defaultState));
+    },
+    emptyFollowedSongs: function emptyFollowedSongs(defaultState) {
+      return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["emptyFollowedSongs"])(defaultState));
     }
   };
 };
@@ -4116,7 +4150,8 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SongsList).call(this, props));
     _this.state = {
-      loading: true
+      loading: true,
+      counter: 0
     };
     _this.counter = 0;
     return _this;
@@ -4127,7 +4162,18 @@ function (_React$Component) {
     value: function componentDidMount() {
       switch (this.props.klass) {
         case "stream-page":
-          if (!this.songs) this.props.fetchRelevantSongs(this.props.currentUserId);
+          if (!this.songs) {
+            var _defaultState = {
+              followedSongs: null,
+              likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
+              songsOfSpecificUsers: this.props.songs ? this.props.songs.songsOfSpecificUsers : null
+            };
+            this.props.emptyFollowedSongs(_defaultState);
+            this.props.fetchRelevantSongs(this.props.currentUserId).then(this.setState({
+              loading: false
+            }));
+          }
+
           break;
 
         case "user-show-page":
@@ -4147,24 +4193,29 @@ function (_React$Component) {
         default:
           break;
       }
-
-      this.setState({
-        loading: false
-      });
     }
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps() {
       switch (this.props.klass) {
         case "stream-page":
-          if (!this.songs && this.counter > 0) {
+          if (!this.songs && this.state.counter > 1) {
             this.props.fetchRelevantSongs(this.props.currentUserId);
           }
 
-          this.counter += 1;
+          this.setState({
+            counter: this.state.counter + 1
+          });
           break;
 
         case "user-show-page":
+          // if (!this.songs) {
+          //     this.props.fetchSongsOf(this.props.onPageArtist.id).then(
+          //         this.setState({
+          //             loading: false
+          //         })
+          //     );
+          // }
           if (!this.songs && this.counter > 1) {
             this.props.fetchRelevantSongs(this.props.currentUserId);
           }
@@ -5552,14 +5603,16 @@ function (_React$Component) {
   _inherits(WhoToFollow, _React$Component);
 
   function WhoToFollow(props) {
+    var _this$state;
+
     var _this;
 
     _classCallCheck(this, WhoToFollow);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(WhoToFollow).call(this, props));
-    _this.state = _defineProperty({
+    _this.state = (_this$state = {
       randomThree: null
-    }, props.currentUserId, props.currentUser);
+    }, _defineProperty(_this$state, props.currentUserId, props.currentUser), _defineProperty(_this$state, "individualUser", props.individualUser), _this$state);
     return _this;
   }
 
@@ -7253,6 +7306,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _common_components_hiring_info_section__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../common_components/hiring_info_section */ "./frontend/components/common_components/hiring_info_section.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -7285,12 +7340,15 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 var msp = function msp(state, ownProps) {
   var users = state.entities.users;
   var onPageArtistId = parseInt(ownProps.match.params.userId);
+  var currentUserId = state.session.id;
   return {
     songs: state.entities.songs,
     follows: state.entities.follows,
     users: users,
     onPageArtistId: onPageArtistId,
-    onPageArtist: users[onPageArtistId]
+    onPageArtist: users.individualUser ? users.individualUser[onPageArtistId] : null,
+    currentUserId: currentUserId,
+    currentUser: state.entities.users[currentUserId]
   };
 };
 
@@ -7298,6 +7356,9 @@ var mdp = function mdp(dispatch) {
   return {
     fetchUser: function fetchUser(userId) {
       return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_3__["fetchUser"])(userId));
+    },
+    emptyIndividualUser: function emptyIndividualUser(defaultState) {
+      return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_3__["emptyIndividualUser"])(defaultState));
     }
   };
 };
@@ -7322,6 +7383,12 @@ function (_React$Component) {
   _createClass(UserShowPage, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      var _defaultState;
+
+      var defaultState = (_defaultState = {
+        randomThree: this.props.users.randomThreeUser
+      }, _defineProperty(_defaultState, this.props.currentUserId, this.props.currentUser), _defineProperty(_defaultState, "individualUser", null), _defaultState);
+      this.props.emptyIndividualUser(defaultState);
       this.props.fetchUser(this.props.onPageArtistId);
       this.setState({
         loading: false
@@ -7354,7 +7421,8 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "songs-list"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_songs_list_songs_list__WEBPACK_IMPORTED_MODULE_7__["default"], {
-          klass: "user-show-page"
+          klass: "user-show-page",
+          onPageArtist: this.props.onPageArtist
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "sidebar"
         })));
@@ -8002,6 +8070,7 @@ var usersReducer = function usersReducer() {
       newState = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, state, action.users || action.user);
       return newState;
 
+    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_0__["EMPTY_INDIVIDUAL_USER"]:
     case _actions_user_actions__WEBPACK_IMPORTED_MODULE_0__["EMPTY_RANDOM_THREE_USERS"]:
       newState = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, action.defaultState);
       return newState;

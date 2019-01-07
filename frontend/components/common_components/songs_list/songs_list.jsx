@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { fetchRelevantSongs, fetchSongsOf, emptySongsOfSpecificUser } from "../../../actions/song_actions";
+import { fetchRelevantSongs, fetchSongsOf, emptySongsOfSpecificUser, emptyFollowedSongs } from "../../../actions/song_actions";
 import SongsListItem from "./songs_list_item";
 
 const msp = (state, ownProps) => {
@@ -10,7 +10,7 @@ const msp = (state, ownProps) => {
     const users = state.entities.users;
     const currentUserId = state.session.id;
     return {
-        onPageArtist: users[parseInt(ownProps.match.params.userId)],
+        // onPageArtist: users.individualUser[parseInt(ownProps.match.params.userId)],
         songs: songs,
         follows: follows, // homepage
         streamSongs: songs && songs.followedSongs ? Object.values(songs.followedSongs).reverse() : null, // homepage
@@ -24,6 +24,7 @@ const mdp = (dispatch) => {
       fetchRelevantSongs: (userId) => dispatch(fetchRelevantSongs(userId)),
       fetchSongsOf: (userId) => dispatch(fetchSongsOf(userId)),
       emptySongsOfSpecificUser: (defaultState) => dispatch(emptySongsOfSpecificUser(defaultState)),
+      emptyFollowedSongs: (defaultState) => dispatch(emptyFollowedSongs(defaultState)),
   });
 };
 
@@ -33,6 +34,7 @@ class SongsList extends React.Component {
         super(props);
         this.state = {
             loading: true,
+            counter: 0,
         }
         this.counter = 0;
     }
@@ -40,7 +42,19 @@ class SongsList extends React.Component {
     componentDidMount() {
         switch (this.props.klass) {
             case "stream-page":
-                if (!this.songs) this.props.fetchRelevantSongs(this.props.currentUserId);
+                if (!this.songs) {
+                    const defaultState = {
+                        followedSongs: null,
+                        likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
+                        songsOfSpecificUsers: this.props.songs ? this.props.songs.songsOfSpecificUsers : null,
+                    };
+                    this.props.emptyFollowedSongs(defaultState);
+                    this.props.fetchRelevantSongs(this.props.currentUserId).then(
+                        this.setState({
+                            loading: false
+                        })
+                    );
+                }
                 break;
             case "user-show-page":
                 // if (!this.songs) {
@@ -60,20 +74,26 @@ class SongsList extends React.Component {
             default:
                 break;
         }
-        this.setState({
-            loading: false,
-        })
     }
 
     componentWillReceiveProps() {
         switch (this.props.klass) {
             case "stream-page":
-                if (!this.songs && this.counter > 0) {
+                if (!this.songs && this.state.counter > 1) {
                     this.props.fetchRelevantSongs(this.props.currentUserId);
                 }
-                this.counter += 1;
+                this.setState({
+                    counter: this.state.counter + 1
+                });
                 break;
             case "user-show-page":
+                // if (!this.songs) {
+                //     this.props.fetchSongsOf(this.props.onPageArtist.id).then(
+                //         this.setState({
+                //             loading: false
+                //         })
+                //     );
+                // }
                 if (!this.songs && this.counter > 1) {
                     this.props.fetchRelevantSongs(this.props.currentUserId);
                 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { fetchUser } from "../../actions/user_actions";
+import { fetchUser, emptyIndividualUser } from "../../actions/user_actions";
 import Slideshow from "../common_components/slideshow"
 import Navbar from "../common_components/navbar";
 import SocialElements from "../common_components/social_elements";
@@ -14,18 +14,22 @@ import HiringInfoSection from "../common_components/hiring_info_section";
 const msp = (state, ownProps) => {
     const users = state.entities.users;
     const onPageArtistId = parseInt(ownProps.match.params.userId);
+    const currentUserId = state.session.id;
     return ({
         songs: state.entities.songs,
         follows: state.entities.follows,
         users: users,
         onPageArtistId: onPageArtistId,
-        onPageArtist: users[onPageArtistId]
+        onPageArtist: users.individualUser ? users.individualUser[onPageArtistId] : null,
+        currentUserId: currentUserId,
+        currentUser: state.entities.users[currentUserId],
     });
 };
   
 const mdp = (dispatch) => {
     return ({
         fetchUser: (userId) => dispatch(fetchUser(userId)),
+        emptyIndividualUser: (defaultState) => dispatch(emptyIndividualUser(defaultState)),
     });
 };
 
@@ -38,6 +42,12 @@ class UserShowPage extends React.Component {
     }
 
     componentDidMount() {
+        const defaultState = {
+            randomThree: this.props.users.randomThreeUser,
+            [this.props.currentUserId]: this.props.currentUser,
+            individualUser: null,
+        }
+        this.props.emptyIndividualUser(defaultState);
         this.props.fetchUser(this.props.onPageArtistId);
         this.setState({
             loading: false,
@@ -57,7 +67,7 @@ class UserShowPage extends React.Component {
                     </div>
                     <div className="content">
                         <div className="songs-list">
-                            <SongsList klass="user-show-page" />
+                            <SongsList klass="user-show-page" onPageArtist={this.props.onPageArtist}/>
                         </div>
                         <div className="sidebar">
                             {/* <PopularitySection /> */}

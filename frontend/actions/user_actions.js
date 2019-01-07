@@ -2,6 +2,7 @@ import * as UserAPIUtil from '../util/user_api_util';
 
 export const RECEIVE_RANDOM_THREE_USERS = 'RECEIVE_RANDOM_THREE_USERS';
 export const EMPTY_RANDOM_THREE_USERS = 'EMPTY_RANDOM_THREE_USERS';
+export const EMPTY_INDIVIDUAL_USER = 'EMPTY_INDIVIDUAL_USER';
 export const RECEIVE_USER = 'RECEIVE_USER';
 
 export const fetchUsers = () => {
@@ -61,6 +62,13 @@ export const receiveRandomThreeUsers = (users) => {
 export const emptyRandomThreeUsers = (defaultState) => {
     return {
         type: EMPTY_RANDOM_THREE_USERS,
+        defaultState: defaultState,
+    }
+}
+
+export const emptyIndividualUser = (defaultState) => {
+    return {
+        type: EMPTY_INDIVIDUAL_USER,
         defaultState: defaultState,
     }
 }

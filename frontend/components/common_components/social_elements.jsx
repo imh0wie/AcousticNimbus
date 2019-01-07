@@ -51,7 +51,7 @@ class SocialElements extends React.Component {
         switch (this.props.klass) {
             case "item-player":
                 this.state = {
-                    currentLike: this.props.klass === "item-player" ? (this.props.likes ? likeOf(this.props.currentUserId, "Song", this.props.onPageSongId, this.props.likes) : likeOf(this.props.currentUserId, "Song", this.props.onPageSongId, this.props.song.likes)) : null,
+                    currentLike: this.props.likes ? likeOf(this.props.currentUserId, "Song", this.props.onPageSongId, this.props.likes) : likeOf(this.props.currentUserId, "Song", this.props.onPageSongId, this.props.song.likes),
                     currentComments: this.props.comments ? this.props.comments.bySong[onPageSongId] : null,
                     likesCount: this.props.song.likesCount,
                     commentsCount: this.props.song.commentsCount,
@@ -59,7 +59,7 @@ class SocialElements extends React.Component {
                 break;
             case "user-show-page":
                 this.state = {
-                    currentFollow: this.props.klass === "user-show-page" ? (this.props.follows ? followOf(this.props.onPageArtistId, this.props.follows) : (this.props.users[this.props.onPageArtistId] ? this.props.users[this.props.onPageArtistId].attentions[this.props.onPageArtistId] : null)) : null,
+                    currentFollow: this.props.follows ? followOf(this.props.onPageArtistId, this.props.follows) : (this.props.users.individualUser[this.props.onPageArtistId] ? this.props.users.individualUser[this.props.onPageArtistId].attentions[this.props.onPageArtistId] : null),
                 };
                 break;
             default:

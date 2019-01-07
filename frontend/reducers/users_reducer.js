@@ -1,4 +1,4 @@
-import { RECEIVE_RANDOM_THREE_USERS, EMPTY_RANDOM_THREE_USERS, RECEIVE_USER } from "../actions/user_actions";
+import { RECEIVE_RANDOM_THREE_USERS, EMPTY_RANDOM_THREE_USERS, EMPTY_INDIVIDUAL_USER, RECEIVE_USER } from "../actions/user_actions";
 import { RECEIVE_CURRENT_USER } from "../actions/session_actions";
 import { merge } from "lodash";
 
@@ -10,6 +10,7 @@ const usersReducer = (state = {}, action) => {
     case RECEIVE_RANDOM_THREE_USERS:
       newState = merge({}, state, action.users || action.user);
       return newState;
+    case EMPTY_INDIVIDUAL_USER:
     case EMPTY_RANDOM_THREE_USERS:
       newState = merge({}, action.defaultState);
       return newState;

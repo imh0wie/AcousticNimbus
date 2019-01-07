@@ -25,6 +25,7 @@ class WhoToFollow extends React.Component {
         this.state = {
             randomThree: null,
             [props.currentUserId]: props.currentUser,
+            individualUser: props.individualUser,
         };
     }
 
