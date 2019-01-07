@@ -3448,12 +3448,14 @@ var msp = function msp(state, ownProps) {
   return {
     songs: state.entities.songs,
     follows: follows,
-    currentLikes: likes,
+    likes: likes,
+    comments: state.entities.comments,
+    users: state.entities.users,
     // currentLike: likeOf("Song", onPageSongId, state.entities.users[currentUserId], likes),
-    currentLike: ownProps.klass === "item-player" ? likes ? Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(currentUserId, "Song", onPageSongId, likes) : Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(currentUserId, "Song", onPageSongId, ownProps.song.likes) : null,
-    currentFollow: ownProps.klass === "user-show-page" ? follows ? Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_7__["followOf"])(onPageArtistId, follows) : state.entities.users[onPageArtistId] ? state.entities.users[onPageArtistId].attentions[onPageArtistId] : null : null,
+    // currentLike: ownProps.klass === "item-player" ? (likes ? likeOf(currentUserId, "Song", onPageSongId, likes) : likeOf(currentUserId, "Song", onPageSongId, ownProps.song.likes)) : null,
+    // currentFollow: ownProps.klass === "user-show-page" ? (follows ? followOf(onPageArtistId, follows) : (state.entities.users[onPageArtistId] ? state.entities.users[onPageArtistId].attentions[onPageArtistId] : null)) : null,
     // currentComments: commentsOf(onPageSongId, state.entities.comments),
-    currentComments: state.entities.comments ? state.entities.comments.bySong[onPageSongId] : null,
+    // currentComments: state.entities.comments ? state.entities.comments.bySong[onPageSongId] : null,
     onPageArtistId: onPageArtistId,
     onPageSongId: onPageSongId,
     currentUserId: currentUserId
@@ -3501,7 +3503,8 @@ function (_React$Component) {
     switch (_this.props.klass) {
       case "item-player":
         _this.state = {
-          currentLike: _this.props.currentLike,
+          currentLike: _this.props.klass === "item-player" ? _this.props.likes ? Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(_this.props.currentUserId, "Song", _this.props.onPageSongId, _this.props.likes) : Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(_this.props.currentUserId, "Song", _this.props.onPageSongId, _this.props.song.likes) : null,
+          currentComments: _this.props.comments ? _this.props.comments.bySong[onPageSongId] : null,
           likesCount: _this.props.song.likesCount,
           commentsCount: _this.props.song.commentsCount
         };
@@ -3509,8 +3512,11 @@ function (_React$Component) {
 
       case "user-show-page":
         _this.state = {
-          currentFollow: _this.props.currentFollow
+          currentFollow: _this.props.klass === "user-show-page" ? _this.props.follows ? Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_7__["followOf"])(_this.props.onPageArtistId, _this.props.follows) : _this.props.users[_this.props.onPageArtistId] ? _this.props.users[_this.props.onPageArtistId].attentions[_this.props.onPageArtistId] : null : null
         };
+        break;
+
+      default:
         break;
     }
 
@@ -3526,74 +3532,176 @@ function (_React$Component) {
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
-      if (nextProps.currentLikes !== this.props.currentLikes) {
-        this.setState({
-          currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(nextProps.currentUserId, "Song", nextProps.onPageSongId, nextProps.currentLikes)
-        });
-      }
-
-      if (nextProps.currentComments && this.state.commentsCount !== nextProps.currentComments.length) {
-        this.setState({
-          commentsCount: nextProps.currentComments.length
-        });
-      }
-
       debugger;
 
-      if (!this.props.follows && nextProps.follows || nextProps.follows && Object.values(this.props.follows.interests).length !== Object.values(nextProps.follows.interests).length) {
-        debugger;
-        this.setState({
-          currentFollow: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_7__["followOf"])(this.props.onPageArtistId, nextProps.follows.interests)
-        });
+      switch (this.props.klass) {
+        case "item-player":
+          debugger;
+
+          if (!this.props.likes || Object.keys(this.props.likes).length !== Object.keys(nextProps.likes).length) {
+            if (this.state.currentLike) {
+              this.setState({
+                likesCount: this.state.likesCount - 1,
+                currentLike: null
+              });
+            } else {
+              this.setState({
+                likesCount: this.state.likesCount + 1,
+                currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(nextProps.currentUserId, "Song", nextProps.onPageSongId, nextProps.likes)
+              });
+            }
+          }
+
+          if (nextProps.currentComments && this.state.commentsCount !== nextProps.currentComments.length) {
+            this.setState({
+              commentsCount: nextProps.currentComments.length
+            });
+          }
+
+          debugger;
+          break;
+
+        case "user-show-page":
+          debugger; // if ((!this.props.follows && nextProps.follows) || (nextProps.follows && Object.values(this.props.follows.interests).length !== Object.values(nextProps.follows.interests).length)) {
+
+          if (nextProps.follows) {
+            debugger;
+
+            if (this.state.currentFollow) {
+              debugger;
+              this.setState({
+                currentFollow: null
+              });
+            } else {
+              debugger;
+              this.setState({
+                currentFollow: Object.values(nextProps.follows.interests).find(function (interest) {
+                  return interest.followedUserId === nextProps.onPageArtistId;
+                }) // currentFollow: followOf(nextProps.onPageArtistId, nextProps.follows.interests),
+
+              });
+              debugger;
+            }
+          }
+
+          break;
+
+        default:
+          break;
       }
-    }
+    } // componentWillReceiveProps(nextProps) {
+    //     debugger
+    //     switch (this.props.klass) {
+    //         case "item-player":
+    //             if (nextProps.likes !== this.props.likes) {
+    //                 this.setState({
+    //                     currentLike: likeOf(nextProps.currentUserId, "Song", nextProps.onPageSongId, nextProps.likes)
+    //                 });
+    //             }
+    //             if (nextProps.currentComments && this.state.commentsCount !== nextProps.currentComments.length) {
+    //                 this.setState({
+    //                     commentsCount: nextProps.currentComments.length,
+    //                 });
+    //             }
+    //             break;
+    //         case "user-show-page":
+    //             debugger
+    //             if ((!this.props.follows && nextProps.follows) || (nextProps.follows && Object.values(this.props.follows.interests).length !== Object.values(nextProps.follows.interests).length)) {
+    //                 debugger
+    //                 if (this.state.currentFollow) {
+    //                     debugger
+    //                     this.setState({
+    //                         currentFollow: followOf(this.props.onPageArtistId, nextProps.follows.interests),
+    //                     })
+    //                 } else {
+    //                     debugger
+    //                     this.setState({
+    //                         currentFollow: null,
+    //                     })
+    //                 }
+    //             }
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    // }
+
   }, {
     key: "handleLike",
     value: function handleLike(e) {
       e.preventDefault();
 
       if (this.state.currentLike) {
-        var like = {
-          id: this.state.currentLike.id,
-          likeable_type: this.state.currentLike.likeableType,
-          likeable_id: this.state.currentLike.likeableId,
-          liker_id: this.state.currentLike.likerId
-        };
-        this.props.removeLike(like);
-        this.setState({
-          likesCount: this.state.likesCount - 1,
-          currentLike: null
-        });
+        // const like = {
+        //     id: this.state.currentLike.id,
+        //     likeable_type: this.state.currentLike.likeableType,
+        //     likeable_id: this.state.currentLike.likeableId,
+        //     liker_id: this.state.currentLike.likerId,
+        // }
+        this.props.removeLike(this.state.currentLike); // this.setState({
+        //     likesCount: this.state.likesCount - 1,
+        //     currentLike: null,
+        // });
       } else {
-        var _like = {
+        var like = {
           likeable_type: "Song",
           likeable_id: this.props.onPageSongId,
           liker_id: this.props.currentUserId
         };
-        this.props.createLike(_like);
-        this.setState({
-          likesCount: this.state.likesCount + 1,
-          currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(this.props.currentUserId, "Song", this.props.onPageSongId, this.props.currentLikes)
-        });
+        this.props.createLike(like); // this.setState({
+        //     likesCount: this.state.likesCount + 1,
+        //     currentLike: likeOf(this.props.currentUserId, "Song", this.props.onPageSongId, this.props.likes),
+        // });
       }
-    }
+    } // toggleLike() {
+    //     debugger
+    //     if (this.state.currentLike) {
+    //         this.setState({
+    //             likesCount: this.state.likesCount - 1,
+    //             currentLike: null,
+    //         });
+    //     } else {
+    //         debugger
+    //         this.setState({
+    //             likesCount: this.state.likesCount + 1,
+    //             currentLike: likeOf(this.props.currentUserId, "Song", this.props.onPageSongId, this.props.likes),
+    //         });
+    //     }
+    // }
+
   }, {
     key: "handleFollow",
     value: function handleFollow(e) {
       // for user show page
       e.preventDefault();
 
-      if (this.props.currentFollow) {
+      if (this.state.currentFollow) {
+        debugger;
         this.props.removeFollow(this.state.currentFollow);
       } else {
         var follow = {
           followed_user_id: this.props.onPageArtistId,
           follower_id: this.props.currentUserId
         };
-        this.props.createFollow(follow);
         debugger;
-      }
-    }
+        this.props.createFollow(follow);
+      } // this.toggleFollow();
+
+    } // toggleFollow() {
+    //     debugger
+    //     if (this.state.currentFollow) {
+    //         debugger
+    //         this.setState({
+    //             currentFollow: null,
+    //         })
+    //     } else {
+    //         debugger
+    //         this.setState({
+    //             currentFollow: followOf(this.props.onPageArtistId, this.props.follows.interests),
+    //         })
+    //     }
+    // }
+
   }, {
     key: "renderButtons",
     value: function renderButtons() {
@@ -3641,12 +3749,12 @@ function (_React$Component) {
     value: function renderSocialData() {
       switch (this.props.klass) {
         case "banner-player":
-          if (!this.props.currentLikes) return null;
+          if (!this.props.likes) return null;
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "right"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             className: "fas fa-heart"
-          }), " ", this.props.currentLikes.length));
+          }), " ", this.props.likes.length));
 
         case "item-player":
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
