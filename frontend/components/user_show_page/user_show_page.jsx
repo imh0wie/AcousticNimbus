@@ -60,18 +60,18 @@ class UserShowPage extends React.Component {
         } else {
             return (
                 <div className="user-show-page">
-                    <Slideshow klass="user-show-page" onPageArtist={this.props.onPageArtist} />
+                    <Slideshow klass="user-show-page" onPageArtist={this.props.onPageArtist}/>
                     <div className="bar">
-                        <Navbar klass="user-show-page" onPageArtistId={this.props.onPageArtistId} />
-                        <SocialElements klass="user-show-page" />
+                        <Navbar klass="user-show-page" onPageArtistId={this.props.onPageArtistId}/>
+                        <SocialElements klass="user-show-page"/>
                     </div>
                     <div className="content">
                         <div className="songs-list">
                             <SongsList klass="user-show-page" onPageArtist={this.props.onPageArtist}/>
                         </div>
                         <div className="sidebar">
-                            {/* <PopularitySection /> */}
-                            {/* <LikesSection klass="user-show-page"/> */}
+                            <PopularitySection onPageArtist={this.props.onPageArtist}/>
+                            <LikesSection klass="user-show-page" onPageArtistId={this.props.onPageArtistId}/>
                             {/* <FollowersSection /> */}
                             {/* <HiringInfoSection /> */}
                         </div>

@@ -2,12 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { fetchLikes } from "../../actions/like_actions";
-import { fetchLikedSongs, emptyLikedSongs } from "../../actions/song_actions";
+import { fetchLikedSongs, emptyLikedSongs, fetchLikedSongsOfSpecificUser, emptyLikedSongsOfSpecificUser } from "../../actions/song_actions";
 import { likesBy, likesOf } from "../../util/like_api_util";
 import { likedSongsJsonToArr } from "../../util/song_api_util";
 import { randomize } from "../../util/general_api_util";
 import MiniList from "./mini_list/mini_list";
 import BubblesList from "./bubbles_list/bubbles_list"
+import { debug } from "util";
 
 const msp = (state, ownProps) => {
     const songs = state.entities.songs;
@@ -31,35 +32,60 @@ const mdp = (dispatch) => {
     return ({
         fetchLikes: () => dispatch(fetchLikes()),
         fetchLikedSongs: (userId) => dispatch(fetchLikedSongs(userId)),
-        emptyLikedSongs: (defaultState) => dispatch(emptyLikedSongs(defaultState))
+        emptyLikedSongs: (defaultState) => dispatch(emptyLikedSongs(defaultState)),
+        fetchLikedSongsOfSpecificUser: (userId, fetchingLikes) => dispatch(fetchLikedSongsOfSpecificUser(userId, fetchingLikes)),
+        emptyLikedSongsOfSpecificUser: (defaultState) => dispatch(emptyLikedSongsOfSpecificUser(defaultState)),
     })
 }
 
 class LikesSection extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            likedSongs: this.props.songs && this.props.songs.likedSongs ? Object.values(this.props.songs.likedSongs) : null,
-            loading: true,
+        switch (this.props.klass) {
+            case "homepage":
+                this.state = {
+                    likedSongs: this.props.songs && this.props.songs.likedSongs ? Object.values(this.props.songs.likedSongs) : null,
+                    loading: true,
+                }
+                break;
+            case "user-show-page":
+                this.state = {
+                    likedSongsOfSpecificUser: this.props.songs && this.props.songs.likedSongsOfSpecificUser ? Object.values(this.props.songs.likedSongsOfSpecificUser) : null,
+                    loading: true,
+                }
+                break;
+            default:
+                break;
         }
         this.customStyle = {
             minHeight: "75px"
         };
     }
 
-    // componentDidMount() {
-    //     debugger
-    //     if (this.props.klass !== "song-show-page" && !this.props.songs) {
-    //         debugger
-    //         this.props.fetchRelevantSongs(this.props.currentUserId).then(() => {
-    //             debugger
-    //             this.setState({
-    //                 loading: false,
-    //                 likedSongs: this.props.songs ? Object.values(this.props.songs.likedSongs) : null,
-    //             })
-    //         });
-    //     }
-    // }
+    componentDidMount() {
+        switch (this.props.klass) {
+            case "user-show-page":
+                debugger
+                const defaultState = {
+                    followedSongs: this.props.songs ? this.props.songs.followedSongs : null,
+                    likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
+                    songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
+                    likedSongsOfSpecificUser: null,
+                };
+                this.props.emptyLikedSongsOfSpecificUser(defaultState);
+            case "homepage":
+            default:
+                break;
+        // if (this.props.klass !== "song-show-page" && !this.props.songs) {
+        //     this.props.fetchRelevantSongs(this.props.currentUserId).then(() => {
+        //         this.setState({
+        //             loading: false,
+        //             likedSongs: this.props.songs ? Object.values(this.props.songs.likedSongs) : null,
+        //         })
+        //     });
+        // }
+        }
+    }
 
     componentWillReceiveProps(nextProps) {
         switch (this.props.klass) {
@@ -82,24 +108,40 @@ class LikesSection extends React.Component {
                         followedSongs: this.props.songs ? this.props.songs.followedSongs : null,
                         likedSongs: null,
                         songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
+                        likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
                     };
                     this.props.emptyLikedSongs(defaultState);
                     this.setState({
                         loading: true,
                     });
                 }
-                // if ((!this.props.likes && nextProps.likes) || (this.props.likes && nextProps.likes && Object.keys(this.props.likes).length !== Object.keys(nextProps.likes).length)) {
+            // if ((!this.props.likes && nextProps.likes) || (this.props.likes && nextProps.likes && Object.keys(this.props.likes).length !== Object.keys(nextProps.likes).length)) {
                 //     const defaultState = {
-                //         followedSongs: this.props.songs ? this.props.songs.followedSongs : null,
-                //         likedSongs: null,
-                //         songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
-                //     };
-                //     this.props.emptyLikedSongs(defaultState);
-                //     this.props.fetchLikedSongs(this.props.currentUserId).then(this.setState({
-                //         likedSongs: Object.values(nextProps.songs.likedSongs),
-                //     }));
-                // }
+                    //         followedSongs: this.props.songs ? this.props.songs.followedSongs : null,
+                    //         likedSongs: null,
+                    //         songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
+                    //     };
+                    //     this.props.emptyLikedSongs(defaultState);
+                    //     this.props.fetchLikedSongs(this.props.currentUserId).then(this.setState({
+                        //         likedSongs: Object.values(nextProps.songs.likedSongs),
+                        //     }));
+                        // }
                 break;
+            case "user-show-page":
+                if (this.state.loading) { // && Object.keys(nextProps.songs).includes("likedSongsOfSpecificUser") && nextProps.songs.likedSongsOfSpecificUser === null) {
+                    debugger
+                    this.props.fetchLikedSongsOfSpecificUser(this.props.onPageArtistId, true);
+                    this.setState({
+                        loading: false,
+                    });
+                } else if (!this.props.songs.likedSongsOfSpecificUser && nextProps.songs.likedSongsOfSpecificUser) {
+                    debugger
+                    this.setState({
+                        likedSongsOfSpecificUser: Object.values(nextProps.songs.likedSongsOfSpecificUser),
+                    });
+                } else {
+                    debugger
+                }
             default:
                 break;
         }
@@ -159,13 +201,14 @@ class LikesSection extends React.Component {
     render() {
         switch (this.props.klass) {
             case "homepage":
+            // case "user-show-page":
                 this.likes = this.state.likedSongs;
                 break;
-            case "song-show-page":
-                this.likes = this.props.songLikes;
-                break;
             case "user-show-page":
-                this.likes = this.props.userLikes;
+                this.likes = this.state.likedSongsOfSpecificUser;
+            // case "song-show-page":
+            //     this.likes = this.props.songLikes;
+            //     break;
             default:
                 break;
         }
@@ -183,20 +226,22 @@ class LikesSection extends React.Component {
 
     renderList() {
         if (this.state.loading || !this.likes) {
+            debugger
             return <img src={window.loadingPizza} className="loading-sm"></img>;
-        }
-        switch (this.props.klass) {
-            case "homepage":
-            case "user-show-page":
-                return (
-                    <MiniList klass="likes-section" likedSongs={randomize(this.likes)} />
-                );
-            case "song-show-page":
-                return (
-                    <BubblesList klass="song-show-page" items={this.likes} />
-                );
-            default:
-                return null;
+        } else {
+            switch (this.props.klass) {
+                case "homepage":
+                case "user-show-page":
+                    return (
+                        <MiniList klass="likes-section" likedSongs={randomize(this.likes)} />
+                    );
+                case "song-show-page":
+                    return (
+                        <BubblesList klass="song-show-page" items={this.likes} />
+                    );
+                default:
+                    return null;
+            }
         }
     }
 }

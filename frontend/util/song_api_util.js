@@ -31,7 +31,17 @@ export const fetchSongs = () => {
   });
 };
 
-export const fetchSongsOf = (userId) => {
+// export const fetchSongsOf = (userId) => {
+//   return $.ajax({
+//     method: "GET",
+//     url: "/api/songs",
+//     data: {
+//       user_id: userId
+//     }
+//   });
+// };
+
+export const fetchSongsOfSpecificUser = (userId) => {
   return $.ajax({
     method: "GET",
     url: "/api/songs",
@@ -40,6 +50,17 @@ export const fetchSongsOf = (userId) => {
     }
   });
 };
+
+export const fetchLikedSongsOfSpecificUser = (userId, fetchingLikes) => {
+  return $.ajax({
+    method: "GET",
+    url: "/api/songs",
+    data: {
+      user_id: userId,
+      fetching_likes: fetchingLikes,
+    }
+  })
+}
 
 export const fetchRelevantSongsOf = (userId) => {
   return $.ajax({

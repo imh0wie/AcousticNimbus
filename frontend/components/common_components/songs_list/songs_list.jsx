@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { fetchRelevantSongs, fetchSongsOf, emptySongsOfSpecificUser, emptyFollowedSongs } from "../../../actions/song_actions";
+import { fetchRelevantSongs, fetchSongsOfSpecificUser, emptySongsOfSpecificUser, emptyFollowedSongs } from "../../../actions/song_actions";
 import SongsListItem from "./songs_list_item";
 
 const msp = (state, ownProps) => {
@@ -22,7 +22,7 @@ const msp = (state, ownProps) => {
 const mdp = (dispatch) => {
   return ({
       fetchRelevantSongs: (userId) => dispatch(fetchRelevantSongs(userId)),
-      fetchSongsOf: (userId) => dispatch(fetchSongsOf(userId)),
+      fetchSongsOfSpecificUser: (userId) => dispatch(fetchSongsOfSpecificUser(userId)),
       emptySongsOfSpecificUser: (defaultState) => dispatch(emptySongsOfSpecificUser(defaultState)),
       emptyFollowedSongs: (defaultState) => dispatch(emptyFollowedSongs(defaultState)),
   });
@@ -47,6 +47,7 @@ class SongsList extends React.Component {
                         followedSongs: null,
                         likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
                         songsOfSpecificUsers: this.props.songs ? this.props.songs.songsOfSpecificUsers : null,
+                        likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
                     };
                     this.props.emptyFollowedSongs(defaultState);
                     this.props.fetchRelevantSongs(this.props.currentUserId).then(
@@ -62,9 +63,10 @@ class SongsList extends React.Component {
                         followedSongs: this.props.songs ? this.props.songs.followedSongs : null,
                         likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
                         songsOfSpecificUser: null,
+                        likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
                     }
                     this.props.emptySongsOfSpecificUser(defaultState);
-                    this.props.fetchSongsOf(this.props.onPageArtist.id).then(
+                    this.props.fetchSongsOfSpecificUser(this.props.onPageArtist.id).then(
                         this.setState({
                             loading: false
                         })
@@ -88,7 +90,7 @@ class SongsList extends React.Component {
                 break;
             case "user-show-page":
                 // if (!this.songs) {
-                //     this.props.fetchSongsOf(this.props.onPageArtist.id).then(
+                //     this.props.fetchSongsOfSpecificUser(this.props.onPageArtist.id).then(
                 //         this.setState({
                 //             loading: false
                 //         })

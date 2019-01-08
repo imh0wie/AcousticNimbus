@@ -5,6 +5,7 @@ export const RECEIVE_SONGS = "RECEIVE_SONGS";
 export const RECEIVE_SONG_ERRORS = "RECEIVE_SONG_ERRORS";
 export const RECEIVE_SONGS_ERRORS = "RECEIVE_SONGS_ERRORS";
 export const EMPTY_SONGS_OF_SPECIFIC_USER = "EMPTY_SONGS_OF_SPECIFIC_USER";
+export const EMPTY_LIKED_SONGS_OF_SPECIFIC_USER = "EMPTY_LIKED_SONGS_OF_SPECIFIC_USER";
 export const EMPTY_FOLLOWED_SONGS = "EMPTY_FOLLOWED_SONGS";
 export const EMPTY_LIKED_SONGS = "EMPTY_LIKED_SONGS";
 
@@ -57,9 +58,22 @@ export const fetchSongs = () => {
   };
 };
 
-export const fetchSongsOf = (userId) => {
+export const fetchSongsOfSpecificUser = (userId) => {
   return (dispatch) => {
-    return SongAPIUtil.fetchSongsOf(userId).then(
+    return SongAPIUtil.fetchSongsOfSpecificUser(userId).then(
+      (songsFromServer) => {
+        return dispatch(receiveSongs(songsFromServer));
+      },
+      (errors) => {
+        return dispatch(receiveSongsErrors(errors.responseJSON));
+      },
+    );
+  };
+};
+
+export const fetchLikedSongsOfSpecificUser = (userId, fetchingLikes) => {
+  return (dispatch) => {
+    return SongAPIUtil.fetchLikedSongsOfSpecificUser(userId, fetchingLikes).then(
       (songsFromServer) => {
         return dispatch(receiveSongs(songsFromServer));
       },
@@ -112,6 +126,13 @@ export const fetchLikedSongs = (userId) => {
 export const emptySongsOfSpecificUser = (defaultState) => {
   return {
     type: EMPTY_SONGS_OF_SPECIFIC_USER,
+    defaultState: defaultState,
+  };
+};
+
+export const emptyLikedSongsOfSpecificUser = (defaultState) => {
+  return {
+    type: EMPTY_LIKED_SONGS_OF_SPECIFIC_USER,
     defaultState: defaultState,
   };
 };

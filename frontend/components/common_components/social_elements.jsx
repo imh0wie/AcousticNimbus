@@ -73,10 +73,8 @@ class SocialElements extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        debugger
         switch (this.props.klass) {
             case "item-player":
-                debugger
                 if (!this.props.likes || Object.keys(this.props.likes).length !== Object.keys(nextProps.likes).length) {
                     if (!this.state.currentLike) {
                         this.setState({
@@ -100,25 +98,19 @@ class SocialElements extends React.Component {
                         commentsCount: nextProps.currentComments.length,
                     });
                 }
-                debugger
                 break;
             case "user-show-page":
-                debugger
                 // if ((!this.props.follows && nextProps.follows) || (nextProps.follows && Object.values(this.props.follows.interests).length !== Object.values(nextProps.follows.interests).length)) {
                 if (nextProps.follows) {
-                    debugger
                     if (this.state.currentFollow) {
-                        debugger
                         this.setState({
                             currentFollow: null,
                         })
                     } else {
-                        debugger
                         this.setState({
                             currentFollow: Object.values(nextProps.follows.interests).find(interest => interest.followedUserId === nextProps.onPageArtistId),
                             // currentFollow: followOf(nextProps.onPageArtistId, nextProps.follows.interests),
                         })
-                        debugger
                     }
                 }
                 break;
@@ -128,7 +120,6 @@ class SocialElements extends React.Component {
     }
 
     // componentWillReceiveProps(nextProps) {
-    //     debugger
     //     switch (this.props.klass) {
     //         case "item-player":
     //             if (nextProps.likes !== this.props.likes) {
@@ -143,16 +134,12 @@ class SocialElements extends React.Component {
     //             }
     //             break;
     //         case "user-show-page":
-    //             debugger
     //             if ((!this.props.follows && nextProps.follows) || (nextProps.follows && Object.values(this.props.follows.interests).length !== Object.values(nextProps.follows.interests).length)) {
-    //                 debugger
     //                 if (this.state.currentFollow) {
-    //                     debugger
     //                     this.setState({
     //                         currentFollow: followOf(this.props.onPageArtistId, nextProps.follows.interests),
     //                     })
     //                 } else {
-    //                     debugger
     //                     this.setState({
     //                         currentFollow: null,
     //                     })
@@ -191,14 +178,12 @@ class SocialElements extends React.Component {
     }
 
     // toggleLike() {
-    //     debugger
     //     if (this.state.currentLike) {
     //         this.setState({
     //             likesCount: this.state.likesCount - 1,
     //             currentLike: null,
     //         });
     //     } else {
-    //         debugger
     //         this.setState({
     //             likesCount: this.state.likesCount + 1,
     //             currentLike: likeOf(this.props.currentUserId, "Song", this.props.onPageSongId, this.props.likes),
@@ -209,7 +194,6 @@ class SocialElements extends React.Component {
     handleFollow(e) { // for user show page
         e.preventDefault();
         if (this.state.currentFollow) {
-            debugger
             this.props.removeFollow(this.state.currentFollow);
             this.setState({
                 likesCount: this.state.likesCount - 1,
@@ -220,7 +204,6 @@ class SocialElements extends React.Component {
                 followed_user_id: this.props.onPageArtistId,
                 follower_id: this.props.currentUserId
             }
-            debugger
             this.props.createFollow(follow);
             this.setState({
                 likesCount: this.state.likesCount + 1,
@@ -231,14 +214,11 @@ class SocialElements extends React.Component {
     }
 
     // toggleFollow() {
-    //     debugger
     //     if (this.state.currentFollow) {
-    //         debugger
     //         this.setState({
     //             currentFollow: null,
     //         })
     //     } else {
-    //         debugger
     //         this.setState({
     //             currentFollow: followOf(this.props.onPageArtistId, this.props.follows.interests),
     //         })
