@@ -1,5 +1,6 @@
 # json.partial! "api/users/user", user: @user
 defaultState = {}
+defaultArr = []
 
 json.set! :individualUser do
     json.set! @user.id do
@@ -19,7 +20,18 @@ json.set! :individualUser do
                 end
             end
         end
-        @user.followers.map { |follower| follower.id }
+        if @user.followers.length === 0
+            json.followers defaultState
+        else
+            json.set! :followers do
+                @user.followers.each do |follower|
+                    json.set! follower.id do
+                        json.id follower.id
+                        json.username follower.username
+                    end
+                end
+            end
+        end
         json.followersCount @user.followers_count
         json.followingsCount @user.followings_count
         json.songsCount @user.songs_count

@@ -905,48 +905,36 @@ function (_React$Component) {
   _inherits(BubblesList, _React$Component);
 
   function BubblesList(props) {
-    var _this;
-
     _classCallCheck(this, BubblesList);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(BubblesList).call(this, props));
-    _this.state = {
-      loading: true
-    };
-    return _this;
-  }
+    return _possibleConstructorReturn(this, _getPrototypeOf(BubblesList).call(this, props)); // this.state = {
+    //     loading: true,
+    // }
+  } // componentDidMount() {
+  //     if (this.props.klass !== "user-show-page") {
+  //         this.props.fetchUsers();
+  //     }
+  //     this.setState({
+  //         loading: false,
+  //     })
+  //     // this.props.fetchUsers().then(this.setState({loading: false}));
+  // }
+
 
   _createClass(BubblesList, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      if (this.props.klass !== "user-show-page") {
-        this.props.fetchUsers();
-      }
-
-      this.setState({
-        loading: false
-      }); // this.props.fetchUsers().then(this.setState({loading: false}));
-    }
-  }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
-
-      if (this.state.loading) {
+      if (!this.props.onPageArtist) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loadingPizza,
           className: "loading"
         });
       } else {
-        if (!this.props.items || this.props.items.length === 0) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-          className: "ui-msg"
-        }, "No love...:(");
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.items.map(function (item) {
-          var id = item.likerId ? item.likerId : item.followerId;
-          if (!_this2.props.users[id]) return null;
+        // if (!this.props.items || this.props.items.length === 0) return <p className="ui-msg">No love...:(</p>;
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, Object.keys(this.props.onPageArtist.followers).map(function (follower) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_bubbles_list_item__WEBPACK_IMPORTED_MODULE_4__["default"], {
             key: id,
-            user: _this2.props.users[id]
+            user: follower
           });
         }));
       }
@@ -7227,7 +7215,7 @@ var FollowersSection = function FollowersSection(props) {
     }
   }, "View all")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_bubbles_list_bubbles_list__WEBPACK_IMPORTED_MODULE_4__["default"], {
     klass: "user-show-page",
-    items: props.currentFollows
+    onPageArtist: props.onPageArtist
   }));
 };
 
@@ -7494,7 +7482,9 @@ function (_React$Component) {
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_likes_section__WEBPACK_IMPORTED_MODULE_9__["default"], {
           klass: "user-show-page",
           onPageArtistId: this.props.onPageArtistId
-        }))));
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_followers_section__WEBPACK_IMPORTED_MODULE_10__["default"], {
+          onPageArtist: this.props.onPageArtist
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_hiring_info_section__WEBPACK_IMPORTED_MODULE_11__["default"], null))));
       }
     }
   }]);

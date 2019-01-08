@@ -57,12 +57,6 @@ class Api::SongsController < ApplicationController
       render json: @song.errors.full_messages, status: 401
     end
   end
-  
-  def show
-    @song = Song.find(params[:id])
-    render :show
-  end
-  
   private
   
   def song_params

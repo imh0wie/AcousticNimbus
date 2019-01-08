@@ -18,7 +18,7 @@ const FollowersSection = (props) => {
                 <p><i className="fas fa-user"></i> {props.currentFollows ? props.currentFollows.length : "0"} {(!props.currentFollows || !(props.currentFollows.length > 1)) ? "follower" : "followers"}</p>
                 <Link to="" onClick={(e) => e.preventDefault()}>View all</Link>
             </div>
-            <BubblesList klass="user-show-page" items={props.currentFollows} />
+            <BubblesList klass="user-show-page" onPageArtist={props.onPageArtist} />
         </div>
     );
 }
