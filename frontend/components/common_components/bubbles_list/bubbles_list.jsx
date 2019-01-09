@@ -41,10 +41,10 @@ class BubblesList extends React.Component {
             // if (!this.props.items || this.props.items.length === 0) return <p className="ui-msg">No love...:(</p>;
             return (
                 <ul>
-                    {Object.keys(this.props.onPageArtist.followers).map((follower) => {
+                    {Object.keys(this.props.onPageArtist.followers).map((follower, i) => {
                         return (
                             <BubblesListItem
-                                key={id}
+                                key={i}
                                 user={follower}
                             />
                         );

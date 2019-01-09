@@ -65,12 +65,12 @@ class LikesSection extends React.Component {
     componentDidMount() {
         switch (this.props.klass) {
             case "user-show-page":
-                debugger
                 const defaultState = {
                     followedSongs: this.props.songs ? this.props.songs.followedSongs : null,
                     likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
                     songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
                     likedSongsOfSpecificUser: null,
+                    individualSong: this.props.songs ? this.props.songs.individualSong : null,
                 };
                 this.props.emptyLikedSongsOfSpecificUser(defaultState);
             case "homepage":
@@ -109,6 +109,7 @@ class LikesSection extends React.Component {
                         likedSongs: null,
                         songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
                         likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
+                        individualSong: this.props.songs ? this.props.songs.individualSong : null,
                     };
                     this.props.emptyLikedSongs(defaultState);
                     this.setState({
@@ -129,18 +130,15 @@ class LikesSection extends React.Component {
                 break;
             case "user-show-page":
                 if (this.state.loading) { // && Object.keys(nextProps.songs).includes("likedSongsOfSpecificUser") && nextProps.songs.likedSongsOfSpecificUser === null) {
-                    debugger
                     this.props.fetchLikedSongsOfSpecificUser(this.props.onPageArtistId, true);
                     this.setState({
                         loading: false,
                     });
                 } else if (!this.props.songs.likedSongsOfSpecificUser && nextProps.songs.likedSongsOfSpecificUser) {
-                    debugger
                     this.setState({
                         likedSongsOfSpecificUser: Object.values(nextProps.songs.likedSongsOfSpecificUser),
                     });
                 } else {
-                    debugger
                 }
             default:
                 break;
@@ -226,7 +224,6 @@ class LikesSection extends React.Component {
 
     renderList() {
         if (this.state.loading || !this.likes) {
-            debugger
             return <img src={window.loadingPizza} className="loading-sm"></img>;
         } else {
             switch (this.props.klass) {

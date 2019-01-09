@@ -46,8 +46,9 @@ class SongsList extends React.Component {
                     const defaultState = {
                         followedSongs: null,
                         likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
-                        songsOfSpecificUsers: this.props.songs ? this.props.songs.songsOfSpecificUsers : null,
+                        songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
                         likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
+                        individualSong: this.props.songs ? this.props.songs.individualSong : null,
                     };
                     this.props.emptyFollowedSongs(defaultState);
                     this.props.fetchRelevantSongs(this.props.currentUserId).then(
@@ -64,6 +65,7 @@ class SongsList extends React.Component {
                         likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
                         songsOfSpecificUser: null,
                         likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
+                        individualSong: this.props.songs ? this.props.songs.individualSong : null,
                     }
                     this.props.emptySongsOfSpecificUser(defaultState);
                     this.props.fetchSongsOfSpecificUser(this.props.onPageArtist.id).then(

@@ -34,6 +34,7 @@ class HeaderBar extends React.Component {
       likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
       songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
       likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
+      individualSong: this.props.songs ? this.props.songs.individualSong : null,
     };
     this.props.emptyFollowedSongs(defaultState);
   }

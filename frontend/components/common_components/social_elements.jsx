@@ -9,7 +9,7 @@ import { followOf } from "../../util/follow_api_util";
 import { commentsOf } from "../../util/comment_api_util";
 
 const msp = (state, ownProps) => {
-    const onPageSongId = parseInt(ownProps.match.params.songId) || ownProps.songId;
+    // const onPageSongId = parseInt(ownProps.match.params.songId) || ownProps.songId;
     const onPageArtistId = parseInt(ownProps.match.params.userId);
     const likes = state.entities.likes;
     const follows = state.entities.follows;
@@ -26,7 +26,7 @@ const msp = (state, ownProps) => {
         // currentComments: commentsOf(onPageSongId, state.entities.comments),
         // currentComments: state.entities.comments ? state.entities.comments.bySong[onPageSongId] : null,
         onPageArtistId: onPageArtistId,
-        onPageSongId: onPageSongId,
+        // onPageSongId: onPageSongId,
         currentUserId: currentUserId,
     });
 }
@@ -51,8 +51,8 @@ class SocialElements extends React.Component {
         switch (this.props.klass) {
             case "item-player":
                 this.state = {
-                    currentLike: this.props.likes ? likeOf(this.props.currentUserId, "Song", this.props.onPageSongId, this.props.likes) : likeOf(this.props.currentUserId, "Song", this.props.onPageSongId, this.props.song.likes),
-                    currentComments: this.props.comments ? this.props.comments.bySong[onPageSongId] : null,
+                    currentLike: this.props.likes ? likeOf(this.props.currentUserId, "Song", this.props.songId, this.props.likes) : likeOf(this.props.currentUserId, "Song", this.props.songId, this.props.song.likes),
+                    currentComments: this.props.comments ? this.props.comments.bySong[songId] : null,
                     likesCount: this.props.song.likesCount,
                     commentsCount: this.props.song.commentsCount,
                 }
@@ -62,6 +62,14 @@ class SocialElements extends React.Component {
                     currentFollow: this.props.follows ? followOf(this.props.onPageArtistId, this.props.follows) : (this.props.users.individualUser[this.props.onPageArtistId] ? this.props.users.individualUser[this.props.onPageArtistId].attentions[this.props.onPageArtistId] : null),
                 };
                 break;
+            case "banner-player":
+                debugger
+                this.state = {
+                    currentLike: this.props.likes ? Object.values(this.props.likes).find(like => like.likeableId === this.props.songId) : Object.values(this.props.song.likes).find(like => like.likeableId === this.props.songId),
+                    likesCount: this.props.song.likesCount,
+                };
+                debugger
+                break;
             default:
                 break;
         }
@@ -69,7 +77,7 @@ class SocialElements extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.klass === "banner-player") this.props.fetchLikes();
+        // if (this.props.klass === "banner-player") this.props.fetchLikes();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -78,7 +86,7 @@ class SocialElements extends React.Component {
                 if (!this.props.likes || Object.keys(this.props.likes).length !== Object.keys(nextProps.likes).length) {
                     if (!this.state.currentLike) {
                         this.setState({
-                            currentLike: likeOf(nextProps.currentUserId, "Song", nextProps.onPageSongId, nextProps.likes),
+                            currentLike: likeOf(nextProps.currentUserId, "Song", nextProps.songId, nextProps.likes),
                         })
                     }
                     // if (this.state.currentLike) {
@@ -89,7 +97,7 @@ class SocialElements extends React.Component {
                     // } else {
                     //     this.setState({
                     //         likesCount: this.state.likesCount + 1,
-                    //         currentLike: likeOf(nextP rops.currentUserId, "Song", nextProps.onPageSongId, nextProps.likes)
+                    //         currentLike: likeOf(nextP rops.currentUserId, "Song", nextProps.songId, nextProps.likes)
                     //     });
                     // }
                 }
@@ -114,6 +122,26 @@ class SocialElements extends React.Component {
                     }
                 }
                 break;
+            case "banner-player":
+                if (!this.props.likes || Object.keys(this.props.likes).length !== Object.keys(nextProps.likes).length) {
+                    if (!this.state.currentLike) {
+                        this.setState({
+                            currentLike: likeOf(nextProps.currentUserId, "Song", nextProps.songId, nextProps.likes),
+                        })
+                    }
+                    // if (this.state.currentLike) {
+                    //     this.setState({
+                    //         likesCount: this.state.likesCount - 1,
+                    //         currentLike: null,
+                    //     });
+                    // } else {
+                    //     this.setState({
+                    //         likesCount: this.state.likesCount + 1,
+                    //         currentLike: likeOf(nextP rops.currentUserId, "Song", nextProps.songId, nextProps.likes)
+                    //     });
+                    // }
+                }
+                break;
             default:
                 break;
         }
@@ -124,7 +152,7 @@ class SocialElements extends React.Component {
     //         case "item-player":
     //             if (nextProps.likes !== this.props.likes) {
     //                 this.setState({
-    //                     currentLike: likeOf(nextProps.currentUserId, "Song", nextProps.onPageSongId, nextProps.likes)
+    //                     currentLike: likeOf(nextProps.currentUserId, "Song", nextProps.songId, nextProps.likes)
     //                 });
     //             }
     //             if (nextProps.currentComments && this.state.commentsCount !== nextProps.currentComments.length) {
@@ -167,12 +195,12 @@ class SocialElements extends React.Component {
         } else {
             const like = {
                 likeable_type: "Song",
-                likeable_id: this.props.onPageSongId,
+                likeable_id: this.props.songId,
                 liker_id: this.props.currentUserId,
             };
             this.props.createLike(like).then(this.setState({
                 likesCount: this.state.likesCount + 1,
-                // currentLike: likeOf(this.props.currentUserId, "Song", this.props.onPageSongId, this.props.likes),
+                // currentLike: likeOf(this.props.currentUserId, "Song", this.props.songId, this.props.likes),
             }));
         }
     }
@@ -186,7 +214,7 @@ class SocialElements extends React.Component {
     //     } else {
     //         this.setState({
     //             likesCount: this.state.likesCount + 1,
-    //             currentLike: likeOf(this.props.currentUserId, "Song", this.props.onPageSongId, this.props.likes),
+    //             currentLike: likeOf(this.props.currentUserId, "Song", this.props.songId, this.props.likes),
     //         });
     //     }
     // }
@@ -207,7 +235,7 @@ class SocialElements extends React.Component {
             this.props.createFollow(follow);
             this.setState({
                 likesCount: this.state.likesCount + 1,
-                // currentLike: likeOf(nextProps.currentUserId, "Song", nextProps.onPageSongId, nextProps.likes)
+                // currentLike: likeOf(nextProps.currentUserId, "Song", nextProps.songId, nextProps.likes)
             });
         }
         // this.toggleFollow();
@@ -258,16 +286,16 @@ class SocialElements extends React.Component {
     renderSocialData() {
         switch (this.props.klass) {
             case "banner-player":
-                if (!this.props.likes) return null;
+                // if (!this.props.likes) return null;
                 return (
                     <div className="right">
-                        <p><i className="fas fa-heart"></i> {this.props.likes.length}</p> 
+                        <p><i className="fas fa-heart"></i> {this.state.likesCount}</p> 
                     </div>
                 );
             case "item-player":
                 return (
                     <div className="right">
-                        <Link to={`/songs/${this.props.onPageSongId}`}><i className="fas fa-comment-alt"></i> {this.state.commentsCount}</Link> 
+                        <Link to={`/songs/${this.props.songId}`}><i className="fas fa-comment-alt"></i> {this.state.commentsCount}</Link> 
                     </div>
                 );
             case "user-show-page":

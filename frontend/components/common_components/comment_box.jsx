@@ -53,8 +53,6 @@ class CommentBox extends React.Component {
         };
     }
 
-    
-
     render() {
         if (this.props.klass === "banner-player") return null;
         switch (this.props.klass) {

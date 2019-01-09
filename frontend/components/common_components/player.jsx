@@ -11,7 +11,7 @@ const msp = (state, ownProps) => {
     const songId = parseInt(ownProps.match.params.songId);
     return ({
         songId: songId ? songId : ownProps.songId,
-        song: klass === "item-player" ? ownProps.song : state.entities.songs[songId],
+        // song: ownProps.song,
         currentSong: state.ui.currentSong,
     })
 }
@@ -107,7 +107,7 @@ class Player extends React.Component {
                             </div>
                         </div>
                         <div className="right">
-                            <h4 className="upload-time" style={(this.props.klass === "item-player") ? this.noneStyle : {}}>{this.renderUploadTime(this.props.song.createdAt)}</h4>;
+                            <h4 className="upload-time" style={(this.props.klass === "item-player") ? this.noneStyle : {}}>{this.renderUploadTime(this.props.song.createdAt)}</h4>
                             <h4 className="genre">#{this.props.song.genre}</h4>
                         </div>
                     </div>

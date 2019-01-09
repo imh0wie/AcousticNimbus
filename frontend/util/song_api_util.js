@@ -21,6 +21,9 @@ export const fetchSong = (id) => {
   return $.ajax({
     method: "GET",
     url: `/api/songs/${id}`,
+    data: {
+      id: id,
+    }
   });
 };
 
