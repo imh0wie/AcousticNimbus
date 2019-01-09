@@ -1,14 +1,13 @@
 class Api::CommentsController < ApplicationController
   def index
-    @comments = Comment.all
+    @comments_of_specific_song = Comment.where(song_id: params[:song_id]).select('*') 
     render :index
   end
   
   def create
     @comment = Comment.new(comment_params)
     if @comment.save
-      @comments = Comment.all
-      @song_ids = @comments.map { |comment| comment.song_id }.uniq
+      @comments_of_specific_song = Comment.where(song_id: params[:song_id]).select('*')
       render :index
     else
       render @comment.errors.full_messages, status: 401
@@ -18,7 +17,7 @@ class Api::CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     if @comment.destroy
-      @comments = Comment.all
+      @comments_of_specific_song = Comment.where(song_id: params[:song_id]).select('*')
       render :index
     else
       render @comment.errors.full_messages, status: 401

@@ -34,6 +34,16 @@ export const fetchSongs = () => {
   });
 };
 
+export const fetchRelatedSongsByGenre = (genre) => {
+  return $.ajax({
+    method: "GET",
+    url: "/api/songs",
+    data: {
+      genre: genre,
+    }
+  });
+};
+
 // export const fetchSongsOf = (userId) => {
 //   return $.ajax({
 //     method: "GET",

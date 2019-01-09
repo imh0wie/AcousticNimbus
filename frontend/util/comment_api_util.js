@@ -11,18 +11,25 @@ export const createComment = (comment) => {
     });
 }
 
-export const removeComment = (id) => {
+export const removeComment = (id, songId) => {
     return $.ajax({
         method: "DELETE",
         url: `/api/comments/${id}`,
+        data: {
+            id: id,
+            song_id: songId,
+        }
     })
 }
 
-export const fetchComments = () => {
+export const fetchCommentsOfSpecificSong = (songId) => {
     return $.ajax({
         method: "GET",
-        url: "/api/comments"
-    })
+        url: "/api/comments",
+        data: {
+            song_id: songId,
+        }
+    });
 }
 
 export const commentsOf = (songId, comments) => {

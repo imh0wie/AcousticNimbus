@@ -1,4 +1,4 @@
-import { RECEIVE_SONG, RECEIVE_SONGS, EMPTY_INDIVIDUAL_SONG, EMPTY_SONGS_OF_SPECIFIC_USER, EMPTY_LIKED_SONGS_OF_SPECIFIC_USER, EMPTY_FOLLOWED_SONGS, EMPTY_LIKED_SONGS } from "../actions/song_actions";
+import { RECEIVE_SONG, RECEIVE_SONGS, EMPTY_INDIVIDUAL_SONG, EMPTY_RELATED_SONGS_BY_GENRE, EMPTY_SONGS_OF_SPECIFIC_USER, EMPTY_LIKED_SONGS_OF_SPECIFIC_USER, EMPTY_FOLLOWED_SONGS, EMPTY_LIKED_SONGS } from "../actions/song_actions";
 import { merge } from "lodash";
 
 const songsReducer = (state = null, action) => {
@@ -12,6 +12,7 @@ const songsReducer = (state = null, action) => {
       newState = action.songs;
       return merge({}, state, newState);
     case EMPTY_INDIVIDUAL_SONG:
+    case EMPTY_RELATED_SONGS_BY_GENRE:
     case EMPTY_SONGS_OF_SPECIFIC_USER:
     case EMPTY_LIKED_SONGS_OF_SPECIFIC_USER:
     case EMPTY_FOLLOWED_SONGS:

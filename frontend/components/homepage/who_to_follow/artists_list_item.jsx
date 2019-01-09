@@ -45,6 +45,7 @@ class ArtistListItem extends React.Component {
             songsOfSpecificUser: this.props.songs.songsOfSpecificUser ? this.props.songs.songsOfSpecificUser : null,
             likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
             individualSong: this.props.songs ? this.props.songs.individualSong : null,
+            relatedSongsByGenre: this.props.songs ? this.props.songs.relatedSongsByGenre : null,
         };
         this.props.createFollow(follow);
         this.props.emptyFollowedSongs(defaultState);

@@ -9,6 +9,7 @@ export const EMPTY_LIKED_SONGS_OF_SPECIFIC_USER = "EMPTY_LIKED_SONGS_OF_SPECIFIC
 export const EMPTY_FOLLOWED_SONGS = "EMPTY_FOLLOWED_SONGS";
 export const EMPTY_LIKED_SONGS = "EMPTY_LIKED_SONGS";
 export const EMPTY_INDIVIDUAL_SONG = "EMPTY_INDIVIDUAL_SONG";
+export const EMPTY_RELATED_SONGS_BY_GENRE = "EMPTY_RELATED_SONGS_BY_GENRE";
 
 export const createSong = (songToServer) => {
   return dispatch => {
@@ -38,6 +39,19 @@ export const fetchSong = (songIdToServer) => {
     return SongAPIUtil.fetchSong(songIdToServer).then(
       (songFromServer) => {
         return dispatch(receiveSong(songFromServer));
+      },
+      (errors) => {
+        return dispatch(receiveSongErrors(errors.responseJSON));
+      }
+    );
+  };
+};
+
+export const fetchRelatedSongsByGenre = (songGenreToServer) => {
+  return dispatch => {
+    return SongAPIUtil.fetchRelatedSongsByGenre(songGenreToServer).then(
+      (songsFromServer) => {
+        return dispatch(receiveSongs(songsFromServer));
       },
       (errors) => {
         return dispatch(receiveSongErrors(errors.responseJSON));
@@ -155,6 +169,13 @@ export const emptyLikedSongs = (defaultState) => {
 export const emptyIndividualSong = (defaultState) => {
   return {
     type: EMPTY_INDIVIDUAL_SONG,
+    defaultState: defaultState,
+  };
+};
+
+export const emptyRelatedSongsByGenre = (defaultState) => {
+  return {
+    type: EMPTY_RELATED_SONGS_BY_GENRE,
     defaultState: defaultState,
   };
 };

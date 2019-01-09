@@ -56,6 +56,7 @@ class SongShowPage extends React.Component {
       songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
       likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
       individualSong: null,
+      relatedSongsByGenre: this.props.songs ? this.props.songs.relatedSongsByGenre : null,
     };
     this.props.emptyIndividualSong(defaultState);
   }
@@ -106,16 +107,16 @@ class SongShowPage extends React.Component {
                 <SocialElements klass="banner-player" song={this.state.onPageSong} songId={this.props.onPageSongId}/>
               </div>
               <div className="main">
-                {/* <MiniArtistProfile klass="song-show-page" /> */}
+                <MiniArtistProfile klass="song-show-page" songArtist={this.state.onPageSong.artist}/>
                 <div className="description-comments">
-                  {/* <p className="description">{this.state.onPageSong.description}</p> */}
-                  {/* <CommentsList /> */}
+                  <p className="description">{this.state.onPageSong.description}</p>
+                  <CommentsList song={this.state.onPageSong} songId={this.props.onPageSongId} songArtist={this.state.onPageSong.artist}/>
                 </div>
               </div>
             </div>
             <div className="sidebar">
-              {/* <Slideshow klass="ad"/> */}
-              {/* <RelatedSongs /> */}
+              <Slideshow klass="ad"/>
+              <RelatedSongs song={this.state.onPageSong} />
               {/* <LikesSection klass="song-show-page" /> */}
               {/* <HiringInfoSection /> */}
             </div>

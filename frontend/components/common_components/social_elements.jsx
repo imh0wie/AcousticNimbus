@@ -63,12 +63,10 @@ class SocialElements extends React.Component {
                 };
                 break;
             case "banner-player":
-                debugger
                 this.state = {
                     currentLike: this.props.likes ? Object.values(this.props.likes).find(like => like.likeableId === this.props.songId) : Object.values(this.props.song.likes).find(like => like.likeableId === this.props.songId),
                     likesCount: this.props.song.likesCount,
                 };
-                debugger
                 break;
             default:
                 break;

@@ -71,6 +71,7 @@ class LikesSection extends React.Component {
                     songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
                     likedSongsOfSpecificUser: null,
                     individualSong: this.props.songs ? this.props.songs.individualSong : null,
+                    relatedSongsByGenre: this.props.songs ? this.props.songs.relatedSongsByGenre : null,
                 };
                 this.props.emptyLikedSongsOfSpecificUser(defaultState);
             case "homepage":
@@ -110,6 +111,7 @@ class LikesSection extends React.Component {
                         songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
                         likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
                         individualSong: this.props.songs ? this.props.songs.individualSong : null,
+                        relatedSongsByGenre: this.props.songs ? this.props.songs.relatedSongsByGenre : null,
                     };
                     this.props.emptyLikedSongs(defaultState);
                     this.setState({
