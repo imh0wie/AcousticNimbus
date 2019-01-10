@@ -2,6 +2,7 @@ import * as UserAPIUtil from '../util/user_api_util';
 
 export const RECEIVE_RANDOM_THREE_USERS = 'RECEIVE_RANDOM_THREE_USERS';
 export const RECEIVE_LIKERS_OF_SPECIFIC_SONG = 'RECEIVE_LIKERS_OF_SPECIFIC_SONG';
+export const RECEIVE_FOLLOWERS_OF_SPECIFIC_USER = 'RECEIVE_FOLLOWERS_OF_SPECIFIC_USER';
 export const RECEIVE_USER = 'RECEIVE_USER';
 export const EMPTY_RANDOM_THREE_USERS = 'EMPTY_RANDOM_THREE_USERS';
 export const EMPTY_INDIVIDUAL_USER = 'EMPTY_INDIVIDUAL_USER';
@@ -42,7 +43,7 @@ export const fetchFollowersOfSpecificUser = (userIdToServer) => {
     return (dispatch) => {
         return UserAPIUtil.fetchFollowersOfSpecificUser(userIdToServer).then(
             (usersFromServer) => {
-                return dispatch(receiveLikersOfSpecificSong(usersFromServer));
+                return dispatch(receiveFollowersOfSpecificUser(usersFromServer));
             }
         )
     }
@@ -85,6 +86,13 @@ export const receiveRandomThreeUsers = (users) => {
 export const receiveLikersOfSpecificSong = (users) => {
     return {
         type: RECEIVE_LIKERS_OF_SPECIFIC_SONG,
+        users: users,
+    }
+}
+
+export const receiveFollowersOfSpecificUser = (users) => {
+    return {
+        type: RECEIVE_FOLLOWERS_OF_SPECIFIC_USER,
         users: users,
     }
 }

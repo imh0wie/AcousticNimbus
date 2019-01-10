@@ -74,7 +74,7 @@ class UserShowPage extends React.Component {
                         <div className="sidebar">
                             <PopularitySection onPageArtist={this.props.onPageArtist}/>
                             <LikesSection klass="user-show-page" onPageArtist={this.props.onPageArtist} onPageArtistId={this.props.onPageArtistId}/>
-                            {/* <FollowersSection onPageArtist={this.props.onPageArtist} onPageArtistId={this.props.onPageArtistId}/> */}
+                            <FollowersSection onPageArtist={this.props.onPageArtist} onPageArtistId={this.props.onPageArtistId}/>
                             <HiringInfoSection />
                         </div>
                     </div>

@@ -19,13 +19,10 @@ class PopularitySection extends React.Component {
             //                 Object.values(this.props.onPageArtist.attentions).find(follow => follow.followerId === this.props.currentUserId),
             followersCount: this.props.onPageArtist.followersCount,
         }
-        debugger
     }
 
     componentWillReceiveProps(nextProps) {
-        debugger
         if ((!this.props.follows && nextProps.follows && nextProps.follows.interests) || (this.props.follows && Object.keys(this.props.follows.interests).length !== Object.keys(nextProps.follows.interests).length)) {
-            debugger
             this.setState({
                 currentFollow: Object.values(nextProps.follows.interests).find(follow => follow.followedUserId === this.props.onPageArtist.id),
                 followersCount: this.state.currentFollow ? this.state.followersCount - 1 : this.state.followersCount + 1,

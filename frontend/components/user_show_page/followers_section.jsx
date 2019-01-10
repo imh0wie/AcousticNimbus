@@ -25,8 +25,12 @@ import BubblesList from "../common_components/bubbles_list/bubbles_list";
 // }
 const msp = (state) => {
     const users = state.entities.users;
+    const currentUserId = state.session.id;
     return ({
+        follows: state.entities.follows,
         followers: users && users.followersOfSpecificUser ? Object.values(users.followersOfSpecificUser) : null,
+        currentUserId: currentUserId,
+        currentUser: users[currentUserId],
     })
 }
 
@@ -40,35 +44,106 @@ class FollowersSection extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading: true,
+            loading: false,
+            followers: Object.values(this.props.onPageArtist.followers),
+            followed: this.props.onPageArtist.attentions[this.props.currentUserId] ? true : false,
         }
     }
 
-    componentDidMount() {
-        this.defaultState = {
-            randomThree: this.props.users && this.props.users.randomThree ? this.props.users.randomThree : null,
-            [this.props.currentUserId]: this.props.currentUser,
-            individualUser: null,
-            followersOfSpecificUser: this.props.users && this.prop.users.followersOfSpecificUser ? this.prop.users.followersOfSpecificUser : null,
-            likersOfSpecificSong: this.props.users && this.props.users.likersOfSpecificSong ? this.props.users.likersOfSpecificSong : null,
-        };
-        this.promisfy(() => this.props.emptyFollowersOfSpecificUser(this.defaultState)).then(() => {
-            this.props.fetchFollowersOfSpecificUser(this.props.onPageArtistId).then(() => {
+    componentWillReceiveProps(nextProps) {
+        debugger
+        if ((!this.props.follows && nextProps.follows.interests) || (this.props.follows && nextProps.follows && Object.keys(this.props.follows.interests).length !== Object.keys(nextProps.follows.interests).length)) {
+            if (this.state.followed) {
+                debugger
+                const idx = this.state.followers.findIndex(follower => follower.id === this.props.currentUserId);
                 this.setState({
-                    loading: false,
+                    followers: this.state.followers.length === 1 ? [] : this.state.followers.slice(0, idx).concat(this.state.followers.slice(idx + 1)),
+                    followed: !this.state.followed,
                 });
-            })    
-        });
-        // this.setState({
-        //     counter: this.state.counter + 1,
-        // })
+            } else {
+                debugger
+                this.setState({
+                    followers: this.state.followers.concat([this.props.currentUser]),
+                    followed: !this.state.followed,
+                });
+            }
+        } 
+        // if (!this.state.loading && nextProps.follows.interests) {
+        //     debugger
+        //     this.props.fetchFollowersOfSpecificUser(this.props.onPageArtistId);
+        //     this.setState({
+        //         loading: true,
+        //     });
+        //     debugger
+        // } else if (this.state.loading && nextProps.users && nextProps.users.followersOfSpecificUser) {
+        //     debugger
+        //     this.setState({
+        //         loading: false,
+        //         followers: Object.values(nextProps.users.followersOfSpecificUser),
+        //     })
+        // }
     }
 
-    promisfy(callback) {
-        return new Promise(() => {
-            callback();
-        })
-    }
+    
+    // componentDidMount() {
+    //     const defaultState = {
+    //         randomThree: this.props.users && this.props.users.randomThree ? this.props.users.randomThree : null,
+    //         [this.props.currentUserId]: this.props.currentUser,
+    //         individualUser: null,
+    //         followersOfSpecificUser: this.props.users && this.prop.users.followersOfSpecificUser ? this.prop.users.followersOfSpecificUser : null,
+    //         likersOfSpecificSong: this.props.users && this.props.users.likersOfSpecificSong ? this.props.users.likersOfSpecificSong : null,
+    //     };
+    //     this.props.emptyFollowersOfSpecificUser(defaultState);
+    //     // this.setState({
+    //     //     counter: this.state.counter + 1,
+    //     // })
+    // }
+
+    // componentWillReceiveProps(nextProps) {
+    //     if (this.state.loading && nextProps.followers && Object.keys(nextProps.followers).includes("followersOfSpecificUser") && !nextProps.followers.followersOfSpecificUser) {
+    //         this.props.fetchFollowersOfSpecificUser(this.props.onPageArtistId);
+    //     } else if (this.state.loading && nextProps.followers.followersOfSpecificUser) {
+    //         this.setState({
+    //             loading: false,
+    //             followers: Object.values(nextProps.followers.followersOfSpecificUser),
+    //         })
+    //     } else if (!this.props.follows && nextProps.follows.interests) {
+    //         const defaultState = {
+    //             randomThree: this.props.users && this.props.users.randomThree ? this.props.users.randomThree : null,
+    //             [this.props.currentUserId]: this.props.currentUser,
+    //             individualUser: null,
+    //             followersOfSpecificUser: this.props.users && this.prop.users.followersOfSpecificUser ? this.prop.users.followersOfSpecificUser : null,
+    //             likersOfSpecificSong: this.props.users && this.props.users.likersOfSpecificSong ? this.props.users.likersOfSpecificSong : null,
+    //         };
+    //         this.props.emptyFollowersOfSpecificUser(defaultState);
+    //         this.setState({
+    //             loading: true,
+    //         });
+    //     }
+    // }
+
+    // componentWillReceiveProps(nextProps) {
+    //     if (this.state.loading && nextProps.followers && Object.keys(nextProps.followers).includes("followersOfSpecificUser") && !nextProps.followers.followersOfSpecificUser) {
+    //         this.props.fetchFollowersOfSpecificUser(this.props.onPageArtistId);
+    //     } else if (this.state.loading && nextProps.followers.followersOfSpecificUser) {
+    //         this.setState({
+    //             loading: false,
+    //             followers: Object.values(nextProps.followers.followersOfSpecificUser),
+    //         })
+    //     } else if (!this.props.follows && nextProps.follows.interests) {
+    //         const defaultState = {
+    //             randomThree: this.props.users && this.props.users.randomThree ? this.props.users.randomThree : null,
+    //             [this.props.currentUserId]: this.props.currentUser,
+    //             individualUser: null,
+    //             followersOfSpecificUser: this.props.users && this.prop.users.followersOfSpecificUser ? this.prop.users.followersOfSpecificUser : null,
+    //             likersOfSpecificSong: this.props.users && this.props.users.likersOfSpecificSong ? this.props.users.likersOfSpecificSong : null,
+    //         };
+    //         this.props.emptyFollowersOfSpecificUser(defaultState);
+    //         this.setState({
+    //             loading: true,
+    //         });
+    //     }
+    // }
 
     // componentWillReceiveProps(nextProps) {
     //     if ((!this.props.follows && nextProps.follows) || (this.props.follows && nextProps.follows && Object.keys(this.props.follows.interests) !== Object.keys(nextProps.follows)) {
@@ -99,21 +174,24 @@ class FollowersSection extends React.Component {
     //         this.counter += 1;
     //     // }
     // }
-
-    render() {
-        if (this.state.loading || !this.props.followers) {
+    renderList() {
+        if (this.state.loading || !this.state.followers) {
             return <img src={window.loadingPizza} className="loading-sm"></img>;
         } else {
-            return (
-                <div className="followers-section">
-                    <div className="header">
-                        <p><i className="fas fa-user"></i> {this.props.followers ? this.props.followers.length : "0"} {(!this.props.followers || !(this.props.followers.length > 1)) ? "follower" : "followers"}</p>
-                        <Link to="" onClick={(e) => e.preventDefault()}>View all</Link>
-                    </div>
-                    <BubblesList klass="user-show-page" items={this.props.followers} />
-                </div>
-            );
+            return <BubblesList klass="user-show-page" items={this.state.followers}/>;
         }
+    }
+
+    render() {
+        return (
+            <div className="followers-section">
+                <div className="header">
+                    <p><i className="fas fa-user"></i> {this.state.followers ? this.state.followers.length : "0"} {(!this.state.followers || !(this.state.followers.length > 1)) ? "follower" : "followers"}</p>
+                    <Link to="" onClick={(e) => e.preventDefault()}>View all</Link>
+                </div>
+                {this.renderList()}
+            </div>
+        );
     }
 
 }

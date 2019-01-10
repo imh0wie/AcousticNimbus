@@ -12,7 +12,7 @@ json.set! :individualUser do
         else
             json.set! :attentions do
                 @user.attentions.each do |attention|
-                    json.set! attention.followed_user_id do
+                    json.set! attention.follower_id do
                         json.id attention.id
                         json.followedUserId attention.followed_user_id
                         json.followerId attention.follower_id
