@@ -31,6 +31,7 @@ class CommentsList extends React.Component {
             currentComments: this.props.comments && this.props.comments.commentsOfSpecificSong ? Object.values(this.props.comments.commentsOfSpecificSong) : null,
         }
     }
+
     componentDidMount() {
         const defaultState = {
             commentsOfSpecificSong: null,
@@ -41,11 +42,11 @@ class CommentsList extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (!this.props.comments && nextProps.comments && Object.keys(nextProps.comments).includes("commentsOfSpecificSong") && !nextProps.comments.commentsOfSpecificSong) {
             this.props.fetchCommentsOfSpecificSong(this.props.songId);
-        } else if ((!this.props.comments.commentsOfSpecificSong && nextProps.comments.commentsOfSpecificSong) || (this.props.comments && this.props.comments.commentsOfSpecificSong && nextProps.comments && nextProps.comments.commentsOfSpecificSong)) {
+        } else if ((!this.props.comments.commentsOfSpecificSong && nextProps.comments.commentsOfSpecificSong) || (nextProps.comments && nextProps.comments.commentsOfSpecificSong[this.props.songId] && this.state.currentComments.length !== Object.keys(nextProps.comments.commentsOfSpecificSong[this.props.songId]).length)) {
         // } else if ((!this.props.comments.commentsOfSpecificSong && nextProps.comments.commentsOfSpecificSong) || (this.props.comments && this.props.comments.commentsOfSpecificSong && nextProps.comments && nextProps.comments.commentsOfSpecificSong && Object.keys(this.props.comments.commentsOfSpecificSong).length !== Object.keys(nextProps.comments.commentsOfSpecificSong).length)) {
             this.setState({
                 loading: false,
-                currentComments: Object.values(nextProps.comments.commentsOfSpecificSong),
+                currentComments: Object.values(nextProps.comments.commentsOfSpecificSong[this.props.songId]),
             });
         }
     }

@@ -117,8 +117,8 @@ class SongShowPage extends React.Component {
             <div className="sidebar">
               <Slideshow klass="ad"/>
               <RelatedSongs song={this.state.onPageSong} />
-              {/* <LikesSection klass="song-show-page" /> */}
-              {/* <HiringInfoSection /> */}
+              <LikesSection klass="song-show-page" song={this.state.onPageSong} songId={this.props.onPageSongId}/>
+              <HiringInfoSection />
             </div>
           </div>
         </div>

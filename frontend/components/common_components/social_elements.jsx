@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { fetchLikes, createLike, removeLike } from "../../actions/like_actions";
 import { createFollow, removeFollow } from "../../actions/follow_actions";
-import { fetchUsers } from "../../actions/user_actions";
+import { fetchUsers, emptyLikersOfSpecificSong } from "../../actions/user_actions";
 import { likesOf, likeOf } from "../../util/like_api_util";
 import { followOf } from "../../util/follow_api_util";
 import { commentsOf } from "../../util/comment_api_util";
@@ -12,6 +12,7 @@ const msp = (state, ownProps) => {
     // const onPageSongId = parseInt(ownProps.match.params.songId) || ownProps.songId;
     const onPageArtistId = parseInt(ownProps.match.params.userId);
     const likes = state.entities.likes;
+    const users = state.entities.users;
     const follows = state.entities.follows;
     const currentUserId = state.session.id;
     return ({
@@ -19,7 +20,7 @@ const msp = (state, ownProps) => {
         follows: follows,
         likes: likes,
         comments: state.entities.comments,
-        users: state.entities.users,
+        users: users,
         // currentLike: likeOf("Song", onPageSongId, state.entities.users[currentUserId], likes),
         // currentLike: ownProps.klass === "item-player" ? (likes ? likeOf(currentUserId, "Song", onPageSongId, likes) : likeOf(currentUserId, "Song", onPageSongId, ownProps.song.likes)) : null,
         // currentFollow: ownProps.klass === "user-show-page" ? (follows ? followOf(onPageArtistId, follows) : (state.entities.users[onPageArtistId] ? state.entities.users[onPageArtistId].attentions[onPageArtistId] : null)) : null,
@@ -28,6 +29,7 @@ const msp = (state, ownProps) => {
         onPageArtistId: onPageArtistId,
         // onPageSongId: onPageSongId,
         currentUserId: currentUserId,
+        currentUser: users[currentUserId],
     });
 }
 
@@ -39,6 +41,7 @@ const mdp = (dispatch) => {
         createFollow: (follow) => dispatch(createFollow(follow)), 
         removeFollow: (id) => dispatch(removeFollow(id)), 
         fetchUsers: () => dispatch(fetchUsers()),
+        emptyLikersOfSpecificSong: (defaultState) => dispatch(emptyLikersOfSpecificSong(defaultState)),
     })
 }
 
@@ -51,8 +54,9 @@ class SocialElements extends React.Component {
         switch (this.props.klass) {
             case "item-player":
                 this.state = {
+                    itemId: this.props.songId,
                     currentLike: this.props.likes ? likeOf(this.props.currentUserId, "Song", this.props.songId, this.props.likes) : likeOf(this.props.currentUserId, "Song", this.props.songId, this.props.song.likes),
-                    currentComments: this.props.comments ? this.props.comments.bySong[songId] : null,
+                    currentComments: this.props.comments ? this.props.comments.commentsOfSpecificSong[songId] : null,
                     likesCount: this.props.song.likesCount,
                     commentsCount: this.props.song.commentsCount,
                 }
@@ -99,9 +103,9 @@ class SocialElements extends React.Component {
                     //     });
                     // }
                 }
-                if (nextProps.currentComments && this.state.commentsCount !== nextProps.currentComments.length) {
+                if (nextProps.comments && nextProps.comments.commentsOfSpecificSong[this.state.itemId] && this.state.commentsCount !== Object.keys(nextProps.comments.commentsOfSpecificSong[this.state.itemId]).length) {
                     this.setState({
-                        commentsCount: nextProps.currentComments.length,
+                        commentsCount: this.state.commentsCount + 1,
                     });
                 }
                 break;
@@ -189,7 +193,7 @@ class SocialElements extends React.Component {
             this.props.removeLike(this.state.currentLike).then(this.setState({
                 likesCount: this.state.likesCount - 1,
                 currentLike: null,
-            }))
+            }));
         } else {
             const like = {
                 likeable_type: "Song",
@@ -201,6 +205,15 @@ class SocialElements extends React.Component {
                 // currentLike: likeOf(this.props.currentUserId, "Song", this.props.songId, this.props.likes),
             }));
         }
+        this.defaultState = {
+            randomThree: this.props.users && this.props.users.randomThree ? this.props.users.randomThree : null,
+            [this.props.currentUserId]: this.props.currentUser,
+            individualUser: this.props.users && this.props.users.individualUser ? this.props.users.individualUser : null,
+            followersOfSpecificUser: this.props.users && this.prop.users.followersOfSpecificUser ? this.prop.users.followersOfSpecificUser : null,
+            likersOfSpecificSong: null,
+        };
+
+        // this.props.emptyLikersOfSpecificSong(this.defaultState);
     }
 
     // toggleLike() {
@@ -231,11 +244,12 @@ class SocialElements extends React.Component {
                 follower_id: this.props.currentUserId
             }
             this.props.createFollow(follow);
-            this.setState({
-                likesCount: this.state.likesCount + 1,
-                // currentLike: likeOf(nextProps.currentUserId, "Song", nextProps.songId, nextProps.likes)
-            });
+            // this.setState({
+            //     likesCount: this.state.likesCount + 1,
+            //     // currentLike: likeOf(nextProps.currentUserId, "Song", nextProps.songId, nextProps.likes)
+            // });
         }
+
         // this.toggleFollow();
     }
 

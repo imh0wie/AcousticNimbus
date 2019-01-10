@@ -37,14 +37,11 @@ class RelatedSongs extends React.Component {
             relatedSongsByGenre: null,
         };
         // if (this.props.songs.relatedSongsByGenre) 
-        debugger
         this.props.emptyRelatedSongsByGenre(defaultState);
     }
 
     componentWillReceiveProps(nextProps) {
-        debugger
         // if (!this.props.songs.relatedSongsByGenre && nextProps.songs && Object.keys(nextProps.songs).includes("commentsOfSpecificSong") && !nextProps.songs.relatedSongsByGenre) {
-            debugger
         if (this.state.counter === 0) {
             this.props.fetchRelatedSongsByGenre(this.props.song.genre);
             this.setState({
@@ -52,7 +49,6 @@ class RelatedSongs extends React.Component {
             });
         } else if (!this.props.songs.relatedSongsByGenre && nextProps.songs.relatedSongsByGenre) {
         // } else if ((!this.props.songs.commentsOfSpecificSong && nextProps.songs.commentsOfSpecificSong) || (this.props.songs && this.props.songs.commentsOfSpecificSong && nextProps.songs && nextProps.songs.commentsOfSpecificSong && Object.keys(this.props.songs.commentsOfSpecificSong).length !== Object.keys(nextProps.songs.commentsOfSpecificSong).length)) {
-            debugger
             this.setState({
                 loading: false,
                 relatedSongs: Object.values(nextProps.songs.relatedSongsByGenre),

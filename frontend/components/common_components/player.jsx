@@ -10,7 +10,7 @@ const msp = (state, ownProps) => {
     const klass = ownProps.klass;
     const songId = parseInt(ownProps.match.params.songId);
     return ({
-        songId: songId ? songId : ownProps.songId,
+        // songId: songId ? songId : ownProps.songId,
         // song: ownProps.song,
         currentSong: state.ui.currentSong,
     })

@@ -11,11 +11,13 @@
     margin-top: 25%;
 }
 
-.sidebar .likes-section ul {
+.song-show-page .sidebar .likes-section ul {
     display: flex;
+    margin-top: 15px;
 }
 
-.sidebar .likes-section ul li {
+.song-show-page .sidebar .likes-section ul li {
+    display: block;
     margin: 0 -4px;    
 }
 

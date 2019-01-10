@@ -22,7 +22,7 @@ const msp = (state, ownProps) => {
         onPageArtistId: onPageArtistId,
         onPageArtist: users.individualUser ? users.individualUser[onPageArtistId] : null,
         currentUserId: currentUserId,
-        currentUser: state.entities.users[currentUserId],
+        currentUser: users[currentUserId],
     });
 };
   
@@ -43,10 +43,12 @@ class UserShowPage extends React.Component {
 
     componentDidMount() {
         const defaultState = {
-            randomThree: this.props.users.randomThreeUser,
+            randomThree: this.props.users && this.props.users.randomThree ? this.props.users.randomThree : null,
             [this.props.currentUserId]: this.props.currentUser,
             individualUser: null,
-        }
+            followersOfSpecificUser: this.props.users && this.props.users.followersOfSpecificUser ? this.props.users.followersOfSpecificUser : null,
+            likersOfSpecificSong: this.props.users && this.props.users.likersOfSpecificSong ? this.props.users.likersOfSpecificSong : null,
+        };
         this.props.emptyIndividualUser(defaultState);
         this.props.fetchUser(this.props.onPageArtistId);
         this.setState({
@@ -71,8 +73,8 @@ class UserShowPage extends React.Component {
                         </div>
                         <div className="sidebar">
                             <PopularitySection onPageArtist={this.props.onPageArtist}/>
-                            <LikesSection klass="user-show-page" onPageArtistId={this.props.onPageArtistId}/>
-                            <FollowersSection onPageArtist={this.props.onPageArtist}/>
+                            <LikesSection klass="user-show-page" onPageArtist={this.props.onPageArtist} onPageArtistId={this.props.onPageArtistId}/>
+                            {/* <FollowersSection onPageArtist={this.props.onPageArtist} onPageArtistId={this.props.onPageArtistId}/> */}
                             <HiringInfoSection />
                         </div>
                     </div>

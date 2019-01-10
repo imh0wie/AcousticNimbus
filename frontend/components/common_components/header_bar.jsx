@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
-import { emptyFollowedSongs } from "../../actions/song_actions";
+import { emptyFollowedAndLikedSongsOf } from "../../actions/song_actions";
 import { login, logout } from "../../actions/session_actions";
 import { openModal } from "../../actions/modal_actions";
 
@@ -19,7 +19,7 @@ const mdp = (dispatch) => {
     login: (user) => dispatch(login(user)),
     logout: () => dispatch(logout()),
     openModal: (modal) => dispatch(openModal(modal)),
-    emptyFollowedSongs: (defaultState) => dispatch(emptyFollowedSongs(defaultState))
+    emptyFollowedAndLikedSongsOf: (defaultState) => dispatch(emptyFollowedAndLikedSongsOf(defaultState))
   };
 };
 
@@ -31,13 +31,13 @@ class HeaderBar extends React.Component {
   goToHomepage() {
     const defaultState = {
       followedSongs: null,
-      likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
+      likedSongs: null,
       songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
       likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
       individualSong: this.props.songs ? this.props.songs.individualSong : null,
       relatedSongsByGenre: this.props.songs ? this.props.songs.relatedSongsByGenre : null,
     };
-    this.props.emptyFollowedSongs(defaultState);
+    this.props.emptyFollowedAndLikedSongsOf(defaultState);
   }
   
   render() {

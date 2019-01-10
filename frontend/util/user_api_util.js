@@ -20,6 +20,26 @@ export const fetchThreeRandomUsers = (currentUserId) => {
     })
 }
 
+export const fetchLikersOfSpecificSong = (songId) => {
+    return $.ajax({
+        method: "GET",
+        url: "/api/users",
+        data: {
+            song_id: songId,
+        },
+    })
+}
+
+export const fetchFollowersOfSpecificUser = (userId) => {
+    return $.ajax({
+        method: "GET",
+        url: "/api/users",
+        data: {
+            user_id: userId,
+        },
+    })
+}
+
 export const fetchUser = (userId) => {
     return $.ajax({
         method: 'GET',

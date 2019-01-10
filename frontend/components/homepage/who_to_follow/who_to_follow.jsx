@@ -5,9 +5,11 @@ import { fetchThreeRandomUsers, emptyRandomThreeUsers } from "../../../actions/u
 import ArtistsList from "./artists_list";
 
 const msp = (state) => {
+    const users = state.entities.users;
     const currentUserId = state.session.id;
     return ({
-        currentUser: state.entities.users[currentUserId],
+        users: users,
+        currentUser: users[currentUserId],
         currentUserId: currentUserId,
     })
 }
@@ -22,15 +24,23 @@ const mdp = (dispatch) => {
 class WhoToFollow extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            randomThree: null,
-            [props.currentUserId]: props.currentUser,
-            individualUser: props.individualUser,
-        };
+        // this.state = {
+        //     randomThree: null,
+        //     [props.currentUserId]: props.currentUser,
+        //     individualUser: props.individualUser,
+        //     likersOfSpecificSong: 
+        // };
     }
 
     refresh() {
-        this.props.emptyRandomThreeUsers(this.state);
+        const defaultState = {
+            randomThree: null,
+            [this.props.currentUserId]: this.props.currentUser,
+            individualUser: this.props.users && this.props.users.individualUser ? this.props.users.individualUser : null,
+            followersOfSpecificUser: this.props.users && this.props.users.followersOfSpecificUser ? this.props.users.followersOfSpecificUser : null,
+            likersOfSpecificSong: this.props.users && this.props.users.likersOfSpecificSong ? this.props.users.likersOfSpecificSong : null,
+        };
+        this.props.emptyRandomThreeUsers(defaultState);
         this.props.fetchThreeRandomUsers(this.props.currentUserId);
     }
 

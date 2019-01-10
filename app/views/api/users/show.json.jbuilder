@@ -32,6 +32,28 @@ json.set! :individualUser do
                 end
             end
         end
+        if @liked_songs_of_user.length === 0
+            json.likedSongs defaultState
+        else
+            json.set! :likedSongs do
+                @liked_songs_of_user.each do |song|
+                    json.set! song.id do
+                        json.id song.id
+                        json.title song.title
+                        json.genre song.genre
+                        json.description song.description
+                        json.availability song.availability
+                        json.artist song.artist.username
+                        json.artistId song.artist.id
+                        json.imageURL song.image_url
+                        json.audioURL song.audio_url
+                        json.likesCount song.likes_count
+                        json.commentsCount song.comments_count
+                        json.createdAt song.created_at
+                    end
+                end
+            end
+        end
         json.followersCount @user.followers_count
         json.followingsCount @user.followings_count
         json.songsCount @user.songs_count

@@ -557,19 +557,23 @@ var receiveSessionErrors = function receiveSessionErrors(errors) {
 /*!******************************************!*\
   !*** ./frontend/actions/song_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_SONG, RECEIVE_SONGS, RECEIVE_SONG_ERRORS, RECEIVE_SONGS_ERRORS, EMPTY_SONGS_OF_SPECIFIC_USER, EMPTY_LIKED_SONGS_OF_SPECIFIC_USER, EMPTY_FOLLOWED_SONGS, EMPTY_LIKED_SONGS, EMPTY_INDIVIDUAL_SONG, EMPTY_RELATED_SONGS_BY_GENRE, createSong, removeSong, fetchSong, fetchRelatedSongsByGenre, fetchSongs, fetchSongsOfSpecificUser, fetchLikedSongsOfSpecificUser, fetchRelevantSongs, fetchFollowedSongs, fetchLikedSongs, emptySongsOfSpecificUser, emptyLikedSongsOfSpecificUser, emptyFollowedSongs, emptyLikedSongs, emptyIndividualSong, emptyRelatedSongsByGenre */
+/*! exports provided: RECEIVE_SONG, RECEIVE_SONGS, RECEIVE_FOLLOWED_SONGS, RECEIVE_LIKED_SONGS, RECEIVE_FOLLOWED_AND_LIKED_SONGS, RECEIVE_SONG_ERRORS, RECEIVE_SONGS_ERRORS, EMPTY_SONGS_OF_SPECIFIC_USER, EMPTY_LIKED_SONGS_OF_SPECIFIC_USER, EMPTY_FOLLOWED_SONGS, EMPTY_LIKED_SONGS, EMPTY_FOLLOWED_AND_LIKED_SONGS_OF, EMPTY_INDIVIDUAL_SONG, EMPTY_RELATED_SONGS_BY_GENRE, createSong, removeSong, fetchSong, fetchRelatedSongsByGenre, fetchSongs, fetchSongsOfSpecificUser, fetchLikedSongsOfSpecificUser, fetchFollowedAndLikedSongsOf, fetchFollowedSongs, fetchLikedSongs, emptySongsOfSpecificUser, emptyLikedSongsOfSpecificUser, emptyFollowedSongs, emptyLikedSongs, emptyFollowedAndLikedSongsOf, emptyIndividualSong, emptyRelatedSongsByGenre */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_SONG", function() { return RECEIVE_SONG; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_SONGS", function() { return RECEIVE_SONGS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_FOLLOWED_SONGS", function() { return RECEIVE_FOLLOWED_SONGS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_LIKED_SONGS", function() { return RECEIVE_LIKED_SONGS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_FOLLOWED_AND_LIKED_SONGS", function() { return RECEIVE_FOLLOWED_AND_LIKED_SONGS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_SONG_ERRORS", function() { return RECEIVE_SONG_ERRORS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_SONGS_ERRORS", function() { return RECEIVE_SONGS_ERRORS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EMPTY_SONGS_OF_SPECIFIC_USER", function() { return EMPTY_SONGS_OF_SPECIFIC_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EMPTY_LIKED_SONGS_OF_SPECIFIC_USER", function() { return EMPTY_LIKED_SONGS_OF_SPECIFIC_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EMPTY_FOLLOWED_SONGS", function() { return EMPTY_FOLLOWED_SONGS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EMPTY_LIKED_SONGS", function() { return EMPTY_LIKED_SONGS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EMPTY_FOLLOWED_AND_LIKED_SONGS_OF", function() { return EMPTY_FOLLOWED_AND_LIKED_SONGS_OF; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EMPTY_INDIVIDUAL_SONG", function() { return EMPTY_INDIVIDUAL_SONG; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EMPTY_RELATED_SONGS_BY_GENRE", function() { return EMPTY_RELATED_SONGS_BY_GENRE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createSong", function() { return createSong; });
@@ -579,25 +583,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchSongs", function() { return fetchSongs; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchSongsOfSpecificUser", function() { return fetchSongsOfSpecificUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchLikedSongsOfSpecificUser", function() { return fetchLikedSongsOfSpecificUser; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchRelevantSongs", function() { return fetchRelevantSongs; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchFollowedAndLikedSongsOf", function() { return fetchFollowedAndLikedSongsOf; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchFollowedSongs", function() { return fetchFollowedSongs; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchLikedSongs", function() { return fetchLikedSongs; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "emptySongsOfSpecificUser", function() { return emptySongsOfSpecificUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "emptyLikedSongsOfSpecificUser", function() { return emptyLikedSongsOfSpecificUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "emptyFollowedSongs", function() { return emptyFollowedSongs; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "emptyLikedSongs", function() { return emptyLikedSongs; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "emptyFollowedAndLikedSongsOf", function() { return emptyFollowedAndLikedSongsOf; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "emptyIndividualSong", function() { return emptyIndividualSong; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "emptyRelatedSongsByGenre", function() { return emptyRelatedSongsByGenre; });
 /* harmony import */ var _util_song_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/song_api_util */ "./frontend/util/song_api_util.js");
 
 var RECEIVE_SONG = "RECEIVE_SONG";
 var RECEIVE_SONGS = "RECEIVE_SONGS";
+var RECEIVE_FOLLOWED_SONGS = "RECEIVE_FOLLOWED_SONGS";
+var RECEIVE_LIKED_SONGS = "RECEIVE_LIKED_SONGS";
+var RECEIVE_FOLLOWED_AND_LIKED_SONGS = "RECEIVE_FOLLOWED_AND_LIKED_SONGS";
 var RECEIVE_SONG_ERRORS = "RECEIVE_SONG_ERRORS";
 var RECEIVE_SONGS_ERRORS = "RECEIVE_SONGS_ERRORS";
 var EMPTY_SONGS_OF_SPECIFIC_USER = "EMPTY_SONGS_OF_SPECIFIC_USER";
 var EMPTY_LIKED_SONGS_OF_SPECIFIC_USER = "EMPTY_LIKED_SONGS_OF_SPECIFIC_USER";
 var EMPTY_FOLLOWED_SONGS = "EMPTY_FOLLOWED_SONGS";
 var EMPTY_LIKED_SONGS = "EMPTY_LIKED_SONGS";
+var EMPTY_FOLLOWED_AND_LIKED_SONGS_OF = "EMPTY_FOLLOWED_AND_LIKED_SONGS_OF";
 var EMPTY_INDIVIDUAL_SONG = "EMPTY_INDIVIDUAL_SONG";
 var EMPTY_RELATED_SONGS_BY_GENRE = "EMPTY_RELATED_SONGS_BY_GENRE";
 var createSong = function createSong(songToServer) {
@@ -661,10 +670,10 @@ var fetchLikedSongsOfSpecificUser = function fetchLikedSongsOfSpecificUser(userI
     });
   };
 };
-var fetchRelevantSongs = function fetchRelevantSongs(userId) {
+var fetchFollowedAndLikedSongsOf = function fetchFollowedAndLikedSongsOf(userId) {
   return function (dispatch) {
-    return _util_song_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchRelevantSongsOf"](userId).then(function (songsFromServer) {
-      return dispatch(receiveSongs(songsFromServer));
+    return _util_song_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchFollowedAndLikedSongsOf"](userId).then(function (songsFromServer) {
+      return dispatch(receiveFollowedAndLikedSongs(songsFromServer));
     }, function (errors) {
       return dispatch(receiveSongsErrors(errors.responseJSON));
     });
@@ -673,7 +682,7 @@ var fetchRelevantSongs = function fetchRelevantSongs(userId) {
 var fetchFollowedSongs = function fetchFollowedSongs(userId) {
   return function (dispatch) {
     return _util_song_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchFollowedSongsOf"](userId).then(function (songsFromServer) {
-      return dispatch(receiveSongs(songsFromServer));
+      return dispatch(receiveFollowedSongs(songsFromServer));
     }, function (errors) {
       return dispatch(receiveSongsErrors(errors.responseJSON));
     });
@@ -682,7 +691,7 @@ var fetchFollowedSongs = function fetchFollowedSongs(userId) {
 var fetchLikedSongs = function fetchLikedSongs(userId) {
   return function (dispatch) {
     return _util_song_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchLikedSongsOf"](userId).then(function (songsFromServer) {
-      return dispatch(receiveSongs(songsFromServer));
+      return dispatch(receiveLikedSongs(songsFromServer));
     }, function (errors) {
       return dispatch(receiveSongsErrors(errors.responseJSON));
     });
@@ -709,6 +718,12 @@ var emptyFollowedSongs = function emptyFollowedSongs(defaultState) {
 var emptyLikedSongs = function emptyLikedSongs(defaultState) {
   return {
     type: EMPTY_LIKED_SONGS,
+    defaultState: defaultState
+  };
+};
+var emptyFollowedAndLikedSongsOf = function emptyFollowedAndLikedSongsOf(defaultState) {
+  return {
+    type: EMPTY_FOLLOWED_AND_LIKED_SONGS_OF,
     defaultState: defaultState
   };
 };
@@ -739,6 +754,27 @@ var receiveSongs = function receiveSongs(songs) {
   };
 };
 
+var receiveFollowedSongs = function receiveFollowedSongs(songs) {
+  return {
+    type: RECEIVE_FOLLOWED_SONGS,
+    songs: songs
+  };
+};
+
+var receiveLikedSongs = function receiveLikedSongs(songs) {
+  return {
+    type: RECEIVE_LIKED_SONGS,
+    songs: songs
+  };
+};
+
+var receiveFollowedAndLikedSongs = function receiveFollowedAndLikedSongs(songs) {
+  return {
+    type: RECEIVE_FOLLOWED_AND_LIKED_SONGS,
+    songs: songs
+  };
+};
+
 var receiveSongErrors = function receiveSongErrors(errors) {
   return {
     type: RECEIVE_SONG_ERRORS,
@@ -759,29 +795,40 @@ var receiveSongsErrors = function receiveSongsErrors(errors) {
 /*!******************************************!*\
   !*** ./frontend/actions/user_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_RANDOM_THREE_USERS, EMPTY_RANDOM_THREE_USERS, EMPTY_INDIVIDUAL_USER, RECEIVE_USER, fetchUsers, fetchThreeRandomUsers, fetchUser, editUser, receiveUser, receiveRandomThreeUsers, emptyRandomThreeUsers, emptyIndividualUser */
+/*! exports provided: RECEIVE_RANDOM_THREE_USERS, RECEIVE_LIKERS_OF_SPECIFIC_SONG, RECEIVE_USER, EMPTY_RANDOM_THREE_USERS, EMPTY_INDIVIDUAL_USER, EMPTY_LIKERS_OF_SPECIFIC_SONG, EMPTY_FOLLOWERS_OF_SPECIFIC_USER, fetchUsers, fetchThreeRandomUsers, fetchLikersOfSpecificSong, fetchFollowersOfSpecificUser, fetchUser, editUser, receiveUser, receiveRandomThreeUsers, receiveLikersOfSpecificSong, emptyRandomThreeUsers, emptyIndividualUser, emptyLikersOfSpecificSong, emptyFollowersOfSpecificUser */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_RANDOM_THREE_USERS", function() { return RECEIVE_RANDOM_THREE_USERS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_LIKERS_OF_SPECIFIC_SONG", function() { return RECEIVE_LIKERS_OF_SPECIFIC_SONG; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_USER", function() { return RECEIVE_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EMPTY_RANDOM_THREE_USERS", function() { return EMPTY_RANDOM_THREE_USERS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EMPTY_INDIVIDUAL_USER", function() { return EMPTY_INDIVIDUAL_USER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_USER", function() { return RECEIVE_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EMPTY_LIKERS_OF_SPECIFIC_SONG", function() { return EMPTY_LIKERS_OF_SPECIFIC_SONG; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EMPTY_FOLLOWERS_OF_SPECIFIC_USER", function() { return EMPTY_FOLLOWERS_OF_SPECIFIC_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUsers", function() { return fetchUsers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchThreeRandomUsers", function() { return fetchThreeRandomUsers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchLikersOfSpecificSong", function() { return fetchLikersOfSpecificSong; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchFollowersOfSpecificUser", function() { return fetchFollowersOfSpecificUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUser", function() { return fetchUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editUser", function() { return editUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveUser", function() { return receiveUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveRandomThreeUsers", function() { return receiveRandomThreeUsers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveLikersOfSpecificSong", function() { return receiveLikersOfSpecificSong; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "emptyRandomThreeUsers", function() { return emptyRandomThreeUsers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "emptyIndividualUser", function() { return emptyIndividualUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "emptyLikersOfSpecificSong", function() { return emptyLikersOfSpecificSong; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "emptyFollowersOfSpecificUser", function() { return emptyFollowersOfSpecificUser; });
 /* harmony import */ var _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/user_api_util */ "./frontend/util/user_api_util.js");
 
 var RECEIVE_RANDOM_THREE_USERS = 'RECEIVE_RANDOM_THREE_USERS';
+var RECEIVE_LIKERS_OF_SPECIFIC_SONG = 'RECEIVE_LIKERS_OF_SPECIFIC_SONG';
+var RECEIVE_USER = 'RECEIVE_USER';
 var EMPTY_RANDOM_THREE_USERS = 'EMPTY_RANDOM_THREE_USERS';
 var EMPTY_INDIVIDUAL_USER = 'EMPTY_INDIVIDUAL_USER';
-var RECEIVE_USER = 'RECEIVE_USER';
+var EMPTY_LIKERS_OF_SPECIFIC_SONG = 'EMPTY_LIKERS_OF_SPECIFIC_SONG';
+var EMPTY_FOLLOWERS_OF_SPECIFIC_USER = 'EMPTY_FOLLOWERS_OF_SPECIFIC_USER';
 var fetchUsers = function fetchUsers() {// return (dispatch) => {
   //     return UserAPIUtil.fetchUsers().then(
   //         (usersFromServer) => {
@@ -794,6 +841,20 @@ var fetchThreeRandomUsers = function fetchThreeRandomUsers(currentUserId) {
   return function (dispatch) {
     return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchThreeRandomUsers"](currentUserId).then(function (usersFromServer) {
       return dispatch(receiveRandomThreeUsers(usersFromServer));
+    });
+  };
+};
+var fetchLikersOfSpecificSong = function fetchLikersOfSpecificSong(songIdToServer) {
+  return function (dispatch) {
+    return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchLikersOfSpecificSong"](songIdToServer).then(function (usersFromServer) {
+      return dispatch(receiveLikersOfSpecificSong(usersFromServer));
+    });
+  };
+};
+var fetchFollowersOfSpecificUser = function fetchFollowersOfSpecificUser(userIdToServer) {
+  return function (dispatch) {
+    return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchFollowersOfSpecificUser"](userIdToServer).then(function (usersFromServer) {
+      return dispatch(receiveLikersOfSpecificSong(usersFromServer));
     });
   };
 };
@@ -823,6 +884,12 @@ var receiveRandomThreeUsers = function receiveRandomThreeUsers(users) {
     users: users
   };
 };
+var receiveLikersOfSpecificSong = function receiveLikersOfSpecificSong(users) {
+  return {
+    type: RECEIVE_LIKERS_OF_SPECIFIC_SONG,
+    users: users
+  };
+};
 var emptyRandomThreeUsers = function emptyRandomThreeUsers(defaultState) {
   return {
     type: EMPTY_RANDOM_THREE_USERS,
@@ -832,6 +899,18 @@ var emptyRandomThreeUsers = function emptyRandomThreeUsers(defaultState) {
 var emptyIndividualUser = function emptyIndividualUser(defaultState) {
   return {
     type: EMPTY_INDIVIDUAL_USER,
+    defaultState: defaultState
+  };
+};
+var emptyLikersOfSpecificSong = function emptyLikersOfSpecificSong(defaultState) {
+  return {
+    type: EMPTY_LIKERS_OF_SPECIFIC_SONG,
+    defaultState: defaultState
+  };
+};
+var emptyFollowersOfSpecificUser = function emptyFollowersOfSpecificUser(defaultState) {
+  return {
+    type: EMPTY_FOLLOWERS_OF_SPECIFIC_USER,
     defaultState: defaultState
   };
 };
@@ -921,90 +1000,74 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/user_actions */ "./frontend/actions/user_actions.js");
 /* harmony import */ var _bubbles_list_item__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./bubbles_list_item */ "./frontend/components/common_components/bubbles_list/bubbles_list_item.jsx");
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
 
 
+ // const msp = (state) => {
+//     return ({
+//         users: state.entities.users,
+//     })
+// }
+// const mdp = (dispatch) => {
+//     return ({
+//         fetchUsers: () => dispatch(fetchUsers()),
+//     });
+// }
+// class BubblesList extends React.Component {
+//     constructor(props) {
+//         super(props);
+//         // this.state = {
+//         //     loading: true,
+//         // }
+//     }
+//     // componentDidMount() {
+//     //     if (this.props.klass !== "user-show-page") {
+//     //         this.props.fetchUsers();
+//     //     }
+//     //     this.setState({
+//     //         loading: false,
+//     //     })
+//     //     // this.props.fetchUsers().then(this.setState({loading: false}));
+//     // }
+//     render() {
+//         if (!this.props.onPageArtist) {
+//             return <img src={window.loadingPizza} className="loading"></img>
+//         } else {
+//             // if (!this.props.items || this.props.items.length === 0) return <p className="ui-msg">No love...:(</p>;
+//             return (
+//                 <ul>
+//                     {Object.keys(this.props.onPageArtist.followers).map((follower, i) => {
+//                         return (
+//                             <BubblesListItem
+//                                 key={i}
+//                                 user={follower}
+//                             />
+//                         );
+//                     })}
+//                 </ul>
+//             );
+//         }
+//     }
+// }
+
+var BubblesList = function BubblesList(props) {
+  if (!props.items) {
+    return null;
+  } else if (props.items.length === 0) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "No users found :(");
+  } else {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, Object.keys(props.items).map(function (item, i) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_bubbles_list_item__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        key: i,
+        user: item
+      });
+    }));
+  }
+}; // export default withRouter(connect(msp, mdp)(BubblesList));
 
 
-
-var msp = function msp(state) {
-  return {
-    users: state.entities.users
-  };
-};
-
-var mdp = function mdp(dispatch) {
-  return {
-    fetchUsers: function fetchUsers() {
-      return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_3__["fetchUsers"])());
-    }
-  };
-};
-
-var BubblesList =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(BubblesList, _React$Component);
-
-  function BubblesList(props) {
-    _classCallCheck(this, BubblesList);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(BubblesList).call(this, props)); // this.state = {
-    //     loading: true,
-    // }
-  } // componentDidMount() {
-  //     if (this.props.klass !== "user-show-page") {
-  //         this.props.fetchUsers();
-  //     }
-  //     this.setState({
-  //         loading: false,
-  //     })
-  //     // this.props.fetchUsers().then(this.setState({loading: false}));
-  // }
-
-
-  _createClass(BubblesList, [{
-    key: "render",
-    value: function render() {
-      if (!this.props.onPageArtist) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.loadingPizza,
-          className: "loading"
-        });
-      } else {
-        // if (!this.props.items || this.props.items.length === 0) return <p className="ui-msg">No love...:(</p>;
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, Object.keys(this.props.onPageArtist.followers).map(function (follower, i) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_bubbles_list_item__WEBPACK_IMPORTED_MODULE_4__["default"], {
-            key: i,
-            user: follower
-          });
-        }));
-      }
-    }
-  }]);
-
-  return BubblesList;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, mdp)(BubblesList)));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(BubblesList));
 
 /***/ }),
 
@@ -1260,8 +1323,8 @@ var mdp = function mdp(dispatch) {
     openModal: function openModal(modal) {
       return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_5__["openModal"])(modal));
     },
-    emptyFollowedSongs: function emptyFollowedSongs(defaultState) {
-      return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["emptyFollowedSongs"])(defaultState));
+    emptyFollowedAndLikedSongsOf: function emptyFollowedAndLikedSongsOf(defaultState) {
+      return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["emptyFollowedAndLikedSongsOf"])(defaultState));
     }
   };
 };
@@ -1282,13 +1345,13 @@ function (_React$Component) {
     value: function goToHomepage() {
       var defaultState = {
         followedSongs: null,
-        likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
+        likedSongs: null,
         songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
         likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
         individualSong: this.props.songs ? this.props.songs.individualSong : null,
         relatedSongsByGenre: this.props.songs ? this.props.songs.relatedSongsByGenre : null
       };
-      this.props.emptyFollowedSongs(defaultState);
+      this.props.emptyFollowedAndLikedSongsOf(defaultState);
     }
   }, {
     key: "render",
@@ -1525,14 +1588,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _actions_like_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/like_actions */ "./frontend/actions/like_actions.js");
 /* harmony import */ var _actions_song_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/song_actions */ "./frontend/actions/song_actions.js");
-/* harmony import */ var _util_like_api_util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../util/like_api_util */ "./frontend/util/like_api_util.js");
-/* harmony import */ var _util_song_api_util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../util/song_api_util */ "./frontend/util/song_api_util.js");
-/* harmony import */ var _util_general_api_util__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../util/general_api_util */ "./frontend/util/general_api_util.js");
-/* harmony import */ var _mini_list_mini_list__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./mini_list/mini_list */ "./frontend/components/common_components/mini_list/mini_list.jsx");
-/* harmony import */ var _bubbles_list_bubbles_list__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./bubbles_list/bubbles_list */ "./frontend/components/common_components/bubbles_list/bubbles_list.jsx");
-/* harmony import */ var util__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! util */ "./node_modules/util/util.js");
-/* harmony import */ var util__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(util__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
+/* harmony import */ var _util_like_api_util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../util/like_api_util */ "./frontend/util/like_api_util.js");
+/* harmony import */ var _util_song_api_util__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../util/song_api_util */ "./frontend/util/song_api_util.js");
+/* harmony import */ var _util_general_api_util__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../util/general_api_util */ "./frontend/util/general_api_util.js");
+/* harmony import */ var _mini_list_mini_list__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./mini_list/mini_list */ "./frontend/components/common_components/mini_list/mini_list.jsx");
+/* harmony import */ var _bubbles_list_bubbles_list__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./bubbles_list/bubbles_list */ "./frontend/components/common_components/bubbles_list/bubbles_list.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1564,6 +1628,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 var msp = function msp(state, ownProps) {
   var songs = state.entities.songs;
+  var users = state.entities.users;
   var songId = ownProps.songId ? ownProps.songId : parseInt(ownProps.match.params.songId);
   var song = songs ? songs[songId] : null;
   var userId = ownProps.match.params.userId ? parseInt(ownProps.match.params.userId) : null;
@@ -1574,11 +1639,13 @@ var msp = function msp(state, ownProps) {
     songId: songId,
     songs: songs,
     likes: likes,
-    songLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_5__["likesOf"])("Song", songId, likes),
+    users: users,
+    songLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likesOf"])("Song", songId, likes),
     // song's likes => users
-    userLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_5__["likesBy"])(likes, userId),
+    userLikes: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likesBy"])(likes, userId),
     // user's likes =>
-    currentUserId: currentUserId
+    currentUserId: currentUserId,
+    currentUser: users[currentUserId]
   };
 };
 
@@ -1598,6 +1665,12 @@ var mdp = function mdp(dispatch) {
     },
     emptyLikedSongsOfSpecificUser: function emptyLikedSongsOfSpecificUser(defaultState) {
       return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_4__["emptyLikedSongsOfSpecificUser"])(defaultState));
+    },
+    fetchLikersOfSpecificSong: function fetchLikersOfSpecificSong(songId) {
+      return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_5__["fetchLikersOfSpecificSong"])(songId));
+    },
+    emptyLikersOfSpecificSong: function emptyLikersOfSpecificSong(defaultState) {
+      return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_5__["emptyLikersOfSpecificSong"])(defaultState));
     }
   };
 };
@@ -1624,8 +1697,17 @@ function (_React$Component) {
 
       case "user-show-page":
         _this.state = {
-          likedSongsOfSpecificUser: _this.props.songs && _this.props.songs.likedSongsOfSpecificUser ? Object.values(_this.props.songs.likedSongsOfSpecificUser) : null,
+          likedSongsOfSpecificUser: _this.props.onPageArtist ? Object.values(_this.props.onPageArtist.likedSongs) : null,
+          // likedSongsOfSpecificUser: this.props.songs && this.props.songs.likedSongsOfSpecificUser ? Object.values(this.props.songs.likedSongsOfSpecificUser) : null,
           loading: true
+        };
+        break;
+
+      case "song-show-page":
+        _this.state = {
+          likers: _this.props.users && _this.props.users.likersOfSpecificSong ? Object.values(_this.props.users.likersOfSpecificSong) : null,
+          loading: true,
+          counter: 0
         };
         break;
 
@@ -1642,19 +1724,34 @@ function (_React$Component) {
   _createClass(LikesSection, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      var _this$defaultState;
+
       switch (this.props.klass) {
         case "user-show-page":
-          var defaultState = {
-            followedSongs: this.props.songs ? this.props.songs.followedSongs : null,
-            likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
-            songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
-            likedSongsOfSpecificUser: null,
-            individualSong: this.props.songs ? this.props.songs.individualSong : null,
-            relatedSongsByGenre: this.props.songs ? this.props.songs.relatedSongsByGenre : null
-          };
-          this.props.emptyLikedSongsOfSpecificUser(defaultState);
+          this.setState({
+            loading: false
+          }); // this.defaultState = {
+          //     followedSongs: this.props.songs ? this.props.songs.followedSongs : null,
+          //     likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
+          //     songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
+          //     likedSongsOfSpecificUser: null,
+          //     individualSong: this.props.songs ? this.props.songs.individualSong : null,
+          //     relatedSongsByGenre: this.props.songs ? this.props.songs.relatedSongsByGenre : null,
+          // };
+          // this.props.emptyLikedSongsOfSpecificUser(this.defaultState);
+
+          break;
 
         case "homepage":
+          break;
+
+        case "song-show-page":
+          this.defaultState = (_this$defaultState = {
+            randomThree: this.props.users && this.props.users.randomThree ? this.props.users.randomThree : null
+          }, _defineProperty(_this$defaultState, this.props.currentUserId, this.props.currentUser), _defineProperty(_this$defaultState, "individualUser", this.props.users && this.props.users.individualUser ? this.props.users.individualUser : null), _defineProperty(_this$defaultState, "followersOfSpecificUser", this.props.users && this.props.users.followersOfSpecificUser ? this.props.users.followersOfSpecificUser : null), _defineProperty(_this$defaultState, "likersOfSpecificSong", null), _this$defaultState);
+          this.props.emptyLikersOfSpecificSong(this.defaultState);
+          break;
+
         default:
           break;
         // if (this.props.klass !== "song-show-page" && !this.props.songs) {
@@ -1715,17 +1812,50 @@ function (_React$Component) {
           break;
 
         case "user-show-page":
-          if (this.state.loading) {
+          // debugger
+          // if (this.props.songs && !this.props.songs.likedSongsOfSpecificUser && nextProps.songs && nextProps.songs.likedSongsOfSpecificUser) {
+          //     debugger
+          //     this.setState({
+          //         loading: false,
+          //         likedSongsOfSpecificUser: Object.values(nextProps.songs.likedSongsOfSpecificUser),
+          //     });
+          // } else if (this.state.loading) { // && Object.keys(nextProps.songs).includes("likedSongsOfSpecificUser") && nextProps.songs.likedSongsOfSpecificUser === null) {
+          //     debugger
+          //     this.props.fetchLikedSongsOfSpecificUser(this.props.onPageArtistId, true);
+          //     // this.setState({
+          //     //     loading: false,
+          //     // });
+          // } else {
+          // }
+          break;
+
+        case "song-show-page":
+          if (!this.props.users.likersOfSpecificSong && nextProps.users.likersOfSpecificSong || this.props.users.likersOfSpecificSong && nextProps.users.likersOfSpecificSong && Object.keys(this.props.users.likersOfSpecificSong).length !== Object.keys(nextProps.users.likersOfSpecificSong).length) {
+            this.setState({
+              loading: false,
+              likers: Object.values(nextProps.users.likersOfSpecificSong)
+            });
+          } else if (this.state.loading && this.state.counter === 0) {
             // && Object.keys(nextProps.songs).includes("likedSongsOfSpecificUser") && nextProps.songs.likedSongsOfSpecificUser === null) {
-            this.props.fetchLikedSongsOfSpecificUser(this.props.onPageArtistId, true);
+            this.props.fetchLikersOfSpecificSong(this.props.songId);
             this.setState({
-              loading: false
+              counter: this.state.counter + 1
             });
-          } else if (!this.props.songs.likedSongsOfSpecificUser && nextProps.songs.likedSongsOfSpecificUser) {
-            this.setState({
-              likedSongsOfSpecificUser: Object.values(nextProps.songs.likedSongsOfSpecificUser)
-            });
-          } else {}
+          } // else if (Object.keys(this.props.users).includes("likersOfSpecificSong") && !this.props.users.likersOfSpecificSong && nextProps.users && nextProps.users.likersOfSpecificSong) {
+          //     this.setState({
+          //         loading: false,
+          //         likers: Object.values(nextProps.users.likersOfSpecificSong),
+          //     });                    
+          // } else if (Object.keys(nextProps.users).includes("likersOfSpecificSong") && !nextProps.users.likersOfSpecificSong) {
+          //     this.setState = ({
+          //         loading: true,
+          //     })
+          //     this.props.fetchLikersOfSpecificSong(this.props.songId);
+          // } else {
+          // }
+
+
+          break;
 
         default:
           break;
@@ -1791,9 +1921,11 @@ function (_React$Component) {
 
         case "user-show-page":
           this.likes = this.state.likedSongsOfSpecificUser;
-        // case "song-show-page":
-        //     this.likes = this.props.songLikes;
-        //     break;
+          break;
+
+        case "song-show-page":
+          this.likes = this.state.likers;
+          break;
 
         default:
           break;
@@ -1820,13 +1952,13 @@ function (_React$Component) {
         switch (this.props.klass) {
           case "homepage":
           case "user-show-page":
-            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_mini_list_mini_list__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_mini_list_mini_list__WEBPACK_IMPORTED_MODULE_9__["default"], {
               klass: "likes-section",
-              likedSongs: Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_7__["randomize"])(this.likes)
+              likedSongs: Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_8__["randomize"])(this.likes)
             });
 
           case "song-show-page":
-            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_bubbles_list_bubbles_list__WEBPACK_IMPORTED_MODULE_9__["default"], {
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_bubbles_list_bubbles_list__WEBPACK_IMPORTED_MODULE_10__["default"], {
               klass: "song-show-page",
               items: this.likes
             });
@@ -2432,7 +2564,7 @@ var msp = function msp(state, ownProps) {
   var klass = ownProps.klass;
   var songId = parseInt(ownProps.match.params.songId);
   return {
-    songId: songId ? songId : ownProps.songId,
+    // songId: songId ? songId : ownProps.songId,
     // song: ownProps.song,
     currentSong: state.ui.currentSong
   };
@@ -3655,6 +3787,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _util_comment_api_util__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../util/comment_api_util */ "./frontend/util/comment_api_util.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -3685,6 +3819,7 @@ var msp = function msp(state, ownProps) {
   // const onPageSongId = parseInt(ownProps.match.params.songId) || ownProps.songId;
   var onPageArtistId = parseInt(ownProps.match.params.userId);
   var likes = state.entities.likes;
+  var users = state.entities.users;
   var follows = state.entities.follows;
   var currentUserId = state.session.id;
   return {
@@ -3692,7 +3827,7 @@ var msp = function msp(state, ownProps) {
     follows: follows,
     likes: likes,
     comments: state.entities.comments,
-    users: state.entities.users,
+    users: users,
     // currentLike: likeOf("Song", onPageSongId, state.entities.users[currentUserId], likes),
     // currentLike: ownProps.klass === "item-player" ? (likes ? likeOf(currentUserId, "Song", onPageSongId, likes) : likeOf(currentUserId, "Song", onPageSongId, ownProps.song.likes)) : null,
     // currentFollow: ownProps.klass === "user-show-page" ? (follows ? followOf(onPageArtistId, follows) : (state.entities.users[onPageArtistId] ? state.entities.users[onPageArtistId].attentions[onPageArtistId] : null)) : null,
@@ -3700,7 +3835,8 @@ var msp = function msp(state, ownProps) {
     // currentComments: state.entities.comments ? state.entities.comments.bySong[onPageSongId] : null,
     onPageArtistId: onPageArtistId,
     // onPageSongId: onPageSongId,
-    currentUserId: currentUserId
+    currentUserId: currentUserId,
+    currentUser: users[currentUserId]
   };
 };
 
@@ -3723,6 +3859,9 @@ var mdp = function mdp(dispatch) {
     },
     fetchUsers: function fetchUsers() {
       return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_5__["fetchUsers"])());
+    },
+    emptyLikersOfSpecificSong: function emptyLikersOfSpecificSong(defaultState) {
+      return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_5__["emptyLikersOfSpecificSong"])(defaultState));
     }
   };
 };
@@ -3745,8 +3884,9 @@ function (_React$Component) {
     switch (_this.props.klass) {
       case "item-player":
         _this.state = {
+          itemId: _this.props.songId,
           currentLike: _this.props.likes ? Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(_this.props.currentUserId, "Song", _this.props.songId, _this.props.likes) : Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(_this.props.currentUserId, "Song", _this.props.songId, _this.props.song.likes),
-          currentComments: _this.props.comments ? _this.props.comments.bySong[songId] : null,
+          currentComments: _this.props.comments ? _this.props.comments.commentsOfSpecificSong[songId] : null,
           likesCount: _this.props.song.likesCount,
           commentsCount: _this.props.song.commentsCount
         };
@@ -3805,9 +3945,9 @@ function (_React$Component) {
 
           }
 
-          if (nextProps.currentComments && this.state.commentsCount !== nextProps.currentComments.length) {
+          if (nextProps.comments && nextProps.comments.commentsOfSpecificSong[this.state.itemId] && this.state.commentsCount !== Object.keys(nextProps.comments.commentsOfSpecificSong[this.state.itemId]).length) {
             this.setState({
-              commentsCount: nextProps.currentComments.length
+              commentsCount: this.state.commentsCount + 1
             });
           }
 
@@ -3892,6 +4032,8 @@ function (_React$Component) {
   }, {
     key: "handleLike",
     value: function handleLike(e) {
+      var _this$defaultState;
+
       e.preventDefault();
 
       if (this.state.currentLike) {
@@ -3916,6 +4058,10 @@ function (_React$Component) {
 
         }));
       }
+
+      this.defaultState = (_this$defaultState = {
+        randomThree: this.props.users && this.props.users.randomThree ? this.props.users.randomThree : null
+      }, _defineProperty(_this$defaultState, this.props.currentUserId, this.props.currentUser), _defineProperty(_this$defaultState, "individualUser", this.props.users && this.props.users.individualUser ? this.props.users.individualUser : null), _defineProperty(_this$defaultState, "followersOfSpecificUser", this.props.users && this.prop.users.followersOfSpecificUser ? this.prop.users.followersOfSpecificUser : null), _defineProperty(_this$defaultState, "likersOfSpecificSong", null), _this$defaultState); // this.props.emptyLikersOfSpecificSong(this.defaultState);
     } // toggleLike() {
     //     if (this.state.currentLike) {
     //         this.setState({
@@ -3947,11 +4093,10 @@ function (_React$Component) {
           followed_user_id: this.props.onPageArtistId,
           follower_id: this.props.currentUserId
         };
-        this.props.createFollow(follow);
-        this.setState({
-          likesCount: this.state.likesCount + 1 // currentLike: likeOf(nextProps.currentUserId, "Song", nextProps.songId, nextProps.likes)
-
-        });
+        this.props.createFollow(follow); // this.setState({
+        //     likesCount: this.state.likesCount + 1,
+        //     // currentLike: likeOf(nextProps.currentUserId, "Song", nextProps.songId, nextProps.likes)
+        // });
       } // this.toggleFollow();
 
     } // toggleFollow() {
@@ -4356,8 +4501,11 @@ var msp = function msp(state, ownProps) {
 
 var mdp = function mdp(dispatch) {
   return {
-    fetchRelevantSongs: function fetchRelevantSongs(userId) {
-      return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["fetchRelevantSongs"])(userId));
+    fetchFollowedAndLikedSongsOf: function fetchFollowedAndLikedSongsOf(userId) {
+      return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["fetchFollowedAndLikedSongsOf"])(userId));
+    },
+    fetchFollowedSongs: function fetchFollowedSongs(userId) {
+      return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["fetchFollowedSongs"])(userId));
     },
     fetchSongsOfSpecificUser: function fetchSongsOfSpecificUser(userId) {
       return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["fetchSongsOfSpecificUser"])(userId));
@@ -4367,6 +4515,9 @@ var mdp = function mdp(dispatch) {
     },
     emptyFollowedSongs: function emptyFollowedSongs(defaultState) {
       return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["emptyFollowedSongs"])(defaultState));
+    },
+    emptyFollowedAndLikedSongsOf: function emptyFollowedAndLikedSongsOf(defaultState) {
+      return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["emptyFollowedAndLikedSongsOf"])(defaultState));
     }
   };
 };
@@ -4398,13 +4549,14 @@ function (_React$Component) {
           if (!this.songs) {
             var _defaultState = {
               followedSongs: null,
-              likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
+              likedSongs: null,
               songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
               likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
               individualSong: this.props.songs ? this.props.songs.individualSong : null
             };
-            this.props.emptyFollowedSongs(_defaultState);
-            this.props.fetchRelevantSongs(this.props.currentUserId).then(this.setState({
+            if (!(this.props.songs && Object.keys(this.props.songs).includes("followedSongs") && Object.keys(this.props.songs).includes("likedSongs") && !this.props.songs.followedSongs && !this.props.songs.likedSongs)) this.props.emptyFollowedAndLikedSongsOf(_defaultState);
+            this.props.fetchFollowedSongs(this.props.currentUserId).then( // this.props.fetchFollowedAndLikedSongsOf(this.props.currentUserId).then(
+            this.setState({
               loading: false
             }));
           }
@@ -4437,7 +4589,7 @@ function (_React$Component) {
       switch (this.props.klass) {
         case "stream-page":
           if (!this.songs && this.state.counter > 1) {
-            this.props.fetchRelevantSongs(this.props.currentUserId);
+            this.props.fetchFollowedSongs(this.props.currentUserId);
           }
 
           this.setState({
@@ -4453,8 +4605,8 @@ function (_React$Component) {
           //         })
           //     );
           // }
-          if (!this.songs && this.counter > 1) {
-            this.props.fetchRelevantSongs(this.props.currentUserId);
+          if (!this.songs && this.counter === 0) {
+            this.props.fetchFollowedAndLikedSongsOf(this.props.currentUserId);
           }
 
           this.counter += 1;
@@ -5680,8 +5832,8 @@ var mdp = function mdp(dispatch) {
     removeFollow: function removeFollow(follow) {
       return dispatch(Object(_actions_follow_actions__WEBPACK_IMPORTED_MODULE_4__["removeFollow"])(follow));
     },
-    fetchRelevantSongs: function fetchRelevantSongs(userId) {
-      return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["fetchRelevantSongs"])(userId));
+    fetchFollowedAndLikedSongsOf: function fetchFollowedAndLikedSongsOf(userId) {
+      return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["fetchFollowedAndLikedSongsOf"])(userId));
     },
     emptyFollowedSongs: function emptyFollowedSongs(defaultState) {
       return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["emptyFollowedSongs"])(defaultState));
@@ -5819,9 +5971,11 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 var msp = function msp(state) {
+  var users = state.entities.users;
   var currentUserId = state.session.id;
   return {
-    currentUser: state.entities.users[currentUserId],
+    users: users,
+    currentUser: users[currentUserId],
     currentUserId: currentUserId
   };
 };
@@ -5843,29 +5997,31 @@ function (_React$Component) {
   _inherits(WhoToFollow, _React$Component);
 
   function WhoToFollow(props) {
-    var _this$state;
-
-    var _this;
-
     _classCallCheck(this, WhoToFollow);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(WhoToFollow).call(this, props));
-    _this.state = (_this$state = {
-      randomThree: null
-    }, _defineProperty(_this$state, props.currentUserId, props.currentUser), _defineProperty(_this$state, "individualUser", props.individualUser), _this$state);
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(WhoToFollow).call(this, props)); // this.state = {
+    //     randomThree: null,
+    //     [props.currentUserId]: props.currentUser,
+    //     individualUser: props.individualUser,
+    //     likersOfSpecificSong: 
+    // };
   }
 
   _createClass(WhoToFollow, [{
     key: "refresh",
     value: function refresh() {
-      this.props.emptyRandomThreeUsers(this.state);
+      var _defaultState;
+
+      var defaultState = (_defaultState = {
+        randomThree: null
+      }, _defineProperty(_defaultState, this.props.currentUserId, this.props.currentUser), _defineProperty(_defaultState, "individualUser", this.props.users && this.props.users.individualUser ? this.props.users.individualUser : null), _defineProperty(_defaultState, "followersOfSpecificUser", this.props.users && this.props.users.followersOfSpecificUser ? this.props.users.followersOfSpecificUser : null), _defineProperty(_defaultState, "likersOfSpecificSong", this.props.users && this.props.users.likersOfSpecificSong ? this.props.users.likersOfSpecificSong : null), _defaultState);
+      this.props.emptyRandomThreeUsers(defaultState);
       this.props.fetchThreeRandomUsers(this.props.currentUserId);
     }
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "who-to-follow"
@@ -5876,7 +6032,7 @@ function (_React$Component) {
       }), " Who to follow"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "refresh",
         onClick: function onClick() {
-          return _this2.refresh();
+          return _this.refresh();
         }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-redo-alt"
@@ -6035,11 +6191,11 @@ function (_React$Component) {
     value: function componentWillReceiveProps(nextProps) {
       if (!this.props.comments && nextProps.comments && Object.keys(nextProps.comments).includes("commentsOfSpecificSong") && !nextProps.comments.commentsOfSpecificSong) {
         this.props.fetchCommentsOfSpecificSong(this.props.songId);
-      } else if (!this.props.comments.commentsOfSpecificSong && nextProps.comments.commentsOfSpecificSong || this.props.comments && this.props.comments.commentsOfSpecificSong && nextProps.comments && nextProps.comments.commentsOfSpecificSong) {
+      } else if (!this.props.comments.commentsOfSpecificSong && nextProps.comments.commentsOfSpecificSong || nextProps.comments && nextProps.comments.commentsOfSpecificSong[this.props.songId] && this.state.currentComments.length !== Object.keys(nextProps.comments.commentsOfSpecificSong[this.props.songId]).length) {
         // } else if ((!this.props.comments.commentsOfSpecificSong && nextProps.comments.commentsOfSpecificSong) || (this.props.comments && this.props.comments.commentsOfSpecificSong && nextProps.comments && nextProps.comments.commentsOfSpecificSong && Object.keys(this.props.comments.commentsOfSpecificSong).length !== Object.keys(nextProps.comments.commentsOfSpecificSong).length)) {
         this.setState({
           loading: false,
-          currentComments: Object.values(nextProps.comments.commentsOfSpecificSong)
+          currentComments: Object.values(nextProps.comments.commentsOfSpecificSong[this.props.songId])
         });
       }
     }
@@ -6358,16 +6514,12 @@ function (_React$Component) {
         relatedSongsByGenre: null
       }; // if (this.props.songs.relatedSongsByGenre) 
 
-      debugger;
       this.props.emptyRelatedSongsByGenre(defaultState);
     }
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
-      debugger; // if (!this.props.songs.relatedSongsByGenre && nextProps.songs && Object.keys(nextProps.songs).includes("commentsOfSpecificSong") && !nextProps.songs.relatedSongsByGenre) {
-
-      debugger;
-
+      // if (!this.props.songs.relatedSongsByGenre && nextProps.songs && Object.keys(nextProps.songs).includes("commentsOfSpecificSong") && !nextProps.songs.relatedSongsByGenre) {
       if (this.state.counter === 0) {
         this.props.fetchRelatedSongsByGenre(this.props.song.genre);
         this.setState({
@@ -6375,7 +6527,6 @@ function (_React$Component) {
         });
       } else if (!this.props.songs.relatedSongsByGenre && nextProps.songs.relatedSongsByGenre) {
         // } else if ((!this.props.songs.commentsOfSpecificSong && nextProps.songs.commentsOfSpecificSong) || (this.props.songs && this.props.songs.commentsOfSpecificSong && nextProps.songs && nextProps.songs.commentsOfSpecificSong && Object.keys(this.props.songs.commentsOfSpecificSong).length !== Object.keys(nextProps.songs.commentsOfSpecificSong).length)) {
-        debugger;
         this.setState({
           loading: false,
           relatedSongs: Object.values(nextProps.songs.relatedSongsByGenre)
@@ -6621,7 +6772,11 @@ function (_React$Component) {
           klass: "ad"
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_related_songs__WEBPACK_IMPORTED_MODULE_13__["default"], {
           song: this.state.onPageSong
-        }))));
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_likes_section__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          klass: "song-show-page",
+          song: this.state.onPageSong,
+          songId: this.props.onPageSongId
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_hiring_info_section__WEBPACK_IMPORTED_MODULE_15__["default"], null))));
       }
     }
   }]);
@@ -7505,40 +7660,176 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var _util_follow_api_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../util/follow_api_util */ "./frontend/util/follow_api_util.js");
-/* harmony import */ var _common_components_bubbles_list_bubbles_list__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../common_components/bubbles_list/bubbles_list */ "./frontend/components/common_components/bubbles_list/bubbles_list.jsx");
+/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
+/* harmony import */ var _util_follow_api_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../util/follow_api_util */ "./frontend/util/follow_api_util.js");
+/* harmony import */ var _common_components_bubbles_list_bubbles_list__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../common_components/bubbles_list/bubbles_list */ "./frontend/components/common_components/bubbles_list/bubbles_list.jsx");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
 
 
 
 
-var msp = function msp(state, ownProps) {
+ // const msp = (state, ownProps) => {
+//     return ({
+//         currentFollows: followsOf(parseInt(ownProps.match.params.userId), state.entities.follows), 
+//         // not grabbing followers directly for transition between header and content (loading)
+//     });
+// }
+// const FollowersSection = (props) => {
+//     return (
+//         <div className="followers-section">
+//             <div className="header">
+//                 <p><i className="fas fa-user"></i> {props.currentFollows ? props.currentFollows.length : "0"} {(!props.currentFollows || !(props.currentFollows.length > 1)) ? "follower" : "followers"}</p>
+//                 <Link to="" onClick={(e) => e.preventDefault()}>View all</Link>
+//             </div>
+//             <BubblesList klass="user-show-page" items={Object.values(props.onPageArtist.followers)} />
+//         </div>
+//     );
+// }
+
+var msp = function msp(state) {
+  var users = state.entities.users;
   return {
-    currentFollows: Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_3__["followsOf"])(parseInt(ownProps.match.params.userId), state.entities.follows) // not grabbing followers directly for transition between header and content (loading)
-
+    followers: users && users.followersOfSpecificUser ? Object.values(users.followersOfSpecificUser) : null
   };
 };
 
-var FollowersSection = function FollowersSection(props) {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "followers-section"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "header"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-    className: "fas fa-user"
-  }), " ", props.currentFollows ? props.currentFollows.length : "0", " ", !props.currentFollows || !(props.currentFollows.length > 1) ? "follower" : "followers"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-    to: "",
-    onClick: function onClick(e) {
-      return e.preventDefault();
+var mdp = function mdp(dispatch) {
+  return {
+    fetchFollowersOfSpecificUser: function fetchFollowersOfSpecificUser(userId) {
+      return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_3__["fetchFollowersOfSpecificUser"])(userId));
+    },
+    emptyFollowersOfSpecificUser: function emptyFollowersOfSpecificUser(defaultState) {
+      return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_3__["emptyFollowersOfSpecificUser"])(defaultState));
     }
-  }, "View all")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_bubbles_list_bubbles_list__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    klass: "user-show-page",
-    onPageArtist: props.onPageArtist
-  }));
+  };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, null)(FollowersSection)));
+var FollowersSection =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(FollowersSection, _React$Component);
+
+  function FollowersSection(props) {
+    var _this;
+
+    _classCallCheck(this, FollowersSection);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(FollowersSection).call(this, props));
+    _this.state = {
+      loading: true
+    };
+    return _this;
+  }
+
+  _createClass(FollowersSection, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this$defaultState,
+          _this2 = this;
+
+      this.defaultState = (_this$defaultState = {
+        randomThree: this.props.users && this.props.users.randomThree ? this.props.users.randomThree : null
+      }, _defineProperty(_this$defaultState, this.props.currentUserId, this.props.currentUser), _defineProperty(_this$defaultState, "individualUser", null), _defineProperty(_this$defaultState, "followersOfSpecificUser", this.props.users && this.prop.users.followersOfSpecificUser ? this.prop.users.followersOfSpecificUser : null), _defineProperty(_this$defaultState, "likersOfSpecificSong", this.props.users && this.props.users.likersOfSpecificSong ? this.props.users.likersOfSpecificSong : null), _this$defaultState);
+      this.promisfy(function () {
+        return _this2.props.emptyFollowersOfSpecificUser(_this2.defaultState);
+      }).then(function () {
+        _this2.props.fetchFollowersOfSpecificUser(_this2.props.onPageArtistId).then(function () {
+          _this2.setState({
+            loading: false
+          });
+        });
+      }); // this.setState({
+      //     counter: this.state.counter + 1,
+      // })
+    }
+  }, {
+    key: "promisfy",
+    value: function promisfy(callback) {
+      return new Promise(function () {
+        callback();
+      });
+    } // componentWillReceiveProps(nextProps) {
+    //     if ((!this.props.follows && nextProps.follows) || (this.props.follows && nextProps.follows && Object.keys(this.props.follows.interests) !== Object.keys(nextProps.follows)) {
+    //     }
+    //     if (this.counter === 1) {
+    //         c
+    //         this.counter += 1;
+    //     } else if (this.counter === 2 && nextProps.users.followersOfSpecificUser) {
+    //         this.setState({
+    //             loading: false,
+    //             followers: Object.values(nextProps.users.followersOfSpecificUser),
+    //         })
+    //         this.counter += 1;
+    //     } else if (this.counter % 3 === 0 && ((!this.props.follows && nextProps.follows) || (this.props.follows && nextProps.follows && Object.keys(this.props.follows.interests).length !== Object.keys(nextProps.follows.interests).length))) {
+    //         this.setState({
+    //             loading: true,
+    //         });
+    //         this.props.emptyFollowersOfSpecificUser(this.defaultState);
+    //         this.counter += 1;
+    //     } else if (this.counter % 3 === 1) {
+    //         this.props.fetchFollowersOfSpecificUser(this.props.onPageArtistId);
+    //         this.counter += 1;
+    //     } else if (this.counter % 3 === 2) {
+    //         this.setState({
+    //             loading: false,
+    //             followers: Object.values(nextProps.users.followersOfSpecificUser),
+    //         });
+    //         this.counter += 1;
+    //     // }
+    // }
+
+  }, {
+    key: "render",
+    value: function render() {
+      if (this.state.loading || !this.props.followers) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.loadingPizza,
+          className: "loading-sm"
+        });
+      } else {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "followers-section"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "header"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fas fa-user"
+        }), " ", this.props.followers ? this.props.followers.length : "0", " ", !this.props.followers || !(this.props.followers.length > 1) ? "follower" : "followers"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+          to: "",
+          onClick: function onClick(e) {
+            return e.preventDefault();
+          }
+        }, "View all")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_bubbles_list_bubbles_list__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          klass: "user-show-page",
+          items: this.props.followers
+        }));
+      }
+    }
+  }]);
+
+  return FollowersSection;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, mdp)(FollowersSection)));
 
 /***/ }),
 
@@ -7553,7 +7844,8 @@ var FollowersSection = function FollowersSection(props) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -7575,18 +7867,56 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
+var msp = function msp(state) {
+  return {
+    follows: state.entities.follows,
+    currentUserId: state.session.id
+  };
+};
+
 var PopularitySection =
 /*#__PURE__*/
 function (_React$Component) {
   _inherits(PopularitySection, _React$Component);
 
   function PopularitySection(props) {
+    var _this;
+
     _classCallCheck(this, PopularitySection);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(PopularitySection).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(PopularitySection).call(this, props));
+    _this.state = {
+      currentFollow: Object.values(_this.props.onPageArtist.attentions).find(function (follow) {
+        return follow.followerId === _this.props.currentUserId;
+      }),
+      // currentFollow: this.props.follows ? 
+      //                 Object.values(this.props.follows.interests).find(follow => follow.followedUserId === this.props.onPageArtist.id) : 
+      //                 Object.values(this.props.onPageArtist.attentions).find(follow => follow.followerId === this.props.currentUserId),
+      followersCount: _this.props.onPageArtist.followersCount
+    };
+    debugger;
+    return _this;
   }
 
   _createClass(PopularitySection, [{
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      var _this2 = this;
+
+      debugger;
+
+      if (!this.props.follows && nextProps.follows && nextProps.follows.interests || this.props.follows && Object.keys(this.props.follows.interests).length !== Object.keys(nextProps.follows.interests).length) {
+        debugger;
+        this.setState({
+          currentFollow: Object.values(nextProps.follows.interests).find(function (follow) {
+            return follow.followedUserId === _this2.props.onPageArtist.id;
+          }),
+          followersCount: this.state.currentFollow ? this.state.followersCount - 1 : this.state.followersCount + 1
+        });
+      }
+    }
+  }, {
     key: "renderNumber",
     value: function renderNumber(num) {
       if (num < 1000) {
@@ -7615,7 +7945,7 @@ function (_React$Component) {
         className: "popularity-section"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "data"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
         to: "",
         onClick: function onClick(e) {
           return e.preventDefault();
@@ -7624,7 +7954,7 @@ function (_React$Component) {
         className: "type"
       }, "Followers"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "number"
-      }, this.renderNumber(this.props.onPageArtist.followersCount))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      }, this.renderNumber(this.state.followersCount))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
         to: "",
         onClick: function onClick(e) {
           return e.preventDefault();
@@ -7633,7 +7963,7 @@ function (_React$Component) {
         className: "type"
       }, "Following"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "number"
-      }, this.renderNumber(this.props.onPageArtist.followingsCount))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      }, this.renderNumber(this.props.onPageArtist.followingsCount))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
         to: "",
         onClick: function onClick(e) {
           return e.preventDefault();
@@ -7649,7 +7979,7 @@ function (_React$Component) {
   return PopularitySection;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(PopularitySection));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, null)(PopularitySection)));
 
 /***/ }),
 
@@ -7719,7 +8049,7 @@ var msp = function msp(state, ownProps) {
     onPageArtistId: onPageArtistId,
     onPageArtist: users.individualUser ? users.individualUser[onPageArtistId] : null,
     currentUserId: currentUserId,
-    currentUser: state.entities.users[currentUserId]
+    currentUser: users[currentUserId]
   };
 };
 
@@ -7757,8 +8087,8 @@ function (_React$Component) {
       var _defaultState;
 
       var defaultState = (_defaultState = {
-        randomThree: this.props.users.randomThreeUser
-      }, _defineProperty(_defaultState, this.props.currentUserId, this.props.currentUser), _defineProperty(_defaultState, "individualUser", null), _defaultState);
+        randomThree: this.props.users && this.props.users.randomThree ? this.props.users.randomThree : null
+      }, _defineProperty(_defaultState, this.props.currentUserId, this.props.currentUser), _defineProperty(_defaultState, "individualUser", null), _defineProperty(_defaultState, "followersOfSpecificUser", this.props.users && this.props.users.followersOfSpecificUser ? this.props.users.followersOfSpecificUser : null), _defineProperty(_defaultState, "likersOfSpecificSong", this.props.users && this.props.users.likersOfSpecificSong ? this.props.users.likersOfSpecificSong : null), _defaultState);
       this.props.emptyIndividualUser(defaultState);
       this.props.fetchUser(this.props.onPageArtistId);
       this.setState({
@@ -7800,9 +8130,8 @@ function (_React$Component) {
           onPageArtist: this.props.onPageArtist
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_likes_section__WEBPACK_IMPORTED_MODULE_9__["default"], {
           klass: "user-show-page",
+          onPageArtist: this.props.onPageArtist,
           onPageArtistId: this.props.onPageArtistId
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_followers_section__WEBPACK_IMPORTED_MODULE_10__["default"], {
-          onPageArtist: this.props.onPageArtist
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_hiring_info_section__WEBPACK_IMPORTED_MODULE_11__["default"], null))));
       }
     }
@@ -8369,6 +8698,9 @@ var songsReducer = function songsReducer() {
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, newState);
 
     case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_SONGS"]:
+    case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_FOLLOWED_SONGS"]:
+    case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_LIKED_SONGS"]:
+    case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_FOLLOWED_AND_LIKED_SONGS"]:
       newState = action.songs;
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, newState);
 
@@ -8378,6 +8710,7 @@ var songsReducer = function songsReducer() {
     case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["EMPTY_LIKED_SONGS_OF_SPECIFIC_USER"]:
     case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["EMPTY_FOLLOWED_SONGS"]:
     case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["EMPTY_LIKED_SONGS"]:
+    case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["EMPTY_FOLLOWED_AND_LIKED_SONGS_OF"]:
       newState = action.defaultState;
       return newState;
 
@@ -8447,11 +8780,14 @@ var usersReducer = function usersReducer() {
   switch (action.type) {
     case _actions_user_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_USER"]:
     case _actions_user_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_RANDOM_THREE_USERS"]:
+    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_LIKERS_OF_SPECIFIC_SONG"]:
       newState = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, state, action.users || action.user);
       return newState;
 
     case _actions_user_actions__WEBPACK_IMPORTED_MODULE_0__["EMPTY_INDIVIDUAL_USER"]:
     case _actions_user_actions__WEBPACK_IMPORTED_MODULE_0__["EMPTY_RANDOM_THREE_USERS"]:
+    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_0__["EMPTY_LIKERS_OF_SPECIFIC_SONG"]:
+    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_0__["EMPTY_FOLLOWERS_OF_SPECIFIC_USER"]:
       newState = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, action.defaultState);
       return newState;
 
@@ -9038,7 +9374,7 @@ var logout = function logout() {
 /*!****************************************!*\
   !*** ./frontend/util/song_api_util.js ***!
   \****************************************/
-/*! exports provided: createSong, removeSong, fetchSong, fetchSongs, fetchRelatedSongsByGenre, fetchSongsOfSpecificUser, fetchLikedSongsOfSpecificUser, fetchRelevantSongsOf, fetchFollowedSongsOf, fetchLikedSongsOf, latest, shuffle, songsOf, songsLikedBy, relatedSongsOf, likedSongsJsonToArr */
+/*! exports provided: createSong, removeSong, fetchSong, fetchSongs, fetchRelatedSongsByGenre, fetchSongsOfSpecificUser, fetchLikedSongsOfSpecificUser, fetchFollowedAndLikedSongsOf, fetchFollowedSongsOf, fetchLikedSongsOf, latest, shuffle, songsOf, songsLikedBy, relatedSongsOf, likedSongsJsonToArr */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9050,7 +9386,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchRelatedSongsByGenre", function() { return fetchRelatedSongsByGenre; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchSongsOfSpecificUser", function() { return fetchSongsOfSpecificUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchLikedSongsOfSpecificUser", function() { return fetchLikedSongsOfSpecificUser; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchRelevantSongsOf", function() { return fetchRelevantSongsOf; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchFollowedAndLikedSongsOf", function() { return fetchFollowedAndLikedSongsOf; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchFollowedSongsOf", function() { return fetchFollowedSongsOf; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchLikedSongsOf", function() { return fetchLikedSongsOf; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "latest", function() { return latest; });
@@ -9128,7 +9464,7 @@ var fetchLikedSongsOfSpecificUser = function fetchLikedSongsOfSpecificUser(userI
     }
   });
 };
-var fetchRelevantSongsOf = function fetchRelevantSongsOf(userId) {
+var fetchFollowedAndLikedSongsOf = function fetchFollowedAndLikedSongsOf(userId) {
   return $.ajax({
     method: "GET",
     url: "/api/songs",
@@ -9231,13 +9567,15 @@ var likedSongsJsonToArr = function likedSongsJsonToArr(songs) {
 /*!****************************************!*\
   !*** ./frontend/util/user_api_util.js ***!
   \****************************************/
-/*! exports provided: fetchUsers, fetchThreeRandomUsers, fetchUser, editUser, suggestedArtists */
+/*! exports provided: fetchUsers, fetchThreeRandomUsers, fetchLikersOfSpecificSong, fetchFollowersOfSpecificUser, fetchUser, editUser, suggestedArtists */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUsers", function() { return fetchUsers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchThreeRandomUsers", function() { return fetchThreeRandomUsers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchLikersOfSpecificSong", function() { return fetchLikersOfSpecificSong; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchFollowersOfSpecificUser", function() { return fetchFollowersOfSpecificUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUser", function() { return fetchUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editUser", function() { return editUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "suggestedArtists", function() { return suggestedArtists; });
@@ -9258,6 +9596,24 @@ var fetchThreeRandomUsers = function fetchThreeRandomUsers(currentUserId) {
     url: "/api/users",
     data: {
       current_user_id: currentUserId
+    }
+  });
+};
+var fetchLikersOfSpecificSong = function fetchLikersOfSpecificSong(songId) {
+  return $.ajax({
+    method: "GET",
+    url: "/api/users",
+    data: {
+      song_id: songId
+    }
+  });
+};
+var fetchFollowersOfSpecificUser = function fetchFollowersOfSpecificUser(userId) {
+  return $.ajax({
+    method: "GET",
+    url: "/api/users",
+    data: {
+      user_id: userId
     }
   });
 };
@@ -14032,40 +14388,6 @@ function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
 }
 
 module.exports = hoistNonReactStatics;
-
-
-/***/ }),
-
-/***/ "./node_modules/inherits/inherits_browser.js":
-/*!***************************************************!*\
-  !*** ./node_modules/inherits/inherits_browser.js ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-if (typeof Object.create === 'function') {
-  // implementation from standard node.js 'util' module
-  module.exports = function inherits(ctor, superCtor) {
-    ctor.super_ = superCtor
-    ctor.prototype = Object.create(superCtor.prototype, {
-      constructor: {
-        value: ctor,
-        enumerable: false,
-        writable: true,
-        configurable: true
-      }
-    });
-  };
-} else {
-  // old school shim for old browsers
-  module.exports = function inherits(ctor, superCtor) {
-    ctor.super_ = superCtor
-    var TempCtor = function () {}
-    TempCtor.prototype = superCtor.prototype
-    ctor.prototype = new TempCtor()
-    ctor.prototype.constructor = ctor
-  }
-}
 
 
 /***/ }),
@@ -32419,201 +32741,6 @@ function pathToRegexp (path, keys, options) {
 module.exports = Array.isArray || function (arr) {
   return Object.prototype.toString.call(arr) == '[object Array]';
 };
-
-
-/***/ }),
-
-/***/ "./node_modules/process/browser.js":
-/*!*****************************************!*\
-  !*** ./node_modules/process/browser.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// shim for using process in browser
-var process = module.exports = {};
-
-// cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
-}
-function defaultClearTimeout () {
-    throw new Error('clearTimeout has not been defined');
-}
-(function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
-} ())
-function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    } catch(e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch(e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
-
-
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    } catch (e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
-
-
-
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-process.prependListener = noop;
-process.prependOnceListener = noop;
-
-process.listeners = function (name) { return [] }
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
 
 
 /***/ }),
@@ -79775,620 +79902,6 @@ function defaultKey(key) {
 function isReactComponent(component) {
   return !!(component && component.prototype && component.prototype.isReactComponent);
 }
-
-/***/ }),
-
-/***/ "./node_modules/util/support/isBufferBrowser.js":
-/*!******************************************************!*\
-  !*** ./node_modules/util/support/isBufferBrowser.js ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = function isBuffer(arg) {
-  return arg && typeof arg === 'object'
-    && typeof arg.copy === 'function'
-    && typeof arg.fill === 'function'
-    && typeof arg.readUInt8 === 'function';
-}
-
-/***/ }),
-
-/***/ "./node_modules/util/util.js":
-/*!***********************************!*\
-  !*** ./node_modules/util/util.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-var formatRegExp = /%[sdj%]/g;
-exports.format = function(f) {
-  if (!isString(f)) {
-    var objects = [];
-    for (var i = 0; i < arguments.length; i++) {
-      objects.push(inspect(arguments[i]));
-    }
-    return objects.join(' ');
-  }
-
-  var i = 1;
-  var args = arguments;
-  var len = args.length;
-  var str = String(f).replace(formatRegExp, function(x) {
-    if (x === '%%') return '%';
-    if (i >= len) return x;
-    switch (x) {
-      case '%s': return String(args[i++]);
-      case '%d': return Number(args[i++]);
-      case '%j':
-        try {
-          return JSON.stringify(args[i++]);
-        } catch (_) {
-          return '[Circular]';
-        }
-      default:
-        return x;
-    }
-  });
-  for (var x = args[i]; i < len; x = args[++i]) {
-    if (isNull(x) || !isObject(x)) {
-      str += ' ' + x;
-    } else {
-      str += ' ' + inspect(x);
-    }
-  }
-  return str;
-};
-
-
-// Mark that a method should not be used.
-// Returns a modified function which warns once by default.
-// If --no-deprecation is set, then it is a no-op.
-exports.deprecate = function(fn, msg) {
-  // Allow for deprecating things in the process of starting up.
-  if (isUndefined(global.process)) {
-    return function() {
-      return exports.deprecate(fn, msg).apply(this, arguments);
-    };
-  }
-
-  if (process.noDeprecation === true) {
-    return fn;
-  }
-
-  var warned = false;
-  function deprecated() {
-    if (!warned) {
-      if (process.throwDeprecation) {
-        throw new Error(msg);
-      } else if (process.traceDeprecation) {
-        console.trace(msg);
-      } else {
-        console.error(msg);
-      }
-      warned = true;
-    }
-    return fn.apply(this, arguments);
-  }
-
-  return deprecated;
-};
-
-
-var debugs = {};
-var debugEnviron;
-exports.debuglog = function(set) {
-  if (isUndefined(debugEnviron))
-    debugEnviron = process.env.NODE_DEBUG || '';
-  set = set.toUpperCase();
-  if (!debugs[set]) {
-    if (new RegExp('\\b' + set + '\\b', 'i').test(debugEnviron)) {
-      var pid = process.pid;
-      debugs[set] = function() {
-        var msg = exports.format.apply(exports, arguments);
-        console.error('%s %d: %s', set, pid, msg);
-      };
-    } else {
-      debugs[set] = function() {};
-    }
-  }
-  return debugs[set];
-};
-
-
-/**
- * Echos the value of a value. Trys to print the value out
- * in the best way possible given the different types.
- *
- * @param {Object} obj The object to print out.
- * @param {Object} opts Optional options object that alters the output.
- */
-/* legacy: obj, showHidden, depth, colors*/
-function inspect(obj, opts) {
-  // default options
-  var ctx = {
-    seen: [],
-    stylize: stylizeNoColor
-  };
-  // legacy...
-  if (arguments.length >= 3) ctx.depth = arguments[2];
-  if (arguments.length >= 4) ctx.colors = arguments[3];
-  if (isBoolean(opts)) {
-    // legacy...
-    ctx.showHidden = opts;
-  } else if (opts) {
-    // got an "options" object
-    exports._extend(ctx, opts);
-  }
-  // set default options
-  if (isUndefined(ctx.showHidden)) ctx.showHidden = false;
-  if (isUndefined(ctx.depth)) ctx.depth = 2;
-  if (isUndefined(ctx.colors)) ctx.colors = false;
-  if (isUndefined(ctx.customInspect)) ctx.customInspect = true;
-  if (ctx.colors) ctx.stylize = stylizeWithColor;
-  return formatValue(ctx, obj, ctx.depth);
-}
-exports.inspect = inspect;
-
-
-// http://en.wikipedia.org/wiki/ANSI_escape_code#graphics
-inspect.colors = {
-  'bold' : [1, 22],
-  'italic' : [3, 23],
-  'underline' : [4, 24],
-  'inverse' : [7, 27],
-  'white' : [37, 39],
-  'grey' : [90, 39],
-  'black' : [30, 39],
-  'blue' : [34, 39],
-  'cyan' : [36, 39],
-  'green' : [32, 39],
-  'magenta' : [35, 39],
-  'red' : [31, 39],
-  'yellow' : [33, 39]
-};
-
-// Don't use 'blue' not visible on cmd.exe
-inspect.styles = {
-  'special': 'cyan',
-  'number': 'yellow',
-  'boolean': 'yellow',
-  'undefined': 'grey',
-  'null': 'bold',
-  'string': 'green',
-  'date': 'magenta',
-  // "name": intentionally not styling
-  'regexp': 'red'
-};
-
-
-function stylizeWithColor(str, styleType) {
-  var style = inspect.styles[styleType];
-
-  if (style) {
-    return '\u001b[' + inspect.colors[style][0] + 'm' + str +
-           '\u001b[' + inspect.colors[style][1] + 'm';
-  } else {
-    return str;
-  }
-}
-
-
-function stylizeNoColor(str, styleType) {
-  return str;
-}
-
-
-function arrayToHash(array) {
-  var hash = {};
-
-  array.forEach(function(val, idx) {
-    hash[val] = true;
-  });
-
-  return hash;
-}
-
-
-function formatValue(ctx, value, recurseTimes) {
-  // Provide a hook for user-specified inspect functions.
-  // Check that value is an object with an inspect function on it
-  if (ctx.customInspect &&
-      value &&
-      isFunction(value.inspect) &&
-      // Filter out the util module, it's inspect function is special
-      value.inspect !== exports.inspect &&
-      // Also filter out any prototype objects using the circular check.
-      !(value.constructor && value.constructor.prototype === value)) {
-    var ret = value.inspect(recurseTimes, ctx);
-    if (!isString(ret)) {
-      ret = formatValue(ctx, ret, recurseTimes);
-    }
-    return ret;
-  }
-
-  // Primitive types cannot have properties
-  var primitive = formatPrimitive(ctx, value);
-  if (primitive) {
-    return primitive;
-  }
-
-  // Look up the keys of the object.
-  var keys = Object.keys(value);
-  var visibleKeys = arrayToHash(keys);
-
-  if (ctx.showHidden) {
-    keys = Object.getOwnPropertyNames(value);
-  }
-
-  // IE doesn't make error fields non-enumerable
-  // http://msdn.microsoft.com/en-us/library/ie/dww52sbt(v=vs.94).aspx
-  if (isError(value)
-      && (keys.indexOf('message') >= 0 || keys.indexOf('description') >= 0)) {
-    return formatError(value);
-  }
-
-  // Some type of object without properties can be shortcutted.
-  if (keys.length === 0) {
-    if (isFunction(value)) {
-      var name = value.name ? ': ' + value.name : '';
-      return ctx.stylize('[Function' + name + ']', 'special');
-    }
-    if (isRegExp(value)) {
-      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
-    }
-    if (isDate(value)) {
-      return ctx.stylize(Date.prototype.toString.call(value), 'date');
-    }
-    if (isError(value)) {
-      return formatError(value);
-    }
-  }
-
-  var base = '', array = false, braces = ['{', '}'];
-
-  // Make Array say that they are Array
-  if (isArray(value)) {
-    array = true;
-    braces = ['[', ']'];
-  }
-
-  // Make functions say that they are functions
-  if (isFunction(value)) {
-    var n = value.name ? ': ' + value.name : '';
-    base = ' [Function' + n + ']';
-  }
-
-  // Make RegExps say that they are RegExps
-  if (isRegExp(value)) {
-    base = ' ' + RegExp.prototype.toString.call(value);
-  }
-
-  // Make dates with properties first say the date
-  if (isDate(value)) {
-    base = ' ' + Date.prototype.toUTCString.call(value);
-  }
-
-  // Make error with message first say the error
-  if (isError(value)) {
-    base = ' ' + formatError(value);
-  }
-
-  if (keys.length === 0 && (!array || value.length == 0)) {
-    return braces[0] + base + braces[1];
-  }
-
-  if (recurseTimes < 0) {
-    if (isRegExp(value)) {
-      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
-    } else {
-      return ctx.stylize('[Object]', 'special');
-    }
-  }
-
-  ctx.seen.push(value);
-
-  var output;
-  if (array) {
-    output = formatArray(ctx, value, recurseTimes, visibleKeys, keys);
-  } else {
-    output = keys.map(function(key) {
-      return formatProperty(ctx, value, recurseTimes, visibleKeys, key, array);
-    });
-  }
-
-  ctx.seen.pop();
-
-  return reduceToSingleString(output, base, braces);
-}
-
-
-function formatPrimitive(ctx, value) {
-  if (isUndefined(value))
-    return ctx.stylize('undefined', 'undefined');
-  if (isString(value)) {
-    var simple = '\'' + JSON.stringify(value).replace(/^"|"$/g, '')
-                                             .replace(/'/g, "\\'")
-                                             .replace(/\\"/g, '"') + '\'';
-    return ctx.stylize(simple, 'string');
-  }
-  if (isNumber(value))
-    return ctx.stylize('' + value, 'number');
-  if (isBoolean(value))
-    return ctx.stylize('' + value, 'boolean');
-  // For some reason typeof null is "object", so special case here.
-  if (isNull(value))
-    return ctx.stylize('null', 'null');
-}
-
-
-function formatError(value) {
-  return '[' + Error.prototype.toString.call(value) + ']';
-}
-
-
-function formatArray(ctx, value, recurseTimes, visibleKeys, keys) {
-  var output = [];
-  for (var i = 0, l = value.length; i < l; ++i) {
-    if (hasOwnProperty(value, String(i))) {
-      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
-          String(i), true));
-    } else {
-      output.push('');
-    }
-  }
-  keys.forEach(function(key) {
-    if (!key.match(/^\d+$/)) {
-      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
-          key, true));
-    }
-  });
-  return output;
-}
-
-
-function formatProperty(ctx, value, recurseTimes, visibleKeys, key, array) {
-  var name, str, desc;
-  desc = Object.getOwnPropertyDescriptor(value, key) || { value: value[key] };
-  if (desc.get) {
-    if (desc.set) {
-      str = ctx.stylize('[Getter/Setter]', 'special');
-    } else {
-      str = ctx.stylize('[Getter]', 'special');
-    }
-  } else {
-    if (desc.set) {
-      str = ctx.stylize('[Setter]', 'special');
-    }
-  }
-  if (!hasOwnProperty(visibleKeys, key)) {
-    name = '[' + key + ']';
-  }
-  if (!str) {
-    if (ctx.seen.indexOf(desc.value) < 0) {
-      if (isNull(recurseTimes)) {
-        str = formatValue(ctx, desc.value, null);
-      } else {
-        str = formatValue(ctx, desc.value, recurseTimes - 1);
-      }
-      if (str.indexOf('\n') > -1) {
-        if (array) {
-          str = str.split('\n').map(function(line) {
-            return '  ' + line;
-          }).join('\n').substr(2);
-        } else {
-          str = '\n' + str.split('\n').map(function(line) {
-            return '   ' + line;
-          }).join('\n');
-        }
-      }
-    } else {
-      str = ctx.stylize('[Circular]', 'special');
-    }
-  }
-  if (isUndefined(name)) {
-    if (array && key.match(/^\d+$/)) {
-      return str;
-    }
-    name = JSON.stringify('' + key);
-    if (name.match(/^"([a-zA-Z_][a-zA-Z_0-9]*)"$/)) {
-      name = name.substr(1, name.length - 2);
-      name = ctx.stylize(name, 'name');
-    } else {
-      name = name.replace(/'/g, "\\'")
-                 .replace(/\\"/g, '"')
-                 .replace(/(^"|"$)/g, "'");
-      name = ctx.stylize(name, 'string');
-    }
-  }
-
-  return name + ': ' + str;
-}
-
-
-function reduceToSingleString(output, base, braces) {
-  var numLinesEst = 0;
-  var length = output.reduce(function(prev, cur) {
-    numLinesEst++;
-    if (cur.indexOf('\n') >= 0) numLinesEst++;
-    return prev + cur.replace(/\u001b\[\d\d?m/g, '').length + 1;
-  }, 0);
-
-  if (length > 60) {
-    return braces[0] +
-           (base === '' ? '' : base + '\n ') +
-           ' ' +
-           output.join(',\n  ') +
-           ' ' +
-           braces[1];
-  }
-
-  return braces[0] + base + ' ' + output.join(', ') + ' ' + braces[1];
-}
-
-
-// NOTE: These type checking functions intentionally don't use `instanceof`
-// because it is fragile and can be easily faked with `Object.create()`.
-function isArray(ar) {
-  return Array.isArray(ar);
-}
-exports.isArray = isArray;
-
-function isBoolean(arg) {
-  return typeof arg === 'boolean';
-}
-exports.isBoolean = isBoolean;
-
-function isNull(arg) {
-  return arg === null;
-}
-exports.isNull = isNull;
-
-function isNullOrUndefined(arg) {
-  return arg == null;
-}
-exports.isNullOrUndefined = isNullOrUndefined;
-
-function isNumber(arg) {
-  return typeof arg === 'number';
-}
-exports.isNumber = isNumber;
-
-function isString(arg) {
-  return typeof arg === 'string';
-}
-exports.isString = isString;
-
-function isSymbol(arg) {
-  return typeof arg === 'symbol';
-}
-exports.isSymbol = isSymbol;
-
-function isUndefined(arg) {
-  return arg === void 0;
-}
-exports.isUndefined = isUndefined;
-
-function isRegExp(re) {
-  return isObject(re) && objectToString(re) === '[object RegExp]';
-}
-exports.isRegExp = isRegExp;
-
-function isObject(arg) {
-  return typeof arg === 'object' && arg !== null;
-}
-exports.isObject = isObject;
-
-function isDate(d) {
-  return isObject(d) && objectToString(d) === '[object Date]';
-}
-exports.isDate = isDate;
-
-function isError(e) {
-  return isObject(e) &&
-      (objectToString(e) === '[object Error]' || e instanceof Error);
-}
-exports.isError = isError;
-
-function isFunction(arg) {
-  return typeof arg === 'function';
-}
-exports.isFunction = isFunction;
-
-function isPrimitive(arg) {
-  return arg === null ||
-         typeof arg === 'boolean' ||
-         typeof arg === 'number' ||
-         typeof arg === 'string' ||
-         typeof arg === 'symbol' ||  // ES6 symbol
-         typeof arg === 'undefined';
-}
-exports.isPrimitive = isPrimitive;
-
-exports.isBuffer = __webpack_require__(/*! ./support/isBuffer */ "./node_modules/util/support/isBufferBrowser.js");
-
-function objectToString(o) {
-  return Object.prototype.toString.call(o);
-}
-
-
-function pad(n) {
-  return n < 10 ? '0' + n.toString(10) : n.toString(10);
-}
-
-
-var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
-              'Oct', 'Nov', 'Dec'];
-
-// 26 Feb 16:19:34
-function timestamp() {
-  var d = new Date();
-  var time = [pad(d.getHours()),
-              pad(d.getMinutes()),
-              pad(d.getSeconds())].join(':');
-  return [d.getDate(), months[d.getMonth()], time].join(' ');
-}
-
-
-// log is just a thin wrapper to console.log that prepends a timestamp
-exports.log = function() {
-  console.log('%s - %s', timestamp(), exports.format.apply(exports, arguments));
-};
-
-
-/**
- * Inherit the prototype methods from one constructor into another.
- *
- * The Function.prototype.inherits from lang.js rewritten as a standalone
- * function (not on Function.prototype). NOTE: If this file is to be loaded
- * during bootstrapping this function needs to be rewritten using some native
- * functions as prototype setup using normal JavaScript does not work as
- * expected during bootstrapping (see mirror.js in r114903).
- *
- * @param {function} ctor Constructor function which needs to inherit the
- *     prototype.
- * @param {function} superCtor Constructor function to inherit prototype from.
- */
-exports.inherits = __webpack_require__(/*! inherits */ "./node_modules/inherits/inherits_browser.js");
-
-exports._extend = function(origin, add) {
-  // Don't do anything if add isn't an object
-  if (!add || !isObject(add)) return origin;
-
-  var keys = Object.keys(add);
-  var i = keys.length;
-  while (i--) {
-    origin[keys[i]] = add[keys[i]];
-  }
-  return origin;
-};
-
-function hasOwnProperty(obj, prop) {
-  return Object.prototype.hasOwnProperty.call(obj, prop);
-}
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js"), __webpack_require__(/*! ./../process/browser.js */ "./node_modules/process/browser.js")))
 
 /***/ }),
 

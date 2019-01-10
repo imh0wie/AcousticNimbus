@@ -1,9 +1,12 @@
 import * as UserAPIUtil from '../util/user_api_util';
 
 export const RECEIVE_RANDOM_THREE_USERS = 'RECEIVE_RANDOM_THREE_USERS';
+export const RECEIVE_LIKERS_OF_SPECIFIC_SONG = 'RECEIVE_LIKERS_OF_SPECIFIC_SONG';
+export const RECEIVE_USER = 'RECEIVE_USER';
 export const EMPTY_RANDOM_THREE_USERS = 'EMPTY_RANDOM_THREE_USERS';
 export const EMPTY_INDIVIDUAL_USER = 'EMPTY_INDIVIDUAL_USER';
-export const RECEIVE_USER = 'RECEIVE_USER';
+export const EMPTY_LIKERS_OF_SPECIFIC_SONG = 'EMPTY_LIKERS_OF_SPECIFIC_SONG';
+export const EMPTY_FOLLOWERS_OF_SPECIFIC_USER = 'EMPTY_FOLLOWERS_OF_SPECIFIC_USER';
 
 export const fetchUsers = () => {
     // return (dispatch) => {
@@ -24,6 +27,26 @@ export const fetchThreeRandomUsers = (currentUserId) => {
         );
     }
 };
+
+export const fetchLikersOfSpecificSong = (songIdToServer) => {
+    return (dispatch) => {
+        return UserAPIUtil.fetchLikersOfSpecificSong(songIdToServer).then(
+            (usersFromServer) => {
+                return dispatch(receiveLikersOfSpecificSong(usersFromServer));
+            }
+        )
+    }
+}
+
+export const fetchFollowersOfSpecificUser = (userIdToServer) => {
+    return (dispatch) => {
+        return UserAPIUtil.fetchFollowersOfSpecificUser(userIdToServer).then(
+            (usersFromServer) => {
+                return dispatch(receiveLikersOfSpecificSong(usersFromServer));
+            }
+        )
+    }
+}
 
 export const fetchUser = (userId) => {
     return (dispatch) => {
@@ -59,6 +82,13 @@ export const receiveRandomThreeUsers = (users) => {
     }
 }
 
+export const receiveLikersOfSpecificSong = (users) => {
+    return {
+        type: RECEIVE_LIKERS_OF_SPECIFIC_SONG,
+        users: users,
+    }
+}
+
 export const emptyRandomThreeUsers = (defaultState) => {
     return {
         type: EMPTY_RANDOM_THREE_USERS,
@@ -72,3 +102,18 @@ export const emptyIndividualUser = (defaultState) => {
         defaultState: defaultState,
     }
 }
+
+export const emptyLikersOfSpecificSong = (defaultState) => {
+    return {
+        type: EMPTY_LIKERS_OF_SPECIFIC_SONG,
+        defaultState: defaultState,
+    }
+}
+
+export const emptyFollowersOfSpecificUser = (defaultState) => {
+    return {
+        type: EMPTY_FOLLOWERS_OF_SPECIFIC_USER,
+        defaultState: defaultState,
+    }
+}
+

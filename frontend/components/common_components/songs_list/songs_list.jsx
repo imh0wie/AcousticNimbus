@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { fetchRelevantSongs, fetchSongsOfSpecificUser, emptySongsOfSpecificUser, emptyFollowedSongs } from "../../../actions/song_actions";
+import { fetchFollowedSongs, fetchFollowedAndLikedSongsOf, fetchSongsOfSpecificUser, emptySongsOfSpecificUser, emptyFollowedAndLikedSongsOf, emptyFollowedSongs } from "../../../actions/song_actions";
 import SongsListItem from "./songs_list_item";
 
 const msp = (state, ownProps) => {
@@ -21,10 +21,12 @@ const msp = (state, ownProps) => {
 
 const mdp = (dispatch) => {
   return ({
-      fetchRelevantSongs: (userId) => dispatch(fetchRelevantSongs(userId)),
+      fetchFollowedAndLikedSongsOf: (userId) => dispatch(fetchFollowedAndLikedSongsOf(userId)),
+      fetchFollowedSongs: (userId) => dispatch(fetchFollowedSongs(userId)),
       fetchSongsOfSpecificUser: (userId) => dispatch(fetchSongsOfSpecificUser(userId)),
       emptySongsOfSpecificUser: (defaultState) => dispatch(emptySongsOfSpecificUser(defaultState)),
       emptyFollowedSongs: (defaultState) => dispatch(emptyFollowedSongs(defaultState)),
+      emptyFollowedAndLikedSongsOf: (defaultState) => dispatch(emptyFollowedAndLikedSongsOf(defaultState)),
   });
 };
 
@@ -45,13 +47,14 @@ class SongsList extends React.Component {
                 if (!this.songs) {
                     const defaultState = {
                         followedSongs: null,
-                        likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
+                        likedSongs: null,
                         songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
                         likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
                         individualSong: this.props.songs ? this.props.songs.individualSong : null,
                     };
-                    this.props.emptyFollowedSongs(defaultState);
-                    this.props.fetchRelevantSongs(this.props.currentUserId).then(
+                    if (!(this.props.songs && Object.keys(this.props.songs).includes("followedSongs") && Object.keys(this.props.songs).includes("likedSongs") && !this.props.songs.followedSongs && !this.props.songs.likedSongs)) this.props.emptyFollowedAndLikedSongsOf(defaultState);
+                    this.props.fetchFollowedSongs(this.props.currentUserId).then(
+                    // this.props.fetchFollowedAndLikedSongsOf(this.props.currentUserId).then(
                         this.setState({
                             loading: false
                         })
@@ -84,7 +87,7 @@ class SongsList extends React.Component {
         switch (this.props.klass) {
             case "stream-page":
                 if (!this.songs && this.state.counter > 1) {
-                    this.props.fetchRelevantSongs(this.props.currentUserId);
+                    this.props.fetchFollowedSongs(this.props.currentUserId);
                 }
                 this.setState({
                     counter: this.state.counter + 1
@@ -98,8 +101,8 @@ class SongsList extends React.Component {
                 //         })
                 //     );
                 // }
-                if (!this.songs && this.counter > 1) {
-                    this.props.fetchRelevantSongs(this.props.currentUserId);
+                if (!this.songs && this.counter === 0) {
+                    this.props.fetchFollowedAndLikedSongsOf(this.props.currentUserId);
                 }
                 this.counter += 1;
                 break;

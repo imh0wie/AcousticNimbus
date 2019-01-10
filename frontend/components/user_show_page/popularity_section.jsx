@@ -1,11 +1,38 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
+
+const msp = (state) => {
+    return({
+        follows: state.entities.follows,
+        currentUserId: state.session.id,
+    })
+}
 
 class PopularitySection extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            currentFollow: Object.values(this.props.onPageArtist.attentions).find(follow => follow.followerId === this.props.currentUserId),
+            // currentFollow: this.props.follows ? 
+            //                 Object.values(this.props.follows.interests).find(follow => follow.followedUserId === this.props.onPageArtist.id) : 
+            //                 Object.values(this.props.onPageArtist.attentions).find(follow => follow.followerId === this.props.currentUserId),
+            followersCount: this.props.onPageArtist.followersCount,
+        }
+        debugger
     }
 
+    componentWillReceiveProps(nextProps) {
+        debugger
+        if ((!this.props.follows && nextProps.follows && nextProps.follows.interests) || (this.props.follows && Object.keys(this.props.follows.interests).length !== Object.keys(nextProps.follows.interests).length)) {
+            debugger
+            this.setState({
+                currentFollow: Object.values(nextProps.follows.interests).find(follow => follow.followedUserId === this.props.onPageArtist.id),
+                followersCount: this.state.currentFollow ? this.state.followersCount - 1 : this.state.followersCount + 1,
+            })
+        }
+    }
+    
     renderNumber(num) {
         if (num < 1000) {
             return num.toString();
@@ -24,13 +51,13 @@ class PopularitySection extends React.Component {
         }
     }
     
-    render () {
+    render() {
         return (
             <div className="popularity-section">
                 <div className="data">
                     <Link to="" onClick={(e) => e.preventDefault()}>
                         <p className="type">Followers</p>
-                        <p className="number">{this.renderNumber(this.props.onPageArtist.followersCount)}</p>
+                        <p className="number">{this.renderNumber(this.state.followersCount)}</p>
                     </Link>
                     <Link to="" onClick={(e) => e.preventDefault()}>
                         <p className="type">Following</p>
@@ -46,4 +73,4 @@ class PopularitySection extends React.Component {
     }
 }
 
-export default withRouter(PopularitySection);
+export default withRouter(connect(msp, null)(PopularitySection));
