@@ -28,6 +28,8 @@ class Api::SongsController < ApplicationController
   
   def show
     @song = Song.find(params[:id])
+    liker_ids = Like.where(likeable_id: params[:id]).select(:liker_id)
+    @likers_of_song = User.where(id: liker_ids).select('*');
     render :show
   end
   

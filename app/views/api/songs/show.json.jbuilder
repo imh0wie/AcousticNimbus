@@ -29,12 +29,29 @@ if @song
       end
       json.imageURL @song.image_url
       json.audioURL @song.audio_url
-      json.likes do
-        json.array! @song.likes do |like|
-          json.id like.id
-          json.likeableType like.likeable_type
-          json.likeableId like.likeable_id
-          json.likerId like.liker_id
+      if @song.likes.length === 0
+        json.likes defaultState
+      else
+        json.set! :likes do
+          @song.likes.each do |like|
+            json.set! like.liker_id do
+              json.id like.id
+              json.likeableId like.likeable_id
+              json.likerId like.liker_id
+            end
+          end
+        end
+      end
+      if @likers_of_song.length === 0
+        json.likers defaultState
+      else
+        json.set! :likers do
+          @likers_of_song.each do |liker|
+            json.set! liker.id do
+              json.id liker.id
+              json.username liker.username
+            end
+          end
         end
       end
       json.likesCount @song.likes_count

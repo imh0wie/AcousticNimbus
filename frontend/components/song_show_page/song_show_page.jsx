@@ -16,12 +16,14 @@ import LikesSection from "../common_components/likes_section";
 import HiringInfoSection from "../common_components/hiring_info_section";
 
 const msp = (state, ownProps) => {
+  const songs = state.entities.songs;
   const onPageSongId = parseInt(ownProps.match.params.songId);
   return ({
-    songs: state.entities.songs,
+    songs: songs,
     // follows: state.entities.follows,
     // users: state.entities.users,
     onPageSongId: onPageSongId,
+    onPageSong: songs ? songs.individualSong[onPageSongId] : null,
     // onPageSong: state.entities.songs && state.entities.songs.individualSong ? state.entities.songs.individualSong[onPageSongId] : null,
     // onPageSong: songs ? songs[parseInt(ownProps.match.params.songId)] : null,
     // currentSong: state.ui.currentSong,
@@ -43,13 +45,22 @@ class SongShowPage extends React.Component {
     super(props);
     this.state = {
       loading: true,
-      onPageSong: this.props.songs && this.props.songs.individualSong ? this.props.songs.individualSong[onPageSongId] : null,
+      // onPageSong: this.props.songs && this.props.songs.individualSong ? this.props.songs.individualSong[onPageSongId] : null,
     }
     this.noneStyle = {display: "none"};
     this.songBanners = [window.song_banner1, window.song_banner2];
   }
 
   componentDidMount() {
+    debugger
+    this.props.fetchSong(this.props.onPageSongId)//.then(
+    this.setState({
+      loading: false,
+    })
+    //)
+  }
+
+  componentWillUnmount() {
     const defaultState = {
       followedSongs: this.props.songs ? this.props.songs.likedSongs : null,
       likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
@@ -61,16 +72,28 @@ class SongShowPage extends React.Component {
     this.props.emptyIndividualSong(defaultState);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.songs && Object.keys(this.props.songs).includes("individualSong") && !this.props.songs.individualSong && nextProps.songs.individualSong && Object.keys(nextProps.songs.individualSong).length === 1) {
-      this.setState({
-        loading: false,
-        onPageSong: nextProps.songs.individualSong[this.props.onPageSongId],
-      });
-    } else if (Object.keys(nextProps.songs).includes("individualSong") && !nextProps.songs.individualSong) {
-      this.props.fetchSong(this.props.onPageSongId);
-    }
-  }
+  // componentDidMount() {
+  //   const defaultState = {
+  //     followedSongs: this.props.songs ? this.props.songs.likedSongs : null,
+  //     likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
+  //     songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
+  //     likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
+  //     individualSong: null,
+  //     relatedSongsByGenre: this.props.songs ? this.props.songs.relatedSongsByGenre : null,
+  //   };
+  //   this.props.emptyIndividualSong(defaultState);
+  // }
+
+  // componentWillReceiveProps(nextProps) {
+  //   if (this.props.songs && Object.keys(this.props.songs).includes("individualSong") && !this.props.songs.individualSong && nextProps.songs.individualSong && Object.keys(nextProps.songs.individualSong).length === 1) {
+  //     this.setState({
+  //       loading: false,
+  //       onPageSong: nextProps.songs.individualSong[this.props.onPageSongId],
+  //     });
+  //   } else if (Object.keys(nextProps.songs).includes("individualSong") && !nextProps.songs.individualSong) {
+  //     this.props.fetchSong(this.props.onPageSongId);
+  //   }
+  // }
 
   // componentDidMount() {
   //   // if (isEmpty(this.props.songs)) 
@@ -92,32 +115,34 @@ class SongShowPage extends React.Component {
   }
 
   render() {
-    if (this.state.loading || !this.state.onPageSong) {
+    if (this.state.loading || !this.props.onPageSong) {
+      debugger
       return (
         <img src={window.loadingPizza} className="loading-page"></img>
       );
     } else {
+      debugger
       return (
         <div className="song-show-page">
-          <Player klass="banner-player" song={this.state.onPageSong}/>
+          <Player klass="banner-player" song={this.props.onPageSong}/>
           <div className="content">
             <div className="social-els-container">
               <div className="extrovert-section">
                 <CommentBox klass="song-show-page"/>
-                <SocialElements klass="banner-player" song={this.state.onPageSong} songId={this.props.onPageSongId}/>
+                <SocialElements klass="banner-player" song={this.props.onPageSong} songId={this.props.onPageSongId}/>
               </div>
               <div className="main">
-                <MiniArtistProfile klass="song-show-page" songArtist={this.state.onPageSong.artist}/>
+                <MiniArtistProfile klass="song-show-page" songArtist={this.props.onPageSong.artist}/>
                 <div className="description-comments">
-                  <p className="description">{this.state.onPageSong.description}</p>
-                  <CommentsList song={this.state.onPageSong} songId={this.props.onPageSongId} songArtist={this.state.onPageSong.artist}/>
+                  <p className="description">{this.props.onPageSong.description}</p>
+                  <CommentsList song={this.props.onPageSong} songId={this.props.onPageSongId} songArtist={this.props.onPageSong.artist}/>
                 </div>
               </div>
             </div>
             <div className="sidebar">
               <Slideshow klass="ad"/>
-              <RelatedSongs song={this.state.onPageSong} />
-              <LikesSection klass="song-show-page" song={this.state.onPageSong} songId={this.props.onPageSongId}/>
+              <RelatedSongs song={this.props.onPageSong} />
+              <LikesSection klass="song-show-page" song={this.props.onPageSong} songId={this.props.onPageSongId}/>
               <HiringInfoSection />
             </div>
           </div>

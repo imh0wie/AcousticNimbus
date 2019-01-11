@@ -110,17 +110,21 @@ class SocialElements extends React.Component {
                 }
                 break;
             case "user-show-page":
+                debugger
                 // if ((!this.props.follows && nextProps.follows) || (nextProps.follows && Object.values(this.props.follows.interests).length !== Object.values(nextProps.follows.interests).length)) {
-                if (nextProps.follows) {
+                if ((!this.props.follows && nextProps.follows) || (this.props.follows && nextProps.follows && Object.keys(this.props.follows.interests).length !== Object.keys(nextProps.follows.interests).length)) {
+                    debugger
                     if (this.state.currentFollow) {
+                        debugger
                         this.setState({
                             currentFollow: null,
-                        })
+                        });
                     } else {
+                        debugger
                         this.setState({
-                            currentFollow: Object.values(nextProps.follows.interests).find(interest => interest.followedUserId === nextProps.onPageArtistId),
+                            currentFollow: Object.values(nextProps.follows.interests).find(interest => interest.followedUserId === this.props.onPageArtistId),
                             // currentFollow: followOf(nextProps.onPageArtistId, nextProps.follows.interests),
-                        })
+                        });
                     }
                 }
                 break;
@@ -281,6 +285,7 @@ class SocialElements extends React.Component {
                     </div>
                 );
             case "user-show-page":
+            debugger
                 return (
                     <div className="buttons">
                         <button 
@@ -292,6 +297,8 @@ class SocialElements extends React.Component {
                         </button>
                     </div>
                 );
+            default:
+                break;
         }
     }
 

@@ -557,7 +557,7 @@ var receiveSessionErrors = function receiveSessionErrors(errors) {
 /*!******************************************!*\
   !*** ./frontend/actions/song_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_SONG, RECEIVE_SONGS, RECEIVE_FOLLOWED_SONGS, RECEIVE_LIKED_SONGS, RECEIVE_FOLLOWED_AND_LIKED_SONGS, RECEIVE_SONG_ERRORS, RECEIVE_SONGS_ERRORS, EMPTY_SONGS_OF_SPECIFIC_USER, EMPTY_LIKED_SONGS_OF_SPECIFIC_USER, EMPTY_FOLLOWED_SONGS, EMPTY_LIKED_SONGS, EMPTY_FOLLOWED_AND_LIKED_SONGS_OF, EMPTY_INDIVIDUAL_SONG, EMPTY_RELATED_SONGS_BY_GENRE, createSong, removeSong, fetchSong, fetchRelatedSongsByGenre, fetchSongs, fetchSongsOfSpecificUser, fetchLikedSongsOfSpecificUser, fetchFollowedAndLikedSongsOf, fetchFollowedSongs, fetchLikedSongs, emptySongsOfSpecificUser, emptyLikedSongsOfSpecificUser, emptyFollowedSongs, emptyLikedSongs, emptyFollowedAndLikedSongsOf, emptyIndividualSong, emptyRelatedSongsByGenre */
+/*! exports provided: RECEIVE_SONG, RECEIVE_SONGS, RECEIVE_FOLLOWED_SONGS, RECEIVE_LIKED_SONGS, RECEIVE_FOLLOWED_AND_LIKED_SONGS, RECEIVE_SONGS_OF_SPECIFIC_USER, RECEIVE_SONG_ERRORS, RECEIVE_SONGS_ERRORS, EMPTY_SONGS_OF_SPECIFIC_USER, EMPTY_LIKED_SONGS_OF_SPECIFIC_USER, EMPTY_FOLLOWED_SONGS, EMPTY_LIKED_SONGS, EMPTY_FOLLOWED_AND_LIKED_SONGS_OF, EMPTY_INDIVIDUAL_SONG, EMPTY_RELATED_SONGS_BY_GENRE, createSong, removeSong, fetchSong, fetchRelatedSongsByGenre, fetchSongs, fetchSongsOfSpecificUser, fetchLikedSongsOfSpecificUser, fetchFollowedAndLikedSongsOf, fetchFollowedSongs, fetchLikedSongs, emptySongsOfSpecificUser, emptyLikedSongsOfSpecificUser, emptyFollowedSongs, emptyLikedSongs, emptyFollowedAndLikedSongsOf, emptyIndividualSong, emptyRelatedSongsByGenre */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -567,6 +567,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_FOLLOWED_SONGS", function() { return RECEIVE_FOLLOWED_SONGS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_LIKED_SONGS", function() { return RECEIVE_LIKED_SONGS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_FOLLOWED_AND_LIKED_SONGS", function() { return RECEIVE_FOLLOWED_AND_LIKED_SONGS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_SONGS_OF_SPECIFIC_USER", function() { return RECEIVE_SONGS_OF_SPECIFIC_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_SONG_ERRORS", function() { return RECEIVE_SONG_ERRORS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_SONGS_ERRORS", function() { return RECEIVE_SONGS_ERRORS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EMPTY_SONGS_OF_SPECIFIC_USER", function() { return EMPTY_SONGS_OF_SPECIFIC_USER; });
@@ -600,6 +601,7 @@ var RECEIVE_SONGS = "RECEIVE_SONGS";
 var RECEIVE_FOLLOWED_SONGS = "RECEIVE_FOLLOWED_SONGS";
 var RECEIVE_LIKED_SONGS = "RECEIVE_LIKED_SONGS";
 var RECEIVE_FOLLOWED_AND_LIKED_SONGS = "RECEIVE_FOLLOWED_AND_LIKED_SONGS";
+var RECEIVE_SONGS_OF_SPECIFIC_USER = "RECEIVE_SONGS_OF_SPECIFIC_USER";
 var RECEIVE_SONG_ERRORS = "RECEIVE_SONG_ERRORS";
 var RECEIVE_SONGS_ERRORS = "RECEIVE_SONGS_ERRORS";
 var EMPTY_SONGS_OF_SPECIFIC_USER = "EMPTY_SONGS_OF_SPECIFIC_USER";
@@ -655,7 +657,7 @@ var fetchSongs = function fetchSongs() {
 var fetchSongsOfSpecificUser = function fetchSongsOfSpecificUser(userId) {
   return function (dispatch) {
     return _util_song_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchSongsOfSpecificUser"](userId).then(function (songsFromServer) {
-      return dispatch(receiveSongs(songsFromServer));
+      return dispatch(receiveSongsOfSpecificUser(songsFromServer));
     }, function (errors) {
       return dispatch(receiveSongsErrors(errors.responseJSON));
     });
@@ -771,6 +773,13 @@ var receiveLikedSongs = function receiveLikedSongs(songs) {
 var receiveFollowedAndLikedSongs = function receiveFollowedAndLikedSongs(songs) {
   return {
     type: RECEIVE_FOLLOWED_AND_LIKED_SONGS,
+    songs: songs
+  };
+};
+
+var receiveSongsOfSpecificUser = function receiveSongsOfSpecificUser(songs) {
+  return {
+    type: RECEIVE_SONGS_OF_SPECIFIC_USER,
     songs: songs
   };
 };
@@ -1359,8 +1368,7 @@ function (_React$Component) {
         likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
         individualSong: this.props.songs ? this.props.songs.individualSong : null,
         relatedSongsByGenre: this.props.songs ? this.props.songs.relatedSongsByGenre : null
-      };
-      this.props.emptyFollowedAndLikedSongsOf(defaultState);
+      }; // this.props.emptyFollowedAndLikedSongsOf(defaultState);
     }
   }, {
     key: "render",
@@ -1605,8 +1613,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bubbles_list_bubbles_list__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./bubbles_list/bubbles_list */ "./frontend/components/common_components/bubbles_list/bubbles_list.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -1644,7 +1650,7 @@ var msp = function msp(state, ownProps) {
   var currentUserId = state.session.id;
   var likes = state.entities.likes;
   return {
-    song: song,
+    // song: song,
     songId: songId,
     songs: songs,
     likes: likes,
@@ -1713,10 +1719,17 @@ function (_React$Component) {
         break;
 
       case "song-show-page":
+        debugger;
         _this.state = {
-          likers: _this.props.users && _this.props.users.likersOfSpecificSong ? Object.values(_this.props.users.likersOfSpecificSong) : null,
-          loading: true,
-          counter: 0
+          likers: Object.values(_this.props.song.likers),
+          liked: _this.props.song.likes[_this.props.currentUserId] ? true : false,
+          loading: true // counter: 0,
+          // this.state = {
+          //     likers: this.props.users && this.props.users.likersOfSpecificSong ? Object.values(this.props.users.likersOfSpecificSong) : null,
+          //     loading: true,
+          //     counter: 0,
+          // }
+
         };
         break;
 
@@ -1733,9 +1746,10 @@ function (_React$Component) {
   _createClass(LikesSection, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var _this$defaultState;
-
       switch (this.props.klass) {
+        case "homepage":
+          break;
+
         case "user-show-page":
           this.setState({
             loading: false
@@ -1751,14 +1765,18 @@ function (_React$Component) {
 
           break;
 
-        case "homepage":
-          break;
-
         case "song-show-page":
-          this.defaultState = (_this$defaultState = {
-            randomThree: this.props.users && this.props.users.randomThree ? this.props.users.randomThree : null
-          }, _defineProperty(_this$defaultState, this.props.currentUserId, this.props.currentUser), _defineProperty(_this$defaultState, "individualUser", this.props.users && this.props.users.individualUser ? this.props.users.individualUser : null), _defineProperty(_this$defaultState, "followersOfSpecificUser", this.props.users && this.props.users.followersOfSpecificUser ? this.props.users.followersOfSpecificUser : null), _defineProperty(_this$defaultState, "likersOfSpecificSong", null), _this$defaultState);
-          this.props.emptyLikersOfSpecificSong(this.defaultState);
+          this.setState({
+            loading: false
+          }); // this.defaultState = {
+          //     randomThree: this.props.users && this.props.users.randomThree ? this.props.users.randomThree : null,
+          //     [this.props.currentUserId]: this.props.currentUser,
+          //     individualUser: this.props.users && this.props.users.individualUser ? this.props.users.individualUser : null,
+          //     followersOfSpecificUser: this.props.users && this.props.users.followersOfSpecificUser ? this.props.users.followersOfSpecificUser : null,
+          //     likersOfSpecificSong: null,
+          // };
+          // this.props.emptyLikersOfSpecificSong(this.defaultState);
+
           break;
 
         default:
@@ -1776,6 +1794,8 @@ function (_React$Component) {
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
+      var _this2 = this;
+
       switch (this.props.klass) {
         case "homepage":
           if ((!this.props.songs || !this.props.songs.likedSongs) && nextProps.songs && nextProps.songs.likedSongs) {
@@ -1839,28 +1859,35 @@ function (_React$Component) {
           break;
 
         case "song-show-page":
-          if (!this.props.users.likersOfSpecificSong && nextProps.users.likersOfSpecificSong || this.props.users.likersOfSpecificSong && nextProps.users.likersOfSpecificSong && Object.keys(this.props.users.likersOfSpecificSong).length !== Object.keys(nextProps.users.likersOfSpecificSong).length) {
-            this.setState({
-              loading: false,
-              likers: Object.values(nextProps.users.likersOfSpecificSong)
-            });
-          } else if (this.state.loading && this.state.counter === 0) {
-            // && Object.keys(nextProps.songs).includes("likedSongsOfSpecificUser") && nextProps.songs.likedSongsOfSpecificUser === null) {
-            this.props.fetchLikersOfSpecificSong(this.props.songId);
-            this.setState({
-              counter: this.state.counter + 1
-            });
-          } // else if (Object.keys(this.props.users).includes("likersOfSpecificSong") && !this.props.users.likersOfSpecificSong && nextProps.users && nextProps.users.likersOfSpecificSong) {
+          if (!this.props.likes && nextProps.likes || this.props.likes && nextProps.likes && Object.keys(this.props.likes).length !== Object.keys(nextProps.likes).length) {
+            debugger;
+
+            if (this.state.liked) {
+              debugger;
+              var idx = this.state.likers.findIndex(function (liker) {
+                return liker.id === _this2.props.currentUserId;
+              });
+              this.setState({
+                likers: this.state.likers.length === 1 ? [] : this.state.likers.slice(0, idx).concat(this.state.liker.slice(idx + 1)),
+                liked: !this.state.liked
+              });
+            } else {
+              debugger;
+              this.setState({
+                likers: this.state.likers.concat([this.props.currentUser]),
+                liked: !this.state.liked
+              });
+            }
+          } // if ((!this.props.users.likersOfSpecificSong && nextProps.users.likersOfSpecificSong) || (this.props.users.likersOfSpecificSong && nextProps.users.likersOfSpecificSong && Object.keys(this.props.users.likersOfSpecificSong).length !== Object.keys(nextProps.users.likersOfSpecificSong).length)) {
           //     this.setState({
           //         loading: false,
           //         likers: Object.values(nextProps.users.likersOfSpecificSong),
-          //     });                    
-          // } else if (Object.keys(nextProps.users).includes("likersOfSpecificSong") && !nextProps.users.likersOfSpecificSong) {
-          //     this.setState = ({
-          //         loading: true,
-          //     })
+          //     });
+          // } else if (this.state.loading && this.state.counter === 0) { // && Object.keys(nextProps.songs).includes("likedSongsOfSpecificUser") && nextProps.songs.likedSongsOfSpecificUser === null) {
           //     this.props.fetchLikersOfSpecificSong(this.props.songId);
-          // } else {
+          //     this.setState({
+          //         counter: this.state.counter + 1,
+          //     });
           // }
 
 
@@ -3933,6 +3960,8 @@ function (_React$Component) {
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
+      var _this2 = this;
+
       switch (this.props.klass) {
         case "item-player":
           if (!this.props.likes || Object.keys(this.props.likes).length !== Object.keys(nextProps.likes).length) {
@@ -3963,16 +3992,21 @@ function (_React$Component) {
           break;
 
         case "user-show-page":
-          // if ((!this.props.follows && nextProps.follows) || (nextProps.follows && Object.values(this.props.follows.interests).length !== Object.values(nextProps.follows.interests).length)) {
-          if (nextProps.follows) {
+          debugger; // if ((!this.props.follows && nextProps.follows) || (nextProps.follows && Object.values(this.props.follows.interests).length !== Object.values(nextProps.follows.interests).length)) {
+
+          if (!this.props.follows && nextProps.follows || this.props.follows && nextProps.follows && Object.keys(this.props.follows.interests).length !== Object.keys(nextProps.follows.interests).length) {
+            debugger;
+
             if (this.state.currentFollow) {
+              debugger;
               this.setState({
                 currentFollow: null
               });
             } else {
+              debugger;
               this.setState({
                 currentFollow: Object.values(nextProps.follows.interests).find(function (interest) {
-                  return interest.followedUserId === nextProps.onPageArtistId;
+                  return interest.followedUserId === _this2.props.onPageArtistId;
                 }) // currentFollow: followOf(nextProps.onPageArtistId, nextProps.follows.interests),
 
               });
@@ -4123,7 +4157,7 @@ function (_React$Component) {
   }, {
     key: "renderButtons",
     value: function renderButtons() {
-      var _this2 = this;
+      var _this3 = this;
 
       switch (this.props.klass) {
         case "banner-player":
@@ -4132,7 +4166,7 @@ function (_React$Component) {
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
             className: this.state.currentLike ? "liked-button" : "like-button",
             onClick: function onClick(e) {
-              return _this2.handleLike(e);
+              return _this3.handleLike(e);
             }
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             className: "fas fa-heart"
@@ -4144,22 +4178,26 @@ function (_React$Component) {
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
             className: this.state.currentLike ? "liked-button" : "like-button",
             onClick: function onClick(e) {
-              return _this2.handleLike(e);
+              return _this3.handleLike(e);
             }
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             className: "fas fa-heart"
           }), " ", this.state.likesCount));
 
         case "user-show-page":
+          debugger;
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "buttons"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
             className: this.state.currentFollow ? "following" : "follow",
             onClick: function onClick(e) {
-              return _this2.handleFollow(e);
+              return _this3.handleFollow(e);
             },
             style: this.props.onPageArtistId === this.props.currentUserId ? this.noneStyle : {}
           }, this.state.currentFollow ? "Following" : "Follow"));
+
+        default:
+          break;
       }
     }
   }, {
@@ -4544,6 +4582,7 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SongsList).call(this, props));
     _this.state = {
       loading: true,
+      streamSongs: _this.props.songs && _this.props.songs.followedSongs ? Object.values(_this.props.songs.followedSongs).reverse() : null,
       counter: 0
     };
     _this.counter = 0;
@@ -4555,20 +4594,30 @@ function (_React$Component) {
     value: function componentDidMount() {
       switch (this.props.klass) {
         case "stream-page":
-          if (!this.songs) {
-            var _defaultState = {
-              followedSongs: null,
-              likedSongs: null,
-              songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
-              likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
-              individualSong: this.props.songs ? this.props.songs.individualSong : null
-            };
-            if (!(this.props.songs && Object.keys(this.props.songs).includes("followedSongs") && Object.keys(this.props.songs).includes("likedSongs") && !this.props.songs.followedSongs && !this.props.songs.likedSongs)) this.props.emptyFollowedAndLikedSongsOf(_defaultState);
-            this.props.fetchFollowedSongs(this.props.currentUserId).then( // this.props.fetchFollowedAndLikedSongsOf(this.props.currentUserId).then(
+          debugger; // if (!this.songs) {
+          // debugger
+          // const defaultState = {
+          //     followedSongs: null,
+          //     likedSongs: null,
+          //     songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
+          //     likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
+          //     individualSong: this.props.songs ? this.props.songs.individualSong : null,
+          // };
+
+          if (this.songs) {
             this.setState({
-              loading: false
-            }));
+              loading: true,
+              streamSongs: null
+            });
           }
+
+          this.props.fetchFollowedSongs(this.props.currentUserId); // if (!(this.props.songs && Object.keys(this.props.songs).includes("followedSongs") && Object.keys(this.props.songs).includes("likedSongs") && !this.props.songs.followedSongs && !this.props.songs.likedSongs)) this.props.emptyFollowedAndLikedSongsOf(defaultState);
+          // this.props.fetchFollowedAndLikedSongsOf(this.props.currentUserId).then(
+          //     this.setState({
+          //         loading: false
+          //     })
+          // );
+          // }
 
           break;
 
@@ -4594,14 +4643,20 @@ function (_React$Component) {
     }
   }, {
     key: "componentWillReceiveProps",
-    value: function componentWillReceiveProps() {
+    value: function componentWillReceiveProps(nextProps) {
       switch (this.props.klass) {
         case "stream-page":
+          debugger;
+
           if (!this.songs && this.state.counter > 1) {
+            debugger;
             this.props.fetchFollowedSongs(this.props.currentUserId);
           }
 
+          debugger;
           this.setState({
+            loading: false,
+            streamSongs: nextProps.songs && nextProps.songs.followedSongs ? Object.values(nextProps.songs.followedSongs).reverse() : null,
             counter: this.state.counter + 1
           });
           break;
@@ -4614,16 +4669,28 @@ function (_React$Component) {
           //         })
           //     );
           // }
-          if (!this.songs && this.counter === 0) {
-            this.props.fetchFollowedAndLikedSongsOf(this.props.currentUserId);
-          }
-
-          this.counter += 1;
+          //
+          // if (!this.songs && this.counter === 0) {
+          //     this.props.fetchFollowedAndLikedSongsOf(this.props.currentUserId);
+          // }
+          // this.counter += 1;
           break;
 
         default:
           break;
       }
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      var defaultState = {
+        followedSongs: null,
+        likedSongs: null,
+        songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
+        likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
+        individualSong: this.props.songs ? this.props.songs.individualSong : null
+      };
+      this.props.emptyFollowedAndLikedSongsOf(defaultState);
     }
   }, {
     key: "render",
@@ -4632,7 +4699,8 @@ function (_React$Component) {
 
       switch (this.props.klass) {
         case "stream-page":
-          this.songs = this.props.streamSongs;
+          this.songs = this.state.streamSongs; // this.songs = this.props.streamSongs;
+
           break;
 
         case "user-show-page":
@@ -4643,7 +4711,8 @@ function (_React$Component) {
           break;
       }
 
-      if (this.state.loading || !this.songs) {
+      if (!(!this.state.loading && this.songs)) {
+        // if (this.state.loading || !this.songs) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loadingPizza,
           className: "loading"
@@ -6644,12 +6713,14 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 var msp = function msp(state, ownProps) {
+  var songs = state.entities.songs;
   var onPageSongId = parseInt(ownProps.match.params.songId);
   return {
-    songs: state.entities.songs,
+    songs: songs,
     // follows: state.entities.follows,
     // users: state.entities.users,
-    onPageSongId: onPageSongId // onPageSong: state.entities.songs && state.entities.songs.individualSong ? state.entities.songs.individualSong[onPageSongId] : null,
+    onPageSongId: onPageSongId,
+    onPageSong: songs ? songs.individualSong[onPageSongId] : null // onPageSong: state.entities.songs && state.entities.songs.individualSong ? state.entities.songs.individualSong[onPageSongId] : null,
     // onPageSong: songs ? songs[parseInt(ownProps.match.params.songId)] : null,
     // currentSong: state.ui.currentSong,
 
@@ -6682,8 +6753,8 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SongShowPage).call(this, props));
     _this.state = {
-      loading: true,
-      onPageSong: _this.props.songs && _this.props.songs.individualSong ? _this.props.songs.individualSong[onPageSongId] : null
+      loading: true // onPageSong: this.props.songs && this.props.songs.individualSong ? this.props.songs.individualSong[onPageSongId] : null,
+
     };
     _this.noneStyle = {
       display: "none"
@@ -6695,6 +6766,16 @@ function (_React$Component) {
   _createClass(SongShowPage, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      debugger;
+      this.props.fetchSong(this.props.onPageSongId); //.then(
+
+      this.setState({
+        loading: false
+      }); //)
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
       var defaultState = {
         followedSongs: this.props.songs ? this.props.songs.likedSongs : null,
         likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
@@ -6704,19 +6785,28 @@ function (_React$Component) {
         relatedSongsByGenre: this.props.songs ? this.props.songs.relatedSongsByGenre : null
       };
       this.props.emptyIndividualSong(defaultState);
-    }
-  }, {
-    key: "componentWillReceiveProps",
-    value: function componentWillReceiveProps(nextProps) {
-      if (this.props.songs && Object.keys(this.props.songs).includes("individualSong") && !this.props.songs.individualSong && nextProps.songs.individualSong && Object.keys(nextProps.songs.individualSong).length === 1) {
-        this.setState({
-          loading: false,
-          onPageSong: nextProps.songs.individualSong[this.props.onPageSongId]
-        });
-      } else if (Object.keys(nextProps.songs).includes("individualSong") && !nextProps.songs.individualSong) {
-        this.props.fetchSong(this.props.onPageSongId);
-      }
     } // componentDidMount() {
+    //   const defaultState = {
+    //     followedSongs: this.props.songs ? this.props.songs.likedSongs : null,
+    //     likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
+    //     songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
+    //     likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
+    //     individualSong: null,
+    //     relatedSongsByGenre: this.props.songs ? this.props.songs.relatedSongsByGenre : null,
+    //   };
+    //   this.props.emptyIndividualSong(defaultState);
+    // }
+    // componentWillReceiveProps(nextProps) {
+    //   if (this.props.songs && Object.keys(this.props.songs).includes("individualSong") && !this.props.songs.individualSong && nextProps.songs.individualSong && Object.keys(nextProps.songs.individualSong).length === 1) {
+    //     this.setState({
+    //       loading: false,
+    //       onPageSong: nextProps.songs.individualSong[this.props.onPageSongId],
+    //     });
+    //   } else if (Object.keys(nextProps.songs).includes("individualSong") && !nextProps.songs.individualSong) {
+    //     this.props.fetchSong(this.props.onPageSongId);
+    //   }
+    // }
+    // componentDidMount() {
     //   // if (isEmpty(this.props.songs)) 
     //   if (!this.props.songs) this.props.fetchSongs();
     //   // if (Object.keys(this.props.users) === 1 ) 
@@ -6739,17 +6829,19 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      if (this.state.loading || !this.state.onPageSong) {
+      if (this.state.loading || !this.props.onPageSong) {
+        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loadingPizza,
           className: "loading-page"
         });
       } else {
+        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-show-page"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_player__WEBPACK_IMPORTED_MODULE_7__["default"], {
           klass: "banner-player",
-          song: this.state.onPageSong
+          song: this.props.onPageSong
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "content"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -6760,30 +6852,30 @@ function (_React$Component) {
           klass: "song-show-page"
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_social_elements__WEBPACK_IMPORTED_MODULE_9__["default"], {
           klass: "banner-player",
-          song: this.state.onPageSong,
+          song: this.props.onPageSong,
           songId: this.props.onPageSongId
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "main"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_mini_artist_profile__WEBPACK_IMPORTED_MODULE_10__["default"], {
           klass: "song-show-page",
-          songArtist: this.state.onPageSong.artist
+          songArtist: this.props.onPageSong.artist
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "description-comments"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "description"
-        }, this.state.onPageSong.description), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_comments_list_comments_list__WEBPACK_IMPORTED_MODULE_11__["default"], {
-          song: this.state.onPageSong,
+        }, this.props.onPageSong.description), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_comments_list_comments_list__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          song: this.props.onPageSong,
           songId: this.props.onPageSongId,
-          songArtist: this.state.onPageSong.artist
+          songArtist: this.props.onPageSong.artist
         })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "sidebar"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_slideshow__WEBPACK_IMPORTED_MODULE_12__["default"], {
           klass: "ad"
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_related_songs__WEBPACK_IMPORTED_MODULE_13__["default"], {
-          song: this.state.onPageSong
+          song: this.props.onPageSong
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_likes_section__WEBPACK_IMPORTED_MODULE_14__["default"], {
           klass: "song-show-page",
-          song: this.state.onPageSong,
+          song: this.props.onPageSong,
           songId: this.props.onPageSongId
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_hiring_info_section__WEBPACK_IMPORTED_MODULE_15__["default"], null))));
       }
@@ -7669,9 +7761,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
-/* harmony import */ var _util_follow_api_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../util/follow_api_util */ "./frontend/util/follow_api_util.js");
-/* harmony import */ var _common_components_bubbles_list_bubbles_list__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../common_components/bubbles_list/bubbles_list */ "./frontend/components/common_components/bubbles_list/bubbles_list.jsx");
+/* harmony import */ var _common_components_bubbles_list_bubbles_list__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../common_components/bubbles_list/bubbles_list */ "./frontend/components/common_components/bubbles_list/bubbles_list.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -7695,43 +7785,13 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
- // const msp = (state, ownProps) => {
-//     return ({
-//         currentFollows: followsOf(parseInt(ownProps.match.params.userId), state.entities.follows), 
-//         // not grabbing followers directly for transition between header and content (loading)
-//     });
-// }
-// const FollowersSection = (props) => {
-//     return (
-//         <div className="followers-section">
-//             <div className="header">
-//                 <p><i className="fas fa-user"></i> {props.currentFollows ? props.currentFollows.length : "0"} {(!props.currentFollows || !(props.currentFollows.length > 1)) ? "follower" : "followers"}</p>
-//                 <Link to="" onClick={(e) => e.preventDefault()}>View all</Link>
-//             </div>
-//             <BubblesList klass="user-show-page" items={Object.values(props.onPageArtist.followers)} />
-//         </div>
-//     );
-// }
-
 var msp = function msp(state) {
   var users = state.entities.users;
   var currentUserId = state.session.id;
   return {
     follows: state.entities.follows,
-    followers: users && users.followersOfSpecificUser ? Object.values(users.followersOfSpecificUser) : null,
     currentUserId: currentUserId,
     currentUser: users[currentUserId]
-  };
-};
-
-var mdp = function mdp(dispatch) {
-  return {
-    fetchFollowersOfSpecificUser: function fetchFollowersOfSpecificUser(userId) {
-      return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_3__["fetchFollowersOfSpecificUser"])(userId));
-    },
-    emptyFollowersOfSpecificUser: function emptyFollowersOfSpecificUser(defaultState) {
-      return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_3__["emptyFollowersOfSpecificUser"])(defaultState));
-    }
   };
 };
 
@@ -7778,108 +7838,8 @@ function (_React$Component) {
             followed: !this.state.followed
           });
         }
-      } // if (!this.state.loading && nextProps.follows.interests) {
-      //     debugger
-      //     this.props.fetchFollowersOfSpecificUser(this.props.onPageArtistId);
-      //     this.setState({
-      //         loading: true,
-      //     });
-      //     debugger
-      // } else if (this.state.loading && nextProps.users && nextProps.users.followersOfSpecificUser) {
-      //     debugger
-      //     this.setState({
-      //         loading: false,
-      //         followers: Object.values(nextProps.users.followersOfSpecificUser),
-      //     })
-      // }
-
-    } // componentDidMount() {
-    //     const defaultState = {
-    //         randomThree: this.props.users && this.props.users.randomThree ? this.props.users.randomThree : null,
-    //         [this.props.currentUserId]: this.props.currentUser,
-    //         individualUser: null,
-    //         followersOfSpecificUser: this.props.users && this.prop.users.followersOfSpecificUser ? this.prop.users.followersOfSpecificUser : null,
-    //         likersOfSpecificSong: this.props.users && this.props.users.likersOfSpecificSong ? this.props.users.likersOfSpecificSong : null,
-    //     };
-    //     this.props.emptyFollowersOfSpecificUser(defaultState);
-    //     // this.setState({
-    //     //     counter: this.state.counter + 1,
-    //     // })
-    // }
-    // componentWillReceiveProps(nextProps) {
-    //     if (this.state.loading && nextProps.followers && Object.keys(nextProps.followers).includes("followersOfSpecificUser") && !nextProps.followers.followersOfSpecificUser) {
-    //         this.props.fetchFollowersOfSpecificUser(this.props.onPageArtistId);
-    //     } else if (this.state.loading && nextProps.followers.followersOfSpecificUser) {
-    //         this.setState({
-    //             loading: false,
-    //             followers: Object.values(nextProps.followers.followersOfSpecificUser),
-    //         })
-    //     } else if (!this.props.follows && nextProps.follows.interests) {
-    //         const defaultState = {
-    //             randomThree: this.props.users && this.props.users.randomThree ? this.props.users.randomThree : null,
-    //             [this.props.currentUserId]: this.props.currentUser,
-    //             individualUser: null,
-    //             followersOfSpecificUser: this.props.users && this.prop.users.followersOfSpecificUser ? this.prop.users.followersOfSpecificUser : null,
-    //             likersOfSpecificSong: this.props.users && this.props.users.likersOfSpecificSong ? this.props.users.likersOfSpecificSong : null,
-    //         };
-    //         this.props.emptyFollowersOfSpecificUser(defaultState);
-    //         this.setState({
-    //             loading: true,
-    //         });
-    //     }
-    // }
-    // componentWillReceiveProps(nextProps) {
-    //     if (this.state.loading && nextProps.followers && Object.keys(nextProps.followers).includes("followersOfSpecificUser") && !nextProps.followers.followersOfSpecificUser) {
-    //         this.props.fetchFollowersOfSpecificUser(this.props.onPageArtistId);
-    //     } else if (this.state.loading && nextProps.followers.followersOfSpecificUser) {
-    //         this.setState({
-    //             loading: false,
-    //             followers: Object.values(nextProps.followers.followersOfSpecificUser),
-    //         })
-    //     } else if (!this.props.follows && nextProps.follows.interests) {
-    //         const defaultState = {
-    //             randomThree: this.props.users && this.props.users.randomThree ? this.props.users.randomThree : null,
-    //             [this.props.currentUserId]: this.props.currentUser,
-    //             individualUser: null,
-    //             followersOfSpecificUser: this.props.users && this.prop.users.followersOfSpecificUser ? this.prop.users.followersOfSpecificUser : null,
-    //             likersOfSpecificSong: this.props.users && this.props.users.likersOfSpecificSong ? this.props.users.likersOfSpecificSong : null,
-    //         };
-    //         this.props.emptyFollowersOfSpecificUser(defaultState);
-    //         this.setState({
-    //             loading: true,
-    //         });
-    //     }
-    // }
-    // componentWillReceiveProps(nextProps) {
-    //     if ((!this.props.follows && nextProps.follows) || (this.props.follows && nextProps.follows && Object.keys(this.props.follows.interests) !== Object.keys(nextProps.follows)) {
-    //     }
-    //     if (this.counter === 1) {
-    //         c
-    //         this.counter += 1;
-    //     } else if (this.counter === 2 && nextProps.users.followersOfSpecificUser) {
-    //         this.setState({
-    //             loading: false,
-    //             followers: Object.values(nextProps.users.followersOfSpecificUser),
-    //         })
-    //         this.counter += 1;
-    //     } else if (this.counter % 3 === 0 && ((!this.props.follows && nextProps.follows) || (this.props.follows && nextProps.follows && Object.keys(this.props.follows.interests).length !== Object.keys(nextProps.follows.interests).length))) {
-    //         this.setState({
-    //             loading: true,
-    //         });
-    //         this.props.emptyFollowersOfSpecificUser(this.defaultState);
-    //         this.counter += 1;
-    //     } else if (this.counter % 3 === 1) {
-    //         this.props.fetchFollowersOfSpecificUser(this.props.onPageArtistId);
-    //         this.counter += 1;
-    //     } else if (this.counter % 3 === 2) {
-    //         this.setState({
-    //             loading: false,
-    //             followers: Object.values(nextProps.users.followersOfSpecificUser),
-    //         });
-    //         this.counter += 1;
-    //     // }
-    // }
-
+      }
+    }
   }, {
     key: "renderList",
     value: function renderList() {
@@ -7889,7 +7849,7 @@ function (_React$Component) {
           className: "loading-sm"
         });
       } else {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_bubbles_list_bubbles_list__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_bubbles_list_bubbles_list__WEBPACK_IMPORTED_MODULE_3__["default"], {
           klass: "user-show-page",
           items: this.state.followers
         });
@@ -7916,7 +7876,7 @@ function (_React$Component) {
   return FollowersSection;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, mdp)(FollowersSection)));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, null)(FollowersSection)));
 
 /***/ }),
 
@@ -8167,16 +8127,20 @@ function (_React$Component) {
   _createClass(UserShowPage, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      this.props.fetchUser(this.props.onPageArtistId);
+      this.setState({
+        loading: false
+      });
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
       var _defaultState;
 
       var defaultState = (_defaultState = {
         randomThree: this.props.users && this.props.users.randomThree ? this.props.users.randomThree : null
       }, _defineProperty(_defaultState, this.props.currentUserId, this.props.currentUser), _defineProperty(_defaultState, "individualUser", null), _defineProperty(_defaultState, "followersOfSpecificUser", this.props.users && this.props.users.followersOfSpecificUser ? this.props.users.followersOfSpecificUser : null), _defineProperty(_defaultState, "likersOfSpecificSong", this.props.users && this.props.users.likersOfSpecificSong ? this.props.users.likersOfSpecificSong : null), _defaultState);
       this.props.emptyIndividualUser(defaultState);
-      this.props.fetchUser(this.props.onPageArtistId);
-      this.setState({
-        loading: false
-      });
     }
   }, {
     key: "render",
@@ -8199,7 +8163,8 @@ function (_React$Component) {
           klass: "user-show-page",
           onPageArtistId: this.props.onPageArtistId
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_social_elements__WEBPACK_IMPORTED_MODULE_6__["default"], {
-          klass: "user-show-page"
+          klass: "user-show-page",
+          onPageArtistId: this.props.onPageArtistId
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "content"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -8780,15 +8745,16 @@ var songsReducer = function songsReducer() {
 
   switch (action.type) {
     case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_SONG"]:
-      newState = Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, action.song);
-      return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, newState);
-
     case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_SONGS"]:
-    case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_FOLLOWED_SONGS"]:
     case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_LIKED_SONGS"]:
     case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_FOLLOWED_AND_LIKED_SONGS"]:
-      newState = action.songs;
+    case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_SONGS_OF_SPECIFIC_USER"]:
+      newState = action.songs || action.song;
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, newState);
+
+    case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_FOLLOWED_SONGS"]:
+      newState = action.songs;
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, newState);
 
     case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["EMPTY_INDIVIDUAL_SONG"]:
     case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["EMPTY_RELATED_SONGS_BY_GENRE"]:

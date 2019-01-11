@@ -36,6 +36,7 @@ class SongsList extends React.Component {
         super(props);
         this.state = {
             loading: true,
+            streamSongs: this.props.songs && this.props.songs.followedSongs ? Object.values(this.props.songs.followedSongs).reverse() : null,
             counter: 0,
         }
         this.counter = 0;
@@ -44,22 +45,31 @@ class SongsList extends React.Component {
     componentDidMount() {
         switch (this.props.klass) {
             case "stream-page":
-                if (!this.songs) {
-                    const defaultState = {
-                        followedSongs: null,
-                        likedSongs: null,
-                        songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
-                        likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
-                        individualSong: this.props.songs ? this.props.songs.individualSong : null,
-                    };
-                    if (!(this.props.songs && Object.keys(this.props.songs).includes("followedSongs") && Object.keys(this.props.songs).includes("likedSongs") && !this.props.songs.followedSongs && !this.props.songs.likedSongs)) this.props.emptyFollowedAndLikedSongsOf(defaultState);
-                    this.props.fetchFollowedSongs(this.props.currentUserId).then(
-                    // this.props.fetchFollowedAndLikedSongsOf(this.props.currentUserId).then(
+                debugger
+                // if (!this.songs) {
+                    // debugger
+                    // const defaultState = {
+                    //     followedSongs: null,
+                    //     likedSongs: null,
+                    //     songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
+                    //     likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
+                    //     individualSong: this.props.songs ? this.props.songs.individualSong : null,
+                    // };
+                    if (this.songs) {
                         this.setState({
-                            loading: false
+                            loading: true,
+                            streamSongs: null,
                         })
-                    );
-                }
+                    } 
+                    this.props.fetchFollowedSongs(this.props.currentUserId);
+                    // if (!(this.props.songs && Object.keys(this.props.songs).includes("followedSongs") && Object.keys(this.props.songs).includes("likedSongs") && !this.props.songs.followedSongs && !this.props.songs.likedSongs)) this.props.emptyFollowedAndLikedSongsOf(defaultState);
+
+                    // this.props.fetchFollowedAndLikedSongsOf(this.props.currentUserId).then(
+                    //     this.setState({
+                    //         loading: false
+                    //     })
+                    // );
+                // }
                 break;
             case "user-show-page":
                 // if (!this.songs) {
@@ -83,13 +93,18 @@ class SongsList extends React.Component {
         }
     }
 
-    componentWillReceiveProps() {
+    componentWillReceiveProps(nextProps) {
         switch (this.props.klass) {
             case "stream-page":
+                debugger
                 if (!this.songs && this.state.counter > 1) {
+                    debugger
                     this.props.fetchFollowedSongs(this.props.currentUserId);
                 }
+                debugger
                 this.setState({
+                    loading: false,
+                    streamSongs: nextProps.songs && nextProps.songs.followedSongs ? Object.values(nextProps.songs.followedSongs).reverse() : null,
                     counter: this.state.counter + 1
                 });
                 break;
@@ -101,20 +116,34 @@ class SongsList extends React.Component {
                 //         })
                 //     );
                 // }
-                if (!this.songs && this.counter === 0) {
-                    this.props.fetchFollowedAndLikedSongsOf(this.props.currentUserId);
-                }
-                this.counter += 1;
+                
+                //
+                // if (!this.songs && this.counter === 0) {
+                //     this.props.fetchFollowedAndLikedSongsOf(this.props.currentUserId);
+                // }
+                // this.counter += 1;
                 break;
             default:
                 break;
         }
     }
 
+    componentWillUnmount() {
+        const defaultState = {
+            followedSongs: null,
+            likedSongs: null,
+            songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
+            likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
+            individualSong: this.props.songs ? this.props.songs.individualSong : null,
+        };
+        this.props.emptyFollowedAndLikedSongsOf(defaultState);
+    }
+
     render() {
         switch (this.props.klass) {
             case "stream-page":
-                this.songs = this.props.streamSongs;
+                this.songs = this.state.streamSongs;
+                // this.songs = this.props.streamSongs;
                 break;
             case "user-show-page":
                 this.songs = this.props.currentSongs;                
@@ -122,7 +151,8 @@ class SongsList extends React.Component {
             default:
                 break;
         }
-        if (this.state.loading || !this.songs) {
+        if (!(!this.state.loading && this.songs)) {
+        // if (this.state.loading || !this.songs) {
             return <img src={window.loadingPizza} className="loading"></img>;
         } else {
             if (this.songs.length === 0) {

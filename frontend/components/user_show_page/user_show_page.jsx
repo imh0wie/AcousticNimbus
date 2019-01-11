@@ -42,6 +42,13 @@ class UserShowPage extends React.Component {
     }
 
     componentDidMount() {
+        this.props.fetchUser(this.props.onPageArtistId);
+        this.setState({
+            loading: false,
+        });
+    }
+
+    componentWillUnmount() {
         const defaultState = {
             randomThree: this.props.users && this.props.users.randomThree ? this.props.users.randomThree : null,
             [this.props.currentUserId]: this.props.currentUser,
@@ -50,10 +57,6 @@ class UserShowPage extends React.Component {
             likersOfSpecificSong: this.props.users && this.props.users.likersOfSpecificSong ? this.props.users.likersOfSpecificSong : null,
         };
         this.props.emptyIndividualUser(defaultState);
-        this.props.fetchUser(this.props.onPageArtistId);
-        this.setState({
-            loading: false,
-        });
     }
 
     render() {
@@ -65,7 +68,7 @@ class UserShowPage extends React.Component {
                     <Slideshow klass="user-show-page" onPageArtist={this.props.onPageArtist}/>
                     <div className="bar">
                         <Navbar klass="user-show-page" onPageArtistId={this.props.onPageArtistId}/>
-                        <SocialElements klass="user-show-page"/>
+                        <SocialElements klass="user-show-page" onPageArtistId={this.props.onPageArtistId}/>
                     </div>
                     <div className="content">
                         <div className="songs-list">

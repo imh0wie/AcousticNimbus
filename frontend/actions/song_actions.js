@@ -5,6 +5,7 @@ export const RECEIVE_SONGS = "RECEIVE_SONGS";
 export const RECEIVE_FOLLOWED_SONGS = "RECEIVE_FOLLOWED_SONGS";
 export const RECEIVE_LIKED_SONGS = "RECEIVE_LIKED_SONGS";
 export const RECEIVE_FOLLOWED_AND_LIKED_SONGS = "RECEIVE_FOLLOWED_AND_LIKED_SONGS";
+export const RECEIVE_SONGS_OF_SPECIFIC_USER = "RECEIVE_SONGS_OF_SPECIFIC_USER";
 export const RECEIVE_SONG_ERRORS = "RECEIVE_SONG_ERRORS";
 export const RECEIVE_SONGS_ERRORS = "RECEIVE_SONGS_ERRORS";
 export const EMPTY_SONGS_OF_SPECIFIC_USER = "EMPTY_SONGS_OF_SPECIFIC_USER";
@@ -81,7 +82,7 @@ export const fetchSongsOfSpecificUser = (userId) => {
   return (dispatch) => {
     return SongAPIUtil.fetchSongsOfSpecificUser(userId).then(
       (songsFromServer) => {
-        return dispatch(receiveSongs(songsFromServer));
+        return dispatch(receiveSongsOfSpecificUser(songsFromServer));
       },
       (errors) => {
         return dispatch(receiveSongsErrors(errors.responseJSON));
@@ -222,6 +223,13 @@ const receiveLikedSongs = (songs) => {
 const receiveFollowedAndLikedSongs = (songs) => {
   return {
     type: RECEIVE_FOLLOWED_AND_LIKED_SONGS,
+    songs: songs,
+  };
+};
+
+const receiveSongsOfSpecificUser = (songs) => {
+  return {
+    type: RECEIVE_SONGS_OF_SPECIFIC_USER,
     songs: songs,
   };
 };

@@ -1,4 +1,4 @@
-import { RECEIVE_SONG, RECEIVE_SONGS, RECEIVE_FOLLOWED_SONGS, RECEIVE_LIKED_SONGS, RECEIVE_FOLLOWED_AND_LIKED_SONGS, EMPTY_INDIVIDUAL_SONG, EMPTY_RELATED_SONGS_BY_GENRE, EMPTY_SONGS_OF_SPECIFIC_USER, EMPTY_LIKED_SONGS_OF_SPECIFIC_USER, EMPTY_FOLLOWED_SONGS, EMPTY_LIKED_SONGS, EMPTY_FOLLOWED_AND_LIKED_SONGS_OF } from "../actions/song_actions";
+import { RECEIVE_SONG, RECEIVE_SONGS, RECEIVE_FOLLOWED_SONGS, RECEIVE_LIKED_SONGS, RECEIVE_FOLLOWED_AND_LIKED_SONGS, RECEIVE_SONGS_OF_SPECIFIC_USER, EMPTY_INDIVIDUAL_SONG, EMPTY_RELATED_SONGS_BY_GENRE, EMPTY_SONGS_OF_SPECIFIC_USER, EMPTY_LIKED_SONGS_OF_SPECIFIC_USER, EMPTY_FOLLOWED_SONGS, EMPTY_LIKED_SONGS, EMPTY_FOLLOWED_AND_LIKED_SONGS_OF } from "../actions/song_actions";
 import { merge } from "lodash";
 
 const songsReducer = (state = null, action) => {
@@ -6,14 +6,15 @@ const songsReducer = (state = null, action) => {
   let newState;
   switch (action.type) {
     case RECEIVE_SONG:
-      newState = merge({}, action.song);
-      return merge({}, state, newState);
     case RECEIVE_SONGS:
-    case RECEIVE_FOLLOWED_SONGS:
     case RECEIVE_LIKED_SONGS:
     case RECEIVE_FOLLOWED_AND_LIKED_SONGS:
-      newState = action.songs;
+    case RECEIVE_SONGS_OF_SPECIFIC_USER:
+      newState = action.songs || action.song;
       return merge({}, state, newState);
+    case RECEIVE_FOLLOWED_SONGS:
+      newState = action.songs;
+      return merge({}, newState);
     case EMPTY_INDIVIDUAL_SONG:
     case EMPTY_RELATED_SONGS_BY_GENRE:
     case EMPTY_SONGS_OF_SPECIFIC_USER:

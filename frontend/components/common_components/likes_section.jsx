@@ -19,7 +19,7 @@ const msp = (state, ownProps) => {
     const currentUserId = state.session.id;
     const likes = state.entities.likes;
     return ({
-        song: song,
+        // song: song,
         songId: songId,
         songs: songs,
         likes: likes,
@@ -61,11 +61,18 @@ class LikesSection extends React.Component {
                 }
                 break;
             case "song-show-page":
+                debugger
                 this.state = {
-                    likers: this.props.users && this.props.users.likersOfSpecificSong ? Object.values(this.props.users.likersOfSpecificSong) : null,
+                    likers: Object.values(this.props.song.likers),
+                    liked: this.props.song.likes[this.props.currentUserId] ? true : false,
                     loading: true,
-                    counter: 0,
+                    // counter: 0,
                 }
+                // this.state = {
+                //     likers: this.props.users && this.props.users.likersOfSpecificSong ? Object.values(this.props.users.likersOfSpecificSong) : null,
+                //     loading: true,
+                //     counter: 0,
+                // }
                 break;
             default:
                 break;
@@ -77,6 +84,8 @@ class LikesSection extends React.Component {
 
     componentDidMount() {  
         switch (this.props.klass) {
+            case "homepage":
+                break;
             case "user-show-page":
                 this.setState({
                     loading: false,
@@ -91,17 +100,18 @@ class LikesSection extends React.Component {
                 // };
                 // this.props.emptyLikedSongsOfSpecificUser(this.defaultState);
                 break;
-            case "homepage":
-                break;
             case "song-show-page":
-                this.defaultState = {
-                    randomThree: this.props.users && this.props.users.randomThree ? this.props.users.randomThree : null,
-                    [this.props.currentUserId]: this.props.currentUser,
-                    individualUser: this.props.users && this.props.users.individualUser ? this.props.users.individualUser : null,
-                    followersOfSpecificUser: this.props.users && this.props.users.followersOfSpecificUser ? this.props.users.followersOfSpecificUser : null,
-                    likersOfSpecificSong: null,
-                };
-                this.props.emptyLikersOfSpecificSong(this.defaultState);
+                this.setState({
+                    loading: false,
+                })
+                // this.defaultState = {
+                //     randomThree: this.props.users && this.props.users.randomThree ? this.props.users.randomThree : null,
+                //     [this.props.currentUserId]: this.props.currentUser,
+                //     individualUser: this.props.users && this.props.users.individualUser ? this.props.users.individualUser : null,
+                //     followersOfSpecificUser: this.props.users && this.props.users.followersOfSpecificUser ? this.props.users.followersOfSpecificUser : null,
+                //     likersOfSpecificSong: null,
+                // };
+                // this.props.emptyLikersOfSpecificSong(this.defaultState);
                 break;
             default:
                 break;
@@ -176,28 +186,33 @@ class LikesSection extends React.Component {
                 // }
                 break;
             case "song-show-page":
-                if ((!this.props.users.likersOfSpecificSong && nextProps.users.likersOfSpecificSong) || (this.props.users.likersOfSpecificSong && nextProps.users.likersOfSpecificSong && Object.keys(this.props.users.likersOfSpecificSong).length !== Object.keys(nextProps.users.likersOfSpecificSong).length)) {
-                    this.setState({
-                        loading: false,
-                        likers: Object.values(nextProps.users.likersOfSpecificSong),
-                    });
-                } else if (this.state.loading && this.state.counter === 0) { // && Object.keys(nextProps.songs).includes("likedSongsOfSpecificUser") && nextProps.songs.likedSongsOfSpecificUser === null) {
-                    this.props.fetchLikersOfSpecificSong(this.props.songId);
-                    this.setState({
-                        counter: this.state.counter + 1,
-                    });
-                } 
-                // else if (Object.keys(this.props.users).includes("likersOfSpecificSong") && !this.props.users.likersOfSpecificSong && nextProps.users && nextProps.users.likersOfSpecificSong) {
+                if ((!this.props.likes && nextProps.likes) || (this.props.likes && nextProps.likes && Object.keys(this.props.likes).length !== Object.keys(nextProps.likes).length)) {
+                    debugger
+                    if (this.state.liked) {
+                        debugger
+                        const idx = this.state.likers.findIndex(liker => liker.id === this.props.currentUserId);
+                        this.setState({
+                            likers: this.state.likers.length === 1 ? [] : this.state.likers.slice(0, idx).concat(this.state.liker.slice(idx + 1)),
+                            liked: !this.state.liked,
+                        });
+                    } else {
+                        debugger
+                        this.setState({
+                            likers: this.state.likers.concat([this.props.currentUser]),
+                            liked: !this.state.liked,
+                        });
+                    }
+                }
+                // if ((!this.props.users.likersOfSpecificSong && nextProps.users.likersOfSpecificSong) || (this.props.users.likersOfSpecificSong && nextProps.users.likersOfSpecificSong && Object.keys(this.props.users.likersOfSpecificSong).length !== Object.keys(nextProps.users.likersOfSpecificSong).length)) {
                 //     this.setState({
                 //         loading: false,
                 //         likers: Object.values(nextProps.users.likersOfSpecificSong),
-                //     });                    
-                // } else if (Object.keys(nextProps.users).includes("likersOfSpecificSong") && !nextProps.users.likersOfSpecificSong) {
-                //     this.setState = ({
-                //         loading: true,
-                //     })
+                //     });
+                // } else if (this.state.loading && this.state.counter === 0) { // && Object.keys(nextProps.songs).includes("likedSongsOfSpecificUser") && nextProps.songs.likedSongsOfSpecificUser === null) {
                 //     this.props.fetchLikersOfSpecificSong(this.props.songId);
-                // } else {
+                //     this.setState({
+                //         counter: this.state.counter + 1,
+                //     });
                 // }
                 break;
             default:
