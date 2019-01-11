@@ -54,9 +54,27 @@ if @song
           end
         end
       end
-      json.likesCount @song.likes_count
-      json.commentsCount @song.comments_count
-      json.createdAt @song.created_at
+      if @comments_of_song.length === 0
+        json.comments defaultState
+      else
+        json.set! :comments do
+          @comments_of_song.each do |comment|
+            json.set! comment.id do
+              json.id comment.id
+              json.body comment.body
+              # json.commenterId comment.commenter_id
+              json.set! :commenter do
+                json.id comment.commenter.id
+                json.username comment.commenter.username
+              end
+              json.songId comment.song_id
+              json.songProgress comment.song_progress
+              json.createdAt comment.created_at
+              json.updatedAt comment.updated_at
+            end
+          end
+        end
+      end
     end
   end
 else

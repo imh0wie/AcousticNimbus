@@ -23,7 +23,7 @@ const msp = (state, ownProps) => {
     // follows: state.entities.follows,
     // users: state.entities.users,
     onPageSongId: onPageSongId,
-    onPageSong: songs ? songs.individualSong[onPageSongId] : null,
+    onPageSong: (songs && songs.individualSong) ? songs.individualSong[onPageSongId] : null,
     // onPageSong: state.entities.songs && state.entities.songs.individualSong ? state.entities.songs.individualSong[onPageSongId] : null,
     // onPageSong: songs ? songs[parseInt(ownProps.match.params.songId)] : null,
     // currentSong: state.ui.currentSong,
@@ -52,7 +52,6 @@ class SongShowPage extends React.Component {
   }
 
   componentDidMount() {
-    debugger
     this.props.fetchSong(this.props.onPageSongId)//.then(
     this.setState({
       loading: false,
@@ -72,56 +71,16 @@ class SongShowPage extends React.Component {
     this.props.emptyIndividualSong(defaultState);
   }
 
-  // componentDidMount() {
-  //   const defaultState = {
-  //     followedSongs: this.props.songs ? this.props.songs.likedSongs : null,
-  //     likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
-  //     songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
-  //     likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
-  //     individualSong: null,
-  //     relatedSongsByGenre: this.props.songs ? this.props.songs.relatedSongsByGenre : null,
-  //   };
-  //   this.props.emptyIndividualSong(defaultState);
-  // }
-
-  // componentWillReceiveProps(nextProps) {
-  //   if (this.props.songs && Object.keys(this.props.songs).includes("individualSong") && !this.props.songs.individualSong && nextProps.songs.individualSong && Object.keys(nextProps.songs.individualSong).length === 1) {
-  //     this.setState({
-  //       loading: false,
-  //       onPageSong: nextProps.songs.individualSong[this.props.onPageSongId],
-  //     });
-  //   } else if (Object.keys(nextProps.songs).includes("individualSong") && !nextProps.songs.individualSong) {
-  //     this.props.fetchSong(this.props.onPageSongId);
-  //   }
-  // }
-
-  // componentDidMount() {
-  //   // if (isEmpty(this.props.songs)) 
-  //   if (!this.props.songs) this.props.fetchSongs();
-  //   // if (Object.keys(this.props.users) === 1 ) 
-  //   if (Object.keys(this.props.users).length === 1 || !this.props.users) this.props.fetchUsers(); 
-  //   // for mini artist profile and likes section
-  //   // Note: likes section uses state to distinguish levels of loading for song show page
-  //   // if (isEmpty(this.props.follows)) 
-  //   if (!this.props.follows) this.props.fetchFollows();
-  //   // for mini artist profile 
-  //   this.setState({
-  //       loading: false,
-  //   });
-  // }
-
   randomSongBanner() {
     return randomize(this.songBanners)[0];
   }
 
   render() {
     if (this.state.loading || !this.props.onPageSong) {
-      debugger
       return (
         <img src={window.loadingPizza} className="loading-page"></img>
       );
     } else {
-      debugger
       return (
         <div className="song-show-page">
           <Player klass="banner-player" song={this.props.onPageSong}/>

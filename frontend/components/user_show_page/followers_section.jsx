@@ -24,17 +24,14 @@ class FollowersSection extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        debugger
         if ((!this.props.follows && nextProps.follows.interests) || (this.props.follows && nextProps.follows && Object.keys(this.props.follows.interests).length !== Object.keys(nextProps.follows.interests).length)) {
             if (this.state.followed) {
-                debugger
                 const idx = this.state.followers.findIndex(follower => follower.id === this.props.currentUserId);
                 this.setState({
                     followers: this.state.followers.length === 1 ? [] : this.state.followers.slice(0, idx).concat(this.state.followers.slice(idx + 1)),
                     followed: !this.state.followed,
                 });
             } else {
-                debugger
                 this.setState({
                     followers: this.state.followers.concat([this.props.currentUser]),
                     followed: !this.state.followed,

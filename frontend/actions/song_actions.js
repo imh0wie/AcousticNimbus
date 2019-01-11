@@ -104,9 +104,9 @@ export const fetchLikedSongsOfSpecificUser = (userId, fetchingLikes) => {
   };
 };
 
-export const fetchFollowedAndLikedSongsOf = (userId) => {
+export const fetchFollowedAndLikedSongs = (userId) => {
   return (dispatch) => {
-    return SongAPIUtil.fetchFollowedAndLikedSongsOf(userId).then(
+    return SongAPIUtil.fetchFollowedAndLikedSongs(userId).then(
       (songsFromServer) => {
         return dispatch(receiveFollowedAndLikedSongs(songsFromServer));
       },
@@ -119,7 +119,7 @@ export const fetchFollowedAndLikedSongsOf = (userId) => {
 
 export const fetchFollowedSongs = (userId) => {
   return (dispatch) => {
-    return SongAPIUtil.fetchFollowedSongsOf(userId).then(
+    return SongAPIUtil.fetchFollowedSongs(userId).then(
       (songsFromServer) => {
         return dispatch(receiveFollowedSongs(songsFromServer));
       },
@@ -132,7 +132,7 @@ export const fetchFollowedSongs = (userId) => {
 
 export const fetchLikedSongs = (userId) => {
   return (dispatch) => {
-    return SongAPIUtil.fetchLikedSongsOf(userId).then(
+    return SongAPIUtil.fetchLikedSongs(userId).then(
       (songsFromServer) => {
         return dispatch(receiveLikedSongs(songsFromServer));
       },

@@ -75,7 +75,7 @@ export const fetchLikedSongsOfSpecificUser = (userId, fetchingLikes) => {
   })
 }
 
-export const fetchFollowedAndLikedSongsOf = (userId) => {
+export const fetchFollowedAndLikedSongs = (userId) => {
   return $.ajax({
     method: "GET",
     url: "/api/songs",
@@ -87,7 +87,7 @@ export const fetchFollowedAndLikedSongsOf = (userId) => {
   });
 };
 
-export const fetchFollowedSongsOf = (userId) => {
+export const fetchFollowedSongs = (userId) => {
   return $.ajax({
     method: "GET",
     url: "/api/songs",
@@ -99,7 +99,7 @@ export const fetchFollowedSongsOf = (userId) => {
   });
 };
 
-export const fetchLikedSongsOf = (userId) => {
+export const fetchLikedSongs = (userId) => {
   return $.ajax({
     method: "GET",
     url: "/api/songs",

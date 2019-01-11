@@ -9,7 +9,6 @@ import { followOf } from "../../util/follow_api_util";
 import { commentsOf } from "../../util/comment_api_util";
 
 const msp = (state, ownProps) => {
-    // const onPageSongId = parseInt(ownProps.match.params.songId) || ownProps.songId;
     const onPageArtistId = parseInt(ownProps.match.params.userId);
     const likes = state.entities.likes;
     const users = state.entities.users;
@@ -21,13 +20,7 @@ const msp = (state, ownProps) => {
         likes: likes,
         comments: state.entities.comments,
         users: users,
-        // currentLike: likeOf("Song", onPageSongId, state.entities.users[currentUserId], likes),
-        // currentLike: ownProps.klass === "item-player" ? (likes ? likeOf(currentUserId, "Song", onPageSongId, likes) : likeOf(currentUserId, "Song", onPageSongId, ownProps.song.likes)) : null,
-        // currentFollow: ownProps.klass === "user-show-page" ? (follows ? followOf(onPageArtistId, follows) : (state.entities.users[onPageArtistId] ? state.entities.users[onPageArtistId].attentions[onPageArtistId] : null)) : null,
-        // currentComments: commentsOf(onPageSongId, state.entities.comments),
-        // currentComments: state.entities.comments ? state.entities.comments.bySong[onPageSongId] : null,
         onPageArtistId: onPageArtistId,
-        // onPageSongId: onPageSongId,
         currentUserId: currentUserId,
         currentUser: users[currentUserId],
     });
@@ -40,7 +33,6 @@ const mdp = (dispatch) => {
         removeLike: (like) => dispatch(removeLike(like)),
         createFollow: (follow) => dispatch(createFollow(follow)), 
         removeFollow: (id) => dispatch(removeFollow(id)), 
-        fetchUsers: () => dispatch(fetchUsers()),
         emptyLikersOfSpecificSong: (defaultState) => dispatch(emptyLikersOfSpecificSong(defaultState)),
     })
 }
@@ -91,17 +83,6 @@ class SocialElements extends React.Component {
                             currentLike: likeOf(nextProps.currentUserId, "Song", nextProps.songId, nextProps.likes),
                         })
                     }
-                    // if (this.state.currentLike) {
-                    //     this.setState({
-                    //         likesCount: this.state.likesCount - 1,
-                    //         currentLike: null,
-                    //     });
-                    // } else {
-                    //     this.setState({
-                    //         likesCount: this.state.likesCount + 1,
-                    //         currentLike: likeOf(nextP rops.currentUserId, "Song", nextProps.songId, nextProps.likes)
-                    //     });
-                    // }
                 }
                 if (nextProps.comments && nextProps.comments.commentsOfSpecificSong[this.state.itemId] && this.state.commentsCount !== Object.keys(nextProps.comments.commentsOfSpecificSong[this.state.itemId]).length) {
                     this.setState({
@@ -110,20 +91,14 @@ class SocialElements extends React.Component {
                 }
                 break;
             case "user-show-page":
-                debugger
-                // if ((!this.props.follows && nextProps.follows) || (nextProps.follows && Object.values(this.props.follows.interests).length !== Object.values(nextProps.follows.interests).length)) {
                 if ((!this.props.follows && nextProps.follows) || (this.props.follows && nextProps.follows && Object.keys(this.props.follows.interests).length !== Object.keys(nextProps.follows.interests).length)) {
-                    debugger
                     if (this.state.currentFollow) {
-                        debugger
                         this.setState({
                             currentFollow: null,
                         });
                     } else {
-                        debugger
                         this.setState({
                             currentFollow: Object.values(nextProps.follows.interests).find(interest => interest.followedUserId === this.props.onPageArtistId),
-                            // currentFollow: followOf(nextProps.onPageArtistId, nextProps.follows.interests),
                         });
                     }
                 }
@@ -135,17 +110,6 @@ class SocialElements extends React.Component {
                             currentLike: likeOf(nextProps.currentUserId, "Song", nextProps.songId, nextProps.likes),
                         })
                     }
-                    // if (this.state.currentLike) {
-                    //     this.setState({
-                    //         likesCount: this.state.likesCount - 1,
-                    //         currentLike: null,
-                    //     });
-                    // } else {
-                    //     this.setState({
-                    //         likesCount: this.state.likesCount + 1,
-                    //         currentLike: likeOf(nextP rops.currentUserId, "Song", nextProps.songId, nextProps.likes)
-                    //     });
-                    // }
                 }
                 break;
             default:
@@ -153,47 +117,9 @@ class SocialElements extends React.Component {
         }
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     switch (this.props.klass) {
-    //         case "item-player":
-    //             if (nextProps.likes !== this.props.likes) {
-    //                 this.setState({
-    //                     currentLike: likeOf(nextProps.currentUserId, "Song", nextProps.songId, nextProps.likes)
-    //                 });
-    //             }
-    //             if (nextProps.currentComments && this.state.commentsCount !== nextProps.currentComments.length) {
-    //                 this.setState({
-    //                     commentsCount: nextProps.currentComments.length,
-    //                 });
-    //             }
-    //             break;
-    //         case "user-show-page":
-    //             if ((!this.props.follows && nextProps.follows) || (nextProps.follows && Object.values(this.props.follows.interests).length !== Object.values(nextProps.follows.interests).length)) {
-    //                 if (this.state.currentFollow) {
-    //                     this.setState({
-    //                         currentFollow: followOf(this.props.onPageArtistId, nextProps.follows.interests),
-    //                     })
-    //                 } else {
-    //                     this.setState({
-    //                         currentFollow: null,
-    //                     })
-    //                 }
-    //             }
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    // }
-
     handleLike(e) {
         e.preventDefault();
         if (this.state.currentLike) {
-            // const like = {
-            //     id: this.state.currentLike.id,
-            //     likeable_type: this.state.currentLike.likeableType,
-            //     likeable_id: this.state.currentLike.likeableId,
-            //     liker_id: this.state.currentLike.likerId,
-            // }
             this.props.removeLike(this.state.currentLike).then(this.setState({
                 likesCount: this.state.likesCount - 1,
                 currentLike: null,
@@ -213,26 +139,10 @@ class SocialElements extends React.Component {
             randomThree: this.props.users && this.props.users.randomThree ? this.props.users.randomThree : null,
             [this.props.currentUserId]: this.props.currentUser,
             individualUser: this.props.users && this.props.users.individualUser ? this.props.users.individualUser : null,
-            followersOfSpecificUser: this.props.users && this.prop.users.followersOfSpecificUser ? this.prop.users.followersOfSpecificUser : null,
+            followersOfSpecificUser: this.props.users && this.props.users.followersOfSpecificUser ? this.props.users.followersOfSpecificUser : null,
             likersOfSpecificSong: null,
         };
-
-        // this.props.emptyLikersOfSpecificSong(this.defaultState);
     }
-
-    // toggleLike() {
-    //     if (this.state.currentLike) {
-    //         this.setState({
-    //             likesCount: this.state.likesCount - 1,
-    //             currentLike: null,
-    //         });
-    //     } else {
-    //         this.setState({
-    //             likesCount: this.state.likesCount + 1,
-    //             currentLike: likeOf(this.props.currentUserId, "Song", this.props.songId, this.props.likes),
-    //         });
-    //     }
-    // }
     
     handleFollow(e) { // for user show page
         e.preventDefault();
@@ -248,26 +158,9 @@ class SocialElements extends React.Component {
                 follower_id: this.props.currentUserId
             }
             this.props.createFollow(follow);
-            // this.setState({
-            //     likesCount: this.state.likesCount + 1,
-            //     // currentLike: likeOf(nextProps.currentUserId, "Song", nextProps.songId, nextProps.likes)
-            // });
         }
 
-        // this.toggleFollow();
     }
-
-    // toggleFollow() {
-    //     if (this.state.currentFollow) {
-    //         this.setState({
-    //             currentFollow: null,
-    //         })
-    //     } else {
-    //         this.setState({
-    //             currentFollow: followOf(this.props.onPageArtistId, this.props.follows.interests),
-    //         })
-    //     }
-    // }
 
     renderButtons() {
         switch (this.props.klass) {
@@ -281,11 +174,9 @@ class SocialElements extends React.Component {
                 return (
                     <div className="left">
                         <p className={this.state.currentLike ? "liked-button" : "like-button"} onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> {this.state.likesCount}</p>
-                        {/* <p className={this.props.currentLike ? "liked-button" : "like-button"} onClick={(e) => this.handleLike(e)}><i className="fas fa-heart"></i> {this.props.likes.length}</p> */}
                     </div>
                 );
             case "user-show-page":
-            debugger
                 return (
                     <div className="buttons">
                         <button 
@@ -305,7 +196,6 @@ class SocialElements extends React.Component {
     renderSocialData() {
         switch (this.props.klass) {
             case "banner-player":
-                // if (!this.props.likes) return null;
                 return (
                     <div className="right">
                         <p><i className="fas fa-heart"></i> {this.state.likesCount}</p> 

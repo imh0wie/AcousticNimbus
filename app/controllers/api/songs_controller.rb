@@ -9,9 +9,6 @@ class Api::SongsController < ApplicationController
         likes = Like.where(liker_id: params[:current_user_id]).select(:likeable_id)
         @liked_songs = Song.where(id: likes).select('*')
         @likes = Like.where(liker_id: params[:current_user_id]).select(:id)
-        # @liked_songs = Song.includes(:likes)
-        #                    .where(likes: { liker_id: params[:current_user_id] })
-        #                    .select('songs.*, likes.id AS like_id')
       end
     elsif params[:user_id]
       if params[:fetching_likes]
@@ -30,12 +27,12 @@ class Api::SongsController < ApplicationController
     @song = Song.find(params[:id])
     liker_ids = Like.where(likeable_id: params[:id]).select(:liker_id)
     @likers_of_song = User.where(id: liker_ids).select('*');
+    @comments_of_song = Comment.where(song_id: params[:id]).select('*')
     render :show
   end
   
   def create
     @song = Song.new(song_params)
-    # @song.artist_id = current_user.id
     if @song.save
       render :show
     else

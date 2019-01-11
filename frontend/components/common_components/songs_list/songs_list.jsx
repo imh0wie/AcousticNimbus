@@ -1,16 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { fetchFollowedSongs, fetchFollowedAndLikedSongsOf, fetchSongsOfSpecificUser, emptySongsOfSpecificUser, emptyFollowedAndLikedSongsOf, emptyFollowedSongs } from "../../../actions/song_actions";
+import { fetchFollowedSongs, fetchFollowedAndLikedSongs, fetchSongsOfSpecificUser, emptySongsOfSpecificUser, emptyFollowedAndLikedSongsOf, emptyFollowedSongs } from "../../../actions/song_actions";
 import SongsListItem from "./songs_list_item";
 
-const msp = (state, ownProps) => {
+const msp = (state) => {
     const songs = state.entities.songs;
     const follows = state.entities.follows;
-    const users = state.entities.users;
     const currentUserId = state.session.id;
     return {
-        // onPageArtist: users.individualUser[parseInt(ownProps.match.params.userId)],
         songs: songs,
         follows: follows, // homepage
         streamSongs: songs && songs.followedSongs ? Object.values(songs.followedSongs).reverse() : null, // homepage
@@ -21,11 +19,11 @@ const msp = (state, ownProps) => {
 
 const mdp = (dispatch) => {
   return ({
-      fetchFollowedAndLikedSongsOf: (userId) => dispatch(fetchFollowedAndLikedSongsOf(userId)),
+      fetchFollowedAndLikedSongs: (userId) => dispatch(fetchFollowedAndLikedSongs(userId)),
       fetchFollowedSongs: (userId) => dispatch(fetchFollowedSongs(userId)),
       fetchSongsOfSpecificUser: (userId) => dispatch(fetchSongsOfSpecificUser(userId)),
       emptySongsOfSpecificUser: (defaultState) => dispatch(emptySongsOfSpecificUser(defaultState)),
-      emptyFollowedSongs: (defaultState) => dispatch(emptyFollowedSongs(defaultState)),
+    //   emptyFollowedSongs: (defaultState) => dispatch(emptyFollowedSongs(defaultState)),
       emptyFollowedAndLikedSongsOf: (defaultState) => dispatch(emptyFollowedAndLikedSongsOf(defaultState)),
   });
 };
@@ -45,48 +43,20 @@ class SongsList extends React.Component {
     componentDidMount() {
         switch (this.props.klass) {
             case "stream-page":
-                debugger
-                // if (!this.songs) {
-                    // debugger
-                    // const defaultState = {
-                    //     followedSongs: null,
-                    //     likedSongs: null,
-                    //     songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
-                    //     likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
-                    //     individualSong: this.props.songs ? this.props.songs.individualSong : null,
-                    // };
-                    if (this.songs) {
-                        this.setState({
-                            loading: true,
-                            streamSongs: null,
-                        })
-                    } 
-                    this.props.fetchFollowedSongs(this.props.currentUserId);
-                    // if (!(this.props.songs && Object.keys(this.props.songs).includes("followedSongs") && Object.keys(this.props.songs).includes("likedSongs") && !this.props.songs.followedSongs && !this.props.songs.likedSongs)) this.props.emptyFollowedAndLikedSongsOf(defaultState);
-
-                    // this.props.fetchFollowedAndLikedSongsOf(this.props.currentUserId).then(
-                    //     this.setState({
-                    //         loading: false
-                    //     })
-                    // );
-                // }
+                if (this.songs) {
+                    this.setState({
+                        loading: true,
+                        streamSongs: null,
+                    })
+                } 
+                this.props.fetchFollowedAndLikedSongs(this.props.currentUserId);
                 break;
             case "user-show-page":
-                // if (!this.songs) {
-                    const defaultState = {
-                        followedSongs: this.props.songs ? this.props.songs.followedSongs : null,
-                        likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
-                        songsOfSpecificUser: null,
-                        likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
-                        individualSong: this.props.songs ? this.props.songs.individualSong : null,
-                    }
-                    this.props.emptySongsOfSpecificUser(defaultState);
-                    this.props.fetchSongsOfSpecificUser(this.props.onPageArtist.id).then(
-                        this.setState({
-                            loading: false
-                        })
-                    );
-                // }       
+                this.props.fetchSongsOfSpecificUser(this.props.onPageArtist.id).then(
+                    this.setState({
+                        loading: false
+                    })
+                );   
                 break;
             default:
                 break;
@@ -96,12 +66,9 @@ class SongsList extends React.Component {
     componentWillReceiveProps(nextProps) {
         switch (this.props.klass) {
             case "stream-page":
-                debugger
                 if (!this.songs && this.state.counter > 1) {
-                    debugger
                     this.props.fetchFollowedSongs(this.props.currentUserId);
                 }
-                debugger
                 this.setState({
                     loading: false,
                     streamSongs: nextProps.songs && nextProps.songs.followedSongs ? Object.values(nextProps.songs.followedSongs).reverse() : null,
@@ -109,41 +76,40 @@ class SongsList extends React.Component {
                 });
                 break;
             case "user-show-page":
-                // if (!this.songs) {
-                //     this.props.fetchSongsOfSpecificUser(this.props.onPageArtist.id).then(
-                //         this.setState({
-                //             loading: false
-                //         })
-                //     );
-                // }
-                
-                //
-                // if (!this.songs && this.counter === 0) {
-                //     this.props.fetchFollowedAndLikedSongsOf(this.props.currentUserId);
-                // }
-                // this.counter += 1;
-                break;
             default:
                 break;
         }
     }
 
     componentWillUnmount() {
-        const defaultState = {
-            followedSongs: null,
-            likedSongs: null,
-            songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
-            likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
-            individualSong: this.props.songs ? this.props.songs.individualSong : null,
-        };
-        this.props.emptyFollowedAndLikedSongsOf(defaultState);
+         switch (this.props.klass) {
+            case "stream-page":
+                this.defaultState = {
+                    followedSongs: null,
+                    likedSongs: null,
+                    songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
+                    likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
+                    individualSong: this.props.songs ? this.props.songs.individualSong : null,
+                };
+                this.props.emptyFollowedAndLikedSongsOf(this.defaultState);
+                break;
+            case "user-show-page":
+                this.defaultState = {
+                    followedSongs: this.props.songs ? this.props.songs.followedSongs : null,
+                    likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
+                    songsOfSpecificUser: null,
+                    likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
+                    individualSong: this.props.songs ? this.props.songs.individualSong : null,
+                }
+                this.props.emptySongsOfSpecificUser(this.defaultState);
+                break;
+         }
     }
 
     render() {
         switch (this.props.klass) {
             case "stream-page":
                 this.songs = this.state.streamSongs;
-                // this.songs = this.props.streamSongs;
                 break;
             case "user-show-page":
                 this.songs = this.props.currentSongs;                
@@ -152,7 +118,6 @@ class SongsList extends React.Component {
                 break;
         }
         if (!(!this.state.loading && this.songs)) {
-        // if (this.state.loading || !this.songs) {
             return <img src={window.loadingPizza} className="loading"></img>;
         } else {
             if (this.songs.length === 0) {

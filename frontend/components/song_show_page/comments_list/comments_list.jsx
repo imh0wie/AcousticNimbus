@@ -28,27 +28,62 @@ class CommentsList extends React.Component {
         super(props);
         this.state = {
             loading: true,
-            currentComments: this.props.comments && this.props.comments.commentsOfSpecificSong ? Object.values(this.props.comments.commentsOfSpecificSong) : null,
+            currentComments: Object.values(this.props.song.comments),
+            // currentComments: this.props.comments && this.props.comments.commentsOfSpecificSong ? Object.values(this.props.comments.commentsOfSpecificSong) : null,
         }
     }
 
     componentDidMount() {
+        this.setState({
+            loading: false,
+        })
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if ((!this.props.comments && nextProps.comments) || (nextProps.comments && this.state.currentComments.length !== Object.keys(nextProps.comments.commentsOfSpecificSong).length)) {
+        // if ((!this.props.comments && nextProps.comments) || (this.props.comments && nextProps.comments && Object.keys(this.props.comments.commentsOfSpecificSong).length !== Object.keys(nextProps.comments.commentsOfSpecificSong).length)) {
+            this.setState({
+                currentComments: Object.values(nextProps.comments.commentsOfSpecificSong[this.props.songId]),
+            })
+            // if (this.state.followed) {
+            //     const idx = this.state.followers.findIndex(follower => follower.id === this.props.currentUserId);
+            //     this.setState({
+            //         followers: this.state.followers.length === 1 ? [] : this.state.followers.slice(0, idx).concat(this.state.followers.slice(idx + 1)),
+            //         followed: !this.state.followed,
+            //     });
+            // } else {
+            //     this.setState({
+            //         followers: this.state.followers.concat([this.props.currentUser]),
+            //         followed: !this.state.followed,
+            //     });
+            // }
+        }
+    }
+
+    // componentDidMount() {
+    //     const defaultState = {
+    //         commentsOfSpecificSong: null,
+    //     };
+    //     this.props.emptyCommentsOfSpecificSong(defaultState);
+    // }
+    
+    // componentWillReceiveProps(nextProps) {
+    //     if (!this.props.comments && nextProps.comments && Object.keys(nextProps.comments).includes("commentsOfSpecificSong") && !nextProps.comments.commentsOfSpecificSong) {
+    //         this.props.fetchCommentsOfSpecificSong(this.props.songId);
+    //     } else if ((!this.props.comments.commentsOfSpecificSong && nextProps.comments.commentsOfSpecificSong) || (nextProps.comments && nextProps.comments.commentsOfSpecificSong[this.props.songId] && this.state.currentComments.length !== Object.keys(nextProps.comments.commentsOfSpecificSong[this.props.songId]).length)) {
+    //     // } else if ((!this.props.comments.commentsOfSpecificSong && nextProps.comments.commentsOfSpecificSong) || (this.props.comments && this.props.comments.commentsOfSpecificSong && nextProps.comments && nextProps.comments.commentsOfSpecificSong && Object.keys(this.props.comments.commentsOfSpecificSong).length !== Object.keys(nextProps.comments.commentsOfSpecificSong).length)) {
+    //         this.setState({
+    //             loading: false,
+    //             currentComments: Object.values(nextProps.comments.commentsOfSpecificSong[this.props.songId]),
+    //         });
+    //     }
+    // }
+
+    componentWillUnmount() {
         const defaultState = {
             commentsOfSpecificSong: null,
         };
         this.props.emptyCommentsOfSpecificSong(defaultState);
-    }
-    
-    componentWillReceiveProps(nextProps) {
-        if (!this.props.comments && nextProps.comments && Object.keys(nextProps.comments).includes("commentsOfSpecificSong") && !nextProps.comments.commentsOfSpecificSong) {
-            this.props.fetchCommentsOfSpecificSong(this.props.songId);
-        } else if ((!this.props.comments.commentsOfSpecificSong && nextProps.comments.commentsOfSpecificSong) || (nextProps.comments && nextProps.comments.commentsOfSpecificSong[this.props.songId] && this.state.currentComments.length !== Object.keys(nextProps.comments.commentsOfSpecificSong[this.props.songId]).length)) {
-        // } else if ((!this.props.comments.commentsOfSpecificSong && nextProps.comments.commentsOfSpecificSong) || (this.props.comments && this.props.comments.commentsOfSpecificSong && nextProps.comments && nextProps.comments.commentsOfSpecificSong && Object.keys(this.props.comments.commentsOfSpecificSong).length !== Object.keys(nextProps.comments.commentsOfSpecificSong).length)) {
-            this.setState({
-                loading: false,
-                currentComments: Object.values(nextProps.comments.commentsOfSpecificSong[this.props.songId]),
-            });
-        }
     }
 
     render() {

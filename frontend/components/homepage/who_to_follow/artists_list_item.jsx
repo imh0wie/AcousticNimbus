@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
-import { fetchFollowedAndLikedSongsOf, emptyFollowedSongs } from "../../../actions/song_actions";
+import { fetchFollowedAndLikedSongs, emptyFollowedSongs } from "../../../actions/song_actions";
 import { createFollow, removeFollow } from "../../../actions/follow_actions";
 
 const msp = (state) => {
@@ -19,7 +19,7 @@ const mdp = (dispatch) => {
     return ({
         createFollow: (follow) => dispatch(createFollow(follow)),
         removeFollow: (follow) => dispatch(removeFollow(follow)),
-        fetchFollowedAndLikedSongsOf: (userId) => dispatch(fetchFollowedAndLikedSongsOf(userId)),
+        fetchFollowedAndLikedSongs: (userId) => dispatch(fetchFollowedAndLikedSongs(userId)),
         emptyFollowedSongs: (defaultState) => dispatch(emptyFollowedSongs(defaultState)),
     });
 }
