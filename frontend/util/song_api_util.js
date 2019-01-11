@@ -34,12 +34,14 @@ export const fetchSongs = () => {
   });
 };
 
-export const fetchRelatedSongsByGenre = (genre) => {
+export const fetchRelatedSongsByGenre = (songData) => {
+  debugger
   return $.ajax({
     method: "GET",
     url: "/api/songs",
     data: {
-      genre: genre,
+      genre: songData.genre,
+      song_id: songData.songId,
     }
   });
 };

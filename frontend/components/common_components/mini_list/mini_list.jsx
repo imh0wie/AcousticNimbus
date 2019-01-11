@@ -45,7 +45,8 @@ class MiniList extends React.Component {
             default:
                 break;
         }
-        if (this.miniListItems.length === 0) return <p className="ui-msg">This user has not liked any songs yet.</p>
+        const message = this.props.klass === "song-show-page" ? "No similar songs in database at this moment." : "This user has not liked any songs yet.";
+        if (this.miniListItems.length === 0) return <p className="ui-msg">{message}</p>
         return (
             <ul>
                 {this.miniListItems.map((item) => {

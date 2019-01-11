@@ -75,6 +75,9 @@ if @song
           end
         end
       end
+      json.likesCount @song.likes_count
+      json.commentsCount @song.comments_count
+      json.createdAt @song.created_at
     end
   end
 else

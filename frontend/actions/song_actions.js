@@ -52,9 +52,11 @@ export const fetchSong = (songIdToServer) => {
   };
 };
 
-export const fetchRelatedSongsByGenre = (songGenreToServer) => {
+export const fetchRelatedSongsByGenre = (songDataToServer) => {
+  debugger
   return dispatch => {
-    return SongAPIUtil.fetchRelatedSongsByGenre(songGenreToServer).then(
+    debugger
+    return SongAPIUtil.fetchRelatedSongsByGenre(songDataToServer).then(
       (songsFromServer) => {
         return dispatch(receiveSongs(songsFromServer));
       },

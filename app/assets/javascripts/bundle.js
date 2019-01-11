@@ -636,9 +636,11 @@ var fetchSong = function fetchSong(songIdToServer) {
     });
   };
 };
-var fetchRelatedSongsByGenre = function fetchRelatedSongsByGenre(songGenreToServer) {
+var fetchRelatedSongsByGenre = function fetchRelatedSongsByGenre(songDataToServer) {
+  debugger;
   return function (dispatch) {
-    return _util_song_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchRelatedSongsByGenre"](songGenreToServer).then(function (songsFromServer) {
+    debugger;
+    return _util_song_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchRelatedSongsByGenre"](songDataToServer).then(function (songsFromServer) {
       return dispatch(receiveSongs(songsFromServer));
     }, function (errors) {
       return dispatch(receiveSongErrors(errors.responseJSON));
@@ -2184,9 +2186,10 @@ function (_React$Component) {
           break;
       }
 
+      var message = this.props.klass === "song-show-page" ? "No similar songs in database at this moment." : "This user has not liked any songs yet.";
       if (this.miniListItems.length === 0) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "ui-msg"
-      }, "This user has not liked any songs yet.");
+      }, message);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.miniListItems.map(function (item) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_mini_list_item__WEBPACK_IMPORTED_MODULE_8__["default"], {
           key: item.id,
@@ -6313,8 +6316,10 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 var msp = function msp(state) {
+  var songs = state.entities.songs;
   return {
-    songs: state.entities.songs
+    songs: songs,
+    relatedSongs: songs && songs.relatedSongsByGenre ? Object.values(songs.relatedSongsByGenre) : null
   };
 };
 
@@ -6341,9 +6346,13 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(RelatedSongs).call(this, props));
     _this.state = {
-      counter: 0,
-      loading: true,
-      relatedSongs: null
+      loading: true // relatedSongs: null,
+      // this.state = {
+      //     counter: 0,
+      //     loading: true,
+      //     relatedSongs: null,
+      // }
+
     };
     return _this;
   }
@@ -6351,6 +6360,46 @@ function (_React$Component) {
   _createClass(RelatedSongs, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      var songData = {
+        genre: this.props.song.genre,
+        songId: this.props.songId
+      };
+      this.props.fetchRelatedSongsByGenre(songData); //.then(
+
+      this.setState({
+        loading: false
+      }); //)
+    } // componentDidMount() {
+    //     const defaultState = {
+    //         followedSongs: this.props.songs ? this.props.songs.likedSongs : null,
+    //         likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
+    //         songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
+    //         likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
+    //         individualSong: this.props.songs ? this.props.songs.individualSong : null,
+    //         relatedSongsByGenre: null,
+    //     };
+    //     // if (this.props.songs.relatedSongsByGenre) 
+    //     this.props.emptyRelatedSongsByGenre(defaultState);
+    // }
+    // componentWillReceiveProps(nextProps) {
+    //     // if (!this.props.songs.relatedSongsByGenre && nextProps.songs && Object.keys(nextProps.songs).includes("commentsOfSpecificSong") && !nextProps.songs.relatedSongsByGenre) {
+    //     if (this.state.counter === 0) {
+    //         this.props.fetchRelatedSongsByGenre(this.props.song.genre);
+    //         this.setState({
+    //             counter: this.state.counter + 1,
+    //         });
+    //     } else if (!this.props.songs.relatedSongsByGenre && nextProps.songs.relatedSongsByGenre) {
+    //     // } else if ((!this.props.songs.commentsOfSpecificSong && nextProps.songs.commentsOfSpecificSong) || (this.props.songs && this.props.songs.commentsOfSpecificSong && nextProps.songs && nextProps.songs.commentsOfSpecificSong && Object.keys(this.props.songs.commentsOfSpecificSong).length !== Object.keys(nextProps.songs.commentsOfSpecificSong).length)) {
+    //         this.setState({
+    //             loading: false,
+    //             relatedSongs: Object.values(nextProps.songs.relatedSongsByGenre),
+    //         });
+    //     }
+    // }
+
+  }, {
+    key: "componentWillUnMount",
+    value: function componentWillUnMount() {
       var defaultState = {
         followedSongs: this.props.songs ? this.props.songs.likedSongs : null,
         likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
@@ -6358,31 +6407,13 @@ function (_React$Component) {
         likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
         individualSong: this.props.songs ? this.props.songs.individualSong : null,
         relatedSongsByGenre: null
-      }; // if (this.props.songs.relatedSongsByGenre) 
-
+      };
       this.props.emptyRelatedSongsByGenre(defaultState);
-    }
-  }, {
-    key: "componentWillReceiveProps",
-    value: function componentWillReceiveProps(nextProps) {
-      // if (!this.props.songs.relatedSongsByGenre && nextProps.songs && Object.keys(nextProps.songs).includes("commentsOfSpecificSong") && !nextProps.songs.relatedSongsByGenre) {
-      if (this.state.counter === 0) {
-        this.props.fetchRelatedSongsByGenre(this.props.song.genre);
-        this.setState({
-          counter: this.state.counter + 1
-        });
-      } else if (!this.props.songs.relatedSongsByGenre && nextProps.songs.relatedSongsByGenre) {
-        // } else if ((!this.props.songs.commentsOfSpecificSong && nextProps.songs.commentsOfSpecificSong) || (this.props.songs && this.props.songs.commentsOfSpecificSong && nextProps.songs && nextProps.songs.commentsOfSpecificSong && Object.keys(this.props.songs.commentsOfSpecificSong).length !== Object.keys(nextProps.songs.commentsOfSpecificSong).length)) {
-        this.setState({
-          loading: false,
-          relatedSongs: Object.values(nextProps.songs.relatedSongsByGenre)
-        });
-      }
     }
   }, {
     key: "renderList",
     value: function renderList() {
-      if (this.state.loading || !this.state.relatedSongs) {
+      if (this.state.loading || !this.props.relatedSongs) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loadingPizza,
           className: "loading"
@@ -6390,7 +6421,7 @@ function (_React$Component) {
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_mini_list_mini_list__WEBPACK_IMPORTED_MODULE_4__["default"], {
           klass: "song-show-page",
-          relatedSongs: this.state.relatedSongs
+          relatedSongs: this.props.relatedSongs
         });
       }
     }
@@ -6485,13 +6516,8 @@ var msp = function msp(state, ownProps) {
   var onPageSongId = parseInt(ownProps.match.params.songId);
   return {
     songs: songs,
-    // follows: state.entities.follows,
-    // users: state.entities.users,
     onPageSongId: onPageSongId,
-    onPageSong: songs && songs.individualSong ? songs.individualSong[onPageSongId] : null // onPageSong: state.entities.songs && state.entities.songs.individualSong ? state.entities.songs.individualSong[onPageSongId] : null,
-    // onPageSong: songs ? songs[parseInt(ownProps.match.params.songId)] : null,
-    // currentSong: state.ui.currentSong,
-
+    onPageSong: songs && songs.individualSong ? songs.individualSong[onPageSongId] : null
   };
 };
 
@@ -6500,9 +6526,6 @@ var mdp = function mdp(dispatch) {
     fetchSong: function fetchSong(id) {
       return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["fetchSong"])(id));
     },
-    // fetchSongs: () => dispatch(fetchSongs()),
-    // fetchFollows: () => dispatch(fetchFollows()),
-    // fetchUsers: () => dispatch(fetchUsers()),
     emptyIndividualSong: function emptyIndividualSong(defaultState) {
       return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["emptyIndividualSong"])(defaultState));
     }
@@ -6521,8 +6544,7 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SongShowPage).call(this, props));
     _this.state = {
-      loading: true // onPageSong: this.props.songs && this.props.songs.individualSong ? this.props.songs.individualSong[onPageSongId] : null,
-
+      loading: true
     };
     _this.noneStyle = {
       display: "none"
@@ -6534,11 +6556,10 @@ function (_React$Component) {
   _createClass(SongShowPage, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchSong(this.props.onPageSongId); //.then(
-
+      this.props.fetchSong(this.props.onPageSongId);
       this.setState({
         loading: false
-      }); //)
+      });
     }
   }, {
     key: "componentWillUnmount",
@@ -6602,7 +6623,8 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_slideshow__WEBPACK_IMPORTED_MODULE_12__["default"], {
           klass: "ad"
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_related_songs__WEBPACK_IMPORTED_MODULE_13__["default"], {
-          song: this.props.onPageSong
+          song: this.props.onPageSong,
+          songId: this.props.onPageSongId
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_likes_section__WEBPACK_IMPORTED_MODULE_14__["default"], {
           klass: "song-show-page",
           song: this.props.onPageSong,
@@ -9206,12 +9228,14 @@ var fetchSongs = function fetchSongs() {
     url: "/api/songs"
   });
 };
-var fetchRelatedSongsByGenre = function fetchRelatedSongsByGenre(genre) {
+var fetchRelatedSongsByGenre = function fetchRelatedSongsByGenre(songData) {
+  debugger;
   return $.ajax({
     method: "GET",
     url: "/api/songs",
     data: {
-      genre: genre
+      genre: songData.genre,
+      song_id: songData.songId
     }
   });
 }; // export const fetchSongsOf = (userId) => {

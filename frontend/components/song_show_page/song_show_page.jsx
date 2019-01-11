@@ -20,22 +20,14 @@ const msp = (state, ownProps) => {
   const onPageSongId = parseInt(ownProps.match.params.songId);
   return ({
     songs: songs,
-    // follows: state.entities.follows,
-    // users: state.entities.users,
     onPageSongId: onPageSongId,
     onPageSong: (songs && songs.individualSong) ? songs.individualSong[onPageSongId] : null,
-    // onPageSong: state.entities.songs && state.entities.songs.individualSong ? state.entities.songs.individualSong[onPageSongId] : null,
-    // onPageSong: songs ? songs[parseInt(ownProps.match.params.songId)] : null,
-    // currentSong: state.ui.currentSong,
   });
 };
 
 const mdp = (dispatch) => {
   return ({
       fetchSong: (id) => dispatch(fetchSong(id)),
-      // fetchSongs: () => dispatch(fetchSongs()),
-      // fetchFollows: () => dispatch(fetchFollows()),
-      // fetchUsers: () => dispatch(fetchUsers()),
       emptyIndividualSong: (defaultState) => dispatch(emptyIndividualSong(defaultState)),
   });
 };
@@ -45,18 +37,16 @@ class SongShowPage extends React.Component {
     super(props);
     this.state = {
       loading: true,
-      // onPageSong: this.props.songs && this.props.songs.individualSong ? this.props.songs.individualSong[onPageSongId] : null,
     }
     this.noneStyle = {display: "none"};
     this.songBanners = [window.song_banner1, window.song_banner2];
   }
 
   componentDidMount() {
-    this.props.fetchSong(this.props.onPageSongId)//.then(
+    this.props.fetchSong(this.props.onPageSongId);
     this.setState({
       loading: false,
-    })
-    //)
+    });
   }
 
   componentWillUnmount() {
@@ -100,7 +90,7 @@ class SongShowPage extends React.Component {
             </div>
             <div className="sidebar">
               <Slideshow klass="ad"/>
-              <RelatedSongs song={this.props.onPageSong} />
+              <RelatedSongs song={this.props.onPageSong} songId={this.props.onPageSongId}/>
               <LikesSection klass="song-show-page" song={this.props.onPageSong} songId={this.props.onPageSongId}/>
               <HiringInfoSection />
             </div>

@@ -18,7 +18,9 @@ class Api::SongsController < ApplicationController
         @songs_of_specific_user = Song.where(artist_id: params[:user_id]).select('*')
       end
     elsif params[:genre]
-      @related_songs_by_genre = Song.where(genre: params[:genre]).select('*').first(3)
+      @related_songs_by_genre = Song.where(genre: params[:genre])
+                                    .where.not(id: params[:song_id])
+                                    .select('*').first(3)
     end
     render :index
   end
