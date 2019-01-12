@@ -1,19 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { fetchSongs } from "../../../actions/song_actions";
-import { latest } from "../../../util/song_api_util";
+import { fetchIntroSongs, emptyIntroSongs } from "../../../actions/song_actions";
 import SongsIndexItem from "./songs_index_item";
 
 const msp = (state) => {
+    const songs = state.entities.songs;
     return {
-      latestTwelve: latest(12, state.entities.songs),
+      introSongs: songs && songs.introSongs ? Object.values(songs.introSongs) : null,
     };
 };
 
 const mdp = (dispatch) => {
     return ({
-        fetchSongs: () => dispatch(fetchSongs()),
+        fetchIntroSongs: (number) => dispatch(fetchIntroSongs(number)),
+        emptyIntroSongs: (state) => dispatch(emptyIntroSongs(state)),
     });
 };
 
@@ -23,13 +24,20 @@ class SongsIndex extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchSongs();
+        this.props.fetchIntroSongs(12);
+    }
+
+    componentWillUnmount() {
+        const defaultState = {
+            introSongs: null,
+        }
+        this.props.emptyIntroSongs(defaultState)
     }
 
     render() {
         switch (this.props.klass) {
             case "splash-page":
-                this.songs = this.props.latestTwelve; 
+                this.songs = this.props.introSongs; 
                 break;
             default:
                 break;
@@ -39,8 +47,15 @@ class SongsIndex extends React.Component {
                 <img src={window.loadingPizza} className="loading"></img>
             );
         } else if (this.songs.length === 0) {
+            switch (this.props.klass) {
+                case "splash-page":
+                    this.message = "There are no songs on Acoustic Nimbus by far :("; 
+                    break;
+                default:
+                    break;
+            }
             return (
-                <p className="ui-msg">There are no songs on Acoustic Nimbus by far :(</p>
+                <p className="ui-msg">{this.message}</p>
             );
         }
         return (

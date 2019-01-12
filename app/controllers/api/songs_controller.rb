@@ -1,6 +1,8 @@
 class Api::SongsController < ApplicationController
   def index
-    if params[:current_user_id]
+    if params[:number]
+      @songs = Song.last(params[:number].to_i)
+    elsif params[:current_user_id]
       if params[:fetching_followed_songs]
         followings = Follow.where(follower_id: params[:current_user_id]).select(:followed_user_id)
         @followed_songs = Song.where(artist_id: followings)

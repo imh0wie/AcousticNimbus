@@ -30,16 +30,6 @@ export const fetchFollows = () => {
     });
 };
 
-export const fetchFollowingsOf = (followerId) => {
-    return $.ajax({
-        method: "GET",
-        url: "/api/follows",
-        data: {
-            follower_id: followerId,
-        },
-    });
-}
-
 export const artistIdOf = (onPageSong) => {
     return onPageSong ? onPageSong.artistId : null;
     // if (onPageSong) {

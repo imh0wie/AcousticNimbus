@@ -23,7 +23,6 @@ const mdp = (dispatch) => {
       fetchFollowedSongs: (userId) => dispatch(fetchFollowedSongs(userId)),
       fetchSongsOfSpecificUser: (userId) => dispatch(fetchSongsOfSpecificUser(userId)),
       emptySongsOfSpecificUser: (defaultState) => dispatch(emptySongsOfSpecificUser(defaultState)),
-    //   emptyFollowedSongs: (defaultState) => dispatch(emptyFollowedSongs(defaultState)),
       emptyFollowedAndLikedSongsOf: (defaultState) => dispatch(emptyFollowedAndLikedSongsOf(defaultState)),
   });
 };
@@ -37,7 +36,6 @@ class SongsList extends React.Component {
             streamSongs: this.props.songs && this.props.songs.followedSongs ? Object.values(this.props.songs.followedSongs).reverse() : null,
             counter: 0,
         }
-        this.counter = 0;
     }
     
     componentDidMount() {
@@ -87,19 +85,12 @@ class SongsList extends React.Component {
                 this.defaultState = {
                     followedSongs: null,
                     likedSongs: null,
-                    songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
-                    likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
-                    individualSong: this.props.songs ? this.props.songs.individualSong : null,
                 };
                 this.props.emptyFollowedAndLikedSongsOf(this.defaultState);
                 break;
             case "user-show-page":
                 this.defaultState = {
-                    followedSongs: this.props.songs ? this.props.songs.followedSongs : null,
-                    likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
                     songsOfSpecificUser: null,
-                    likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
-                    individualSong: this.props.songs ? this.props.songs.individualSong : null,
                 }
                 this.props.emptySongsOfSpecificUser(this.defaultState);
                 break;
@@ -117,7 +108,7 @@ class SongsList extends React.Component {
             default:
                 break;
         }
-        if (!(!this.state.loading && this.songs)) {
+        if (this.state.loading || !this.songs) {
             return <img src={window.loadingPizza} className="loading"></img>;
         } else {
             if (this.songs.length === 0) {
@@ -141,6 +132,7 @@ class SongsList extends React.Component {
                                 idx={idx}
                                 klass={this.props.klass}
                                 itemSong={song}
+                                itemSongId={song.id}
                                 />
                             );
                         })}

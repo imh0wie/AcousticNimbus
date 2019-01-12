@@ -75,11 +75,6 @@ class RelatedSongs extends React.Component {
     // }
     componentWillUnMount() {
         const defaultState = {
-            followedSongs: this.props.songs ? this.props.songs.likedSongs : null,
-            likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
-            songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
-            likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
-            individualSong: this.props.songs ? this.props.songs.individualSong : null,
             relatedSongsByGenre: null,
         };
         this.props.emptyRelatedSongsByGenre(defaultState);

@@ -10,7 +10,7 @@ export const fetchUsers = (currentUserId) => {
     })
 }
 
-export const fetchThreeRandomUsers = (currentUserId) => {
+export const fetchRandomThreeUsers = (currentUserId) => {
     return $.ajax({
         method: "GET",
         url: "/api/users",

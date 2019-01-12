@@ -1,9 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import { fetchSongs } from "../../../actions/song_actions";
-import { fetchFollows } from "../../../actions/follow_actions";
-import { fetchUsers, fetchThreeRandomUsers } from "../../../actions/user_actions";
+import { fetchRandomThreeUsers, emptyRandomThreeUsers } from "../../../actions/user_actions";
 import { suggestedArtists } from "../../../util/user_api_util";
 import ArtistsListItem from "./artists_list_item";
 
@@ -17,15 +15,14 @@ const msp = (state) => {
         users: users,
         randomThree: suggestedArtists(users.randomThree),
         currentUserId: currentUserId,
+        currentUser: users[currentUserId],
     });
 }
 
 const mdp = (dispatch) => {
     return ({
-        fetchSongs: () => dispatch(fetchSongs()),
-        fetchFollows: () => dispatch(fetchFollows()),
-        fetchThreeRandomUsers: (currentUserId) => dispatch(fetchThreeRandomUsers(currentUserId)),
-        fetchUsers: () => dispatch(fetchUsers()),
+        fetchRandomThreeUsers: (currentUserId) => dispatch(fetchRandomThreeUsers(currentUserId)),
+        emptyRandomThreeUsers: (state) => dispatch(emptyRandomThreeUsers(state)),
     });
 }
 
@@ -38,11 +35,21 @@ class ArtistsList extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchThreeRandomUsers(this.props.currentUserId);
+        this.props.fetchRandomThreeUsers(this.props.currentUserId);
         this.setState({
             loading: false,
         })
     }
+
+    componentWillUnmount() {
+        const defaultState = {
+            randomThree: null,
+            [this.props.currentUserId]: this.props.currentUser,
+        }
+        this.props.emptyRandomThreeUsers(defaultState);
+    }
+
+
 
     render() {
         if (this.state.loading || !this.props.randomThree) {

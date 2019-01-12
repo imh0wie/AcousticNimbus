@@ -2,6 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { fetchUser, emptyIndividualUser } from "../../actions/user_actions";
+import { emptyLikes } from "../../actions/like_actions";
+import { emptyFollows } from "../../actions/follow_actions";
+import { emptyComments } from "../../actions/comment_actions";
 import Slideshow from "../common_components/slideshow"
 import Navbar from "../common_components/navbar";
 import SocialElements from "../common_components/social_elements";
@@ -17,6 +20,7 @@ const msp = (state, ownProps) => {
     const currentUserId = state.session.id;
     return ({
         songs: state.entities.songs,
+        likes: state.entities.likes,
         follows: state.entities.follows,
         users: users,
         onPageArtistId: onPageArtistId,
@@ -30,6 +34,8 @@ const mdp = (dispatch) => {
     return ({
         fetchUser: (userId) => dispatch(fetchUser(userId)),
         emptyIndividualUser: (defaultState) => dispatch(emptyIndividualUser(defaultState)),
+        emptyLikes: (state) => dispatch(emptyLikes(state)),
+        emptyFollows: (state) => dispatch(emptyFollows(state)),
     });
 };
 
@@ -50,13 +56,16 @@ class UserShowPage extends React.Component {
 
     componentWillUnmount() {
         const defaultState = {
-            randomThree: this.props.users && this.props.users.randomThree ? this.props.users.randomThree : null,
-            [this.props.currentUserId]: this.props.currentUser,
+            // randomThree: this.props.users && this.props.users.randomThree ? this.props.users.randomThree : null,
             individualUser: null,
-            followersOfSpecificUser: this.props.users && this.props.users.followersOfSpecificUser ? this.props.users.followersOfSpecificUser : null,
-            likersOfSpecificSong: this.props.users && this.props.users.likersOfSpecificSong ? this.props.users.likersOfSpecificSong : null,
+            [this.props.currentUserId]: this.props.currentUser,
+            // followersOfSpecificUser: this.props.users && this.props.users.followersOfSpecificUser ? this.props.users.followersOfSpecificUser : null,
+            // likersOfSpecificSong: this.props.users && this.props.users.likersOfSpecificSong ? this.props.users.likersOfSpecificSong : null,
         };
         this.props.emptyIndividualUser(defaultState);
+        if (this.props.likes) this.props.emptyLikes(null);
+        if (this.props.follows) this.props.emptyFollows(null);
+        if (this.props.comments) this.props.emptyComments(null);
     }
 
     render() {

@@ -2,17 +2,20 @@ import * as SongAPIUtil from "../util/song_api_util";
 
 export const RECEIVE_SONG = "RECEIVE_SONG";
 export const RECEIVE_SONGS = "RECEIVE_SONGS";
+export const RECEIVE_INTRO_SONGS = "RECEIVE_INTRO_SONGS";
 export const RECEIVE_FOLLOWED_SONGS = "RECEIVE_FOLLOWED_SONGS";
 export const RECEIVE_LIKED_SONGS = "RECEIVE_LIKED_SONGS";
 export const RECEIVE_FOLLOWED_AND_LIKED_SONGS = "RECEIVE_FOLLOWED_AND_LIKED_SONGS";
 export const RECEIVE_SONGS_OF_SPECIFIC_USER = "RECEIVE_SONGS_OF_SPECIFIC_USER";
+export const RECEIVE_RELATED_SONGS_BY_GENRE = "RECEIVE_RELATED_SONGS_BY_GENRE";
 export const RECEIVE_SONG_ERRORS = "RECEIVE_SONG_ERRORS";
 export const RECEIVE_SONGS_ERRORS = "RECEIVE_SONGS_ERRORS";
+export const EMPTY_INTRO_SONGS = "EMPTY_INTRO_SONGS";
 export const EMPTY_SONGS_OF_SPECIFIC_USER = "EMPTY_SONGS_OF_SPECIFIC_USER";
 export const EMPTY_LIKED_SONGS_OF_SPECIFIC_USER = "EMPTY_LIKED_SONGS_OF_SPECIFIC_USER";
 export const EMPTY_FOLLOWED_SONGS = "EMPTY_FOLLOWED_SONGS";
 export const EMPTY_LIKED_SONGS = "EMPTY_LIKED_SONGS";
-export const EMPTY_FOLLOWED_AND_LIKED_SONGS_OF = "EMPTY_FOLLOWED_AND_LIKED_SONGS_OF";
+export const EMPTY_FOLLOWED_AND_LIKED_SONGS = "EMPTY_FOLLOWED_AND_LIKED_SONGS";
 export const EMPTY_INDIVIDUAL_SONG = "EMPTY_INDIVIDUAL_SONG";
 export const EMPTY_RELATED_SONGS_BY_GENRE = "EMPTY_RELATED_SONGS_BY_GENRE";
 
@@ -53,12 +56,10 @@ export const fetchSong = (songIdToServer) => {
 };
 
 export const fetchRelatedSongsByGenre = (songDataToServer) => {
-  debugger
   return dispatch => {
-    debugger
     return SongAPIUtil.fetchRelatedSongsByGenre(songDataToServer).then(
       (songsFromServer) => {
-        return dispatch(receiveSongs(songsFromServer));
+        return dispatch(receiveRelatedSongsByGenre(songsFromServer));
       },
       (errors) => {
         return dispatch(receiveSongErrors(errors.responseJSON));
@@ -67,11 +68,11 @@ export const fetchRelatedSongsByGenre = (songDataToServer) => {
   };
 };
 
-export const fetchSongs = () => {
+export const fetchIntroSongs = (numberToServer) => {
   return (dispatch) => {
-    return SongAPIUtil.fetchSongs().then(
+    return SongAPIUtil.fetchSongs(numberToServer).then(
       (songsFromServer) => {
-        return dispatch(receiveSongs(songsFromServer));
+        return dispatch(receiveIntroSongs(songsFromServer));
       },
       (errors) => {
         return dispatch(receiveSongsErrors(errors.responseJSON));
@@ -159,6 +160,13 @@ export const emptyLikedSongsOfSpecificUser = (defaultState) => {
   };
 };
 
+export const emptyIntroSongs = (defaultState) => {
+  return {
+    type: EMPTY_INTRO_SONGS,
+    defaultState: defaultState,
+  };
+};
+
 export const emptyFollowedSongs = (defaultState) => {
   return {
     type: EMPTY_FOLLOWED_SONGS,
@@ -175,7 +183,7 @@ export const emptyLikedSongs = (defaultState) => {
 
 export const emptyFollowedAndLikedSongsOf = (defaultState) => {
   return {
-    type: EMPTY_FOLLOWED_AND_LIKED_SONGS_OF,
+    type: EMPTY_FOLLOWED_AND_LIKED_SONGS,
     defaultState: defaultState,
   };
 };
@@ -208,6 +216,13 @@ const receiveSongs = (songs) => {
   };
 };
 
+const receiveIntroSongs = (songs) => {
+  return {
+    type: RECEIVE_INTRO_SONGS,
+    songs: songs,
+  };
+};
+
 const receiveFollowedSongs = (songs) => {
   return {
     type: RECEIVE_FOLLOWED_SONGS,
@@ -232,6 +247,13 @@ const receiveFollowedAndLikedSongs = (songs) => {
 const receiveSongsOfSpecificUser = (songs) => {
   return {
     type: RECEIVE_SONGS_OF_SPECIFIC_USER,
+    songs: songs,
+  };
+};
+
+const receiveRelatedSongsByGenre = (songs) => {
+  return {
+    type: RECEIVE_RELATED_SONGS_BY_GENRE,
     songs: songs,
   };
 };

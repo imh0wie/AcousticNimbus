@@ -1,10 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { fetchSong, fetchSongs, emptyIndividualSong } from "../../actions/song_actions";
-import { fetchFollows } from "../../actions/follow_actions";
-import { fetchUsers } from "../../actions/user_actions";
-import { isEmpty } from "../../util/general_api_util";
+import { fetchSong, emptyIndividualSong } from "../../actions/song_actions";
 import Player from "../common_components/player";
 import CommentBox from "../common_components/comment_box";
 import SocialElements from "../common_components/social_elements";

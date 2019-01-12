@@ -19,9 +19,9 @@ export const fetchUsers = () => {
     // }
 };
 
-export const fetchThreeRandomUsers = (currentUserId) => {
+export const fetchRandomThreeUsers = (currentUserId) => {
     return (dispatch) => {
-        return UserAPIUtil.fetchThreeRandomUsers(currentUserId).then(
+        return UserAPIUtil.fetchRandomThreeUsers(currentUserId).then(
             (usersFromServer) => {
                 return dispatch(receiveRandomThreeUsers(usersFromServer));
             }
@@ -101,7 +101,7 @@ export const emptyRandomThreeUsers = (defaultState) => {
     return {
         type: EMPTY_RANDOM_THREE_USERS,
         defaultState: defaultState,
-    }
+    };
 }
 
 export const emptyIndividualUser = (defaultState) => {

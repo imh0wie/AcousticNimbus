@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import { fetchThreeRandomUsers, emptyRandomThreeUsers } from "../../../actions/user_actions";
+import { fetchRandomThreeUsers, emptyRandomThreeUsers } from "../../../actions/user_actions";
 import ArtistsList from "./artists_list";
 
 const msp = (state) => {
@@ -16,7 +16,7 @@ const msp = (state) => {
 
 const mdp = (dispatch) => {
     return ({
-        fetchThreeRandomUsers: (currentUserId) => dispatch(fetchThreeRandomUsers(currentUserId)),
+        fetchRandomThreeUsers: (currentUserId) => dispatch(fetchRandomThreeUsers(currentUserId)),
         emptyRandomThreeUsers: (defaultState) => dispatch(emptyRandomThreeUsers(defaultState)),
     });
 }

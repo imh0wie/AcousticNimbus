@@ -1,12 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
-import { fetchSongs } from "../../actions/song_actions";
-import { fetchFollows, createFollow, removeFollow } from "../../actions/follow_actions";
+import { createFollow, removeFollow } from "../../actions/follow_actions";
 import { fetchUsers } from "../../actions/user_actions";
-import { isEmpty } from "../../util/general_api_util";
-import { songsOf } from "../../util/song_api_util";
-import { followOf, followersOf } from "../../util/follow_api_util";
+
 
 const msp = (state, ownProps) => {
     const songs = state.entities.songs;
@@ -19,16 +16,12 @@ const msp = (state, ownProps) => {
         follows: follows,
         users: users,
         song: song,
-        // songArtist: (users && song) ? users[song.artistId] : null,
-        // currentFollow: followOf(song.artistId, currentUserId, follows),
         currentUserId: currentUserId,
     });
 }
 
 const mdp = (dispatch) => {
     return({
-        fetchSongs: () => dispatch(fetchSongs()),
-        fetchFollows: () => dispatch(fetchFollows()),
         createFollow: (follow) => dispatch(createFollow(follow)),
         removeFollow: (id) => dispatch(removeFollow(id)),
         fetchUsers: () => dispatch(fetchUsers()),

@@ -46,7 +46,7 @@ class SocialElements extends React.Component {
         switch (this.props.klass) {
             case "item-player":
                 this.state = {
-                    itemId: this.props.songId,
+                    itemId: null,
                     currentLike: this.props.likes ? likeOf(this.props.currentUserId, "Song", this.props.songId, this.props.likes) : likeOf(this.props.currentUserId, "Song", this.props.songId, this.props.song.likes),
                     currentComments: this.props.comments ? this.props.comments.commentsOfSpecificSong[songId] : null,
                     likesCount: this.props.song.likesCount,

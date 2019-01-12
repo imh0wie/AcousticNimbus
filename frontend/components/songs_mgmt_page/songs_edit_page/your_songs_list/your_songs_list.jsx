@@ -15,7 +15,7 @@ const msp = (state) => {
 
 const mdp = (dispatch) => {
     return ({
-        fetchSongs: () => dispatch(fetchSongs())
+        // fetchSongs: () => dispatch(fetchSongs())
     });
 };
 
@@ -29,7 +29,7 @@ class YourSongsList extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchSongs();
+        // this.props.fetchSongs();
     }
 
     componentWillReceiveProps(nextProps) {

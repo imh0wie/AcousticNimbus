@@ -27,15 +27,17 @@ export const fetchSong = (id) => {
   });
 };
 
-export const fetchSongs = () => {
+export const fetchSongs = (number) => {
   return $.ajax({
     method: "GET",
     url: "/api/songs",
+    data: {
+      number: number,
+    }
   });
 };
 
 export const fetchRelatedSongsByGenre = (songData) => {
-  debugger
   return $.ajax({
     method: "GET",
     url: "/api/songs",
