@@ -1,10 +1,10 @@
 defaultState = {}
 
 json.set! :commentsOfSpecificSong do
-  json.set! @song_id do
-    if @comments_of_specific_song.length === 0
-      json.commentsOfSpecificSong defaultState
-    else
+  if @comments_of_specific_song.length == 0
+    json.set! @song_id, defaultState
+  else
+    json.set! @song_id do
       @comments_of_specific_song.each do |comment|
         json.set! comment.id do
           json.id comment.id

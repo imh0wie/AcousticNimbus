@@ -3899,7 +3899,9 @@ function (_React$Component) {
             }
           }
 
-          if (nextProps.comments && nextProps.comments.commentsOfSpecificSong[this.state.itemId] && this.state.commentsCount !== Object.keys(nextProps.comments.commentsOfSpecificSong[this.state.itemId]).length) {
+          debugger;
+
+          if (nextProps.comments && nextProps.comments.commentsOfSpecificSong[this.props.songId] && this.state.commentsCount !== Object.keys(nextProps.comments.commentsOfSpecificSong[this.props.songId]).length) {
             this.setState({
               commentsCount: this.state.commentsCount + 1
             });
@@ -6160,8 +6162,7 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(CommentsList).call(this, props));
     _this.state = {
       loading: true,
-      currentComments: Object.values(_this.props.song.comments) // currentComments: this.props.comments && this.props.comments.commentsOfSpecificSong ? Object.values(this.props.comments.commentsOfSpecificSong) : null,
-
+      currentComments: Object.values(_this.props.song.comments).reverse()
     };
     return _this;
   }
@@ -6176,41 +6177,12 @@ function (_React$Component) {
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
-      if (!this.props.comments && nextProps.comments || nextProps.comments && this.state.currentComments.length !== Object.keys(nextProps.comments.commentsOfSpecificSong).length) {
-        // if ((!this.props.comments && nextProps.comments) || (this.props.comments && nextProps.comments && Object.keys(this.props.comments.commentsOfSpecificSong).length !== Object.keys(nextProps.comments.commentsOfSpecificSong).length)) {
+      if (!this.props.comments && nextProps.comments || nextProps.comments && nextProps.comments.commentsOfSpecificSong && this.state.currentComments.length !== Object.keys(nextProps.comments.commentsOfSpecificSong).length) {
         this.setState({
-          currentComments: Object.values(nextProps.comments.commentsOfSpecificSong[this.props.songId])
-        }); // if (this.state.followed) {
-        //     const idx = this.state.followers.findIndex(follower => follower.id === this.props.currentUserId);
-        //     this.setState({
-        //         followers: this.state.followers.length === 1 ? [] : this.state.followers.slice(0, idx).concat(this.state.followers.slice(idx + 1)),
-        //         followed: !this.state.followed,
-        //     });
-        // } else {
-        //     this.setState({
-        //         followers: this.state.followers.concat([this.props.currentUser]),
-        //         followed: !this.state.followed,
-        //     });
-        // }
+          currentComments: Object.values(nextProps.comments.commentsOfSpecificSong[this.props.songId]).reverse()
+        });
       }
-    } // componentDidMount() {
-    //     const defaultState = {
-    //         commentsOfSpecificSong: null,
-    //     };
-    //     this.props.emptyCommentsOfSpecificSong(defaultState);
-    // }
-    // componentWillReceiveProps(nextProps) {
-    //     if (!this.props.comments && nextProps.comments && Object.keys(nextProps.comments).includes("commentsOfSpecificSong") && !nextProps.comments.commentsOfSpecificSong) {
-    //         this.props.fetchCommentsOfSpecificSong(this.props.songId);
-    //     } else if ((!this.props.comments.commentsOfSpecificSong && nextProps.comments.commentsOfSpecificSong) || (nextProps.comments && nextProps.comments.commentsOfSpecificSong[this.props.songId] && this.state.currentComments.length !== Object.keys(nextProps.comments.commentsOfSpecificSong[this.props.songId]).length)) {
-    //     // } else if ((!this.props.comments.commentsOfSpecificSong && nextProps.comments.commentsOfSpecificSong) || (this.props.comments && this.props.comments.commentsOfSpecificSong && nextProps.comments && nextProps.comments.commentsOfSpecificSong && Object.keys(this.props.comments.commentsOfSpecificSong).length !== Object.keys(nextProps.comments.commentsOfSpecificSong).length)) {
-    //         this.setState({
-    //             loading: false,
-    //             currentComments: Object.values(nextProps.comments.commentsOfSpecificSong[this.props.songId]),
-    //         });
-    //     }
-    // }
-
+    }
   }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
@@ -6252,34 +6224,7 @@ function (_React$Component) {
               songArtist: _this2.props.songArtist
             });
           })));
-        } // if (isEmpty(this.props.comments) || this.props.currentComments.length === 0) {
-        //     return (
-        //       <div className="comments-none">
-        //         <img src={window.message}></img>
-        //         <h3>Seems a little quiet over here</h3>
-        //         <h4>Be the first to comment on this song</h4>
-        //       </div>
-        //     );
-        // } else {
-        //     const commentsHeader = this.props.currentComments.length > 1 ? `${this.props.currentComments.length} comments` : "1 comment";
-        //     return (
-        //         <div className="comments">
-        //         <p className="header">{commentsHeader}</p>
-        //         <ul>
-        //             {this.props.currentComments.map((comment) => {
-        //                 return (
-        //                 <CommentsListItem
-        //                 key={comment.id}
-        //                 comment={comment}
-        //                 commenter={this.props.users[comment.commenterId]}
-        //                 />
-        //                 );
-        //             })}
-        //         </ul>
-        //         </div>
-        //     );
-        // }
-
+        }
       }
     }
   }]);

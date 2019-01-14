@@ -84,7 +84,8 @@ class SocialElements extends React.Component {
                         })
                     }
                 }
-                if (nextProps.comments && nextProps.comments.commentsOfSpecificSong[this.state.itemId] && this.state.commentsCount !== Object.keys(nextProps.comments.commentsOfSpecificSong[this.state.itemId]).length) {
+                debugger
+                if (nextProps.comments && nextProps.comments.commentsOfSpecificSong[this.props.songId] && this.state.commentsCount !== Object.keys(nextProps.comments.commentsOfSpecificSong[this.props.songId]).length) {
                     this.setState({
                         commentsCount: this.state.commentsCount + 1,
                     });
