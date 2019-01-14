@@ -9,10 +9,10 @@ const songsReducer = (state = null, action) => {
     case RECEIVE_INTRO_SONGS:
     case RECEIVE_LIKED_SONGS:
     case RECEIVE_FOLLOWED_AND_LIKED_SONGS:
-    case RECEIVE_SONGS_OF_SPECIFIC_USER:
     case RECEIVE_RELATED_SONGS_BY_GENRE:
     newState = action.songs || action.song;
     return merge({}, state, newState);
+    case RECEIVE_SONGS_OF_SPECIFIC_USER:
     case RECEIVE_FILTERED_SONGS:
     case RECEIVE_FOLLOWED_SONGS:
     newState = action.songs;

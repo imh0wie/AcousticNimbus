@@ -658,7 +658,7 @@ var createSong = function createSong(songToServer) {
 var removeSong = function removeSong(songToServer) {
   return function (dispatch) {
     return _util_song_api_util__WEBPACK_IMPORTED_MODULE_0__["removeSong"](songToServer).then(function (songsFromServer) {
-      return dispatch(receiveSongs(songsFromServer));
+      return dispatch(receiveSongsOfSpecificUser(songsFromServer));
     });
   };
 };
@@ -6997,7 +6997,10 @@ function (_React$Component) {
     value: function componentWillReceiveProps(nextProps) {
       var _this2 = this;
 
+      debugger;
+
       if (!this.state.yourSongs && nextProps.songs.songsOfSpecificUser || this.props.songs && nextProps.songs && Object.keys(this.props.songs.songsOfSpecificUser).length !== Object.keys(nextProps.songs.songsOfSpecificUser).length) {
+        debugger;
         this.setState({
           loading: true
         });
@@ -8690,11 +8693,11 @@ var songsReducer = function songsReducer() {
     case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_INTRO_SONGS"]:
     case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_LIKED_SONGS"]:
     case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_FOLLOWED_AND_LIKED_SONGS"]:
-    case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_SONGS_OF_SPECIFIC_USER"]:
     case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_RELATED_SONGS_BY_GENRE"]:
       newState = action.songs || action.song;
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, newState);
 
+    case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_SONGS_OF_SPECIFIC_USER"]:
     case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_FILTERED_SONGS"]:
     case _actions_song_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_FOLLOWED_SONGS"]:
       newState = action.songs;

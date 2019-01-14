@@ -36,7 +36,7 @@ export const removeSong = (songToServer) => {
   return dispatch => {
       return SongAPIUtil.removeSong(songToServer).then(
           (songsFromServer) => {
-              return dispatch(receiveSongs(songsFromServer));
+            return dispatch(receiveSongsOfSpecificUser(songsFromServer));
           }
       );
   };
