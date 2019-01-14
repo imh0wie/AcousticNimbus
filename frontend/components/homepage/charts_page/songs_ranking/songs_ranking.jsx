@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import { fetchFilteredSongs } from "../../../../actions/song_actions";
 import { latest } from "../../../../util/song_api_util";
 import SongsRankingItem from "./songs_ranking_item";
+import { timingSafeEqual } from "crypto";
 
 const msp = (state) => {
   const filters = state.ui.charts;
@@ -17,7 +18,7 @@ const msp = (state) => {
 
 const mdp = (dispatch) => {
   return ({
-      fetchFilteredSongs: (data) => dispatch(fetchFilteredSongs(data)),
+    fetchFilteredSongs: (data) => dispatch(fetchFilteredSongs(data)),
   });
 };
 
@@ -47,14 +48,26 @@ class SongsRanking extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     debugger
-    if ((!this.props.songs || !this.props.songs.rankedSongs) && nextProps.songs && nextProps.songs.rankedSongs) {
+    if (((!this.props.songs || !this.props.songs.rankedSongs) && nextProps.songs && nextProps.songs.rankedSongs) || (this.props.songs && this.props.songs.rankedSongs && nextProps.songs && Object.keys(this.props.songs.rankedSongs).length !== Object.keys(nextProps.songs.rankedSongs).length)) {
       debugger
       this.setState({
         rankedSongs: Object.values(nextProps.songs.rankedSongs).reverse(),
-      })
+        loading: false,
+      });
+    } else if (this.props.genre !== nextProps.genre) {
+      this.setState({
+        rankedSongs: null,
+        loading: true,
+      });
+      const data = {
+        number: 10,
+        // offset: this.state.offset,
+        order: nextProps.order,
+        genre: nextProps.genre,
+      }
       debugger
+      this.props.fetchFilteredSongs(data);
     }
-    debugger
   }
 
   render() {

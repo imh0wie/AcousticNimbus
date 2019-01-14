@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { fetchFollowedSongs, fetchFollowedAndLikedSongs, fetchSongsOfSpecificUser, emptySongsOfSpecificUser, emptyFollowedAndLikedSongsOf, emptyFollowedSongs } from "../../../actions/song_actions";
+import { fetchFollowedSongs, fetchSongsOfSpecificUser, emptySongsOfSpecificUser, emptyFollowedAndLikedSongsOf, emptyFollowedSongs } from "../../../actions/song_actions";
 import SongsListItem from "./songs_list_item";
 
 const msp = (state) => {
@@ -19,7 +19,6 @@ const msp = (state) => {
 
 const mdp = (dispatch) => {
   return ({
-      fetchFollowedAndLikedSongs: (userId) => dispatch(fetchFollowedAndLikedSongs(userId)),
       fetchFollowedSongs: (data) => dispatch(fetchFollowedSongs(data)),
       fetchSongsOfSpecificUser: (data) => dispatch(fetchSongsOfSpecificUser(data)),
       emptySongsOfSpecificUser: (defaultState) => dispatch(emptySongsOfSpecificUser(defaultState)),
@@ -50,9 +49,8 @@ class SongsList extends React.Component {
                 this.data = {
                     current_user_id: this.props.currentUserId,
                     fetching_followed_songs: true,
-                    fetching_liked_songs: true,
                 }
-                this.props.fetchFollowedAndLikedSongs(this.data);
+                this.props.fetchFollowedSongs(this.data);
                 break;
             case "user-show-page":
                 this.data = {
@@ -76,7 +74,6 @@ class SongsList extends React.Component {
                     this.data = {
                         current_user_id: this.props.currentUserId,
                         fetching_followed_songs: true,
-                        fetching_liked_songs: false,
                     }
                     this.props.fetchFollowedSongs(this.data);
                 }

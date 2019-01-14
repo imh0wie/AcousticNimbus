@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { changeOrder } from "../../../../actions/chart_actions";
+import { changeOrder, changeGenre } from "../../../../actions/chart_actions";
 import { FormGroup, FormControl } from 'react-bootstrap';
 
 const msp = (state) => {
@@ -13,6 +13,7 @@ const msp = (state) => {
 const mdp = (dispatch) => {
     return ({
         changeOrder: (order) => dispatch(changeOrder(order)),
+        changeGenre: (genre) => dispatch(changeGenre(genre)),
     });
 };
 
@@ -22,9 +23,16 @@ class FilterBar extends React.Component {
     }
     
     update(field) {
-        return (e) => {
-            this.props.changeOrder(e.currentTarget.value)
-        };
+        switch (field) {
+            case "order":
+                return (e) => {
+                    this.props.changeOrder(e.currentTarget.value)
+                };
+            case "genre":
+                return (e) => {
+                    this.props.changeGenre(e.currentTarget.value)
+                };
+        }
     }
 
     render() {
@@ -37,9 +45,9 @@ class FilterBar extends React.Component {
                     </FormControl>
                 </FormGroup>
                 <FormGroup controlId="genreFilters">
-                    <FormControl componentClass="select" placeholder="None" className="genre-filters" onChange={this.update("genres")}>
-                    <option value="All">All genres</option>
-                    {/* <option value="Acoustic">Acoustic</option>
+                    <FormControl componentClass="select" placeholder="None" className="genre-filters" onChange={this.update("genre")}>
+                    <option value="all">All genres</option>
+                    <option value="Acoustic">Acoustic</option>
                     <option value="Ambient">Ambient</option>
                     <option value="Classical">Classical</option>
                     <option value="Country">Country</option>
@@ -52,7 +60,7 @@ class FilterBar extends React.Component {
                     <option value="Pop">Pop</option>
                     <option value="Soul">Soul</option>
                     <option value="Rock">Rock</option>
-                    <option value="World">World</option> */}
+                    <option value="World">World</option>
                     </FormControl>
                 </FormGroup>
             </div>

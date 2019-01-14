@@ -7,11 +7,10 @@ class Api::SongsController < ApplicationController
       #                         1)songs of users followed by current user
       #                         AND/OR
       #                         2)songs liked by current user 
-      if params[:fetching_followed_songs] 
+      if params[:fetching_followed_songs]
         followings = Follow.where(follower_id: params[:current_user_id]).select(:followed_user_id)
         @followed_songs = Song.where(artist_id: followings)
-      end
-      if params[:fetching_liked_songs] 
+      elsif params[:fetching_liked_songs]
         likes = Like.where(liker_id: params[:current_user_id]).select(:likeable_id)
         @liked_songs = Song.where(id: likes).select('*')
         @likes = Like.where(liker_id: params[:current_user_id]).select(:id)

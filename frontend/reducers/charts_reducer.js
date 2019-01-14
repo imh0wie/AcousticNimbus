@@ -13,12 +13,12 @@ const chartsReducer = (state = defaultState, action) => {
             newState = {
                 order: action.order
             };
-            return merge({}, newState);
+            return merge({}, state, newState);
         case "CHANGE_GENRE":
             newState = {
                 genre: action.genre
             };
-            return merge({}, newState);
+            return merge({}, state, newState);
         default:
             return state;
     }

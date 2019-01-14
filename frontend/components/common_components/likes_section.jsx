@@ -76,14 +76,11 @@ class LikesSection extends React.Component {
     componentDidMount() {  
         switch (this.props.klass) {
             case "homepage":
-                if (!this.props.songs || !this.props.songs.likedSongs) {
-                    this.data = {
-                        current_user_id: this.props.currentUserId,
-                        fetching_followed_songs: false,
-                        fetching_liked_songs: true,
-                    }
-                    this.props.fetchLikedSongs(this.data);
+                this.data = {
+                    current_user_id: this.props.currentUserId,
+                    fetching_liked_songs: true,
                 }
+                this.props.fetchLikedSongs(this.data);
                 break;
             case "user-show-page":
                 this.setState({
@@ -118,18 +115,12 @@ class LikesSection extends React.Component {
                 } else if (this.props.songs && Object.keys(nextProps.songs).includes("likedSongs") && nextProps.songs.likedSongs === null) {
                     this.data = {
                         current_user_id: this.props.currentUserId,
-                        fetching_followed_songs: false,
                         fetching_liked_songs: true,
                     }
                     this.props.fetchLikedSongs(this.data);
                 } else if ((!this.props.likes && nextProps.likes) || (this.props.likes && nextProps.likes && Object.keys(this.props.likes).length !== Object.keys(nextProps.likes).length)) {
                     const defaultState = {
-                        followedSongs: this.props.songs ? this.props.songs.followedSongs : null,
                         likedSongs: null,
-                        songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
-                        likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
-                        individualSong: this.props.songs ? this.props.songs.individualSong : null,
-                        relatedSongsByGenre: this.props.songs ? this.props.songs.relatedSongsByGenre : null,
                     };
                     this.props.emptyLikedSongs(defaultState);
                     this.setState({
