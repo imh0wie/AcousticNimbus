@@ -123,12 +123,13 @@ class UploadForm extends React.Component {
     songData.append('song[availability]', this.state.availability);
     songData.append('song[audio]', this.state.audio);
     songData.append('song[audio_url]', this.state.audioURL);
-    songData.append('song[image]', this.state.image);
-    songData.append('song[image_url]', this.state.imageURL);
+    if (this.state.image) songData.append('song[image]', this.state.image);
+    if (this.state.imageURL) songData.append('song[image_url]', this.state.imageURL);
     songData.append('song[artist_id]', this.state.artistId);
     this.props.submitAction(songData).then(
       (action) => {
-        this.props.history.push(`/songs/${action.song.id}`);
+        debugger
+        this.props.history.push(`/songs/${Object.keys(action.song.individualSong)[0]}`);
       }
     );
   }

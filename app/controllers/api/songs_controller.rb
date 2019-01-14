@@ -57,6 +57,9 @@ class Api::SongsController < ApplicationController
   def create
     @song = Song.new(song_params)
     if @song.save
+      liker_ids = Like.where(likeable_id: @song.id).select(:liker_id)
+      @likers_of_song = User.where(id: liker_ids).select('*');
+      @comments_of_song = Comment.where(song_id: @song.id).select('*')
       render :show
     else
       render json: @song.errors.full_messages, status: 401
@@ -66,7 +69,7 @@ class Api::SongsController < ApplicationController
   def destroy
     @song = Song.find(params[:id])
     if @song.destroy
-      @songs = Song.all
+      @songs_of_specific_user = Song.where(artist_id: params[:artist_id]).select('*')
       render :index
     else
       render @song.errors.full_messages, status: 401
@@ -85,7 +88,8 @@ class Api::SongsController < ApplicationController
   private
   
   def song_params
-    params.require(:song).permit(:title, :genre, :description, :availability, :audio, :audio_url, :image, :image_url, :artist_id)
+    params.require(:song).permit!
+    # params.require(:song).permit(:title, :genre, :description, :availability, :audio, :audio_url, :image, :image_url, :artist_id)
   end
 end
 

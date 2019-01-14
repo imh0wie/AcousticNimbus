@@ -12,7 +12,7 @@ const msp = (state) => {
 
 const mdp = (dispatch) => {
     return ({
-        removeSong: (id) => dispatch(removeSong(id)),
+        removeSong: (song) => dispatch(removeSong(song)),
         toggleReloading: () => dispatch(toggleReloading()),
     });
 }
@@ -26,14 +26,24 @@ class HoverButtons extends React.Component {
         this.noneStyle = {
             display: "none",
         }
-        this.deleteSong = this.deleteSong.bind(this);
+        // this.deleteSong = this.deleteSong.bind(this);
     }
 
     deleteSong() {
-        this.props.toggleReloading().then(this.props.removeSong(this.props.songId))
+        const song = {
+            id: this.props.songId,
+            artist_id: this.props.song.artistId,
+        }
+        this.props.removeSong(song);
         // this.props.toggleReloading();
         // this.props.removeSong(this.props.songId);
     }
+
+    // deleteSong() {
+    //     this.props.toggleReloading().then(this.props.removeSong(this.props.songId))
+    //     // this.props.toggleReloading();
+    //     // this.props.removeSong(this.props.songId);
+    // }
     
     render() {
         // if (this.state.reloading) return <img src={window.loadingCool} className="loading"></img>;

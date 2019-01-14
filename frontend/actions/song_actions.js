@@ -32,9 +32,9 @@ export const createSong = (songToServer) => {
   };
 };
 
-export const removeSong = (idToServer) => {
+export const removeSong = (songToServer) => {
   return dispatch => {
-      return SongAPIUtil.removeSong(idToServer).then(
+      return SongAPIUtil.removeSong(songToServer).then(
           (songsFromServer) => {
               return dispatch(receiveSongs(songsFromServer));
           }

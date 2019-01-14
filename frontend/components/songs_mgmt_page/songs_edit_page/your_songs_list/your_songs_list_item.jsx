@@ -12,13 +12,13 @@ const YourSongsListItem = (props) => {
                     <Link to={`/users/${props.song.artistId}`} className="artist">{props.song.artist.length > 30 ? `${props.song.artist.slice(0, 30)}...` : props.song.artist}</Link>
                     <Link to={`/songs/${props.song.id}`} className="title">{props.song.title.length > 30 ? `${props.song.title.slice(0, 30)}...` : props.song.title}</Link>
                     <div className="social-info">
-                        <p><i className="fas fa-heart"></i></p>
-                        <p><i className="fas fa-comment-alt"></i></p>
+                        <p><i className="fas fa-heart"></i> {props.song.likesCount}</p>
+                        <p><i className="fas fa-comment-alt"></i> {props.song.commentsCount}</p>
                     </div>
                 </div>
             </div>
             <div className="right">
-                <HoverButtons klass="your-songs-list-item" songId={props.song.id} />
+                <HoverButtons klass="your-songs-list-item" song={props.song} songId={props.song.id} />
                 <p className="song-length"></p>
                 <p>{generateCreationTime(props.song.createdAt)}</p>
             </div>

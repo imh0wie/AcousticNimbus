@@ -1,4 +1,5 @@
 export const createSong = (song) => {
+  debugger
   return $.ajax({
     method: "POST",
     url: "/api/songs",
@@ -8,10 +9,11 @@ export const createSong = (song) => {
   });
 };
 
-export const removeSong = (id) => {
+export const removeSong = (song) => {
   return $.ajax({
     method: "DELETE",
-    url: `/api/songs/${id}`,
+    url: `/api/songs/${song.id}`,
+    data: song,
   });
 };
 

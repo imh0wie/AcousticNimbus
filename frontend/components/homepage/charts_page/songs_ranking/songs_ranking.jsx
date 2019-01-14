@@ -47,9 +47,7 @@ class SongsRanking extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    debugger
     if (((!this.props.songs || !this.props.songs.rankedSongs) && nextProps.songs && nextProps.songs.rankedSongs) || (this.props.songs && this.props.songs.rankedSongs && nextProps.songs && Object.keys(this.props.songs.rankedSongs).length !== Object.keys(nextProps.songs.rankedSongs).length)) {
-      debugger
       this.setState({
         rankedSongs: Object.values(nextProps.songs.rankedSongs).reverse(),
         loading: false,
@@ -65,7 +63,6 @@ class SongsRanking extends React.Component {
         order: nextProps.order,
         genre: nextProps.genre,
       }
-      debugger
       this.props.fetchFilteredSongs(data);
     }
   }

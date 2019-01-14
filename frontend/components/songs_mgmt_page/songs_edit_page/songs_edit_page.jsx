@@ -20,27 +20,42 @@ const mdp = (dispatch) => {
 class SongsEditPage extends React.Component {
     constructor(props) {
         super(props);
-        this.noneStyle = {
-            display: "none",
-        }
+        // this.noneStyle = {
+        //     display: "none",
+        // }
     }
     
     componentWillReceiveProps(nextProps) {
-        if (this.props.reloading && this.props.songs !== nextProps.songs) {
-            this.props.toggleReloading();
-        }
+        
     }
     
     render() {
         return (
             <div className="songs-edit-page">
-                <header>Your songs <img src={window.loadingCool} className="loading" style={this.props.reloading ? {} : this.noneStyle}></img></header>
+                <header>Your songs</header>
                 <div className="bar">
                 </div>
                 <YourSongsList />
             </div>
         );
     }
+    
+    // componentWillReceiveProps(nextProps) {
+    //     if (this.props.reloading && this.props.songs !== nextProps.songs) {
+    //         this.props.toggleReloading();
+    //     }
+    // }
+    
+    // render() {
+    //     return (
+    //         <div className="songs-edit-page">
+    //             <header>Your songs <img src={window.loadingCool} className="loading" style={this.props.reloading ? {} : this.noneStyle}></img></header>
+    //             <div className="bar">
+    //             </div>
+    //             <YourSongsList />
+    //         </div>
+    //     );
+    // }
 }
 
 export default withRouter(connect(msp, mdp)(SongsEditPage));
