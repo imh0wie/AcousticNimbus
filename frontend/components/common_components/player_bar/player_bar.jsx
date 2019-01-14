@@ -44,7 +44,6 @@ class PlayerBar extends React.Component {
         this.state = {
             elapsed: this.props.currentSong.elapsed,
             sliding: false,
-            // muted: false,
             duration: null,
             volume: 0.60,
             shuffle: false,
@@ -228,9 +227,6 @@ class PlayerBar extends React.Component {
 
     render(){
     if (this.props.currentSong.song) {
-        // console.log(this.props.currentSong.playing);
-        // console.log(this.props.currentSong)
-        // console.log(ReactPlayer)
         return (
         <div className="player-bar-container">
             <div className="player-bar">

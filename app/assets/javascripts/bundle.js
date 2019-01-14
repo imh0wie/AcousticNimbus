@@ -487,6 +487,17 @@ var closeModal = function closeModal() {
 
 /***/ }),
 
+/***/ "./frontend/actions/queue_actions.js":
+/*!*******************************************!*\
+  !*** ./frontend/actions/queue_actions.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/howiechan/Codes/projects/AcousticNimbus/frontend/actions/queue_actions.js: `RECEIVE_QUEUE` has already been exported. Exported identifiers must be unique. (3:13)\n\n\u001b[0m \u001b[90m 1 | \u001b[39m\u001b[36mexport\u001b[39m \u001b[36mconst\u001b[39m \u001b[33mRECEIVE_QUEUE\u001b[39m \u001b[33m=\u001b[39m \u001b[32m\"RECEIVE_QUEUE\"\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 2 | \u001b[39m\u001b[36mexport\u001b[39m \u001b[36mconst\u001b[39m \u001b[33mADD_SONG_TO_QUEUE\u001b[39m \u001b[33m=\u001b[39m \u001b[32m\"ADD_SONG_TO_QUEUE\"\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 3 | \u001b[39m\u001b[36mexport\u001b[39m \u001b[36mconst\u001b[39m \u001b[33mRECEIVE_QUEUE\u001b[39m \u001b[33m=\u001b[39m \u001b[32m\"RECEIVE_QUEUE\"\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   | \u001b[39m             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 4 | \u001b[39m\u001b[36mexport\u001b[39m \u001b[36mconst\u001b[39m \u001b[33mADD_SONG_TO_QUEUE\u001b[39m \u001b[33m=\u001b[39m \u001b[32m\"ADD_SONG_TO_QUEUE\"\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 5 | \u001b[39m\u001b[36mexport\u001b[39m \u001b[36mconst\u001b[39m \u001b[33mREMOVE_SONG_FROM_QUEUE\u001b[39m \u001b[33m=\u001b[39m \u001b[32m\"REMOVE_SONG_FROM_QUEUE\"\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 6 | \u001b[39m\u001b[36mexport\u001b[39m \u001b[36mconst\u001b[39m \u001b[33mADD_TO_PLAY_NEXT\u001b[39m \u001b[33m=\u001b[39m \u001b[32m\"ADD_TO_PLAY_NEXT\"\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n    at _class.raise (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:3938:15)\n    at _class.raiseDuplicateExportError (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:8364:16)\n    at _class.checkDuplicateExports (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:8357:12)\n    at _class.checkDeclaration (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:8351:12)\n    at _class.checkExport (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:8313:18)\n    at _class.parseExport (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:8186:10)\n    at _class.parseStatementContent (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7231:27)\n    at _class.parseStatement (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7144:17)\n    at _class.parseBlockOrModuleBlockBody (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7695:23)\n    at _class.parseBlockBody (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7682:10)\n    at _class.parseTopLevel (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:7109:10)\n    at _class.parse (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:8495:17)\n    at parse (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/parser/lib/index.js:10448:38)\n    at parser (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/core/lib/transformation/normalize-file.js:170:34)\n    at normalizeFile (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/core/lib/transformation/normalize-file.js:138:11)\n    at runSync (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/core/lib/transformation/index.js:44:43)\n    at runAsync (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/core/lib/transformation/index.js:35:14)\n    at process.nextTick (/Users/howiechan/Codes/projects/AcousticNimbus/node_modules/@babel/core/lib/transform.js:34:34)\n    at _combinedTickCallback (internal/process/next_tick.js:131:7)\n    at process._tickCallback (internal/process/next_tick.js:180:9)");
+
+/***/ }),
+
 /***/ "./frontend/actions/reloading_actions.js":
 /*!***********************************************!*\
   !*** ./frontend/actions/reloading_actions.js ***!
@@ -2833,7 +2844,6 @@ function (_React$Component) {
     _this.state = {
       elapsed: _this.props.currentSong.elapsed,
       sliding: false,
-      // muted: false,
       duration: null,
       volume: 0.60,
       shuffle: false,
@@ -3059,9 +3069,6 @@ function (_React$Component) {
       var _this4 = this;
 
       if (this.props.currentSong.song) {
-        // console.log(this.props.currentSong.playing);
-        // console.log(this.props.currentSong)
-        // console.log(ReactPlayer)
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "player-bar-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -4432,6 +4439,7 @@ function (_React$Component) {
       streamSongs: _this.props.songs && _this.props.songs.followedSongs ? Object.values(_this.props.songs.followedSongs).reverse() : null,
       counter: 0
     };
+    _this.songs = null;
     return _this;
   }
 
@@ -8433,6 +8441,51 @@ var modalReducer = function modalReducer() {
 
 /***/ }),
 
+/***/ "./frontend/reducers/queue_reducer.js":
+/*!********************************************!*\
+  !*** ./frontend/reducers/queue_reducer.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_queue_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/queue_actions */ "./frontend/actions/queue_actions.js");
+/* harmony import */ var _actions_queue_actions__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_actions_queue_actions__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+var queueReducer = function queueReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+  var newState;
+
+  switch (action.type) {
+    case _actions_queue_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_QUEUE"]:
+      newState = action.queue;
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, newState);
+
+    case _actions_queue_actions__WEBPACK_IMPORTED_MODULE_0__["ADD_SONG_TO_QUEUE"]:
+      newState = action.queue;
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, newState);
+    // case REMOVE_SONG_FROM_QUEUE:
+
+    case _actions_queue_actions__WEBPACK_IMPORTED_MODULE_0__["ADD_TO_PLAY_NEXT"]:
+      newState = action.song;
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, newState, state);
+
+    default:
+      break;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (queueReducer);
+
+/***/ }),
+
 /***/ "./frontend/reducers/reloading_reducer.js":
 /*!************************************************!*\
   !*** ./frontend/reducers/reloading_reducer.js ***!
@@ -8678,6 +8731,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _current_song_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./current_song_reducer */ "./frontend/reducers/current_song_reducer.js");
 /* harmony import */ var _charts_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./charts_reducer */ "./frontend/reducers/charts_reducer.js");
 /* harmony import */ var _reloading_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./reloading_reducer */ "./frontend/reducers/reloading_reducer.js");
+/* harmony import */ var _queue_reducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./queue_reducer */ "./frontend/reducers/queue_reducer.js");
+
 
 
 
@@ -8686,6 +8741,7 @@ __webpack_require__.r(__webpack_exports__);
 var uiReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   modal: _modal_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
   currentSong: _current_song_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
+  queue: _queue_reducer__WEBPACK_IMPORTED_MODULE_6__["default"],
   charts: _charts_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
   reloading: _reloading_reducer__WEBPACK_IMPORTED_MODULE_4__["default"]
 });

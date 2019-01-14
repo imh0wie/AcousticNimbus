@@ -35,6 +35,7 @@ class SongsList extends React.Component {
             streamSongs: this.props.songs && this.props.songs.followedSongs ? Object.values(this.props.songs.followedSongs).reverse() : null,
             counter: 0,
         }
+        this.songs = null;
     }
     
     componentDidMount() {
