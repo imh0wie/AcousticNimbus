@@ -6997,10 +6997,7 @@ function (_React$Component) {
     value: function componentWillReceiveProps(nextProps) {
       var _this2 = this;
 
-      debugger;
-
       if (!this.state.yourSongs && nextProps.songs.songsOfSpecificUser || this.props.songs && nextProps.songs && Object.keys(this.props.songs.songsOfSpecificUser).length !== Object.keys(nextProps.songs.songsOfSpecificUser).length) {
-        debugger;
         this.setState({
           loading: true
         });
@@ -7366,8 +7363,6 @@ function (_React$Component) {
       if (this.state.imageURL) songData.append('song[image_url]', this.state.imageURL);
       songData.append('song[artist_id]', this.state.artistId);
       this.props.submitAction(songData).then(function (action) {
-        debugger;
-
         _this4.props.history.push("/songs/".concat(Object.keys(action.song.individualSong)[0]));
       });
     }
@@ -9382,7 +9377,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "relatedSongsOf", function() { return relatedSongsOf; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "likedSongsJsonToArr", function() { return likedSongsJsonToArr; });
 var createSong = function createSong(song) {
-  debugger;
   return $.ajax({
     method: "POST",
     url: "/api/songs",

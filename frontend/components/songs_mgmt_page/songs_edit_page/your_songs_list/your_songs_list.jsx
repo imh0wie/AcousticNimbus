@@ -41,9 +41,7 @@ class YourSongsList extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        debugger
         if ((!this.state.yourSongs && nextProps.songs.songsOfSpecificUser) || (this.props.songs && nextProps.songs && Object.keys(this.props.songs.songsOfSpecificUser).length !== Object.keys(nextProps.songs.songsOfSpecificUser).length)) {
-            debugger
             this.setState({
                 loading: true,
             });
