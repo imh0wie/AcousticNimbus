@@ -20,8 +20,8 @@ const msp = (state) => {
 const mdp = (dispatch) => {
   return ({
       fetchFollowedAndLikedSongs: (userId) => dispatch(fetchFollowedAndLikedSongs(userId)),
-      fetchFollowedSongs: (userId) => dispatch(fetchFollowedSongs(userId)),
-      fetchSongsOfSpecificUser: (userId) => dispatch(fetchSongsOfSpecificUser(userId)),
+      fetchFollowedSongs: (data) => dispatch(fetchFollowedSongs(data)),
+      fetchSongsOfSpecificUser: (data) => dispatch(fetchSongsOfSpecificUser(data)),
       emptySongsOfSpecificUser: (defaultState) => dispatch(emptySongsOfSpecificUser(defaultState)),
       emptyFollowedAndLikedSongsOf: (defaultState) => dispatch(emptyFollowedAndLikedSongsOf(defaultState)),
   });
@@ -46,11 +46,19 @@ class SongsList extends React.Component {
                         loading: true,
                         streamSongs: null,
                     })
-                } 
-                this.props.fetchFollowedAndLikedSongs(this.props.currentUserId);
+                }
+                this.data = {
+                    current_user_id: this.props.currentUserId,
+                    fetching_followed_songs: true,
+                    fetching_liked_songs: true,
+                }
+                this.props.fetchFollowedAndLikedSongs(this.data);
                 break;
             case "user-show-page":
-                this.props.fetchSongsOfSpecificUser(this.props.onPageArtist.id).then(
+                this.data = {
+                    user_id: this.props.onPageArtist.id,
+                }
+                this.props.fetchSongsOfSpecificUser(this.data).then(
                     this.setState({
                         loading: false
                     })
@@ -65,7 +73,12 @@ class SongsList extends React.Component {
         switch (this.props.klass) {
             case "stream-page":
                 if (!this.songs && this.state.counter > 1) {
-                    this.props.fetchFollowedSongs(this.props.currentUserId);
+                    this.data = {
+                        current_user_id: this.props.currentUserId,
+                        fetching_followed_songs: true,
+                        fetching_liked_songs: false,
+                    }
+                    this.props.fetchFollowedSongs(this.data);
                 }
                 this.setState({
                     loading: false,

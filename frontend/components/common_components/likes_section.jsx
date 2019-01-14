@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { fetchLikes } from "../../actions/like_actions";
-import { fetchLikedSongs, emptyLikedSongs, fetchLikedSongsOfSpecificUser, emptyLikedSongsOfSpecificUser } from "../../actions/song_actions";
+import { fetchLikedSongs, emptyLikedSongs, emptyLikedSongsOfSpecificUser } from "../../actions/song_actions";
 import { fetchLikersOfSpecificSong, emptyLikersOfSpecificSong } from "../../actions/user_actions";
 import { likesBy, likesOf } from "../../util/like_api_util";
 import { likedSongsJsonToArr } from "../../util/song_api_util";
@@ -34,9 +34,8 @@ const msp = (state, ownProps) => {
 const mdp = (dispatch) => {
     return ({
         fetchLikes: () => dispatch(fetchLikes()),
-        fetchLikedSongs: (userId) => dispatch(fetchLikedSongs(userId)),
+        fetchLikedSongs: (data) => dispatch(fetchLikedSongs(data)),
         emptyLikedSongs: (defaultState) => dispatch(emptyLikedSongs(defaultState)),
-        fetchLikedSongsOfSpecificUser: (userId, fetchingLikes) => dispatch(fetchLikedSongsOfSpecificUser(userId, fetchingLikes)),
         emptyLikedSongsOfSpecificUser: (defaultState) => dispatch(emptyLikedSongsOfSpecificUser(defaultState)),
         fetchLikersOfSpecificSong: (songId) => dispatch(fetchLikersOfSpecificSong(songId)),
         emptyLikersOfSpecificSong: (defaultState) => dispatch(emptyLikersOfSpecificSong(defaultState)),
@@ -77,6 +76,14 @@ class LikesSection extends React.Component {
     componentDidMount() {  
         switch (this.props.klass) {
             case "homepage":
+                if (!this.props.songs || !this.props.songs.likedSongs) {
+                    this.data = {
+                        current_user_id: this.props.currentUserId,
+                        fetching_followed_songs: false,
+                        fetching_liked_songs: true,
+                    }
+                    this.props.fetchLikedSongs(this.data);
+                }
                 break;
             case "user-show-page":
                 this.setState({
@@ -109,7 +116,12 @@ class LikesSection extends React.Component {
                         likedSongs: Object.values(nextProps.songs.likedSongs),
                     });
                 } else if (this.props.songs && Object.keys(nextProps.songs).includes("likedSongs") && nextProps.songs.likedSongs === null) {
-                    this.props.fetchLikedSongs(this.props.currentUserId);
+                    this.data = {
+                        current_user_id: this.props.currentUserId,
+                        fetching_followed_songs: false,
+                        fetching_liked_songs: true,
+                    }
+                    this.props.fetchLikedSongs(this.data);
                 } else if ((!this.props.likes && nextProps.likes) || (this.props.likes && nextProps.likes && Object.keys(this.props.likes).length !== Object.keys(nextProps.likes).length)) {
                     const defaultState = {
                         followedSongs: this.props.songs ? this.props.songs.followedSongs : null,

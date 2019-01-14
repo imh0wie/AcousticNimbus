@@ -15,7 +15,7 @@ const msp = (state) => {
 const mdp = (dispatch) => {
     return ({
         emptyRelatedSongsByGenre: (defaultState) => dispatch(emptyRelatedSongsByGenre(defaultState)),
-        fetchRelatedSongsByGenre: (genre) => dispatch(fetchRelatedSongsByGenre(genre)),
+        fetchRelatedSongsByGenre: (data) => dispatch(fetchRelatedSongsByGenre(data)),
     })
 }
 

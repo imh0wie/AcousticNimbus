@@ -24,24 +24,15 @@ const mdp = (dispatch) => {
 class WhoToFollow extends React.Component {
     constructor(props) {
         super(props);
-        // this.state = {
-        //     randomThree: null,
-        //     [props.currentUserId]: props.currentUser,
-        //     individualUser: props.individualUser,
-        //     likersOfSpecificSong: 
-        // };
     }
 
     refresh() {
         const defaultState = {
             randomThree: null,
             [this.props.currentUserId]: this.props.currentUser,
-            individualUser: this.props.users && this.props.users.individualUser ? this.props.users.individualUser : null,
-            followersOfSpecificUser: this.props.users && this.props.users.followersOfSpecificUser ? this.props.users.followersOfSpecificUser : null,
-            likersOfSpecificSong: this.props.users && this.props.users.likersOfSpecificSong ? this.props.users.likersOfSpecificSong : null,
         };
         this.props.emptyRandomThreeUsers(defaultState);
-        this.props.fetchThreeRandomUsers(this.props.currentUserId);
+        this.props.fetchRandomThreeUsers(this.props.currentUserId);
     }
 
     render() {
@@ -57,22 +48,5 @@ class WhoToFollow extends React.Component {
         );
     }
 }
-
-// const WhoToFollow = (props) => {
-//     const defaultState = {
-//         randomThree: null,
-//         [props.currentUserId]: props.currentUser,
-//     }
-//     return (
-//         <div className="who-to-follow">
-//             <div className="header"> 
-//                 <p><i className="fas fa-user-friends"></i> Who to follow</p>
-//                 <p className="refresh" onClick={() => props.emptyRandomThreeUsers(defaultState).then(props.fetchThreeRandomUsers(props.currentUserId))}><i className="fas fa-redo-alt"></i> Refresh</p>
-//             </div>
-//             <ArtistsList currentUserId={props.currentUserId}
-//                          fetchThreeRandomUsers={props.fetchThreeRandomUsers} />
-//         </div>
-//     );
-// }
  
 export default withRouter(connect(msp, mdp)(WhoToFollow));

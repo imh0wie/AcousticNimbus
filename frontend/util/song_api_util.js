@@ -1,5 +1,3 @@
-import { isEmpty } from "./general_api_util";
-
 export const createSong = (song) => {
   return $.ajax({
     method: "POST",
@@ -27,26 +25,80 @@ export const fetchSong = (id) => {
   });
 };
 
-export const fetchSongs = (number) => {
+export const fetchSongs = (data) => {
   return $.ajax({
     method: "GET",
     url: "/api/songs",
-    data: {
-      number: number,
-    }
+    data: data
+    // data: {
+    //   number: data.number,
+    //   offset: data.offset,
+    //   genre: data.genre,
+    //   order: data.order,
+    //   current_user_id: data.currentUserId,
+    //   user_id: data.userId,
+    //   fetching_followed_songs: data.fetching_followed_songs,
+    //   fetching_liked_songs: data.fetching_liked_songs,
+    // }
   });
 };
 
-export const fetchRelatedSongsByGenre = (songData) => {
-  return $.ajax({
-    method: "GET",
-    url: "/api/songs",
-    data: {
-      genre: songData.genre,
-      song_id: songData.songId,
-    }
-  });
-};
+// export const fetchFollowedAndLikedSongs = (userId) => {
+//   return $.ajax({
+//     method: "GET",
+//     url: "/api/songs",
+//     data: {
+//       current_user_id: userId,
+//       fetching_followed_songs: true,
+//       fetching_liked_songs: true,
+//     },
+//   });
+// };
+
+// export const fetchFollowedSongs = (userId) => {
+//   return $.ajax({
+//     method: "GET",
+//     url: "/api/songs",
+//     data: {
+//       current_user_id: userId,
+//       fetching_followed_songs: true,
+//       fetching_liked_songs: false,
+//     },
+//   });
+// };
+
+// export const fetchLikedSongs = (userId) => {
+//   return $.ajax({
+//     method: "GET",
+//     url: "/api/songs",
+//     data: {
+//       current_user_id: userId,
+//       fetching_followed_songs: false,
+//       fetching_liked_songs: true,
+//     },
+//   });
+// };
+
+// export const fetchSongsOfSpecificUser = (userId) => {
+//   return $.ajax({
+//     method: "GET",
+//     url: "/api/songs",
+//     data: {
+//       user_id: userId
+//     }
+//   });
+// };
+
+// export const fetchRelatedSongsByGenre = (songData) => {
+//   return $.ajax({
+//     method: "GET",
+//     url: "/api/songs",
+//     data: {
+//       genre: songData.genre,
+//       song_id: songData.songId,
+//     }
+//   });
+// };
 
 // export const fetchSongsOf = (userId) => {
 //   return $.ajax({
@@ -57,63 +109,6 @@ export const fetchRelatedSongsByGenre = (songData) => {
 //     }
 //   });
 // };
-
-export const fetchSongsOfSpecificUser = (userId) => {
-  return $.ajax({
-    method: "GET",
-    url: "/api/songs",
-    data: {
-      user_id: userId
-    }
-  });
-};
-
-export const fetchLikedSongsOfSpecificUser = (userId, fetchingLikes) => {
-  return $.ajax({
-    method: "GET",
-    url: "/api/songs",
-    data: {
-      user_id: userId,
-      fetching_likes: fetchingLikes,
-    }
-  })
-}
-
-export const fetchFollowedAndLikedSongs = (userId) => {
-  return $.ajax({
-    method: "GET",
-    url: "/api/songs",
-    data: {
-      current_user_id: userId,
-      fetching_followed_songs: true,
-      fetching_liked_songs: true,
-    },
-  });
-};
-
-export const fetchFollowedSongs = (userId) => {
-  return $.ajax({
-    method: "GET",
-    url: "/api/songs",
-    data: {
-      current_user_id: userId,
-      fetching_followed_songs: true,
-      fetching_liked_songs: false,
-    },
-  });
-};
-
-export const fetchLikedSongs = (userId) => {
-  return $.ajax({
-    method: "GET",
-    url: "/api/songs",
-    data: {
-      current_user_id: userId,
-      fetching_followed_songs: false,
-      fetching_liked_songs: true,
-    },
-  });
-};
 
 export const latest = (n, songs) => {
   if (!songs) return null;

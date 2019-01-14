@@ -13,7 +13,7 @@ const msp = (state) => {
 
 const mdp = (dispatch) => {
     return ({
-        fetchIntroSongs: (number) => dispatch(fetchIntroSongs(number)),
+        fetchIntroSongs: (payload) => dispatch(fetchIntroSongs(payload)),
         emptyIntroSongs: (state) => dispatch(emptyIntroSongs(state)),
     });
 };
@@ -24,7 +24,10 @@ class SongsIndex extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchIntroSongs(12);
+        const payload = {
+            number: 12,
+        }
+        this.props.fetchIntroSongs(payload);
     }
 
     componentWillUnmount() {

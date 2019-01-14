@@ -1,24 +1,36 @@
 class Api::SongsController < ApplicationController
   def index
-    if params[:number]
-      @songs = Song.last(params[:number].to_i)
-    elsif params[:current_user_id]
-      if params[:fetching_followed_songs]
+    if params[:number].to_i == 12 # splash page
+      @intro_songs = Song.last(params[:number].to_i)
+    elsif params[:current_user_id] 
+      # homepage - stream page: displaying
+      #                         1)songs of users followed by current user
+      #                         AND/OR
+      #                         2)songs liked by current user 
+      if params[:fetching_followed_songs] 
         followings = Follow.where(follower_id: params[:current_user_id]).select(:followed_user_id)
         @followed_songs = Song.where(artist_id: followings)
       end
-      if params[:fetching_liked_songs]
+      if params[:fetching_liked_songs] 
         likes = Like.where(liker_id: params[:current_user_id]).select(:likeable_id)
         @liked_songs = Song.where(id: likes).select('*')
         @likes = Like.where(liker_id: params[:current_user_id]).select(:id)
       end
-    elsif params[:user_id]
-      if params[:fetching_likes]
-        ids = Like.where(liker_id: params[:user_id]).select(:likeable_id)
-        @liked_songs_of_specific_user = Song.where(id: ids).select('*')
-      else
-        @songs_of_specific_user = Song.where(artist_id: params[:user_id]).select('*')
+    elsif params[:order] && params[:genre]
+      # homepage - charts page: displaying songs with filters
+      if params[:order] == 'newest' && params[:genre] == 'all'
+        @songs = Song.last(params[:number].to_i)
+      elsif params[:order] == 'newest' && params[:genre] != 'all'
+        @songs = Song.where(genre: params[:genre]).last(params[:number].to_i)
+      elsif params[:order] == 'hottest' && params[:genre] == 'all'
+        # to be implemented
+        # @songs = Song.order('play_count DESC').limit(params[:number].to_i)
+      elsif params[:order] == 'hottest' && params[:genre] != 'all'
+        # to be implemented
+        # @songs = Song.where(genre: params[:genre]).order('play_count DESC').limit(params[:number].to_i)        
       end
+    elsif params[:user_id] # user show page
+      @songs_of_specific_user = Song.where(artist_id: params[:user_id]).select('*')
     elsif params[:genre]
       @related_songs_by_genre = Song.where(genre: params[:genre])
                                     .where.not(id: params[:song_id])
@@ -26,7 +38,15 @@ class Api::SongsController < ApplicationController
     end
     render :index
   end
-  
+  # number
+  # offset
+  # current_user_id => followed_songs liked_songs
+  #   fetching_followed_songs
+  #   fetching_liked_songs
+  # user_id
+  #   fetching_likes
+  # genre
+    
   def show
     @song = Song.find(params[:id])
     liker_ids = Like.where(likeable_id: params[:id]).select(:liker_id)
