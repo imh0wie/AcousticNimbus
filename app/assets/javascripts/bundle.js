@@ -4046,13 +4046,13 @@ function (_React$Component) {
     _this.noneStyle = {
       display: "none"
     };
+    debugger;
 
     switch (_this.props.klass) {
       case "item-player":
         _this.state = {
           itemId: null,
           currentLike: _this.props.likes ? Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(_this.props.currentUserId, "Song", _this.props.songId, _this.props.likes) : Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_6__["likeOf"])(_this.props.currentUserId, "Song", _this.props.songId, _this.props.song.likes),
-          currentComments: _this.props.comments ? _this.props.comments.commentsOfSpecificSong[songId] : null,
           likesCount: _this.props.song.likesCount,
           commentsCount: _this.props.song.commentsCount
         };
@@ -4104,7 +4104,7 @@ function (_React$Component) {
 
           debugger;
 
-          if (nextProps.comments && nextProps.comments.commentsOfSpecificSong[this.props.songId] && this.state.commentsCount !== Object.keys(nextProps.comments.commentsOfSpecificSong[this.props.songId]).length) {
+          if (nextProps.comments && nextProps.comments.commentsOfSpecificSong && nextProps.comments.commentsOfSpecificSong[this.props.songId] && this.state.commentsCount !== Object.keys(nextProps.comments.commentsOfSpecificSong[this.props.songId]).length) {
             this.setState({
               commentsCount: this.state.commentsCount + 1
             });
@@ -4735,6 +4735,7 @@ function (_React$Component) {
       }
 
       if (this.state.loading || !this.songs) {
+        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loadingPizza,
           className: "loading"
@@ -4755,6 +4756,7 @@ function (_React$Component) {
 
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Stream is currently empty. Use Charts to find music & audio to listen to.");
         } else {
+          debugger;
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.songs.map(function (song, idx) {
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_songs_list_item__WEBPACK_IMPORTED_MODULE_4__["default"], {
               key: song.id,
