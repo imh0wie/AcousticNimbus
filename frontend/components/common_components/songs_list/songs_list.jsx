@@ -142,6 +142,7 @@ class SongsList extends React.Component {
                                 key={song.id}
                                 idx={idx}
                                 klass={this.props.klass}
+                                songs={this.songs}
                                 itemSong={song}
                                 itemSongId={song.id}
                                 />

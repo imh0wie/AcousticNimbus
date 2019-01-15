@@ -43,6 +43,7 @@ class SongsListItem extends React.Component {
                 </div>
                 <Player
                     klass="item-player"
+                    songs={this.props.songs}
                     song={this.props.itemSong}
                     songId={this.props.itemSongId}
                 />

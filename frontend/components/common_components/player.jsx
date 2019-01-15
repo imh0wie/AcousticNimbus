@@ -2,22 +2,24 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { setCurrentSong, playSong, pauseSong } from "../../actions/current_song_actions";
+import { createQueue, replaceQueue } from "../../actions/queue_actions";
 import Waveform from "../common_components/waveform";
 import SocialElements from "../common_components/social_elements";
 import CommentBox from "../common_components/comment_box";
 
 const msp = (state, ownProps) => {
-    const klass = ownProps.klass;
-    const songId = parseInt(ownProps.match.params.songId);
     return ({
         // songId: songId ? songId : ownProps.songId,
         // song: ownProps.song,
         currentSong: state.ui.currentSong,
+        queue: state.ui.queue,
     })
 }
 
 const mdp = (dispatch) => {
     return ({
+        createQueue: (queue) => dispatch(createQueue(queue)),
+        replaceQueue: (queue) => dispatch(replaceQueue(queue)),
         setCurrentSong: (song) => dispatch(setCurrentSong(song)),
         playSong: () => dispatch(playSong()),
         pauseSong: () => dispatch(pauseSong()),
@@ -30,18 +32,26 @@ class Player extends React.Component {
         this.noneStyle = {
             display: "none",
         }
-        this.state = {
-            commentsCount: this.props.song.commentsCount,
-        }
         this.klass = this.props.klass === "banner-player" ? "none" : this.props.klass;
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.currentSong.elapsed >= 1) {
+            this.p
+        }
+    }
+
     togglePlayPause() {
+        if (!this.props.queue) {
+            this.props.createQueue(this.props.songs);
+        } else if (this.props.queue && !this.props.queue.unshuffled.map(song => song.id).includes(this.props.songId)) {
+            this.props.replaceQueue(this.props.songs);
+        }
         if (!this.props.currentSong.song || this.props.songId !== this.props.currentSong.song.id) {
-          this.props.setCurrentSong(this.props.song);
-          this.props.playSong();
+            this.props.setCurrentSong(this.props.song);
+            this.props.playSong();
         } else if (this.props.songId === this.props.currentSong.song.id) {
-          this.props.currentSong.playing ? this.props.pauseSong() : this.props.playSong() ;
+            this.props.currentSong.playing ? this.props.pauseSong() : this.props.playSong() ;
         }
     }
 

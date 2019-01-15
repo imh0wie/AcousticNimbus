@@ -1,15 +1,28 @@
-export const RECEIVE_QUEUE = "RECEIVE_QUEUE";
-export const ADD_SONG_TO_QUEUE = "ADD_SONG_TO_QUEUE";
-export const RECEIVE_QUEUE = "RECEIVE_QUEUE";
+export const CREATE_QUEUE = "CREATE_QUEUE";
+export const REPLACE_QUEUE = "REPLACE_QUEUE";
+export const SHUFFLE_QUEUE = "SHUFFLE_QUEUE";
 export const ADD_SONG_TO_QUEUE = "ADD_SONG_TO_QUEUE";
 export const REMOVE_SONG_FROM_QUEUE = "REMOVE_SONG_FROM_QUEUE";
 export const ADD_TO_PLAY_NEXT = "ADD_TO_PLAY_NEXT";
 
-export const receiveQueue = (queue) => {
+export const createQueue = (queue) => {
     return {
-        type: RECEIVE_QUEUE,
+        type: CREATE_QUEUE,
         queue: queue,
     };
+}
+
+export const replaceQueue = (queue) => {
+    return {
+        type: REPLACE_QUEUE,
+        queue: queue,
+    }
+}
+
+export const shuffleQueue = () => {
+    return {
+        type: SHUFFLE_QUEUE,
+    }
 }
 
 export const addSongToQueue = (song) => {

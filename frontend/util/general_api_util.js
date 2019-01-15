@@ -33,14 +33,6 @@ export const areIdenticalArrs = (arr1, arr2) => {
     return true;
 }
 
-export const randomize = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-}
-
 export const generateCreationTime = (date) => {
     if (!date) return "0 second ago";
     const itemLife = Math.abs(new Date() - new Date(date)) / 1000;
@@ -71,4 +63,26 @@ export const generateSongLength = (secs) => {
     return (
         date.toTimeString().slice(4, 8)
     );
+}
+
+export const jsonize = (arr) => {
+    const output = {};
+    arr.forEach(el => output[el.id] = el);
+    return output;
+}
+
+export const rotate = (arr, n = 1) => {
+    if (n % arr.length === 0) return arr;
+    n = n >= 0 ? (n % arr.length) : ((arr.length + n) % arr.length);
+    const output1 = arr.slice(n);
+    const output2 = arr.slice(0, n);
+    return output1.concat(output2);
+}
+
+export const randomize = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
 }

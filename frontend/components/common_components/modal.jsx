@@ -28,10 +28,6 @@ class Modal extends React.Component {
   }
 
   render() {
-    // if (!this.props.modal) {
-    //   return null;
-    // }
-    // const newModal = modal.modal;
     let component;
     if (this.props.modal) {
       switch (this.props.modal.modal) {

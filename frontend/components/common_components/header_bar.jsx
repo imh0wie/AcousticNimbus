@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import { emptyFollowedAndLikedSongsOf } from "../../actions/song_actions";
 import { login, logout } from "../../actions/session_actions";
-import { openModal } from "../../actions/modal_actions";
 
 const msp = (state, ownProps) => {
   return {
@@ -18,7 +17,6 @@ const mdp = (dispatch) => {
   return {
     login: (user) => dispatch(login(user)),
     logout: () => dispatch(logout()),
-    openModal: (modal) => dispatch(openModal(modal)),
     emptyFollowedAndLikedSongsOf: (defaultState) => dispatch(emptyFollowedAndLikedSongsOf(defaultState))
   };
 };
