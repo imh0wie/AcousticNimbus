@@ -115,6 +115,7 @@ class PlayerBar extends React.Component {
             case "off":
                 if (currentSongPos - 1 < 0) {
                     this.props.setCurrentSong(null);
+                    this.props.toggleQueueList();
                     return;
                 }
                 break;
