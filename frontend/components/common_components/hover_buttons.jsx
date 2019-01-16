@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { removeSong } from "../../actions/song_actions";
+import { removeSongFromQueue } from "../../actions/queue_actions"
 import { toggleReloading } from "../../actions/reloading_actions";
 
 const msp = (state) => {
@@ -13,6 +14,7 @@ const msp = (state) => {
 const mdp = (dispatch) => {
     return ({
         removeSong: (song) => dispatch(removeSong(song)),
+        removeSongFromQueue: (song) => dispatch(removeSongFromQueue(song)),
         toggleReloading: () => dispatch(toggleReloading()),
     });
 }
@@ -60,7 +62,7 @@ class HoverButtons extends React.Component {
                 return (
                     <div className="hover-buttons">
                         <button><i className="fas fa-angle-double-down"></i></button>
-                        <button><i className="fas fa-trash-alt"></i></button>
+                        <button onClick={() => this.props.removeSongFromQueue(this.props.song)}><i className="fas fa-trash-alt"></i></button>
                     </div>
                 );
             default:

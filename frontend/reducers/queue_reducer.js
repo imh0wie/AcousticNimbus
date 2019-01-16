@@ -27,17 +27,11 @@ const queueReducer = (state = null, action) => {
             }
             return newState
         case REMOVE_SONG_FROM_QUEUE:
-            newUnshuffled = [];
-            newShuffled = [];
-            state.unshuffled.forEach(song => {
-                if (song.id !== action.song.id) newUnshuffled.push(song);
-            })
-            state.shuffled.forEach(song => {
-                if (song.id !== action.song.id) newShuffled.push(song);
-            })
+            const unshuffledIdx = state.unshuffled.map(song => song.id).indexOf(action.song.id);
+            const shuffledIdx = state.shuffled.map(song => song.id).indexOf(action.song.id);
             newState = {
-                unshuffled: newUnshuffled,
-                shuffled: newShuffled,
+                unshuffled: unshuffledIdx > 0 ? state.unshuffled.slice(0, unshuffledIdx).concat(state.unshuffled.slice(unshuffledIdx + 1)) : state.unshuffled.slice(0),
+                shuffled: shuffledIdx > 0 ? state.shuffled.slice(0, shuffledIdx).concat(state.shuffled.slice(shuffledIdx + 1)) : state.shuffled.slice(0),
             }
             return newState;
         case ADD_TO_PLAY_NEXT:

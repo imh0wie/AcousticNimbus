@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { shuffleQueue } from "../../../../actions/queue_actions";
+import { shuffleQueue, removeSongFromQueue } from "../../../../actions/queue_actions";
 import { songsByCreationDate } from "../../../../util/song_api_util";
 import { randomize } from "../../../../util/general_api_util";
 import QueueItem from "./queue_item";
@@ -12,12 +12,14 @@ const msp = (state) => {
         player: state.ui.player,
         queue: state.ui.queue,
         // queue: state.ui.player.shuffle ? queue.shuffled : queue.unshuffled,
+        currentSong: state.ui.currentSong,
     }
 }
 
 const mdp = (dispatch) => {
     return {
         shuffleQueue: () => dispatch(shuffleQueue()),
+        removeSongFromQueue: (song) => dispatch(removeSongFromQueue(song)),
     }
 }
 
@@ -27,6 +29,7 @@ class Queue extends React.Component {
         this.state = {
             queue: null,
             loading: true,
+            isShuffled: false,
         }
     }
 
@@ -44,6 +47,39 @@ class Queue extends React.Component {
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (this.props.player.shuffle !== nextProps.player.shuffle) {
+            if (nextProps.player.shuffle) {
+                this.props.shuffleQueue();
+                this.setState({
+                    isShuffled: true,
+                    loading: true,
+                })
+            } else {
+                this.setState({
+                    loading: true,
+                })
+                setTimeout(() => this.setState({
+                    queue: nextProps.queue.unshuffled,
+                    loading: false,
+                }), 1000)
+            }
+        }
+        if (this.state.isShuffled) {
+            setTimeout(() => this.setState({
+                queue: nextProps.queue.shuffled,
+                isShuffled: false,
+                loading: false,
+            }), 1000);
+        }
+        if (this.props.queue && nextProps.queue && this.props.queue.shuffled.length !== nextProps.queue.shuffled.length) {
+            this.setState({
+                queue: nextProps.player.shuffle ? nextProps.queue.shuffled : nextProps.queue.unshuffled,
+            })
+        }
+
+    }
+
     render() {
         if (this.state.loading || !this.state.queue) {
             return <img src={window.loadingPizza} className="loading"></img>
@@ -51,7 +87,6 @@ class Queue extends React.Component {
             if (this.state.queue.length === 0) {
                 return <p>There are no songs in the queue so far.</p>
             } else {
-                debugger
                 return (
                     <ul>
                         {this.state.queue.map((song, i) => {

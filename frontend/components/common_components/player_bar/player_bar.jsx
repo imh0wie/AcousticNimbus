@@ -108,17 +108,17 @@ class PlayerBar extends React.Component {
         }
     }
 
-    handlePrevious(currentSong) {
+    handleNext(currentSong) {
         if (this.props.player.shuffle) {
             this.songs = this.props.queue.shuffled;
         } else {
             this.songs = this.props.queue.unshuffled;
         }
         const currentSongPos = this.songs.map(song => song.id).indexOf(currentSong.id)
-        const prevSongPos = currentSongPos - 1 >= 0 ? currentSongPos - 1 : (this.props.player.loop ? this.songs.length + (currentSongPos - 1) : null)
-        const prevSong = this.songs[prevSongPos];
-        this.props.setCurrentSong(prevSong);
-        if (prevSong) this.props.playSong();
+        const nextSongPos = currentSongPos - 1 >= 0 ? currentSongPos - 1 : (this.props.player.loop ? this.songs.length + (currentSongPos - 1) : null)
+        const nextSong = this.songs[nextSongPos];
+        this.props.setCurrentSong(nextSong);
+        if (nextSong) this.props.playSong();
         
         // let songs = this.props.latestTwelve;
         // if (this.state.shuffle) {
@@ -135,17 +135,31 @@ class PlayerBar extends React.Component {
         // this.props.playSong();
     }
     
-    handleNext(currentSong) {
+    handlePrevious(currentSong) {
         if (this.props.player.shuffle) {
             this.songs = this.props.queue.shuffled;
         } else {
             this.songs = this.props.queue.unshuffled;
         }
         const currentSongPos = this.songs.map(song => song.id).indexOf(currentSong.id)
-        const nextSongPos = currentSongPos + 1 < this.songs.length ? currentSongPos + 1 : (this.props.player.loop ? 0 : null)
-        const nextSong = this.songs[nextSongPos];
-        this.props.setCurrentSong(nextSong);
-        if (nextSong) this.props.playSong();
+        let prevSongPos;
+        if (currentSongPos + 1 < this.songs.length) {
+            prevSongPos = currentSongPos + 1;
+        } else {
+            switch (this.props.player.loop[0]) {
+                case "off":
+                    prevSongPos = null;
+                    break;
+                case "all":
+                    prevSongPos = 0;
+                    break;
+                case "one":
+                    prevSongPos = currentSongPos;
+            }
+        }
+        const prevSong = prevSongPos ? this.songs[prevSongPos] : null;
+        this.props.setCurrentSong(prevSong);
+        if (prevSong) this.props.playSong();
         // let songs = this.props.latestTwelve;
         // if (this.state.shuffle) {
         //     songs = this.props.shuffled;

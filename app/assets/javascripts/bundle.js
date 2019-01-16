@@ -1662,7 +1662,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _actions_song_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/song_actions */ "./frontend/actions/song_actions.js");
-/* harmony import */ var _actions_reloading_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/reloading_actions */ "./frontend/actions/reloading_actions.js");
+/* harmony import */ var _actions_queue_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/queue_actions */ "./frontend/actions/queue_actions.js");
+/* harmony import */ var _actions_reloading_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/reloading_actions */ "./frontend/actions/reloading_actions.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1687,6 +1688,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var msp = function msp(state) {
   return {
     songs: state.entities.songs
@@ -1698,8 +1700,11 @@ var mdp = function mdp(dispatch) {
     removeSong: function removeSong(song) {
       return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["removeSong"])(song));
     },
+    removeSongFromQueue: function removeSongFromQueue(song) {
+      return dispatch(Object(_actions_queue_actions__WEBPACK_IMPORTED_MODULE_4__["removeSongFromQueue"])(song));
+    },
     toggleReloading: function toggleReloading() {
-      return dispatch(Object(_actions_reloading_actions__WEBPACK_IMPORTED_MODULE_4__["toggleReloading"])());
+      return dispatch(Object(_actions_reloading_actions__WEBPACK_IMPORTED_MODULE_5__["toggleReloading"])());
     }
   };
 };
@@ -1771,7 +1776,11 @@ function (_React$Component) {
             className: "hover-buttons"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             className: "fas fa-angle-double-down"
-          })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            onClick: function onClick() {
+              return _this2.props.removeSongFromQueue(_this2.props.song);
+            }
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             className: "fas fa-trash-alt"
           })));
 
@@ -3050,8 +3059,8 @@ function (_React$Component) {
       }
     }
   }, {
-    key: "handlePrevious",
-    value: function handlePrevious(currentSong) {
+    key: "handleNext",
+    value: function handleNext(currentSong) {
       if (this.props.player.shuffle) {
         this.songs = this.props.queue.shuffled;
       } else {
@@ -3061,10 +3070,10 @@ function (_React$Component) {
       var currentSongPos = this.songs.map(function (song) {
         return song.id;
       }).indexOf(currentSong.id);
-      var prevSongPos = currentSongPos - 1 >= 0 ? currentSongPos - 1 : this.props.player.loop ? this.songs.length + (currentSongPos - 1) : null;
-      var prevSong = this.songs[prevSongPos];
-      this.props.setCurrentSong(prevSong);
-      if (prevSong) this.props.playSong(); // let songs = this.props.latestTwelve;
+      var nextSongPos = currentSongPos - 1 >= 0 ? currentSongPos - 1 : this.props.player.loop ? this.songs.length + (currentSongPos - 1) : null;
+      var nextSong = this.songs[nextSongPos];
+      this.props.setCurrentSong(nextSong);
+      if (nextSong) this.props.playSong(); // let songs = this.props.latestTwelve;
       // if (this.state.shuffle) {
       //     songs = this.props.shuffled;
       // }
@@ -3079,8 +3088,8 @@ function (_React$Component) {
       // this.props.playSong();
     }
   }, {
-    key: "handleNext",
-    value: function handleNext(currentSong) {
+    key: "handlePrevious",
+    value: function handlePrevious(currentSong) {
       if (this.props.player.shuffle) {
         this.songs = this.props.queue.shuffled;
       } else {
@@ -3090,10 +3099,28 @@ function (_React$Component) {
       var currentSongPos = this.songs.map(function (song) {
         return song.id;
       }).indexOf(currentSong.id);
-      var nextSongPos = currentSongPos + 1 < this.songs.length ? currentSongPos + 1 : this.props.player.loop ? 0 : null;
-      var nextSong = this.songs[nextSongPos];
-      this.props.setCurrentSong(nextSong);
-      if (nextSong) this.props.playSong(); // let songs = this.props.latestTwelve;
+      var prevSongPos;
+
+      if (currentSongPos + 1 < this.songs.length) {
+        prevSongPos = currentSongPos + 1;
+      } else {
+        switch (this.props.player.loop[0]) {
+          case "off":
+            prevSongPos = null;
+            break;
+
+          case "all":
+            prevSongPos = 0;
+            break;
+
+          case "one":
+            prevSongPos = currentSongPos;
+        }
+      }
+
+      var prevSong = prevSongPos ? this.songs[prevSongPos] : null;
+      this.props.setCurrentSong(prevSong);
+      if (prevSong) this.props.playSong(); // let songs = this.props.latestTwelve;
       // if (this.state.shuffle) {
       //     songs = this.props.shuffled;
       // }
@@ -3390,8 +3417,9 @@ var msp = function msp(state) {
   // const queue = state.ui.queue;
   return {
     player: state.ui.player,
-    queue: state.ui.queue // queue: state.ui.player.shuffle ? queue.shuffled : queue.unshuffled,
-
+    queue: state.ui.queue,
+    // queue: state.ui.player.shuffle ? queue.shuffled : queue.unshuffled,
+    currentSong: state.ui.currentSong
   };
 };
 
@@ -3399,6 +3427,9 @@ var mdp = function mdp(dispatch) {
   return {
     shuffleQueue: function shuffleQueue() {
       return dispatch(Object(_actions_queue_actions__WEBPACK_IMPORTED_MODULE_3__["shuffleQueue"])());
+    },
+    removeSongFromQueue: function removeSongFromQueue(song) {
+      return dispatch(Object(_actions_queue_actions__WEBPACK_IMPORTED_MODULE_3__["removeSongFromQueue"])(song));
     }
   };
 };
@@ -3416,7 +3447,8 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Queue).call(this, props));
     _this.state = {
       queue: null,
-      loading: true
+      loading: true,
+      isShuffled: false
     };
     return _this;
   }
@@ -3443,6 +3475,47 @@ function (_React$Component) {
       }
     }
   }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      var _this3 = this;
+
+      if (this.props.player.shuffle !== nextProps.player.shuffle) {
+        if (nextProps.player.shuffle) {
+          this.props.shuffleQueue();
+          this.setState({
+            isShuffled: true,
+            loading: true
+          });
+        } else {
+          this.setState({
+            loading: true
+          });
+          setTimeout(function () {
+            return _this3.setState({
+              queue: nextProps.queue.unshuffled,
+              loading: false
+            });
+          }, 1000);
+        }
+      }
+
+      if (this.state.isShuffled) {
+        setTimeout(function () {
+          return _this3.setState({
+            queue: nextProps.queue.shuffled,
+            isShuffled: false,
+            loading: false
+          });
+        }, 1000);
+      }
+
+      if (this.props.queue && nextProps.queue && this.props.queue.shuffled.length !== nextProps.queue.shuffled.length) {
+        this.setState({
+          queue: nextProps.player.shuffle ? nextProps.queue.shuffled : nextProps.queue.unshuffled
+        });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       if (this.state.loading || !this.state.queue) {
@@ -3454,7 +3527,6 @@ function (_React$Component) {
         if (this.state.queue.length === 0) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "There are no songs in the queue so far.");
         } else {
-          debugger;
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.state.queue.map(function (song, i) {
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_queue_item__WEBPACK_IMPORTED_MODULE_6__["default"], {
               key: i,
@@ -3503,7 +3575,8 @@ var QueueItem = function QueueItem(props) {
     color: "#FB5400"
   };
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_hover_buttons__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    klass: "queue-item"
+    klass: "queue-item",
+    song: props.song
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "info-container"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
@@ -8939,17 +9012,15 @@ var queueReducer = function queueReducer() {
       return newState;
 
     case _actions_queue_actions__WEBPACK_IMPORTED_MODULE_0__["REMOVE_SONG_FROM_QUEUE"]:
-      newUnshuffled = [];
-      newShuffled = [];
-      state.unshuffled.forEach(function (song) {
-        if (song.id !== action.song.id) newUnshuffled.push(song);
-      });
-      state.shuffled.forEach(function (song) {
-        if (song.id !== action.song.id) newShuffled.push(song);
-      });
+      var unshuffledIdx = state.unshuffled.map(function (song) {
+        return song.id;
+      }).indexOf(action.song.id);
+      var shuffledIdx = state.shuffled.map(function (song) {
+        return song.id;
+      }).indexOf(action.song.id);
       newState = {
-        unshuffled: newUnshuffled,
-        shuffled: newShuffled
+        unshuffled: unshuffledIdx > 0 ? state.unshuffled.slice(0, unshuffledIdx).concat(state.unshuffled.slice(unshuffledIdx + 1)) : state.unshuffled.slice(0),
+        shuffled: shuffledIdx > 0 ? state.shuffled.slice(0, shuffledIdx).concat(state.shuffled.slice(shuffledIdx + 1)) : state.shuffled.slice(0)
       };
       return newState;
 

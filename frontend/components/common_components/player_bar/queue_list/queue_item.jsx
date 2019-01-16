@@ -17,7 +17,7 @@ const QueueItem = (props) => {
     return (
         <li>
             {/* <img src={props.song.imageURL}></img> */}
-            <HoverButtons klass="queue-item"/>
+            <HoverButtons klass="queue-item" song={props.song}/>
             <div className="info-container">
                 <Link to={`/songs/${props.song.id}`} style={props.currentSong.song.id === props.song.id ? current : {}}>{props.song.title}</Link>
                 <Link to={`/users/${props.song.artistId}`} style={props.currentSong.song.id === props.song.id ? current : {}}>{props.song.artist}</Link>
