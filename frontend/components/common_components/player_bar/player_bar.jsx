@@ -114,25 +114,27 @@ class PlayerBar extends React.Component {
         } else {
             this.songs = this.props.queue.unshuffled;
         }
-        const currentSongPos = this.songs.map(song => song.id).indexOf(currentSong.id)
+        const currentSongPos = this.songs.map(song => song.id).indexOf(currentSong.id);
+        debugger
+        switch (this.props.player.loop[0]) {
+            case "off":
+                if (currentSongPos - 1 < 0) {
+                    this.props.setCurrentSong(null);
+                    return;
+                }
+                break;
+            case "one":
+                this.props.setCurrentSong(currentSong);
+                this.props.playSong();
+                return;
+            case "all":
+            default:
+                break;
+        }
         const nextSongPos = currentSongPos - 1 >= 0 ? currentSongPos - 1 : (this.props.player.loop ? this.songs.length + (currentSongPos - 1) : null)
         const nextSong = this.songs[nextSongPos];
         this.props.setCurrentSong(nextSong);
-        if (nextSong) this.props.playSong();
-        
-        // let songs = this.props.latestTwelve;
-        // if (this.state.shuffle) {
-        //     songs = this.props.shuffled;
-        // }
-        // const songsIdx = songs.map((s, i) => i);
-        // let currentSongIdx = songsIdx.find((idx) => {
-        //     const song = songs[idx];
-        //     return song.id === currentSong.id
-        // });
-        // const nextSongIdx = (currentSongIdx - 1) < 0 ? songs.length - 1 : currentSongIdx - 1;
-        // const nextSong = songs[nextSongIdx];
-        // this.props.setCurrentSong(nextSong);
-        // this.props.playSong();
+        this.props.playSong();
     }
     
     handlePrevious(currentSong) {
@@ -160,29 +162,14 @@ class PlayerBar extends React.Component {
         const prevSong = prevSongPos ? this.songs[prevSongPos] : null;
         this.props.setCurrentSong(prevSong);
         if (prevSong) this.props.playSong();
-        // let songs = this.props.latestTwelve;
-        // if (this.state.shuffle) {
-        //     songs = this.props.shuffled;
-        // }
-        // const songsIdx = songs.map((s, i) => i);
-        // let currentSongIdx = songsIdx.find((idx) => {
-        //     const song = songs[idx];
-        //     return song.id === currentSong.id
-        // });
-        // const nextSongIdx = (currentSongIdx + 1) === songs.length ? 0 : currentSongIdx + 1;
-        // const nextSong = songs[nextSongIdx];
-        // this.props.setCurrentSong(nextSong);
-        // this.props.playSong();
     }
 
     handleShuffle() {
-        // if (!this.props.player.shuffle) this.shuffledSongs = randomize(this.shuffledSongs);
         this.props.toggleShuffle();
     }
     
     handleLoop() {
         this.props.toggleLoop();
-        // this.repeat.push(this.repeat.shift());
     }
 
     showTime(secs) {
@@ -274,6 +261,23 @@ class PlayerBar extends React.Component {
         }
     }
 
+    renderLoopButton() {
+        switch (this.props.player.loop) {
+            case "off":
+                this.src = window.play_bar_loop;
+                break;
+            case "all":
+                this.src = window.play_bar_loop_all;
+                break;
+            case "one":
+                this.src = window.play_bar_loop_one;
+                break;
+            default:
+                break;
+        }
+        return <img src={this.src} className="player-control" onClick={() => this.handleLoop()}></img>
+    }
+
     render() {
         if (this.props.currentSong.song) {
             return (
@@ -297,7 +301,8 @@ class PlayerBar extends React.Component {
                         {this.renderPlayPauseButton()}
                         <img src={window.play_bar_next} className="player-control" onClick={() => this.handleNext(this.props.currentSong.song)}></img>
                         <p className={this.props.player.shuffle ? "shuffled" : "shuffle"} onClick={() => this.handleShuffle()}><i className="fas fa-random"></i></p>
-                        <img src={window.play_bar_loop} className="player-control" onClick={() => this.handleLoop()}></img>
+                        {/* <img src={window.play_bar_loop} className="player-control" onClick={() => this.handleLoop()}></img> */}
+                        {this.renderLoopButton()}
                     </div>
                     <div className="progress">
                         {this.showTime(Math.round(this.state.duration * this.state.elapsed))}

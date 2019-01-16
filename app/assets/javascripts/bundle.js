@@ -3070,22 +3070,31 @@ function (_React$Component) {
       var currentSongPos = this.songs.map(function (song) {
         return song.id;
       }).indexOf(currentSong.id);
+      debugger;
+
+      switch (this.props.player.loop[0]) {
+        case "off":
+          if (currentSongPos - 1 < 0) {
+            this.props.setCurrentSong(null);
+            return;
+          }
+
+          break;
+
+        case "one":
+          this.props.setCurrentSong(currentSong);
+          this.props.playSong();
+          return;
+
+        case "all":
+        default:
+          break;
+      }
+
       var nextSongPos = currentSongPos - 1 >= 0 ? currentSongPos - 1 : this.props.player.loop ? this.songs.length + (currentSongPos - 1) : null;
       var nextSong = this.songs[nextSongPos];
       this.props.setCurrentSong(nextSong);
-      if (nextSong) this.props.playSong(); // let songs = this.props.latestTwelve;
-      // if (this.state.shuffle) {
-      //     songs = this.props.shuffled;
-      // }
-      // const songsIdx = songs.map((s, i) => i);
-      // let currentSongIdx = songsIdx.find((idx) => {
-      //     const song = songs[idx];
-      //     return song.id === currentSong.id
-      // });
-      // const nextSongIdx = (currentSongIdx - 1) < 0 ? songs.length - 1 : currentSongIdx - 1;
-      // const nextSong = songs[nextSongIdx];
-      // this.props.setCurrentSong(nextSong);
-      // this.props.playSong();
+      this.props.playSong();
     }
   }, {
     key: "handlePrevious",
@@ -3120,30 +3129,17 @@ function (_React$Component) {
 
       var prevSong = prevSongPos ? this.songs[prevSongPos] : null;
       this.props.setCurrentSong(prevSong);
-      if (prevSong) this.props.playSong(); // let songs = this.props.latestTwelve;
-      // if (this.state.shuffle) {
-      //     songs = this.props.shuffled;
-      // }
-      // const songsIdx = songs.map((s, i) => i);
-      // let currentSongIdx = songsIdx.find((idx) => {
-      //     const song = songs[idx];
-      //     return song.id === currentSong.id
-      // });
-      // const nextSongIdx = (currentSongIdx + 1) === songs.length ? 0 : currentSongIdx + 1;
-      // const nextSong = songs[nextSongIdx];
-      // this.props.setCurrentSong(nextSong);
-      // this.props.playSong();
+      if (prevSong) this.props.playSong();
     }
   }, {
     key: "handleShuffle",
     value: function handleShuffle() {
-      // if (!this.props.player.shuffle) this.shuffledSongs = randomize(this.shuffledSongs);
       this.props.toggleShuffle();
     }
   }, {
     key: "handleLoop",
     value: function handleLoop() {
-      this.props.toggleLoop(); // this.repeat.push(this.repeat.shift());
+      this.props.toggleLoop();
     }
   }, {
     key: "showTime",
@@ -3256,9 +3252,39 @@ function (_React$Component) {
       }
     }
   }, {
+    key: "renderLoopButton",
+    value: function renderLoopButton() {
+      var _this4 = this;
+
+      switch (this.props.player.loop) {
+        case "off":
+          this.src = window.play_bar_loop;
+          break;
+
+        case "all":
+          this.src = window.play_bar_loop_all;
+          break;
+
+        case "one":
+          this.src = window.play_bar_loop_one;
+          break;
+
+        default:
+          break;
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: this.src,
+        className: "player-control",
+        onClick: function onClick() {
+          return _this4.handleLoop();
+        }
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this5 = this;
 
       if (this.props.currentSong.song) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -3283,28 +3309,22 @@ function (_React$Component) {
           src: window.play_bar_previous,
           className: "player-control",
           onClick: function onClick() {
-            return _this4.handlePrevious(_this4.props.currentSong.song);
+            return _this5.handlePrevious(_this5.props.currentSong.song);
           }
         }), this.renderPlayPauseButton(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.play_bar_next,
           className: "player-control",
           onClick: function onClick() {
-            return _this4.handleNext(_this4.props.currentSong.song);
+            return _this5.handleNext(_this5.props.currentSong.song);
           }
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: this.props.player.shuffle ? "shuffled" : "shuffle",
           onClick: function onClick() {
-            return _this4.handleShuffle();
+            return _this5.handleShuffle();
           }
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           className: "fas fa-random"
-        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.play_bar_loop,
-          className: "player-control",
-          onClick: function onClick() {
-            return _this4.handleLoop();
-          }
-        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        })), this.renderLoopButton()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "progress"
         }, this.showTime(Math.round(this.state.duration * this.state.elapsed))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "progress-tracker-container"
@@ -3326,7 +3346,7 @@ function (_React$Component) {
           src: this.props.currentSong.muted ? window.volume_off : window.volume_on,
           className: "player-control",
           onClick: function onClick() {
-            return _this4.handleVolume();
+            return _this5.handleVolume();
           }
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-info-container"
@@ -3347,12 +3367,12 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           className: "fas fa-heart",
           onClick: function onClick() {
-            return _this4.handleLike();
+            return _this5.handleLike();
           }
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.playlist,
           onClick: function onClick() {
-            return _this4.toggleQueueList();
+            return _this5.toggleQueueList();
           }
         }))));
       } else {
@@ -3581,10 +3601,10 @@ var QueueItem = function QueueItem(props) {
     className: "info-container"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
     to: "/songs/".concat(props.song.id),
-    style: props.currentSong.song.id === props.song.id ? current : {}
+    style: props.currentSong.song && props.currentSong.song.id === props.song.id ? current : {}
   }, props.song.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
     to: "/users/".concat(props.song.artistId),
-    style: props.currentSong.song.id === props.song.id ? current : {}
+    style: props.currentSong.song && props.currentSong.song.id === props.song.id ? current : {}
   }, props.song.artist)));
 };
 
