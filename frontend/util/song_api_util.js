@@ -177,3 +177,17 @@ export const likedSongsJsonToArr = (songs) => {
 //   }
 //   return true;
 // }
+
+export const songsByCreationDate = (songs) => {
+  return songs.sort((s1, s2) => {
+    let id1 = s1.id;
+    let id2 = s2.id;
+    if (id1 < id2) {
+      return -1;
+    } else if (id1 > id2) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+}

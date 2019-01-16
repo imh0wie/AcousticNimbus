@@ -43,7 +43,6 @@ class SocialElements extends React.Component {
         this.noneStyle = {
             display: "none"
         }
-        debugger
         switch (this.props.klass) {
             case "item-player":
                 this.state = {
@@ -84,7 +83,6 @@ class SocialElements extends React.Component {
                         })
                     }
                 }
-                debugger
                 if (nextProps.comments && nextProps.comments.commentsOfSpecificSong && nextProps.comments.commentsOfSpecificSong[this.props.songId] && this.state.commentsCount !== Object.keys(nextProps.comments.commentsOfSpecificSong[this.props.songId]).length) {
                     this.setState({
                         commentsCount: this.state.commentsCount + 1,

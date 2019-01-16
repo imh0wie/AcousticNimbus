@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import Queue from "./queue"
 
 const msp = (state) => {
     return {
@@ -12,7 +13,8 @@ const QueueList = (props) => {
     if (props.queueList) {
         return (
             <div className="queue-list">
-                <header>Queue</header>
+                <header>Next up</header>
+                <Queue />
             </div>
         );
     } else {

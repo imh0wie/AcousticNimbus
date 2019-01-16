@@ -164,7 +164,6 @@ class PlayerBar extends React.Component {
     handleShuffle() {
         // if (!this.props.player.shuffle) this.shuffledSongs = randomize(this.shuffledSongs);
         this.props.toggleShuffle();
-        this.props.shuffleQueue();
     }
     
     handleLoop() {

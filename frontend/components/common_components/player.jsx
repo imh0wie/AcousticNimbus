@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { setCurrentSong, playSong, pauseSong } from "../../actions/current_song_actions";
 import { createQueue, replaceQueue } from "../../actions/queue_actions";
+import { songsByCreationDate } from "../../util/song_api_util";
 import Waveform from "../common_components/waveform";
 import SocialElements from "../common_components/social_elements";
 import CommentBox from "../common_components/comment_box";
@@ -35,17 +36,11 @@ class Player extends React.Component {
         this.klass = this.props.klass === "banner-player" ? "none" : this.props.klass;
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.currentSong.elapsed >= 1) {
-            this.p
-        }
-    }
-
     togglePlayPause() {
         if (!this.props.queue) {
-            this.props.createQueue(this.props.songs);
+            this.props.createQueue(songsByCreationDate(this.props.songs));
         } else if (this.props.queue && !this.props.queue.unshuffled.map(song => song.id).includes(this.props.songId)) {
-            this.props.replaceQueue(this.props.songs);
+            this.props.replaceQueue(songsByCreationDate(this.props.songs));
         }
         if (!this.props.currentSong.song || this.props.songId !== this.props.currentSong.song.id) {
             this.props.setCurrentSong(this.props.song);

@@ -120,7 +120,6 @@ class SongsList extends React.Component {
                 break;
         }
         if (this.state.loading || !this.songs) {
-            debugger
             return <img src={window.loadingPizza} className="loading"></img>;
         } else {
             if (this.songs.length === 0) {
@@ -135,7 +134,6 @@ class SongsList extends React.Component {
                 }
                 return <p>Stream is currently empty. Use Charts to find music & audio to listen to.</p>
             } else {
-                debugger
                 return (
                     <ul>
                         {this.songs.map((song, idx) => {

@@ -47,13 +47,25 @@ class HoverButtons extends React.Component {
     
     render() {
         // if (this.state.reloading) return <img src={window.loadingCool} className="loading"></img>;
-        return (
-            <div className="hover-buttons">
-                <button style={this.noneStyle}><i className="fas fa-heart"></i></button>
-                <button style={this.noneStyle}><i className="fas fa-pen"></i></button>
-                <button onClick={() => this.deleteSong()}><i className="fas fa-trash"></i></button>
-            </div>
-        );
+        switch (this.props.klass) {
+            case "your-songs-list-item":
+                return (
+                    <div className="hover-buttons">
+                        <button style={this.noneStyle}><i className="fas fa-heart"></i></button>
+                        <button style={this.noneStyle}><i className="fas fa-pen"></i></button>
+                        <button onClick={() => this.deleteSong()}><i className="fas fa-trash"></i></button>
+                    </div>
+                );
+            case "queue-item":
+                return (
+                    <div className="hover-buttons">
+                        <button><i className="fas fa-angle-double-down"></i></button>
+                        <button><i className="fas fa-trash-alt"></i></button>
+                    </div>
+                );
+            default:
+                return null;
+        }
     }
 }
 

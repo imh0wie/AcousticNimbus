@@ -68,9 +68,10 @@ class SongShowPage extends React.Component {
         <img src={window.loadingPizza} className="loading-page"></img>
       );
     } else {
+      const songs = [this.props.onPageSong];
       return (
         <div className="song-show-page">
-          <Player klass="banner-player" song={this.props.onPageSong}/>
+          <Player klass="banner-player" songs={songs} song={this.props.onPageSong}/>
           <div className="content">
             <div className="social-els-container">
               <div className="extrovert-section">
