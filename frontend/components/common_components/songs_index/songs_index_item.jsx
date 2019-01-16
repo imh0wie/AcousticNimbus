@@ -2,15 +2,21 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { setCurrentSong, playSong, pauseSong } from "../../../actions/current_song_actions";
+import { createQueue, replaceQueue } from "../../../actions/queue_actions";
+import { songsByCreationDate } from "../../../util/song_api_util";
 
 const msp = (state) => {
     return ({
+        queue: state.ui.queue,
+        introSongs: state.entities.songs ? Object.values(state.entities.songs.introSongs) : null,
         currentSong: state.ui.currentSong,
     })
 }
 
 const mdp = (dispatch) => {
     return ({
+        createQueue: (queue) => dispatch(createQueue(queue)),
+        replaceQueue: (queue) => dispatch(replaceQueue(queue)),
         setCurrentSong: (song) => dispatch(setCurrentSong(song)),
         playSong: () => dispatch(playSong()),
         pauseSong: () => dispatch(pauseSong()),
@@ -25,6 +31,11 @@ class SongsIndexItem extends React.Component {
     }
     
     togglePlay(song) {
+        if (!this.props.queue) {
+            this.props.createQueue(songsByCreationDate(this.props.introSongs));
+        } else if (this.props.queue && !this.props.queue.unshuffled.map(song => song.id).includes(this.props.songId)) {
+            this.props.replaceQueue(songsByCreationDate(this.props.introSongs));
+        }
         if (!this.props.currentSong.song || song.id !== this.props.currentSong.song.id ) {
             this.props.setCurrentSong(song);
             this.props.playSong();

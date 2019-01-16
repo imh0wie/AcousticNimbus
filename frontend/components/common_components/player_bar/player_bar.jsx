@@ -2,13 +2,12 @@ import React from "react";
 import ReactPlayer from "react-player";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
-import { fetchLikes, createLike, removeLike } from "../../../actions/like_actions";
+import { createLike, removeLike } from "../../../actions/like_actions";
 import { setCurrentSong, playSong, pauseSong, setElapsedTo, muteSong, unmuteSong } from "../../../actions/current_song_actions";
 import { toggleLoop, toggleShuffle } from "../../../actions/player_actions";
 import { shuffleQueue } from "../../../actions/queue_actions";
 import { toggleQueueList } from "../../../actions/queue_list_actions";
 import { openModal } from "../../../actions/modal_actions";
-import { randomize } from "../../../util/general_api_util"
 import { latest, shuffle } from "../../../util/song_api_util";
 import { likeOf } from "../../../util/like_api_util";
 
@@ -30,7 +29,6 @@ const msp = (state) => {
 
 const mdp = (dispatch) => {
     return ({
-        fetchLikes: () => dispatch(fetchLikes()),
         createLike: (like) => dispatch(createLike(like)),
         removeLike: (id) => dispatch(removeLike(id)),
         setCurrentSong: (song) => dispatch(setCurrentSong(song)),
@@ -56,8 +54,6 @@ class PlayerBar extends React.Component {
             sliding: false,
             duration: null,
             volume: 0.60,
-            shuffle: false,
-            loop: this.repeat[0],
         };
         this.ref = this.ref.bind(this);
         this.renderPlayPauseButton = this.renderPlayPauseButton.bind(this);
@@ -65,7 +61,7 @@ class PlayerBar extends React.Component {
         this.handleProgress = this.handleProgress.bind(this);
         this.handleDuration = this.handleDuration.bind(this);
         this.handleOver = this.handleOver.bind(this);
-        this.handlePlayPause = this.handlePlayPause.bind(this);
+        // this.handlePlayPause = this.handlePlayPause.bind(this);
         this.handlePrevious = this.handlePrevious.bind(this);
         this.handleNext = this.handleNext.bind(this);
         this.handleShuffle = this.handleShuffle.bind(this);
@@ -115,7 +111,6 @@ class PlayerBar extends React.Component {
             this.songs = this.props.queue.unshuffled;
         }
         const currentSongPos = this.songs.map(song => song.id).indexOf(currentSong.id);
-        debugger
         switch (this.props.player.loop[0]) {
             case "off":
                 if (currentSongPos - 1 < 0) {
@@ -233,14 +228,12 @@ class PlayerBar extends React.Component {
         if (this.props.currentSong.playing) {
             return (
                 <img src={window.play_bar_pause} className="player-control" 
-                // onChange={() => this.handlePlayPause(this.props.currentSong)}
                 onClick={() => this.handlePlayPause(this.props.currentSong.song)}>
                 </img>
             );
         } else {
             return (
                 <img src={window.play_bar_play} className="player-control" 
-                // onChange={() => this.handlePlayPause(this.props.currentSong)}
                 onClick={() => this.handlePlayPause(this.props.currentSong.song)}>
                 </img>
             );
@@ -333,7 +326,7 @@ class PlayerBar extends React.Component {
                         </div>
                     </div>
                     <div className="actions-container">
-                        <p className={this.props.currentLike ? "liked" : "like"}><i className="fas fa-heart" onClick={() => this.handleLike()}></i></p>
+                        {/* <p className={this.props.currentLike ? "liked" : "like"}><i className="fas fa-heart" onClick={() => this.handleLike()}></i></p> */}
                         <img src={window.playlist} onClick={() => this.toggleQueueList()}></img>
                     </div>
                 </div> 
@@ -346,8 +339,7 @@ class PlayerBar extends React.Component {
         }
     }
 }
-//<img src={window.play_bar_shuffle} className="player-control" onClick={() => this.handleShuffle()}></img>
-//<p></p>
+
 export default withRouter(connect(msp, mdp)(PlayerBar));
 
 

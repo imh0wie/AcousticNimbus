@@ -69,10 +69,6 @@ class SocialElements extends React.Component {
         this.handleFollow = this.handleFollow.bind(this);
     }
 
-    componentDidMount() {
-        // if (this.props.klass === "banner-player") this.props.fetchLikes();
-    }
-
     componentWillReceiveProps(nextProps) {
         switch (this.props.klass) {
             case "item-player":
@@ -134,13 +130,6 @@ class SocialElements extends React.Component {
                 // currentLike: likeOf(this.props.currentUserId, "Song", this.props.songId, this.props.likes),
             }));
         }
-        this.defaultState = {
-            randomThree: this.props.users && this.props.users.randomThree ? this.props.users.randomThree : null,
-            [this.props.currentUserId]: this.props.currentUser,
-            individualUser: this.props.users && this.props.users.individualUser ? this.props.users.individualUser : null,
-            followersOfSpecificUser: this.props.users && this.props.users.followersOfSpecificUser ? this.props.users.followersOfSpecificUser : null,
-            likersOfSpecificSong: null,
-        };
     }
     
     handleFollow(e) { // for user show page
@@ -219,8 +208,7 @@ class SocialElements extends React.Component {
                 {this.renderSocialData()}
             </div>
         );
-       
-        
+ 
     }
 }
 

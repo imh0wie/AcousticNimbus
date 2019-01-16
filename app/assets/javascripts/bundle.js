@@ -2885,9 +2885,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_queue_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../actions/queue_actions */ "./frontend/actions/queue_actions.js");
 /* harmony import */ var _actions_queue_list_actions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../actions/queue_list_actions */ "./frontend/actions/queue_list_actions.js");
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
-/* harmony import */ var _util_general_api_util__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../util/general_api_util */ "./frontend/util/general_api_util.js");
-/* harmony import */ var _util_song_api_util__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../util/song_api_util */ "./frontend/util/song_api_util.js");
-/* harmony import */ var _util_like_api_util__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../util/like_api_util */ "./frontend/util/like_api_util.js");
+/* harmony import */ var _util_song_api_util__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../util/song_api_util */ "./frontend/util/song_api_util.js");
+/* harmony import */ var _util_like_api_util__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../util/like_api_util */ "./frontend/util/like_api_util.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2919,7 +2918,6 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 
-
 var msp = function msp(state) {
   var songs = state.entities.songs;
   var songId = state.ui.currentSong.song ? state.ui.currentSong.song.id : null;
@@ -2927,20 +2925,17 @@ var msp = function msp(state) {
   return {
     queue: state.ui.queue,
     player: state.ui.player,
-    latestTwelve: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_11__["latest"])(12, songs),
-    latestTwenty: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_11__["latest"])(20, songs),
-    shuffled: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_11__["shuffle"])(12, songs),
+    latestTwelve: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_10__["latest"])(12, songs),
+    latestTwenty: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_10__["latest"])(20, songs),
+    shuffled: Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_10__["shuffle"])(12, songs),
     currentSong: state.ui.currentSong,
     currentUser: state.entities.users[currentUserId],
-    currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_12__["likeOf"])("Song", songId, currentUserId, state.entities.likes)
+    currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_11__["likeOf"])("Song", songId, currentUserId, state.entities.likes)
   };
 };
 
 var mdp = function mdp(dispatch) {
   return {
-    fetchLikes: function fetchLikes() {
-      return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_4__["fetchLikes"])());
-    },
     createLike: function createLike(like) {
       return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_4__["createLike"])(like));
     },
@@ -2999,17 +2994,15 @@ function (_React$Component) {
       elapsed: _this.props.currentSong.elapsed,
       sliding: false,
       duration: null,
-      volume: 0.60,
-      shuffle: false,
-      loop: _this.repeat[0]
+      volume: 0.60
     };
     _this.ref = _this.ref.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.renderPlayPauseButton = _this.renderPlayPauseButton.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.renderVolume = _this.renderVolume.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleProgress = _this.handleProgress.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleDuration = _this.handleDuration.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleOver = _this.handleOver.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handlePlayPause = _this.handlePlayPause.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleOver = _this.handleOver.bind(_assertThisInitialized(_assertThisInitialized(_this))); // this.handlePlayPause = this.handlePlayPause.bind(this);
+
     _this.handlePrevious = _this.handlePrevious.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleNext = _this.handleNext.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleShuffle = _this.handleShuffle.bind(_assertThisInitialized(_assertThisInitialized(_this)));
@@ -3070,7 +3063,6 @@ function (_React$Component) {
       var currentSongPos = this.songs.map(function (song) {
         return song.id;
       }).indexOf(currentSong.id);
-      debugger;
 
       switch (this.props.player.loop[0]) {
         case "off":
@@ -3211,8 +3203,7 @@ function (_React$Component) {
       if (this.props.currentSong.playing) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.play_bar_pause,
-          className: "player-control" // onChange={() => this.handlePlayPause(this.props.currentSong)}
-          ,
+          className: "player-control",
           onClick: function onClick() {
             return _this2.handlePlayPause(_this2.props.currentSong.song);
           }
@@ -3220,8 +3211,7 @@ function (_React$Component) {
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.play_bar_play,
-          className: "player-control" // onChange={() => this.handlePlayPause(this.props.currentSong)}
-          ,
+          className: "player-control",
           onClick: function onClick() {
             return _this2.handlePlayPause(_this2.props.currentSong.song);
           }
@@ -3362,14 +3352,7 @@ function (_React$Component) {
           className: "title"
         }, this.props.currentSong.song.title.length < 41 ? this.props.currentSong.song.title : this.props.currentSong.song.title.slice(0, 40)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "actions-container"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-          className: this.props.currentLike ? "liked" : "like"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-          className: "fas fa-heart",
-          onClick: function onClick() {
-            return _this5.handleLike();
-          }
-        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.playlist,
           onClick: function onClick() {
             return _this5.toggleQueueList();
@@ -3382,9 +3365,7 @@ function (_React$Component) {
   }]);
 
   return PlayerBar;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component); //<img src={window.play_bar_shuffle} className="player-control" onClick={() => this.handleShuffle()}></img>
-//<p></p>
-
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(msp, mdp)(PlayerBar)));
 
@@ -4243,8 +4224,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _util_comment_api_util__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../util/comment_api_util */ "./frontend/util/comment_api_util.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -4363,10 +4342,6 @@ function (_React$Component) {
   }
 
   _createClass(SocialElements, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {// if (this.props.klass === "banner-player") this.props.fetchLikes();
-    }
-  }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
       var _this2 = this;
@@ -4424,8 +4399,6 @@ function (_React$Component) {
   }, {
     key: "handleLike",
     value: function handleLike(e) {
-      var _this$defaultState;
-
       e.preventDefault();
 
       if (this.state.currentLike) {
@@ -4444,10 +4417,6 @@ function (_React$Component) {
 
         }));
       }
-
-      this.defaultState = (_this$defaultState = {
-        randomThree: this.props.users && this.props.users.randomThree ? this.props.users.randomThree : null
-      }, _defineProperty(_this$defaultState, this.props.currentUserId, this.props.currentUser), _defineProperty(_this$defaultState, "individualUser", this.props.users && this.props.users.individualUser ? this.props.users.individualUser : null), _defineProperty(_this$defaultState, "followersOfSpecificUser", this.props.users && this.props.users.followersOfSpecificUser ? this.props.users.followersOfSpecificUser : null), _defineProperty(_this$defaultState, "likersOfSpecificSong", null), _this$defaultState);
     }
   }, {
     key: "handleFollow",
@@ -4701,6 +4670,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _actions_current_song_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/current_song_actions */ "./frontend/actions/current_song_actions.js");
+/* harmony import */ var _actions_queue_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../actions/queue_actions */ "./frontend/actions/queue_actions.js");
+/* harmony import */ var _util_song_api_util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../util/song_api_util */ "./frontend/util/song_api_util.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4724,14 +4695,24 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 
+
+
 var msp = function msp(state) {
   return {
+    queue: state.ui.queue,
+    introSongs: state.entities.songs ? Object.values(state.entities.songs.introSongs) : null,
     currentSong: state.ui.currentSong
   };
 };
 
 var mdp = function mdp(dispatch) {
   return {
+    createQueue: function createQueue(queue) {
+      return dispatch(Object(_actions_queue_actions__WEBPACK_IMPORTED_MODULE_4__["createQueue"])(queue));
+    },
+    replaceQueue: function replaceQueue(queue) {
+      return dispatch(Object(_actions_queue_actions__WEBPACK_IMPORTED_MODULE_4__["replaceQueue"])(queue));
+    },
     setCurrentSong: function setCurrentSong(song) {
       return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_3__["setCurrentSong"])(song));
     },
@@ -4763,6 +4744,14 @@ function (_React$Component) {
   _createClass(SongsIndexItem, [{
     key: "togglePlay",
     value: function togglePlay(song) {
+      if (!this.props.queue) {
+        this.props.createQueue(Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_5__["songsByCreationDate"])(this.props.introSongs));
+      } else if (this.props.queue && !this.props.queue.unshuffled.map(function (song) {
+        return song.id;
+      }).includes(this.props.songId)) {
+        this.props.replaceQueue(Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_5__["songsByCreationDate"])(this.props.introSongs));
+      }
+
       if (!this.props.currentSong.song || song.id !== this.props.currentSong.song.id) {
         this.props.setCurrentSong(song);
         this.props.playSong();
