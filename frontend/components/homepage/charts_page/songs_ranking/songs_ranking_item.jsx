@@ -2,10 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { setCurrentSong, playSong, pauseSong } from "../../../../actions/current_song_actions";
+import { createQueue, replaceQueue } from "../../../../actions/queue_actions";
+import { songsByCreationDate } from "../../../../util/song_api_util";
 
 const msp = (state) => {
     return {
-      currentSong: state.ui.currentSong,
+        queue: state.entities.queue,
+        currentSong: state.ui.currentSong,
     };
 };
 
@@ -14,18 +17,22 @@ const mdp = (dispatch) => {
         setCurrentSong: (song) => dispatch(setCurrentSong(song)),
         playSong: () => dispatch(playSong()),
         pauseSong: () => dispatch(pauseSong()),
+        createQueue: (queue) => dispatch(createQueue(queue)),
+        replaceQueue: (queue) => dispatch(replaceQueue(queue)),
     });
 };
 
 class SongsRankingItem extends React.Component {
     constructor(props) {
         super(props);
-        // this.redirectToShowPage = this.redirectToShowPage.bind(this);
-        this.togglePlay = this.togglePlay.bind(this);
-        this.renderPlayPauseSign = this.renderPlayPauseSign.bind(this); 
     }
     
     togglePlay(song) {
+        if (!this.props.queue) {
+            this.props.createQueue(songsByCreationDate(this.props.songs));
+        } else if (this.props.queue && !this.props.queue.unshuffled.map(song => song.id).includes(this.props.songId)) {
+            this.props.replaceQueue(songsByCreationDate(this.props.songs));
+        }
         if (!this.props.currentSong.song || song.id !== this.props.currentSong.song.id ) {
             this.props.setCurrentSong(song);
             this.props.playSong();

@@ -3963,7 +3963,6 @@ function (_React$Component) {
   }, {
     key: "handleFollow",
     value: function handleFollow(e) {
-      // for user show page
       e.preventDefault();
 
       if (this.state.currentFollow) {
@@ -5266,6 +5265,8 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       if (this.state.loading || !this.state.rankedSongs) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loadingPizza,
@@ -5283,7 +5284,8 @@ function (_React$Component) {
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_songs_ranking_item__WEBPACK_IMPORTED_MODULE_4__["default"], {
               key: song.id,
               idx: idx,
-              song: song
+              song: song,
+              songs: _this2.state.rankedSongs
             });
           }));
         }
@@ -5312,6 +5314,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _actions_current_song_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../actions/current_song_actions */ "./frontend/actions/current_song_actions.js");
+/* harmony import */ var _actions_queue_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../actions/queue_actions */ "./frontend/actions/queue_actions.js");
+/* harmony import */ var _util_song_api_util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../util/song_api_util */ "./frontend/util/song_api_util.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -5322,13 +5326,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 
 
 
@@ -5337,6 +5343,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 var msp = function msp(state) {
   return {
+    queue: state.entities.queue,
     currentSong: state.ui.currentSong
   };
 };
@@ -5351,6 +5358,12 @@ var mdp = function mdp(dispatch) {
     },
     pauseSong: function pauseSong() {
       return dispatch(Object(_actions_current_song_actions__WEBPACK_IMPORTED_MODULE_3__["pauseSong"])());
+    },
+    createQueue: function createQueue(queue) {
+      return dispatch(Object(_actions_queue_actions__WEBPACK_IMPORTED_MODULE_4__["createQueue"])(queue));
+    },
+    replaceQueue: function replaceQueue(queue) {
+      return dispatch(Object(_actions_queue_actions__WEBPACK_IMPORTED_MODULE_4__["replaceQueue"])(queue));
     }
   };
 };
@@ -5361,20 +5374,22 @@ function (_React$Component) {
   _inherits(SongsRankingItem, _React$Component);
 
   function SongsRankingItem(props) {
-    var _this;
-
     _classCallCheck(this, SongsRankingItem);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(SongsRankingItem).call(this, props)); // this.redirectToShowPage = this.redirectToShowPage.bind(this);
-
-    _this.togglePlay = _this.togglePlay.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.renderPlayPauseSign = _this.renderPlayPauseSign.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(SongsRankingItem).call(this, props));
   }
 
   _createClass(SongsRankingItem, [{
     key: "togglePlay",
     value: function togglePlay(song) {
+      if (!this.props.queue) {
+        this.props.createQueue(Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_5__["songsByCreationDate"])(this.props.songs));
+      } else if (this.props.queue && !this.props.queue.unshuffled.map(function (song) {
+        return song.id;
+      }).includes(this.props.songId)) {
+        this.props.replaceQueue(Object(_util_song_api_util__WEBPACK_IMPORTED_MODULE_5__["songsByCreationDate"])(this.props.songs));
+      }
+
       if (!this.props.currentSong.song || song.id !== this.props.currentSong.song.id) {
         this.props.setCurrentSong(song);
         this.props.playSong();
@@ -5387,7 +5402,7 @@ function (_React$Component) {
   }, {
     key: "renderPlayPauseSign",
     value: function renderPlayPauseSign(song) {
-      var _this2 = this;
+      var _this = this;
 
       if (!this.props.currentSong.song || song.id !== this.props.currentSong.song.id || !this.props.currentSong.playing) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -5396,7 +5411,7 @@ function (_React$Component) {
           src: window.play_button,
           className: "charts-songs-list-item-play-sign",
           onClick: function onClick() {
-            return _this2.togglePlay(song);
+            return _this.togglePlay(song);
           }
         }));
       } else if (song.id === this.props.currentSong.song.id && this.props.currentSong.playing) {
@@ -5406,7 +5421,7 @@ function (_React$Component) {
           src: window.pause_button,
           className: "charts-songs-list-item-pause-sign",
           onClick: function onClick() {
-            return _this2.togglePlay(song);
+            return _this.togglePlay(song);
           }
         }));
       }

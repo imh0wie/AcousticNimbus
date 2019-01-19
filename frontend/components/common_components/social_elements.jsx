@@ -120,7 +120,7 @@ class SocialElements extends React.Component {
         }
     }
     
-    handleFollow(e) { // for user show page
+    handleFollow(e) {
         e.preventDefault();
         if (this.state.currentFollow) {
             this.props.removeFollow(this.state.currentFollow);

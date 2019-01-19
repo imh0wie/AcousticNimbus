@@ -78,6 +78,7 @@ class SongsRanking extends React.Component {
                 key={song.id}
                 idx={idx}
                 song={song}
+                songs={this.state.rankedSongs}
               />
               );
             })}
