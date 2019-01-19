@@ -19,6 +19,20 @@ With a Ruby on Rails back-end that communicates with a PostgreSQL database and u
 
 ## Features
 
+### Waveform Audio Player
+Songs on the pages are all displayed as music players with audio waveform visualization, where users can interact with the waveforms to play the song at 
+
+### Cross-page Audio Player
+Beside the visually attractive waveform players, a simple, cross-page audio player is implemented to allow users to enjoy their music without interruption while navigating around the site, where Redux store is used to keep track of the current song being played at the moment.
+
+### Auto-queueing, Shuffling & Looping
+After a song is selected to be played
+
+### Likes, Comments & Follows
+
+### Artist Recommendations
+
+
 ### Search
 
 Utilizing effective back-end routes and controllers, the search page of the app can quickly and dynamically filter down the entries in the database and provide the relevant results to the user on the front-end. Filters are available to the user on the front-end in case they want to filter by artists, albums, tracks, or playlists. Top result sections are also sorted based on whether or not they contain results that are related to your search query.
@@ -33,7 +47,7 @@ Both a front-end and back-end authentication system was set up to give the users
 
 ### Audio that plays while navigating the site
 
-A core feature for any music app, the audio player is a top-level component for this app. This allows the user to stream music, change the song being played, and save the song being played to their library while navigating around the site.
+
 
 ![Audio Player](app/assets/images/audio_player.png)
 

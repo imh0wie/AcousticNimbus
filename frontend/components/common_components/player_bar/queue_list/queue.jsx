@@ -68,9 +68,7 @@ class Queue extends React.Component {
                 loading: false,
             }), 1000);
         }
-        debugger
         if (this.props.queue && nextProps.queue && (this.props.queue.shuffled.length !== nextProps.queue.shuffled.length || !areIdenticalArrsOfObjs(this.props.queue.shuffled, nextProps.queue.shuffled))) {
-            debugger
             this.setState({
                 queue: nextProps.player.shuffle ? nextProps.queue.shuffled : nextProps.queue.unshuffled,
             })

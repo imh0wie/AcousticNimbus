@@ -105,7 +105,7 @@ class Player extends React.Component {
                         <div className="left">
                             {this.renderPlayPauseSign()}
                             <div className="song-info">
-                                <Link to={`/users/${this.props.song.artistId}`} className="artist">{this.props.song.artist.username}</Link>
+                                <Link to={`/users/${this.props.song.artist.id}`} className="artist">{this.props.song.artist.username}</Link>
                                 {this.renderSongName()}
                             </div>
                         </div>

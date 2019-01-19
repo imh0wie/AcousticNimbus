@@ -1119,7 +1119,7 @@ var BubblesList = function BubblesList(props) {
   } else if (props.items.length === 0) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "No users found :(");
   } else {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, Object.keys(props.items).map(function (item, i) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, props.items.map(function (item, i) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_bubbles_list_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
         key: i,
         user: item
@@ -2532,7 +2532,7 @@ function (_React$Component) {
       }, this.renderPlayPauseSign(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "song-info"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-        to: "/users/".concat(this.props.song.artistId),
+        to: "/users/".concat(this.props.song.artist.id),
         className: "artist"
       }, this.props.song.artist.username), this.renderSongName())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "right"
@@ -3104,10 +3104,7 @@ function (_React$Component) {
         }, 1000);
       }
 
-      debugger;
-
       if (this.props.queue && nextProps.queue && (this.props.queue.shuffled.length !== nextProps.queue.shuffled.length || !Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_4__["areIdenticalArrsOfObjs"])(this.props.queue.shuffled, nextProps.queue.shuffled))) {
-        debugger;
         this.setState({
           queue: nextProps.player.shuffle ? nextProps.queue.shuffled : nextProps.queue.unshuffled
         });
@@ -6251,7 +6248,6 @@ function (_React$Component) {
       display: "none"
     };
     _this.handleRemove = _this.handleRemove.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.renderUsername = _this.renderUsername.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.renderCreationTime = _this.renderCommentCreationTime.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.renderDeleteButton = _this.renderDeleteButton.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
@@ -6261,16 +6257,6 @@ function (_React$Component) {
     key: "handleRemove",
     value: function handleRemove(id) {
       this.props.removeComment(id, this.props.songId);
-    }
-  }, {
-    key: "renderUsername",
-    value: function renderUsername() {
-      var username = this.props.commenter.id === this.props.currentUserId ? "You" : this.props.commenter.username;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "username"
-      }, username), " at ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "time"
-      }, "0:00"), ":");
     }
   }, {
     key: "renderCommentCreationTime",
@@ -6324,7 +6310,12 @@ function (_React$Component) {
         className: "comment-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: this.props.commenter.imageURL ? this.props.commenter.imageURL : window.user_dp
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.renderUsername(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.comment.body))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+        to: "/users/".concat(this.props.commenter.id),
+        className: "username"
+      }, this.props.commenter.id === this.props.currentUserId ? "You" : this.props.commenter.username), " at ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "time"
+      }, "0:00"), ":"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.comment.body))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "date-delete"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.renderCommentCreationTime(this.props.comment.createdAt)), this.renderDeleteButton()));
     }
@@ -8280,11 +8271,6 @@ var queueListReducer = function queueListReducer() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_queue_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/queue_actions */ "./frontend/actions/queue_actions.js");
 /* harmony import */ var _util_general_api_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/general_api_util */ "./frontend/util/general_api_util.js");
-/* harmony import */ var _util_song_api_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util/song_api_util */ "./frontend/util/song_api_util.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
-
-
 
 
 

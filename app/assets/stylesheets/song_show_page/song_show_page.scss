@@ -195,6 +195,11 @@
 .song-show-page .content .social-els-container .main .description-comments .comments .comment-container .username {
     font-size: 12px;
     color: #999;
+    text-decoration: none;
+}
+
+.song-show-page .content .social-els-container .main .description-comments .comments .comment-container .username:hover {
+    color: #333;
 }
 
 .song-show-page .content .social-els-container .main .description-comments .comments .comment-container p {

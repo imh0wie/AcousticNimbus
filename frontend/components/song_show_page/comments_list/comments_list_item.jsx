@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { removeComment } from "../../../actions/comment_actions";
 
 const msp = (state, ownProps) => {
@@ -25,20 +25,12 @@ class CommentsListItem extends React.Component {
             display: "none"
         };
         this.handleRemove = this.handleRemove.bind(this);
-        this.renderUsername = this.renderUsername.bind(this);
         this.renderCreationTime = this.renderCommentCreationTime.bind(this);
         this.renderDeleteButton = this.renderDeleteButton.bind(this);
     }
 
     handleRemove(id) {
         this.props.removeComment(id, this.props.songId);
-    }
-
-    renderUsername() {
-        const username = this.props.commenter.id === this.props.currentUserId ? "You" : this.props.commenter.username;
-        return (   
-            <h1><span className="username">{username}</span> at <span className="time">0:00</span>:</h1>
-        );
     }
 
     renderCommentCreationTime(date) {
@@ -76,7 +68,7 @@ class CommentsListItem extends React.Component {
                 <div className="comment-container">
                     <img src={this.props.commenter.imageURL ? this.props.commenter.imageURL : window.user_dp}></img>
                     <div>
-                        {this.renderUsername()}
+                        <h1><Link to={`/users/${this.props.commenter.id}`} className="username">{this.props.commenter.id === this.props.currentUserId ? "You" : this.props.commenter.username}</Link> at <span className="time">0:00</span>:</h1>
                         <p>{this.props.comment.body}</p>
                     </div>
                 </div>

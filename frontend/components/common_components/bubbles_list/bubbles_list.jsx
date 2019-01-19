@@ -10,7 +10,7 @@ const BubblesList = (props) => {
     } else {
         return (
             <ul>
-                {Object.keys(props.items).map((item, i) => {
+                {props.items.map((item, i) => {
                     return (
                         <BubblesListItem
                             key={i}
