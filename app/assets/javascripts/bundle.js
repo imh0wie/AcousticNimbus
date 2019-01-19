@@ -3791,6 +3791,7 @@ var msp = function msp(state, ownProps) {
   return {
     likes: state.entities.likes,
     follows: state.entities.follows,
+    comments: state.entities.comments,
     users: users,
     onPageArtistId: parseInt(ownProps.match.params.userId),
     currentUserId: users[state.session.id]
