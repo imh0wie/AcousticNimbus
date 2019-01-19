@@ -8,10 +8,8 @@ import Waveform from "../common_components/waveform";
 import SocialElements from "../common_components/social_elements";
 import CommentBox from "../common_components/comment_box";
 
-const msp = (state, ownProps) => {
+const msp = (state) => {
     return ({
-        // songId: songId ? songId : ownProps.songId,
-        // song: ownProps.song,
         currentSong: state.ui.currentSong,
         queue: state.ui.queue,
     })

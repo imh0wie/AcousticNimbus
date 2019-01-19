@@ -2,12 +2,9 @@ import React from "react";
 import ReactPlayer from "react-player";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
-import { createLike, removeLike } from "../../../actions/like_actions";
 import { setCurrentSong, playSong, pauseSong, setElapsedTo, muteSong, unmuteSong } from "../../../actions/current_song_actions";
 import { toggleLoop, toggleShuffle } from "../../../actions/player_actions";
-import { shuffleQueue } from "../../../actions/queue_actions";
 import { toggleQueueList } from "../../../actions/queue_list_actions";
-import { openModal } from "../../../actions/modal_actions";
 import { latest, shuffle } from "../../../util/song_api_util";
 import { likeOf } from "../../../util/like_api_util";
 
@@ -29,18 +26,14 @@ const msp = (state) => {
 
 const mdp = (dispatch) => {
     return ({
-        createLike: (like) => dispatch(createLike(like)),
-        removeLike: (id) => dispatch(removeLike(id)),
         setCurrentSong: (song) => dispatch(setCurrentSong(song)),
         playSong: () => dispatch(playSong()),
         pauseSong: () => dispatch(pauseSong()),
         setElapsedTo: (time) => dispatch(setElapsedTo(time)),
         muteSong: () => dispatch(muteSong()),
         unmuteSong: () => dispatch(unmuteSong()),
-        openModal: (modal) => dispatch(openModal(modal)),
         toggleLoop: () => dispatch(toggleLoop()),
         toggleShuffle: () => dispatch(toggleShuffle()),
-        shuffleQueue: () => dispatch(shuffleQueue()),
         toggleQueueList: () => dispatch(toggleQueueList()),
     });
 }
@@ -56,21 +49,21 @@ class PlayerBar extends React.Component {
             volume: 0.60,
         };
         this.ref = this.ref.bind(this);
-        this.renderPlayPauseButton = this.renderPlayPauseButton.bind(this);
-        this.renderVolume = this.renderVolume.bind(this);
         this.handleProgress = this.handleProgress.bind(this);
         this.handleDuration = this.handleDuration.bind(this);
         this.handleOver = this.handleOver.bind(this);
-        // this.handlePlayPause = this.handlePlayPause.bind(this);
-        this.handlePrevious = this.handlePrevious.bind(this);
-        this.handleNext = this.handleNext.bind(this);
-        this.handleShuffle = this.handleShuffle.bind(this);
-        this.handleLoop = this.handleLoop.bind(this);
-        this.handleLike = this.handleLike.bind(this);
-        this.showTime = this.showTime.bind(this);
         this.handleSlide = this.handleSlide.bind(this);
         this.handleUnslide = this.handleUnslide.bind(this);
         this.handleChange = this.handleChange.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.state.elapsed !== nextProps.currentSong.elapsed) {
+            this.setState({
+                elapsed: nextProps.currentSong.elapsed,
+            });
+            setTimeout(() => this.player.seekTo(this.state.elapsed), 50);
+        }
     }
 
     ref(player) {
@@ -159,15 +152,27 @@ class PlayerBar extends React.Component {
         this.props.setCurrentSong(prevSong);
         if (prevSong) this.props.playSong();
     }
-
-    handleShuffle() {
-        this.props.toggleShuffle();
+    
+    handleSlide() {
+        this.setState({
+            sliding: true,
+        });
     }
     
-    handleLoop() {
-        this.props.toggleLoop();
+    handleUnslide(e) {
+        this.setState({
+            sliding: false,
+        });
+        this.player.seekTo(e.currentTarget.value);
     }
-
+    
+    handleChange(e) {
+        this.setState({
+            elapsed: parseFloat(e.currentTarget.value),
+        });
+        this.props.setElapsedTo(e.currentTarget.value);
+    }
+    
     showTime(secs) {
         let date = new Date(null);
         date.setSeconds(secs);
@@ -176,87 +181,8 @@ class PlayerBar extends React.Component {
         );
     }
 
-    handleSlide() {
-        this.setState({
-            sliding: true,
-        });
-      }
-    
-    handleUnslide(e) {
-        this.setState({
-            sliding: false,
-        });
-        this.player.seekTo(e.currentTarget.value);
-    }
-
-    handleChange(e) {
-        this.setState({
-            elapsed: parseFloat(e.currentTarget.value),
-        });
-        this.props.setElapsedTo(e.currentTarget.value);
-    }
-
-    handleVolume() {
-        if (this.props.currentSong.muted) {
-            this.props.unmuteSong();
-        } else {
-            this.props.muteSong();
-        }
-    }
-
-    handleLike() {
-        if (this.props.currentUser) {
-            if (this.props.currentLike) {
-                this.props.removeLike(this.props.currentLike.id);
-            } else {
-                const like = {
-                    likeable_type: "Song",
-                    likeable_id: this.props.currentSong.song.id,
-                    liker_id: this.props.currentUser.id,
-                }
-                this.props.createLike(like);
-            }
-        } else {
-            this.props.openModal("signup");
-        }
-    }
-
-    toggleQueueList() {
-        this.props.toggleQueueList();
-    }
-
-    renderPlayPauseButton() {
-        if (this.props.currentSong.playing) {
-            return (
-                <img src={window.play_bar_pause} className="player-control" 
-                onClick={() => this.handlePlayPause(this.props.currentSong.song)}>
-                </img>
-            );
-        } else {
-            return (
-                <img src={window.play_bar_play} className="player-control" 
-                onClick={() => this.handlePlayPause(this.props.currentSong.song)}>
-                </img>
-            );
-        }
-    }
-
-    renderVolume() {
-        if (this.props.currentSong.muted) {
-            return (
-                <img src={window.volume_off} className="player-control" onClick={() => this.handleVolume()}>
-                </img>
-            );
-        } else {
-            return (
-                <img src={window.volume_on} className="player-control" onClick={() => this.handleVolume()}>
-                </img>
-            );
-        }
-    }
-
     renderLoopButton() {
-        switch (this.props.player.loop) {
+        switch (this.props.player.loop[0]) {
             case "off":
                 this.src = window.play_bar_loop;
                 break;
@@ -269,7 +195,7 @@ class PlayerBar extends React.Component {
             default:
                 break;
         }
-        return <img src={this.src} className="player-control" onClick={() => this.handleLoop()}></img>
+        return <img src={this.src} className="player-control" onClick={() => this.props.toggleLoop()}></img>
     }
 
     render() {
@@ -292,10 +218,9 @@ class PlayerBar extends React.Component {
                     />
                     <div className="controls-container">
                         <img src={window.play_bar_previous} className="player-control" onClick={() => this.handlePrevious(this.props.currentSong.song)}></img>
-                        {this.renderPlayPauseButton()}
+                        <img src={this.props.currentSong.playing ? window.play_bar_pause : window.play_bar_play} className="player-control" onClick={() => this.handlePlayPause(this.props.currentSong.song)}></img>
                         <img src={window.play_bar_next} className="player-control" onClick={() => this.handleNext(this.props.currentSong.song)}></img>
-                        <p className={this.props.player.shuffle ? "shuffled" : "shuffle"} onClick={() => this.handleShuffle()}><i className="fas fa-random"></i></p>
-                        {/* <img src={window.play_bar_loop} className="player-control" onClick={() => this.handleLoop()}></img> */}
+                        <p className={this.props.player.shuffle ? "shuffled" : "shuffle"} onClick={() => this.props.toggleShuffle()}><i className="fas fa-random"></i></p>
                         {this.renderLoopButton()}
                     </div>
                     <div className="progress">
@@ -318,7 +243,7 @@ class PlayerBar extends React.Component {
                     <div className="length">
                         {this.showTime(Math.round(this.state.duration))}
                     </div>
-                    <img src={this.props.currentSong.muted ? window.volume_off : window.volume_on} className="player-control" onClick={() => this.handleVolume()}></img>
+                    <img src={this.props.currentSong.muted ? window.volume_off : window.volume_on} className="player-control" onClick={() => this.props.currentSong.muted ? this.props.unmuteSong() : this.props.muteSong()}></img>
                     <div className="song-info-container">
                         <img src={this.props.currentSong.song.imageURL ? this.props.currentSong.song.imageURL : window.user_dp} ></img>
                         <div className="song-info">
@@ -327,8 +252,7 @@ class PlayerBar extends React.Component {
                         </div>
                     </div>
                     <div className="actions-container">
-                        {/* <p className={this.props.currentLike ? "liked" : "like"}><i className="fas fa-heart" onClick={() => this.handleLike()}></i></p> */}
-                        <img src={window.playlist} onClick={() => this.toggleQueueList()}></img>
+                        <img src={window.playlist} onClick={() => this.props.toggleQueueList()}></img>
                     </div>
                 </div> 
             </div>

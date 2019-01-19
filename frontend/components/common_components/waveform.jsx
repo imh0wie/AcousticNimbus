@@ -1,28 +1,19 @@
 import React from "react";
 import WaveSurfer from "wavesurfer.js";
 import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
-import { setCurrentSong, playSong, pauseSong, setElapsedTo, muteSong, unmuteSong } from "../../actions/current_song_actions";
-import { latest, shuffle } from "../../util/song_api_util";
+import { withRouter } from "react-router-dom";
+import { setElapsedTo} from "../../actions/current_song_actions";
 
 const msp = (state) => {
-    return {
-      latestTwelve: latest(12, state.entities.songs),
-      latestTwenty: latest(20, state.entities.songs),
-      shuffled: shuffle(12, state.entities.songs),
-      currentSong: state.ui.currentSong,
-    }
+  return {
+    currentSong: state.ui.currentSong,
+  };
 }
 
 const mdp = (dispatch) => {
-    return ({
-        setCurrentSong: (song) => dispatch(setCurrentSong(song)),
-        playSong: () => dispatch(playSong()),
-        pauseSong: () => dispatch(pauseSong()),
-        setElapsedTo: (time) => dispatch(setElapsedTo(time)),
-        muteSong: () => dispatch(muteSong()),
-        unmuteSong: () => dispatch(unmuteSong()),
-    });
+  return ({
+    setElapsedTo: (time) => dispatch(setElapsedTo(time)),
+  });
 }
 
 class Waveform extends React.Component {
@@ -41,28 +32,19 @@ class Waveform extends React.Component {
     this.indStyle = {
       zIndex: "1",
     }
-    this.initializeWaveform = this.initializeWaveform.bind(this);
-    this.onReady = this.onReady.bind(this);
-    // this.onProgress = this.onProgress.bind(this);
-    // this.onSeek = this.onSeek.bind(this);
   }
   
   componentDidMount() {
     this.initializeWaveform();
-    // const url = this.props.song ? this.props.song.audioURL : this.props.song.audioURL
     this.waveform.load(this.props.song.audioURL);
-    this.waveform.on("ready", this.onReady());
-    // this.waveform.on("audioprocess", this.onProgress());
-    // this.waveform.on("seek", this.onSeek());
-    this.setState({loaded: true});
+    this.waveform.on("ready", () => this.onReady());
+    this.waveform.on("seek", (time) => this.onSeek(time));
+    this.setState({
+      loaded: true
+    });
   }
   
   initializeWaveform() {
-    // const canvas = document.getElementById("gradient")
-    // const ctx = canvas.getContext("2d");
-    // const gradient = ctx.createLinearGradient(0, 50, 0, 200);
-    // gradient.addColorStop(0.5, 'white');
-    // gradient.addColorStop(0.5, '#999');
     switch (this.props.klass) {
       case "banner-player":
         this.waveform = WaveSurfer.create({
@@ -100,8 +82,8 @@ class Waveform extends React.Component {
         playing: this.props.currentSong.playing,
         elapsed: this.props.currentSong.elapsed,
       });
-      this.waveform.seekTo(this.state.elapsed);
       this.state.playing ? this.waveform.play() : this.waveform.pause();
+      this.waveform.seekTo(this.state.elapsed);
     } else {
       this.setState({
         playing: false,
@@ -110,46 +92,27 @@ class Waveform extends React.Component {
       this.waveform.seekTo(this.state.elapsed);
     }
   }
-
-  // onProgress() {
-  //   if (this.props.currentSong.song && this.props.songId === this.props.currentSong.song.id && this.state.elapsed !== this.props.currentSong.elpased) {
-  //     this.setState({
-  //       elapsed: this.props.currentSong.elapsed,
-  //     });
-  //     this.waveform.seekTo(this.state.elapsed);
-  //   }
-  //   // if (!this.props.currentSong.song) {
-  //   //   this.setState = ({
-  //   //     elapsed: 0,
-  //   //   });
-  //   //   this.waveform.seekTo(this.state.elapsed);
-  //   // }
-  // }
-
-  // onSeek(time) {
-  //   if (this.props.currentSong.song && this.props.songId === this.props.currentSong.song.id) {
-  //     this.setState({
-  //       elapsed: time,
-  //     })
-  //     this.props.setElapsedTo(this.state.elapsed);
-  //   }
-  // }
+  
+  onSeek(time) {
+    if (this.props.currentSong.song && this.props.songId === this.props.currentSong.song.id && this.state.elapsed !== time) {
+      setTimeout(() => this.props.setElapsedTo(time), 200);
+    }
+  }
 
   componentWillReceiveProps(nextProps) {
-    if (!nextProps.currentSong.song) return;
-    if (this.props.songId === nextProps.currentSong.song.id && nextProps.currentSong.playing) {
-      this.waveform.play();
-    } else if (this.props.songId === nextProps.currentSong.song.id && !nextProps.currentSong.playing) {
-      this.waveform.pause();
-    } else if (this.props.songId !== nextProps.currentSong.song.id) {
+    if (nextProps.currentSong.song && this.props.songId === nextProps.currentSong.song.id) {
+      if (this.state.elapsed !== nextProps.currentSong.elapsed) {
+        this.setState({
+          elapsed: nextProps.currentSong.elapsed,
+        })
+        setTimeout(() => this.waveform.seekTo(this.state.elapsed), 100);
+      }
+    } else {
       this.setState({
         elapsed: 0,
         playing: false,
       });
-    }
-    if (this.props.songId === nextProps.currentSong.song.id &&
-        this.props.currentSong.elapsed !== nextProps.currentSong.elapsed) {
-      this.waveform.seekTo(nextProps.currentSong.elapsed);
+      setTimeout(() => this.waveform.seekTo(this.state.elapsed), 200);
     }
   }
 
