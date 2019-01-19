@@ -1,12 +1,6 @@
 import { RECEIVE_EXTRA_LIKES, RECEIVE_LESS_LIKES, EMPTY_LIKES } from "../actions/like_actions";
 import { merge } from "lodash";
 
-// const defaultState = {
-//   id: null,
-//   likeableType: null,
-//   likeableId: null,
-//   likerId: null,
-// };
 const likesReducer = (state = null, action) => {
   Object.freeze(state);
   let newState;

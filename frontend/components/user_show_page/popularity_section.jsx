@@ -14,9 +14,6 @@ class PopularitySection extends React.Component {
         super(props);
         this.state = {
             currentFollow: Object.values(this.props.onPageArtist.attentions).find(follow => follow.followerId === this.props.currentUserId),
-            // currentFollow: this.props.follows ? 
-            //                 Object.values(this.props.follows.interests).find(follow => follow.followedUserId === this.props.onPageArtist.id) : 
-            //                 Object.values(this.props.onPageArtist.attentions).find(follow => follow.followerId === this.props.currentUserId),
             followersCount: this.props.onPageArtist.followersCount,
         }
     }

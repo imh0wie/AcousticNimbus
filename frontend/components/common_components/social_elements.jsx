@@ -1,39 +1,28 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
-import { fetchLikes, createLike, removeLike } from "../../actions/like_actions";
+import { createLike, removeLike } from "../../actions/like_actions";
 import { createFollow, removeFollow } from "../../actions/follow_actions";
-import { fetchUsers, emptyLikersOfSpecificSong } from "../../actions/user_actions";
-import { likesOf, likeOf } from "../../util/like_api_util";
+import { likeOf } from "../../util/like_api_util";
 import { followOf } from "../../util/follow_api_util";
-import { commentsOf } from "../../util/comment_api_util";
 
 const msp = (state, ownProps) => {
-    const onPageArtistId = parseInt(ownProps.match.params.userId);
-    const likes = state.entities.likes;
     const users = state.entities.users;
-    const follows = state.entities.follows;
-    const currentUserId = state.session.id;
     return ({
-        songs: state.entities.songs,
-        follows: follows,
-        likes: likes,
-        comments: state.entities.comments,
+        likes: state.entities.likes,
+        follows: state.entities.follows,
         users: users,
-        onPageArtistId: onPageArtistId,
-        currentUserId: currentUserId,
-        currentUser: users[currentUserId],
+        onPageArtistId: parseInt(ownProps.match.params.userId),
+        currentUserId: users[state.session.id],
     });
 }
 
 const mdp = (dispatch) => {
     return ({
-        fetchLikes: () => dispatch(fetchLikes()),
         createLike: (like) => dispatch(createLike(like)),
         removeLike: (like) => dispatch(removeLike(like)),
         createFollow: (follow) => dispatch(createFollow(follow)), 
         removeFollow: (id) => dispatch(removeFollow(id)), 
-        emptyLikersOfSpecificSong: (defaultState) => dispatch(emptyLikersOfSpecificSong(defaultState)),
     })
 }
 
@@ -127,7 +116,6 @@ class SocialElements extends React.Component {
             };
             this.props.createLike(like).then(this.setState({
                 likesCount: this.state.likesCount + 1,
-                // currentLike: likeOf(this.props.currentUserId, "Song", this.props.songId, this.props.likes),
             }));
         }
     }

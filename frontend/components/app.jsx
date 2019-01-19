@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch } from "react-router-dom";
 import HeaderBar from "./common_components/header_bar";
 import SplashPage from "./splash_page/splash_page";
 import Homepage from "./homepage/homepage";
@@ -21,7 +21,6 @@ const App = () => {
           <ProtectedRoute path="/stream" component={Homepage} />
           <ProtectedRoute path="/upload" component={SongsMgmtPage} />
           <ProtectedRoute path="/you/songs" component={SongsMgmtPage} />
-          {/* <ProtectedRoute path="/you/collection" component={SongsMgmtPage} /> */}
           <ProtectedRoute exact path="/songs/:songId" component={SongShowPage} />
           <ProtectedRoute exact path="/users/:userId" component={UserShowPage} />
         </Switch>

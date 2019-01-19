@@ -37,7 +37,6 @@ class UploadForm extends React.Component {
     };
     this.showStyle = {
       display: "block",
-      // opacity: "1",
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleImage = this.handleImage.bind(this);

@@ -9,16 +9,6 @@ export const EMPTY_INDIVIDUAL_USER = 'EMPTY_INDIVIDUAL_USER';
 export const EMPTY_LIKERS_OF_SPECIFIC_SONG = 'EMPTY_LIKERS_OF_SPECIFIC_SONG';
 export const EMPTY_FOLLOWERS_OF_SPECIFIC_USER = 'EMPTY_FOLLOWERS_OF_SPECIFIC_USER';
 
-export const fetchUsers = () => {
-    // return (dispatch) => {
-    //     return UserAPIUtil.fetchUsers().then(
-    //         (usersFromServer) => {
-    //             return dispatch(receiveRandomThreeUsers(usersFromServer));
-    //         }
-    //     );
-    // }
-};
-
 export const fetchRandomThreeUsers = (currentUserId) => {
     return (dispatch) => {
         return UserAPIUtil.fetchRandomThreeUsers(currentUserId).then(

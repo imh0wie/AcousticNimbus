@@ -1,31 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
-import { fetchLikes } from "../../actions/like_actions";
-import { fetchLikedSongs, emptyLikedSongs, emptyLikedSongsOfSpecificUser } from "../../actions/song_actions";
-import { fetchLikersOfSpecificSong, emptyLikersOfSpecificSong } from "../../actions/user_actions";
-import { likesBy, likesOf } from "../../util/like_api_util";
-import { likedSongsJsonToArr } from "../../util/song_api_util";
+import { withRouter } from "react-router-dom";
+import { fetchLikedSongs, emptyLikedSongs } from "../../actions/song_actions";
 import { randomize } from "../../util/general_api_util";
 import MiniList from "./mini_list/mini_list";
 import BubblesList from "./bubbles_list/bubbles_list"
 
-const msp = (state, ownProps) => {
-    const songs = state.entities.songs;
+const msp = (state) => {
     const users = state.entities.users;
-    const songId = ownProps.songId ? ownProps.songId : parseInt(ownProps.match.params.songId);
-    const song = songs ? songs[songId] : null;
-    const userId = ownProps.match.params.userId ? parseInt(ownProps.match.params.userId) : null;
     const currentUserId = state.session.id;
-    const likes = state.entities.likes;
     return ({
-        // song: song,
-        songId: songId,
-        songs: songs,
-        likes: likes,
-        users: users,
-        songLikes: likesOf("Song", songId, likes), // song's likes => users
-        userLikes: likesBy(likes, userId), // user's likes =>
+        songs: state.entities.songs,
+        likes: state.entities.likes,
         currentUserId: currentUserId,
         currentUser: users[currentUserId],
     });
@@ -33,12 +19,8 @@ const msp = (state, ownProps) => {
 
 const mdp = (dispatch) => {
     return ({
-        fetchLikes: () => dispatch(fetchLikes()),
         fetchLikedSongs: (data) => dispatch(fetchLikedSongs(data)),
         emptyLikedSongs: (defaultState) => dispatch(emptyLikedSongs(defaultState)),
-        emptyLikedSongsOfSpecificUser: (defaultState) => dispatch(emptyLikedSongsOfSpecificUser(defaultState)),
-        fetchLikersOfSpecificSong: (songId) => dispatch(fetchLikersOfSpecificSong(songId)),
-        emptyLikersOfSpecificSong: (defaultState) => dispatch(emptyLikersOfSpecificSong(defaultState)),
     })
 }
 
@@ -155,7 +137,6 @@ class LikesSection extends React.Component {
     render() {
         switch (this.props.klass) {
             case "homepage":
-            // case "user-show-page":
                 this.likes = this.state.likedSongs;
                 break;
             case "user-show-page":
@@ -171,12 +152,10 @@ class LikesSection extends React.Component {
             <div className="likes-section" style={this.props.klass === "user-show-page" ? this.customStyle : {}}>
                 <div className="header">
                     <p><i className="fas fa-heart"></i> {this.likes ? this.likes.length : "0"} {this.likes && this.likes.length > 1 ? "likes" : "like"}</p>
-                    {/* <Link to="" onClick={(e) => e.preventDefault()}>View all</Link> */}
                 </div>
                 {this.renderList()}
             </div>
         );
-        // }
     }
 
     renderList() {

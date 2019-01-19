@@ -48,12 +48,7 @@ class SongShowPage extends React.Component {
 
   componentWillUnmount() {
     const defaultState = {
-      followedSongs: this.props.songs ? this.props.songs.likedSongs : null,
-      likedSongs: this.props.songs ? this.props.songs.likedSongs : null,
-      songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
-      likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
       individualSong: null,
-      relatedSongsByGenre: this.props.songs ? this.props.songs.relatedSongsByGenre : null,
     };
     this.props.emptyIndividualSong(defaultState);
   }

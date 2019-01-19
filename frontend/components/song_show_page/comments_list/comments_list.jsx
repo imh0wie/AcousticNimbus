@@ -1,25 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { emptyCommentsOfSpecificSong, fetchCommentsOfSpecificSong } from "../../../actions/comment_actions";
-import { commentsOf } from "../../../util/comment_api_util";
-import { isEmpty } from "../../../util/general_api_util";
+import { emptyCommentsOfSpecificSong } from "../../../actions/comment_actions";
 import CommentsListItem from "./comments_list_item";
 
-const msp = (state, ownProps) => {
-    const comments = state.entities.comments;
-    const songId = parseInt(ownProps.match.params.songId);
+const msp = (state) => {
     return ({
-        users: state.entities.users,
         comments: state.entities.comments,
-        // currentComments: commentsOf(songId, comments),
     });
 }
 
 const mdp = (dispatch) => {
     return ({
         emptyCommentsOfSpecificSong: (defaultState) => dispatch(emptyCommentsOfSpecificSong(defaultState)),
-        fetchCommentsOfSpecificSong: (songId) => dispatch(fetchCommentsOfSpecificSong(songId)),
     });
 }
 

@@ -39,15 +39,10 @@ export const logout = () => {
       (errors) => {
         return dispatch(receiveSessionErrors(errors.responseJSON));
       }
-        // solution: (user) => dispatch(logoutCurrentUser())
-        // if we are passing the "user" argument,
-        // why is logoutCurrentUser() not using it
-        // to log out that user?
     );
   };
 };
 
-// What does it do? ==> reducer
 export const receiveCurrentUser = (currentUser) => {
   return {
     type: RECEIVE_CURRENT_USER,

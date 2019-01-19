@@ -2,7 +2,6 @@ import { RECEIVE_CURRENT_USER, LOGOUT_CURRENT_USER } from "../actions/session_ac
 import { merge } from "lodash";
 
 const noUserState = { id: null };
-// const defaultState = Object.freeze({id: null});
 
 const sessionReducer = (state = {}, action) => {
   Object.freeze(state);

@@ -5,13 +5,8 @@ import { emptyFollowedSongs } from "../../../actions/song_actions";
 import { createFollow, removeFollow } from "../../../actions/follow_actions";
 
 const msp = (state) => {
-    const follows = state.entities.follows;
-    const currentUserId = state.session.id;
     return ({
-        songs: state.entities.songs,
-        currentFollowings: follows ? Object.values(follows.interests) : null,
-        // currentFollowers: follows ? Object.values(follows.attentions) : null,
-        currentUserId: currentUserId,
+        currentUserId: state.session.id,
     })
 }
 
@@ -40,11 +35,6 @@ class ArtistListItem extends React.Component {
         };
         const defaultState = {
             followedSongs: null,
-            likedSongs: this.props.songs.likedSongs,
-            songsOfSpecificUser: this.props.songs.songsOfSpecificUser ? this.props.songs.songsOfSpecificUser : null,
-            likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
-            individualSong: this.props.songs ? this.props.songs.individualSong : null,
-            relatedSongsByGenre: this.props.songs ? this.props.songs.relatedSongsByGenre : null,
         };
         this.props.createFollow(follow);
         this.props.emptyFollowedSongs(defaultState);

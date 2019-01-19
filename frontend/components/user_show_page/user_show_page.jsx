@@ -4,7 +4,6 @@ import { withRouter } from "react-router-dom";
 import { fetchUser, emptyIndividualUser } from "../../actions/user_actions";
 import { emptyLikes } from "../../actions/like_actions";
 import { emptyFollows } from "../../actions/follow_actions";
-import { emptyComments } from "../../actions/comment_actions";
 import Slideshow from "../common_components/slideshow"
 import Navbar from "../common_components/navbar";
 import SocialElements from "../common_components/social_elements";
@@ -19,10 +18,8 @@ const msp = (state, ownProps) => {
     const onPageArtistId = parseInt(ownProps.match.params.userId);
     const currentUserId = state.session.id;
     return ({
-        songs: state.entities.songs,
         likes: state.entities.likes,
         follows: state.entities.follows,
-        users: users,
         onPageArtistId: onPageArtistId,
         onPageArtist: users.individualUser ? users.individualUser[onPageArtistId] : null,
         currentUserId: currentUserId,
@@ -56,11 +53,8 @@ class UserShowPage extends React.Component {
 
     componentWillUnmount() {
         const defaultState = {
-            // randomThree: this.props.users && this.props.users.randomThree ? this.props.users.randomThree : null,
             individualUser: null,
             [this.props.currentUserId]: this.props.currentUser,
-            // followersOfSpecificUser: this.props.users && this.props.users.followersOfSpecificUser ? this.props.users.followersOfSpecificUser : null,
-            // likersOfSpecificSong: this.props.users && this.props.users.likersOfSpecificSong ? this.props.users.likersOfSpecificSong : null,
         };
         this.props.emptyIndividualUser(defaultState);
         if (this.props.likes) this.props.emptyLikes(null);
@@ -69,7 +63,7 @@ class UserShowPage extends React.Component {
     }
 
     render() {
-        if (this.state.loading || !this.props.onPageArtist) { // || !this.props.songs) {
+        if (this.state.loading || !this.props.onPageArtist) {
             return <img src={window.loadingPizza} className="user-show-loading"></img>
         } else {
             return (

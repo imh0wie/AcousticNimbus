@@ -1,6 +1,5 @@
-// import { OPEN_MODAL, CLOSE_MODAL } from "./../actions/modal_actions.js";
 import { merge } from "lodash";
-//
+
 const OPEN_MODAL = "OPEN_MODAL";
 const CLOSE_MODAL = "CLOSE_MODAL";
 

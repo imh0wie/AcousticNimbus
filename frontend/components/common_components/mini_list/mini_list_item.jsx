@@ -18,4 +18,3 @@ const MiniListItem = (props) => {
 }
 
 export default MiniListItem;
-// 14 12.25

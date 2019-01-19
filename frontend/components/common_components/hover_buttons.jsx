@@ -22,13 +22,9 @@ const mdp = (dispatch) => {
 class HoverButtons extends React.Component {
     constructor(props) {
         super(props);
-        // this.state = {
-        //     reloading: false,
-        // }
         this.noneStyle = {
             display: "none",
         }
-        // this.deleteSong = this.deleteSong.bind(this);
     }
 
     deleteSong() {
@@ -37,18 +33,9 @@ class HoverButtons extends React.Component {
             artist_id: this.props.song.artistId,
         }
         this.props.removeSong(song);
-        // this.props.toggleReloading();
-        // this.props.removeSong(this.props.songId);
     }
-
-    // deleteSong() {
-    //     this.props.toggleReloading().then(this.props.removeSong(this.props.songId))
-    //     // this.props.toggleReloading();
-    //     // this.props.removeSong(this.props.songId);
-    // }
     
     render() {
-        // if (this.state.reloading) return <img src={window.loadingCool} className="loading"></img>;
         switch (this.props.klass) {
             case "your-songs-list-item":
                 return (

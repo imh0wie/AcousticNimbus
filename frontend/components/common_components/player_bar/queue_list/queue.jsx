@@ -2,16 +2,12 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { shuffleQueue, removeSongFromQueue } from "../../../../actions/queue_actions";
-import { songsByCreationDate } from "../../../../util/song_api_util";
-import { randomize } from "../../../../util/general_api_util";
 import QueueItem from "./queue_item";
 
 const msp = (state) => {
-    // const queue = state.ui.queue;
     return {
         player: state.ui.player,
         queue: state.ui.queue,
-        // queue: state.ui.player.shuffle ? queue.shuffled : queue.unshuffled,
         currentSong: state.ui.currentSong,
     }
 }
@@ -77,7 +73,6 @@ class Queue extends React.Component {
                 queue: nextProps.player.shuffle ? nextProps.queue.shuffled : nextProps.queue.unshuffled,
             })
         }
-
     }
 
     render() {

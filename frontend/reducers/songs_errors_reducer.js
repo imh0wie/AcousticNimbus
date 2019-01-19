@@ -6,8 +6,6 @@ const songsErrorsReducer = (state = [], action) => {
   switch (action.type) {
     case RECEIVE_SONG:
       return [];
-    // case RECEIVE_SONGS:
-    //   return [];
     case RECEIVE_SONG_ERRORS:
       return merge([], state, action.errors);
     case RECEIVE_SONGS_ERRORS:

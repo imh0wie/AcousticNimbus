@@ -2,9 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { fetchFilteredSongs } from "../../../../actions/song_actions";
-import { latest } from "../../../../util/song_api_util";
 import SongsRankingItem from "./songs_ranking_item";
-import { timingSafeEqual } from "crypto";
 
 const msp = (state) => {
   const filters = state.ui.charts;
@@ -36,7 +34,6 @@ class SongsRanking extends React.Component {
   componentDidMount() {
     const data = {
       number: 10,
-      // offset: this.state.offset,
       order: this.props.order,
       genre: this.props.genre,
     }
@@ -59,7 +56,6 @@ class SongsRanking extends React.Component {
       });
       const data = {
         number: 10,
-        // offset: this.state.offset,
         order: nextProps.order,
         genre: nextProps.genre,
       }

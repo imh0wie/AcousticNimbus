@@ -1,65 +1,33 @@
 import React from "react";
-import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { fetchLikes } from "../../../actions/like_actions";
-// import { fetchComments } from "../../../actions/comment_actions";
-import { isEmpty } from "../../../util/general_api_util"
-import { relatedSongsOf } from "../../../util/song_api_util";
-import { likesOf } from "../../../util/like_api_util";
-import { commentsOf } from "../../../util/comment_api_util";
 import MiniListItem from "./mini_list_item";
 
-const msp = (state, ownProps) => {
-    const songId = ownProps.match.params.songId;
-    const songs = state.entities.songs;
-    const currentLikes = ownProps.currentLikes;
-    return ({
-        songs: songs,
-        likes: state.entities.likes,
-        comments: state.entities.comments,
-        latestThreeLikes: currentLikes ? currentLikes.slice(0, 3) : null,
-        // relatedThreeSongs: isEmpty(songs) || !songId ? null : relatedSongsOf(songId, songs).slice(0, 3),
-    })
-}
-
-const mdp = (dispatch) => {
-    return ({
-        fetchLikes: () => dispatch(fetchLikes()),
-        // fetchComments: () => dispatch(fetchComments()),
-    });
-}
-
-class MiniList extends React.Component {
-    constructor(props) {
-        super(props);
+const MiniList = (props) => {
+    let miniListItems;
+    switch (props.klass) {
+        case "likes-section":
+            miniListItems = props.likedSongs.slice(0, 3);
+            break;
+        case "song-show-page":
+            miniListItems = props.relatedSongs;
+            break;
+        default:
+            break;
     }
-
-    render() {
-        switch (this.props.klass) {
-            case "likes-section":
-                this.miniListItems = this.props.likedSongs.slice(0, 3);
-                break;
-            case "song-show-page":
-                this.miniListItems = this.props.relatedSongs;
-                break;
-            default:
-                break;
-        }
-        const message = this.props.klass === "song-show-page" ? "No similar songs in database at this moment." : "This user has not liked any songs yet.";
-        if (this.miniListItems.length === 0) return <p className="ui-msg">{message}</p>
-        return (
-            <ul>
-                {this.miniListItems.map((item) => {
-                    return (
-                        <MiniListItem
-                        key={item.id}
-                        song={item}
-                        />
-                    );
-                })}
-            </ul>
-        );
-    }
+    const message = props.klass === "song-show-page" ? "No similar songs in database at this moment." : "This user has not liked any songs yet.";
+    if (miniListItems.length === 0) return <p className="ui-msg">{message}</p>
+    return (
+        <ul>
+            {miniListItems.map((item) => {
+                return (
+                    <MiniListItem
+                    key={item.id}
+                    song={item}
+                    />
+                );
+            })}
+        </ul>
+    );
 }
 
-export default withRouter(connect(msp, mdp)(MiniList));
+export default withRouter(MiniList);

@@ -55,19 +55,6 @@ export const fetchIntroSongs = (dataToServer) => {
   };
 };
 
-// export const fetchFollowedAndLikedSongs = (dataToServer) => {
-//   return (dispatch) => {
-//     return SongAPIUtil.fetchSongs(dataToServer).then(
-//       (songsFromServer) => {
-//         return dispatch(receiveFollowedAndLikedSongs(songsFromServer));
-//       },
-//       (errors) => {
-//         return dispatch(receiveSongsErrors(errors.responseJSON));
-//       },
-//     );
-//   };
-// };
-
 export const fetchFollowedSongs = (dataToServer) => {
   return (dispatch) => {
     return SongAPIUtil.fetchSongs(dataToServer).then(

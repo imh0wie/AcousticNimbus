@@ -1,14 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
-import { emptyFollowedAndLikedSongsOf } from "../../actions/song_actions";
 import { login, logout } from "../../actions/session_actions";
 
 const msp = (state, ownProps) => {
   return {
-    song: state.entities.songs,
     currentUser: state.entities.users[state.session.id],
-    // currentURL: ownProps.history.location.pathname,
     currentURL: ownProps.location.pathname,
   };
 };
@@ -17,25 +14,12 @@ const mdp = (dispatch) => {
   return {
     login: (user) => dispatch(login(user)),
     logout: () => dispatch(logout()),
-    emptyFollowedAndLikedSongsOf: (defaultState) => dispatch(emptyFollowedAndLikedSongsOf(defaultState))
   };
 };
 
 class HeaderBar extends React.Component {
   constructor(props) {
     super(props);
-  }
-  
-  goToHomepage() {
-    const defaultState = {
-      followedSongs: null,
-      likedSongs: null,
-      songsOfSpecificUser: this.props.songs ? this.props.songs.songsOfSpecificUser : null,
-      likedSongsOfSpecificUser: this.props.songs ? this.props.songs.likedSongsOfSpecificUser : null,
-      individualSong: this.props.songs ? this.props.songs.individualSong : null,
-      relatedSongsByGenre: this.props.songs ? this.props.songs.relatedSongsByGenre : null,
-    };
-    // this.props.emptyFollowedAndLikedSongsOf(defaultState);
   }
   
   render() {
@@ -45,9 +29,8 @@ class HeaderBar extends React.Component {
       return (
         <header className="outer-bar">
           <div className="inner-bar">
-            <Link to="/stream" onClick={() => this.goToHomepage()}><img src={window.barLogo} className="logo" ></img></Link>
-            <Link to="/stream" onClick={() => this.goToHomepage()}><button className={this.props.currentURL.indexOf("/stream") > -1 || this.props.currentURL.indexOf("/charts") > -1 ? "home selected" : "home"}>Home</button></Link>
-            {/* <span title="Page coming soon!"><Link to=""><button className={this.props.currentURL.indexOf("/you") > -1 ? "collection selected" : "collection"} >Collection</button></Link></span> */}
+            <Link to="/stream"><img src={window.barLogo} className="logo" ></img></Link>
+            <Link to="/stream"><button className={this.props.currentURL.indexOf("/stream") > -1 || this.props.currentURL.indexOf("/charts") > -1 ? "home selected" : "home"}>Home</button></Link>
             <div className="search-bar-container">
               <input type="text" placeholder="Search (Disabled)" className="search-bar"></input>
             </div>

@@ -9,7 +9,6 @@ const msp = ({ errors }) => {
     errors: errors.session,
     formType: "signup",
   };
-  // errors.session (Array)
 };
 
 const mdp = (dispatch) => {

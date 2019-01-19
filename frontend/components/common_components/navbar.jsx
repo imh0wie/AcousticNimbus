@@ -2,13 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { NavLink, withRouter } from "react-router-dom";
 
-const msp = (state, ownProps) => {
-  const currentUserId = state.session.id;
-  const onPageArtistId = parseInt(ownProps.match.params.userId);
+const msp = (state) => {
   return ({
-    currentUserId: currentUserId,
-    currentUser: state.entities.users[currentUserId],
-    // onPageArtistId: onPageArtistId,
+    currentUser: state.entities.users[state.session.id],
   });
 }
 

@@ -1,5 +1,3 @@
-import { isEmpty } from "./general_api_util";
-
 export const createComment = (comment) => {
     return $.ajax({
         method: "POST",
@@ -30,16 +28,4 @@ export const fetchCommentsOfSpecificSong = (songId) => {
             song_id: songId,
         }
     });
-}
-
-export const commentsOf = (songId, comments) => {
-    if (!comments) return null;
-    const output = [];
-    const commentIds = Object.keys(comments);
-    for (let i = 0; i < commentIds.length; i++) {
-        const commentId = commentIds[i];
-        const comment = comments[commentId];
-        if (comment.songId === songId) output.unshift(comment);
-    }
-    return output;
 }

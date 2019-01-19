@@ -13,7 +13,6 @@ const currentSongReducer = (state = defaultState, action) => {
   let newState;
   switch (action.type) {
     case SET_CURRENT_SONG:
-      // newState = action.currentSong
       newState = {
         song: action.song,
         playing: false,
@@ -21,13 +20,11 @@ const currentSongReducer = (state = defaultState, action) => {
       }
       return merge({}, state, newState);
     case PAUSE_SONG:
-      // newState = action.song;
       newState = {
         playing: false,
       }
       return merge({}, state, newState);
     case PLAY_SONG:
-      // newState = action.song;
       newState = {
         playing: true,
       }

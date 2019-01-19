@@ -2,7 +2,6 @@ import * as FollowAPIUtil from "../util/follow_api_util";
 
 export const RECEIVE_FOLLOWS = "RECEIVE_FOLLOWS";
 export const EMPTY_FOLLOWS = "EMPTY_FOLLOWS";
-// export const RECEIVE_PERSONAL_FOLLOWS = "RECEIVE_PERSONAL_FOLLOWS";
 
 export const createFollow = (followToServer) => {
   return dispatch => {
@@ -23,26 +22,6 @@ export const removeFollow = (followToServer) => {
     )
   }
 }
-
-// export const fetchFollows = () => {
-//     return (dispatch) => {
-//       return FollowAPIUtil.fetchFollows().then(
-//         (followsFromServer) => {
-//           return dispatch(receiveFollows(followsFromServer));
-//         }
-//       );
-//     };
-// };
-
-// export const fetchFollowingsOf = (followerId) => {
-//     return (dispatch) => {
-//       return FollowAPIUtil.fetchFollowingsOf(followerId).then(
-//         (followsFromServer) => {
-//           return dispatch(receiveFollows(followsFromServer));
-//         }
-//       );
-//     };
-// };
 
 export const emptyFollows = (defaultState) => {
   return {

@@ -5,22 +5,12 @@ import { withRouter, Link } from "react-router-dom";
 import { setCurrentSong, playSong, pauseSong, setElapsedTo, muteSong, unmuteSong } from "../../../actions/current_song_actions";
 import { toggleLoop, toggleShuffle } from "../../../actions/player_actions";
 import { toggleQueueList } from "../../../actions/queue_list_actions";
-import { latest, shuffle } from "../../../util/song_api_util";
-import { likeOf } from "../../../util/like_api_util";
 
 const msp = (state) => {
-    const songs = state.entities.songs;
-    const songId = state.ui.currentSong.song ? state.ui.currentSong.song.id : null;
-    const currentUserId = state.session.id;
     return {
         queue: state.ui.queue,
         player: state.ui.player,
-        latestTwelve: latest(12, songs),
-        latestTwenty: latest(20, songs),
-        shuffled: shuffle(12, songs),
         currentSong: state.ui.currentSong,
-        currentUser: state.entities.users[currentUserId],
-        currentLike: likeOf("Song", songId, currentUserId, state.entities.likes),
     }
 }
 

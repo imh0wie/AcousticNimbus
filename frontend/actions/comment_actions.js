@@ -24,16 +24,6 @@ export const removeComment = (idToServer, songIdToServer) => {
     };
 };
 
-// export const fetchComments = () => {
-//     return dispatch => {
-//         return CommentAPIUtil.fetchComments().then(
-//             (commentsFromServer) => {
-//                 return dispatch(receiveComments(commentsFromServer));
-//             }
-//         );
-//     };
-// };
-
 export const fetchCommentsOfSpecificSong = (songIdToServer) => {
     return dispatch => {
         return CommentAPIUtil.fetchCommentsOfSpecificSong(songIdToServer).then(
@@ -57,17 +47,3 @@ const receiveComments = (comments) => {
         comments: comments
     };
 };
-
-// const receiveExtraComments = (comments) => {
-//     return {
-//       type: RECEIVE_EXTRA_COMMENTS,
-//       comments: comments,
-//     };
-// };
-
-// const receiveLessComments = (comments) => {
-//     return {
-//       type: RECEIVE_LESS_COMMENTS,
-//       comments: comments,
-//     };
-// };

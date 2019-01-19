@@ -55,8 +55,6 @@ class CommentsListItem extends React.Component {
         } else if (commentLife < 2592000) {
             const unit = Math.floor(commentLife / 86400) > 1 ? "days" : "day";
             return `${Math.floor(commentLife / 86400)} ${unit} ago`;
-        // } else if (commentLife < 2592000) {
-        //     return `${Math.floor(commentLife / 604800)}w ago`;
         } else if (commentLife < 31104000) {
             const unit = Math.floor(commentLife / 2592000) > 1 ? "months" : "month";
             return `${Math.floor(commentLife / 2592000)} ${unit} ago`;
@@ -85,7 +83,6 @@ class CommentsListItem extends React.Component {
                 <div className="date-delete">
                     <p>{this.renderCommentCreationTime(this.props.comment.createdAt)}</p>
                     {this.renderDeleteButton()}
-                    {/* <button onClick={() => this.handleRemove(this.props.comment.id)} style={this.props.commenter.id === this.props.currentUser.id || this.props.song.artistId === this.props.currentUser.id ? {} : this.noneStyle}><i class="fas fa-trash"></i></button> */}
                 </div>
             </li>
         );

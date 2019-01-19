@@ -1,19 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { fetchFollowedSongs, fetchSongsOfSpecificUser, emptySongsOfSpecificUser, emptyFollowedAndLikedSongsOf, emptyFollowedSongs } from "../../../actions/song_actions";
+import { fetchFollowedSongs, fetchSongsOfSpecificUser, emptySongsOfSpecificUser, emptyFollowedAndLikedSongsOf } from "../../../actions/song_actions";
 import SongsListItem from "./songs_list_item";
 
 const msp = (state) => {
     const songs = state.entities.songs;
-    const follows = state.entities.follows;
-    const currentUserId = state.session.id;
     return {
         songs: songs,
-        follows: follows, // homepage
-        streamSongs: songs && songs.followedSongs ? Object.values(songs.followedSongs).reverse() : null, // homepage
         currentSongs: songs && songs.songsOfSpecificUser ? Object.values(songs.songsOfSpecificUser).reverse() : null, // user-show-page
-        currentUserId: currentUserId,
+        currentUserId: state.session.id,
     };
 };
 

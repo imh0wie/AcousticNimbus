@@ -2,21 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { createFollow, removeFollow } from "../../actions/follow_actions";
-import { fetchUsers } from "../../actions/user_actions";
 
-
-const msp = (state, ownProps) => {
-    const songs = state.entities.songs;
-    const follows = state.entities.follows;
-    const users = state.entities.users;
-    const song = songs ? songs[parseInt(ownProps.match.params.songId)] : null;
-    const currentUserId = state.session.id;
+const msp = (state) => {
     return ({
-        songs: songs,
-        follows: follows,
-        users: users,
-        song: song,
-        currentUserId: currentUserId,
+        follows: state.entities.follows,
+        currentUserId: state.session.id,
     });
 }
 
@@ -24,7 +14,6 @@ const mdp = (dispatch) => {
     return({
         createFollow: (follow) => dispatch(createFollow(follow)),
         removeFollow: (id) => dispatch(removeFollow(id)),
-        fetchUsers: () => dispatch(fetchUsers()),
     })
 }
 
@@ -83,7 +72,6 @@ class MiniArtistProfile extends React.Component {
     }
 
     render() {
-        // if (!this.props.songs || !this.props.follows || !this.props.users) return <img src={window.loadingPizza} className="loading"></img>;
         return (
             <div className="artist-info-container">
                 <img src={this.props.songArtist.imageURL ? this.props.songArtist.imageURL : window.user_dp} className="artist-img"></img>

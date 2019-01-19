@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import FilterBar from "./filter_bar/filter_bar";
 import SongsRanking from "./songs_ranking/songs_ranking";
-// import Navbar from "../../common_components/navbar";
 
 const msp = (state) => {
   return ({
