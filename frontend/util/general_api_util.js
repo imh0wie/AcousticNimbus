@@ -9,6 +9,16 @@ export const isEmpty = (obj) => {
     return true;
 }
 
+export const areIdenticalArrsOfObjs = (arr1, arr2) => {
+    if (arr1.length !== arr2.length) return false;
+    for (let i = 0; i < arr1.length; i++) {
+        const el1 = arr1[i];
+        const el2 = arr2[i];
+        if (el1.id !== el2.id) return false;
+    }
+    return true;
+}
+
 export const generateCreationTime = (date) => {
     if (!date) return "0 second ago";
     const itemLife = Math.abs(new Date() - new Date(date)) / 1000;

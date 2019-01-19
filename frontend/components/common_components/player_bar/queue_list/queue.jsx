@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { shuffleQueue, removeSongFromQueue } from "../../../../actions/queue_actions";
+import { shuffleQueue } from "../../../../actions/queue_actions";
+import { areIdenticalArrsOfObjs } from "../../../../util/general_api_util";
 import QueueItem from "./queue_item";
 
 const msp = (state) => {
@@ -15,7 +16,6 @@ const msp = (state) => {
 const mdp = (dispatch) => {
     return {
         shuffleQueue: () => dispatch(shuffleQueue()),
-        removeSongFromQueue: (song) => dispatch(removeSongFromQueue(song)),
     }
 }
 
@@ -68,7 +68,9 @@ class Queue extends React.Component {
                 loading: false,
             }), 1000);
         }
-        if (this.props.queue && nextProps.queue && this.props.queue.shuffled.length !== nextProps.queue.shuffled.length) {
+        debugger
+        if (this.props.queue && nextProps.queue && (this.props.queue.shuffled.length !== nextProps.queue.shuffled.length || !areIdenticalArrsOfObjs(this.props.queue.shuffled, nextProps.queue.shuffled))) {
+            debugger
             this.setState({
                 queue: nextProps.player.shuffle ? nextProps.queue.shuffled : nextProps.queue.unshuffled,
             })

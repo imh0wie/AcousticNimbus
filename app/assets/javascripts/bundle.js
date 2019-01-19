@@ -531,10 +531,10 @@ var removeSongFromQueue = function removeSongFromQueue(song) {
     song: song
   };
 };
-var addToPlayNext = function addToPlayNext(song) {
+var addToPlayNext = function addToPlayNext(data) {
   return {
     type: ADD_TO_PLAY_NEXT,
-    song: song
+    data: data
   };
 };
 
@@ -555,26 +555,6 @@ var TOGGLE_QUEUE_LIST = "TOGGLE_QUEUE_LIST";
 var toggleQueueList = function toggleQueueList() {
   return {
     type: TOGGLE_QUEUE_LIST
-  };
-};
-
-/***/ }),
-
-/***/ "./frontend/actions/reloading_actions.js":
-/*!***********************************************!*\
-  !*** ./frontend/actions/reloading_actions.js ***!
-  \***********************************************/
-/*! exports provided: RECEIVE_RELOADING, toggleReloading */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_RELOADING", function() { return RECEIVE_RELOADING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toggleReloading", function() { return toggleReloading; });
-var RECEIVE_RELOADING = "RECEIVE_RELOADING";
-var toggleReloading = function toggleReloading() {
-  return {
-    type: RECEIVE_RELOADING
   };
 };
 
@@ -1522,7 +1502,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _actions_song_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/song_actions */ "./frontend/actions/song_actions.js");
 /* harmony import */ var _actions_queue_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/queue_actions */ "./frontend/actions/queue_actions.js");
-/* harmony import */ var _actions_reloading_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/reloading_actions */ "./frontend/actions/reloading_actions.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1547,23 +1526,16 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-
-var msp = function msp(state) {
-  return {
-    songs: state.entities.songs
-  };
-};
-
 var mdp = function mdp(dispatch) {
   return {
+    addToPlayNext: function addToPlayNext(song) {
+      return dispatch(Object(_actions_queue_actions__WEBPACK_IMPORTED_MODULE_4__["addToPlayNext"])(song));
+    },
     removeSong: function removeSong(song) {
       return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["removeSong"])(song));
     },
     removeSongFromQueue: function removeSongFromQueue(song) {
       return dispatch(Object(_actions_queue_actions__WEBPACK_IMPORTED_MODULE_4__["removeSongFromQueue"])(song));
-    },
-    toggleReloading: function toggleReloading() {
-      return dispatch(Object(_actions_reloading_actions__WEBPACK_IMPORTED_MODULE_5__["toggleReloading"])());
     }
   };
 };
@@ -1620,9 +1592,17 @@ function (_React$Component) {
           })));
 
         case "queue-item":
+          var songData = {
+            song: this.props.song,
+            currentSong: this.props.currentSong
+          };
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "hover-buttons"
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            onClick: function onClick() {
+              return _this2.props.addToPlayNext(songData);
+            }
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             className: "fas fa-angle-double-down"
           })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
             onClick: function onClick() {
@@ -1641,7 +1621,7 @@ function (_React$Component) {
   return HoverButtons;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, mdp)(HoverButtons)));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(null, mdp)(HoverButtons)));
 
 /***/ }),
 
@@ -3006,7 +2986,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _actions_queue_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../actions/queue_actions */ "./frontend/actions/queue_actions.js");
-/* harmony import */ var _queue_item__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./queue_item */ "./frontend/components/common_components/player_bar/queue_list/queue_item.jsx");
+/* harmony import */ var _util_general_api_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../util/general_api_util */ "./frontend/util/general_api_util.js");
+/* harmony import */ var _queue_item__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./queue_item */ "./frontend/components/common_components/player_bar/queue_list/queue_item.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -3031,6 +3012,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var msp = function msp(state) {
   return {
     player: state.ui.player,
@@ -3043,9 +3025,6 @@ var mdp = function mdp(dispatch) {
   return {
     shuffleQueue: function shuffleQueue() {
       return dispatch(Object(_actions_queue_actions__WEBPACK_IMPORTED_MODULE_3__["shuffleQueue"])());
-    },
-    removeSongFromQueue: function removeSongFromQueue(song) {
-      return dispatch(Object(_actions_queue_actions__WEBPACK_IMPORTED_MODULE_3__["removeSongFromQueue"])(song));
     }
   };
 };
@@ -3125,7 +3104,10 @@ function (_React$Component) {
         }, 1000);
       }
 
-      if (this.props.queue && nextProps.queue && this.props.queue.shuffled.length !== nextProps.queue.shuffled.length) {
+      debugger;
+
+      if (this.props.queue && nextProps.queue && (this.props.queue.shuffled.length !== nextProps.queue.shuffled.length || !Object(_util_general_api_util__WEBPACK_IMPORTED_MODULE_4__["areIdenticalArrsOfObjs"])(this.props.queue.shuffled, nextProps.queue.shuffled))) {
+        debugger;
         this.setState({
           queue: nextProps.player.shuffle ? nextProps.queue.shuffled : nextProps.queue.unshuffled
         });
@@ -3144,7 +3126,7 @@ function (_React$Component) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "There are no songs in the queue so far.");
         } else {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.state.queue.map(function (song, i) {
-            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_queue_item__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_queue_item__WEBPACK_IMPORTED_MODULE_5__["default"], {
               key: i,
               song: song
             });
@@ -3192,7 +3174,8 @@ var QueueItem = function QueueItem(props) {
   };
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_hover_buttons__WEBPACK_IMPORTED_MODULE_3__["default"], {
     klass: "queue-item",
-    song: props.song
+    song: props.song,
+    currentSong: props.currentSong
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "info-container"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
@@ -8310,6 +8293,8 @@ var queueReducer = function queueReducer() {
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
   var newState;
+  var unshuffledIdx;
+  var shuffledIdx;
 
   switch (action.type) {
     case _actions_queue_actions__WEBPACK_IMPORTED_MODULE_0__["CREATE_QUEUE"]:
@@ -8335,10 +8320,10 @@ var queueReducer = function queueReducer() {
       return newState;
 
     case _actions_queue_actions__WEBPACK_IMPORTED_MODULE_0__["REMOVE_SONG_FROM_QUEUE"]:
-      var unshuffledIdx = state.unshuffled.map(function (song) {
+      unshuffledIdx = state.unshuffled.map(function (song) {
         return song.id;
       }).indexOf(action.song.id);
-      var shuffledIdx = state.shuffled.map(function (song) {
+      shuffledIdx = state.shuffled.map(function (song) {
         return song.id;
       }).indexOf(action.song.id);
       newState = {
@@ -8348,9 +8333,23 @@ var queueReducer = function queueReducer() {
       return newState;
 
     case _actions_queue_actions__WEBPACK_IMPORTED_MODULE_0__["ADD_TO_PLAY_NEXT"]:
+      unshuffledIdx = state.unshuffled.slice().map(function (song) {
+        return song.id;
+      }).indexOf(action.data.song.id);
+      shuffledIdx = state.shuffled.slice().map(function (song) {
+        return song.id;
+      }).indexOf(action.data.song.id);
+      var unshuffledSongs = state.unshuffled.slice(0, unshuffledIdx).concat(state.unshuffled.slice(unshuffledIdx + 1));
+      var shuffledSongs = state.shuffled.slice(0, shuffledIdx).concat(state.shuffled.slice(shuffledIdx + 1));
+      var unshuffledCurrentSongPos = unshuffledSongs.map(function (song) {
+        return song.id;
+      }).indexOf(action.data.currentSong.song.id);
+      var shuffledCurrentSongPos = shuffledSongs.map(function (song) {
+        return song.id;
+      }).indexOf(action.data.currentSong.song.id);
       newState = {
-        unshuffled: state.unshuffled.slice().unshift(action.song),
-        shuffled: state.shuffled.slice().unshift(action.song)
+        unshuffled: unshuffledCurrentSongPos > 0 ? unshuffledSongs.slice(0, unshuffledCurrentSongPos).concat([action.data.song]).concat(unshuffledSongs.slice(unshuffledCurrentSongPos)) : unshuffledSongs.concat([action.data.song]),
+        shuffled: shuffledCurrentSongPos > 0 ? shuffledSongs.slice(0, shuffledCurrentSongPos).concat([action.data.song]).concat(shuffledSongs.slice(shuffledCurrentSongPos)) : shuffledSongs.concat([action.data.song])
       };
       return newState;
 
@@ -8360,35 +8359,6 @@ var queueReducer = function queueReducer() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (queueReducer);
-
-/***/ }),
-
-/***/ "./frontend/reducers/reloading_reducer.js":
-/*!************************************************!*\
-  !*** ./frontend/reducers/reloading_reducer.js ***!
-  \************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _actions_reloading_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/reloading_actions */ "./frontend/actions/reloading_actions.js");
-
-
-var reloadingReducer = function reloadingReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-
-  switch (action.type) {
-    case _actions_reloading_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_RELOADING"]:
-      return !state;
-
-    default:
-      return state;
-  }
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (reloadingReducer);
 
 /***/ }),
 
@@ -8604,11 +8574,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modal_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modal_reducer */ "./frontend/reducers/modal_reducer.js");
 /* harmony import */ var _current_song_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./current_song_reducer */ "./frontend/reducers/current_song_reducer.js");
 /* harmony import */ var _charts_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./charts_reducer */ "./frontend/reducers/charts_reducer.js");
-/* harmony import */ var _reloading_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./reloading_reducer */ "./frontend/reducers/reloading_reducer.js");
-/* harmony import */ var _queue_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./queue_reducer */ "./frontend/reducers/queue_reducer.js");
-/* harmony import */ var _queue_list_reducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./queue_list_reducer */ "./frontend/reducers/queue_list_reducer.js");
-/* harmony import */ var _player_reducer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./player_reducer */ "./frontend/reducers/player_reducer.js");
-
+/* harmony import */ var _queue_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./queue_reducer */ "./frontend/reducers/queue_reducer.js");
+/* harmony import */ var _queue_list_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./queue_list_reducer */ "./frontend/reducers/queue_list_reducer.js");
+/* harmony import */ var _player_reducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./player_reducer */ "./frontend/reducers/player_reducer.js");
 
 
 
@@ -8619,11 +8587,10 @@ __webpack_require__.r(__webpack_exports__);
 var uiReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   modal: _modal_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
   currentSong: _current_song_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
-  player: _player_reducer__WEBPACK_IMPORTED_MODULE_7__["default"],
-  queue: _queue_reducer__WEBPACK_IMPORTED_MODULE_5__["default"],
-  queueList: _queue_list_reducer__WEBPACK_IMPORTED_MODULE_6__["default"],
-  charts: _charts_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
-  reloading: _reloading_reducer__WEBPACK_IMPORTED_MODULE_4__["default"]
+  player: _player_reducer__WEBPACK_IMPORTED_MODULE_6__["default"],
+  queue: _queue_reducer__WEBPACK_IMPORTED_MODULE_4__["default"],
+  queueList: _queue_list_reducer__WEBPACK_IMPORTED_MODULE_5__["default"],
+  charts: _charts_reducer__WEBPACK_IMPORTED_MODULE_3__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (uiReducer);
 
@@ -8809,12 +8776,13 @@ var followOf = function followOf(followedUserId, follows) {
 /*!*******************************************!*\
   !*** ./frontend/util/general_api_util.js ***!
   \*******************************************/
-/*! exports provided: isEmpty, generateCreationTime, generateSongLength, rotate, randomize */
+/*! exports provided: isEmpty, areIdenticalArrsOfObjs, generateCreationTime, generateSongLength, rotate, randomize */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isEmpty", function() { return isEmpty; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "areIdenticalArrsOfObjs", function() { return areIdenticalArrsOfObjs; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateCreationTime", function() { return generateCreationTime; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateSongLength", function() { return generateSongLength; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rotate", function() { return rotate; });
@@ -8826,6 +8794,17 @@ var isEmpty = function isEmpty(obj) {
     } else if (obj.hasOwnProperty(key)) {
       return false;
     }
+  }
+
+  return true;
+};
+var areIdenticalArrsOfObjs = function areIdenticalArrsOfObjs(arr1, arr2) {
+  if (arr1.length !== arr2.length) return false;
+
+  for (var i = 0; i < arr1.length; i++) {
+    var el1 = arr1[i];
+    var el2 = arr2[i];
+    if (el1.id !== el2.id) return false;
   }
 
   return true;

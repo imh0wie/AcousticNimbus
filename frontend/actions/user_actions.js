@@ -114,4 +114,3 @@ export const emptyFollowersOfSpecificUser = (defaultState) => {
         defaultState: defaultState,
     }
 }
-

@@ -2,20 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { removeSong } from "../../actions/song_actions";
-import { removeSongFromQueue } from "../../actions/queue_actions"
-import { toggleReloading } from "../../actions/reloading_actions";
-
-const msp = (state) => {
-    return ({
-        songs: state.entities.songs,
-    });
-}
+import { addToPlayNext, removeSongFromQueue } from "../../actions/queue_actions"
 
 const mdp = (dispatch) => {
     return ({
+        addToPlayNext: (song) => dispatch(addToPlayNext(song)),
         removeSong: (song) => dispatch(removeSong(song)),
         removeSongFromQueue: (song) => dispatch(removeSongFromQueue(song)),
-        toggleReloading: () => dispatch(toggleReloading()),
     });
 }
 
@@ -46,9 +39,13 @@ class HoverButtons extends React.Component {
                     </div>
                 );
             case "queue-item":
+                const songData = {
+                    song: this.props.song,
+                    currentSong: this.props.currentSong,
+                }
                 return (
                     <div className="hover-buttons">
-                        <button><i className="fas fa-angle-double-down"></i></button>
+                        <button onClick={() => this.props.addToPlayNext(songData)}><i className="fas fa-angle-double-down"></i></button>
                         <button onClick={() => this.props.removeSongFromQueue(this.props.song)}><i className="fas fa-trash-alt"></i></button>
                     </div>
                 );
@@ -58,4 +55,4 @@ class HoverButtons extends React.Component {
     }
 }
 
-export default withRouter(connect(msp, mdp)(HoverButtons));
+export default withRouter(connect(null, mdp)(HoverButtons));

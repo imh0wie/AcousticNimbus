@@ -39,9 +39,9 @@ export const removeSongFromQueue = (song) => {
     };
 }
 
-export const addToPlayNext = (song) => {
+export const addToPlayNext = (data) => {
     return {
         type: ADD_TO_PLAY_NEXT,
-        song: song,
+        data: data,
     };
 }
