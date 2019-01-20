@@ -72,31 +72,12 @@ All data fetched from the database are stored under the entities reducer. Each d
 
 ### Reusable Component
 
-Since many components on different pages share some similarities in design and structure, common components are deconstructed in a way that they could be reusable in different circumstances and grouped together in the same directory. 
-
-#### Social Elements - Homepage (Stream)
-![Homepage (Stream)](app/assets/images/se-1.png)
-#### Social Elements - User show page
-![User show page](app/assets/images/se-3.png)
-#### Social Elements - Song show page
-![Song show page](app/assets/images/se-2.png)
+Since many components on different pages share some similarities in design and structure, common components are deconstructed in a way that they could be reusable in different circumstances and grouped together in the same directory. For example:
 
 #### Songs List - Homepage (Stream)
 ![Homepage (Stream)](app/assets/images/songs_list1.png)
 #### Songs List - User show page
 ![User show page](app/assets/images/songs_list2.png)
-
-
-<ul style="display: flex; list-style: none">
-    <li style="margin-right: 20px">
-        <img width="200" height="auto" src="app/assets/images/songs_list1.png">
-        <p style="display: block; text-align: center;">Homepage (stream)</p>
-    </li>
-    <li style="margin-right: 20px">
-        <img width="200" height="auto" src="app/assets/images/songs_list2.png">
-        <p style="display: block; text-align: center;">User show page</p>
-    </li>
-</ul>
 
 ## The Back-End
 
