@@ -1,7 +1,7 @@
-# Welcome to Acoustic Nimbus
+# Welcome to AcousticNimbus
 
-Acoustic Nimbus is a SoundCloud-inspired web application that allows users to share, listen to music and follow their favorite artists.
-[Visit Acoustic Nimbus Here!](http://acoustic-nimbus.herokuapp.com)
+AcousticNimbus is a SoundCloud-inspired web application that allows users to share, listen to music and follow their favorite artists.
+[Visit AcousticNimbus Here!](http://acoustic-nimbus.herokuapp.com)
 
 ## The Front-End
 
@@ -275,12 +275,12 @@ const queueReducer = (state = null, action) => {
 ```
 
 ### Likes, Comments & Follows
-Users can like, comment on any songs and follow any artist on Acoustic Nimbus. While users can visit the designated show page of each user(artist)/song to perform any "social interactions" - liking, commenting on a song, or following a user, stream pages provides freedom to users to like or comment on any song is currently being played without redirecting to the song's show page.
+Users can like, comment on any songs and follow any artist on AcousticNimbus. While users can visit the designated show page of each user(artist)/song to perform any "social interactions" - liking, commenting on a song, or following a user, stream pages provides freedom to users to like or comment on any song is currently being played without redirecting to the song's show page.
 
 ![Homepage (Stream)](app/assets/images/social.png)
 
 ## Future Plans
 
-In the future, I would like to implement the playlist feature for Acoustic Nimbus, which would let people share music in form of playlists/albums. Also, I have plans to enable playback counting for each song and allow users to rank songs by their popularity on charts page.
+In the future, I would like to implement the playlist feature for AcousticNimbus, which would let people share music in form of playlists/albums. Also, I have plans to enable playback counting for each song and allow users to rank songs by their popularity on charts page.
 
-[Visit Acoustic Nimbus Here!](http://acoustic-nimbus.herokuapp.com)
+[Visit AcousticNimbus Here!](http://acoustic-nimbus.herokuapp.com)
