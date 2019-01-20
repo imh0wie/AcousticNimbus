@@ -74,25 +74,18 @@ All data fetched from the database are stored under the entities reducer. Each d
 
 Since many components on different pages share some similarities in design and structure, common components are deconstructed in a way that they could be reusable in different circumstances and grouped together in the same directory. 
 
-#### Examples
+#### Social Elements - Homepage (Stream)
+![Homepage (Stream)](app/assets/images/se-1.png)
+#### Social Elements - User show page
+![User show page](app/assets/images/se-3.png)
+#### Social Elements - Song show page
+![Song show page](app/assets/images/se-2.png)
 
-##### Social Elements
-<ul style="display: flex; list-style: none">
-    <li style="margin-right: 20px">
-        <img width="200" height="auto" src="app/assets/images/se-1.png">
-        <p style="display: block; text-align: center;">Homepage (stream)</p>
-    </li>
-    <li style="margin-right: 20px">
-        <img width="200" height="auto" src="app/assets/images/se-3.png">
-        <p style="display: block; text-align: center;">User show page</p>
-    </li>
-    <li style="margin-right: 20px">
-        <img width="200" height="auto" src="app/assets/images/se-2.png">
-        <p style="display: block; text-align: center;">Song show page</p>
-    </li>
-</ul>
+#### Songs List - Homepage (Stream)
+![Homepage (Stream)](app/assets/images/songs_list1.png)
+#### Songs List - User show page
+![User show page](app/assets/images/songs_list2.png)
 
-##### Songs List
 
 <ul style="display: flex; list-style: none">
     <li style="margin-right: 20px">
@@ -303,7 +296,7 @@ const queueReducer = (state = null, action) => {
 ### Likes, Comments & Follows
 Users can like, comment on any songs and follow any artist on Acoustic Nimbus. While users can visit the designated show page of each user(artist)/song to perform any "social interactions" - liking, commenting on a song, or following a user, stream pages provides freedom to users to like or comment on any song is currently being played without redirecting to the song's show page.
 
-<img width="500" height="auto" style="margin: 0 auto" src="app/assets/images/social.png">
+![Homepage (Stream)](app/assets/images/social.png)
 
 ## Future Plans
 
