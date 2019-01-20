@@ -20,13 +20,7 @@ class Api::SongsController < ApplicationController
       if params[:order] == 'newest' && params[:genre] == 'all'
         @songs = Song.last(params[:number].to_i)
       elsif params[:order] == 'newest' && params[:genre] != 'all'
-        @songs = Song.where(genre: params[:genre]).last(params[:number].to_i)
-      elsif params[:order] == 'hottest' && params[:genre] == 'all'
-        # to be implemented
-        # @songs = Song.order('play_count DESC').limit(params[:number].to_i)
-      elsif params[:order] == 'hottest' && params[:genre] != 'all'
-        # to be implemented
-        # @songs = Song.where(genre: params[:genre]).order('play_count DESC').limit(params[:number].to_i)        
+        @songs = Song.where(genre: params[:genre]).last(params[:number].to_i)      
       end
     elsif params[:user_id] # user show page
       @songs_of_specific_user = Song.where(artist_id: params[:user_id]).select('*')
@@ -37,14 +31,6 @@ class Api::SongsController < ApplicationController
     end
     render :index
   end
-  # number
-  # offset
-  # current_user_id => followed_songs liked_songs
-  #   fetching_followed_songs
-  #   fetching_liked_songs
-  # user_id
-  #   fetching_likes
-  # genre
     
   def show
     @song = Song.find(params[:id])
