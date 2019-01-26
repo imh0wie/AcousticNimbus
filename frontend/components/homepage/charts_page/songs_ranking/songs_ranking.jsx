@@ -17,7 +17,7 @@ const msp = (state) => {
 const mdp = (dispatch) => {
   return ({
     fetchFilteredSongs: (data) => dispatch(fetchFilteredSongs(data)),
-    emptyFilteredSongs: () => dispatch(emptyFilteredSongs()),
+    emptyFilteredSongs: (defaultState) => dispatch(emptyFilteredSongs(defaultState)),
   });
 };
 
@@ -25,27 +25,35 @@ class SongsRanking extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rankedSongs: null,
       loading: true,
+      rankedSongs: null,
       offset: 0,
       limit: 30,
+      data: {
+        number: 10,
+        order: this.props.order,
+        genre: this.props.genre,
+      },
+      defaultState: {
+        rankedSongs: null,
+      },
     }
   }
 
   componentDidMount() {
-    const data = {
-      number: 10,
-      order: this.props.order,
-      genre: this.props.genre,
-    }
-    this.props.fetchFilteredSongs(data);
+    // const data = {
+    //   number: 10,
+    //   order: this.props.order,
+    //   genre: this.props.genre,
+    // }
+    this.props.fetchFilteredSongs(this.state.data);
     this.setState({
       loading: false,
     });
   }
 
   componentWillReceiveProps(nextProps) {
-    if (((!this.props.songs || !this.props.songs.rankedSongs) && nextProps.songs && nextProps.songs.rankedSongs) || (this.props.songs && this.props.songs.rankedSongs && nextProps.songs && Object.keys(this.props.songs.rankedSongs).length !== Object.keys(nextProps.songs.rankedSongs).length)) {
+    if (((!this.props.songs || !this.props.songs.rankedSongs) && nextProps.songs && nextProps.songs.rankedSongs) || (this.props.songs && this.props.songs.rankedSongs && nextProps.songs && nextProps.songs.rankedSongs && Object.keys(this.props.songs.rankedSongs).length !== Object.keys(nextProps.songs.rankedSongs).length)) {
       this.setState({
         rankedSongs: Object.values(nextProps.songs.rankedSongs).reverse(),
         loading: false,
@@ -55,17 +63,19 @@ class SongsRanking extends React.Component {
         rankedSongs: null,
         loading: true,
       });
-      const data = {
-        number: 10,
-        order: nextProps.order,
-        genre: nextProps.genre,
-      }
-      this.props.fetchFilteredSongs(data);
+      this.setState({
+        data: {
+          number: 10,
+          order: nextProps.order,
+          genre: nextProps.genre,
+        }
+      });
+      this.props.fetchFilteredSongs(this.state.data);
     }
   }
 
   componentWillUnmount() {
-    this.props.emptyFilteredSongs();
+    this.props.emptyFilteredSongs(this.state.defaultState);
   }
 
   render() {

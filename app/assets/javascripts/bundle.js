@@ -3854,7 +3854,8 @@ function (_React$Component) {
       case "item-player":
         _this.state = {
           itemId: null,
-          currentLike: _this.props.likes ? Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_5__["likeOf"])(_this.props.currentUserId, "Song", _this.props.songId, _this.props.likes) : Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_5__["likeOf"])(_this.props.currentUserId, "Song", _this.props.songId, _this.props.song.likes),
+          currentLike: Object(_util_like_api_util__WEBPACK_IMPORTED_MODULE_5__["likeOf"])(_this.props.currentUserId, "Song", _this.props.songId, _this.props.song.likes),
+          // currentLike: this.props.likes ? likeOf(this.props.currentUserId, "Song", this.props.songId, this.props.likes) : likeOf(this.props.currentUserId, "Song", this.props.songId, this.props.song.likes),
           likesCount: _this.props.song.likesCount,
           commentsCount: _this.props.song.commentsCount
         };
@@ -4398,6 +4399,7 @@ var msp = function msp(state) {
   var songs = state.entities.songs;
   return {
     songs: songs,
+    follows: state.entities.follows,
     currentSongs: songs && songs.songsOfSpecificUser ? Object.values(songs.songsOfSpecificUser).reverse() : null,
     // user-show-page
     currentUserId: state.session.id
@@ -4434,9 +4436,40 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SongsList).call(this, props));
     _this.state = {
       loading: true,
-      streamSongs: _this.props.songs && _this.props.songs.followedSongs ? Object.values(_this.props.songs.followedSongs).reverse() : null,
-      counter: 0
+      streamSongs: null
     };
+
+    switch (_this.props.klass) {
+      case "stream-page":
+        _this.state = {
+          loading: true,
+          streamSongs: null,
+          defaultState: {
+            followedSongs: null
+          },
+          data: {
+            current_user_id: _this.props.currentUserId,
+            fetching_followed_songs: true
+          }
+        };
+        break;
+
+      case "user-show-page":
+        _this.state = {
+          loading: true,
+          defaultState: {
+            songsOfSpecificUser: null
+          },
+          data: {
+            user_id: _this.props.onPageArtist.id
+          }
+        };
+        break;
+
+      default:
+        break;
+    }
+
     _this.songs = null;
     return _this;
   }
@@ -4446,25 +4479,11 @@ function (_React$Component) {
     value: function componentDidMount() {
       switch (this.props.klass) {
         case "stream-page":
-          if (this.songs) {
-            this.setState({
-              loading: true,
-              streamSongs: null
-            });
-          }
-
-          this.data = {
-            current_user_id: this.props.currentUserId,
-            fetching_followed_songs: true
-          };
-          this.props.fetchFollowedSongs(this.data);
+          this.props.fetchFollowedSongs(this.state.data);
           break;
 
         case "user-show-page":
-          this.data = {
-            user_id: this.props.onPageArtist.id
-          };
-          this.props.fetchSongsOfSpecificUser(this.data).then(this.setState({
+          this.props.fetchSongsOfSpecificUser(this.state.data).then(this.setState({
             loading: false
           }));
           break;
@@ -4478,19 +4497,20 @@ function (_React$Component) {
     value: function componentWillReceiveProps(nextProps) {
       switch (this.props.klass) {
         case "stream-page":
-          if (!this.songs && this.state.counter > 1) {
-            this.data = {
-              current_user_id: this.props.currentUserId,
-              fetching_followed_songs: true
-            };
-            this.props.fetchFollowedSongs(this.data);
+          if ((!this.props.songs || !this.props.songs.followedSongs) && nextProps.songs.followedSongs) {
+            this.setState({
+              streamSongs: Object.values(nextProps.songs.followedSongs).reverse(),
+              loading: false
+            });
+          } else if (!this.props.follows && nextProps.follows || this.props.follows && nextProps.follows && Object.values(this.props.follows.interests).length !== Object.values(nextProps.follows.interests).length) {
+            this.props.emptyFollowedSongs(this.state.defaultState);
+            this.setState({
+              loading: true
+            });
+          } else if (this.state.loading) {
+            this.props.fetchFollowedSongs(this.state.data);
           }
 
-          this.setState({
-            loading: false,
-            streamSongs: nextProps.songs && nextProps.songs.followedSongs ? Object.values(nextProps.songs.followedSongs).reverse() : null,
-            counter: this.state.counter + 1
-          });
           break;
 
         case "user-show-page":
@@ -4503,17 +4523,11 @@ function (_React$Component) {
     value: function componentWillUnmount() {
       switch (this.props.klass) {
         case "stream-page":
-          this.defaultState = {
-            followedSongs: null
-          };
-          this.props.emptyFollowedSongs(this.defaultState);
+          this.props.emptyFollowedSongs(this.state.defaultState);
           break;
 
         case "user-show-page":
-          this.defaultState = {
-            songsOfSpecificUser: null
-          };
-          this.props.emptySongsOfSpecificUser(this.defaultState);
+          this.props.emptySongsOfSpecificUser(this.state.defaultState);
           break;
       }
     }
@@ -5220,8 +5234,8 @@ var mdp = function mdp(dispatch) {
     fetchFilteredSongs: function fetchFilteredSongs(data) {
       return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["fetchFilteredSongs"])(data));
     },
-    emptyFilteredSongs: function emptyFilteredSongs() {
-      return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["emptyFilteredSongs"])());
+    emptyFilteredSongs: function emptyFilteredSongs(defaultState) {
+      return dispatch(Object(_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__["emptyFilteredSongs"])(defaultState));
     }
   };
 };
@@ -5238,10 +5252,18 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SongsRanking).call(this, props));
     _this.state = {
-      rankedSongs: null,
       loading: true,
+      rankedSongs: null,
       offset: 0,
-      limit: 30
+      limit: 30,
+      data: {
+        number: 10,
+        order: _this.props.order,
+        genre: _this.props.genre
+      },
+      defaultState: {
+        rankedSongs: null
+      }
     };
     return _this;
   }
@@ -5249,12 +5271,12 @@ function (_React$Component) {
   _createClass(SongsRanking, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var data = {
-        number: 10,
-        order: this.props.order,
-        genre: this.props.genre
-      };
-      this.props.fetchFilteredSongs(data);
+      // const data = {
+      //   number: 10,
+      //   order: this.props.order,
+      //   genre: this.props.genre,
+      // }
+      this.props.fetchFilteredSongs(this.state.data);
       this.setState({
         loading: false
       });
@@ -5262,7 +5284,7 @@ function (_React$Component) {
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
-      if ((!this.props.songs || !this.props.songs.rankedSongs) && nextProps.songs && nextProps.songs.rankedSongs || this.props.songs && this.props.songs.rankedSongs && nextProps.songs && Object.keys(this.props.songs.rankedSongs).length !== Object.keys(nextProps.songs.rankedSongs).length) {
+      if ((!this.props.songs || !this.props.songs.rankedSongs) && nextProps.songs && nextProps.songs.rankedSongs || this.props.songs && this.props.songs.rankedSongs && nextProps.songs && nextProps.songs.rankedSongs && Object.keys(this.props.songs.rankedSongs).length !== Object.keys(nextProps.songs.rankedSongs).length) {
         this.setState({
           rankedSongs: Object.values(nextProps.songs.rankedSongs).reverse(),
           loading: false
@@ -5272,18 +5294,20 @@ function (_React$Component) {
           rankedSongs: null,
           loading: true
         });
-        var data = {
-          number: 10,
-          order: nextProps.order,
-          genre: nextProps.genre
-        };
-        this.props.fetchFilteredSongs(data);
+        this.setState({
+          data: {
+            number: 10,
+            order: nextProps.order,
+            genre: nextProps.genre
+          }
+        });
+        this.props.fetchFilteredSongs(this.state.data);
       }
     }
   }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
-      this.props.emptyFilteredSongs();
+      this.props.emptyFilteredSongs(this.state.defaultState);
     }
   }, {
     key: "render",
@@ -5741,7 +5765,11 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ArtistsList).call(this, props));
     _this.state = {
-      loading: true
+      loading: true,
+      randomThree: null,
+      defaultState: _defineProperty({
+        randomThree: null
+      }, _this.props.currentUserId, _this.props.currentUser)
     };
     return _this;
   }
@@ -5750,34 +5778,44 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.fetchRandomThreeUsers(this.props.currentUserId);
-      this.setState({
-        loading: false
-      });
+    }
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      if (!this.props.users.randomThree && nextProps.users.randomThree) {
+        this.setState({
+          loading: false,
+          randomThree: Object.values(nextProps.users.randomThree)
+        });
+      } else if (this.props.users.randomThree && !nextProps.users.randomThree) {
+        this.setState({
+          loading: true
+        });
+        this.props.fetchRandomThreeUsers(this.props.currentUserId);
+      } else if (!this.props.follows && nextProps.follows || this.props.follows && nextProps.follows && Object.values(this.props.follows.interests).length !== Object.values(nextProps.follows.interests).length) {
+        this.props.emptyRandomThreeUsers(this.state.defaultState);
+      }
     }
   }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
-      var defaultState = _defineProperty({
-        randomThree: null
-      }, this.props.currentUserId, this.props.currentUser);
-
-      this.props.emptyRandomThreeUsers(defaultState);
+      this.props.emptyRandomThreeUsers(this.state.defaultState);
     }
   }, {
     key: "render",
     value: function render() {
-      if (this.state.loading || !this.props.randomThree) {
+      if (this.state.loading || !this.state.randomThree) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.loadingPizza,
           className: "loading"
         });
       } else {
-        if (this.props.randomThree.length === 0) {
+        if (this.state.randomThree.length === 0) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "error-message"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "We cannot recommend you any users because:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "1) you have followed all users on Acoustic Nimbus; OR"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "2) our site sucks and you are the only user..."));
         } else {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.randomThree.map(function (artist) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.state.randomThree.map(function (artist) {
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_artists_list_item__WEBPACK_IMPORTED_MODULE_5__["default"], {
               key: artist.id,
               artist: artist
@@ -6018,7 +6056,6 @@ function (_React$Component) {
       }, this.props.currentUserId, this.props.currentUser);
 
       this.props.emptyRandomThreeUsers(defaultState);
-      this.props.fetchRandomThreeUsers(this.props.currentUserId);
     }
   }, {
     key: "render",

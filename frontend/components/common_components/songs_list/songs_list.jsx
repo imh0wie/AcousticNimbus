@@ -8,6 +8,7 @@ const msp = (state) => {
     const songs = state.entities.songs;
     return {
         songs: songs,
+        follows: state.entities.follows,
         currentSongs: songs && songs.songsOfSpecificUser ? Object.values(songs.songsOfSpecificUser).reverse() : null, // user-show-page
         currentUserId: state.session.id,
     };
@@ -28,8 +29,35 @@ class SongsList extends React.Component {
         super(props);
         this.state = {
             loading: true,
-            streamSongs: this.props.songs && this.props.songs.followedSongs ? Object.values(this.props.songs.followedSongs).reverse() : null,
-            counter: 0,
+            streamSongs: null,
+        }
+        switch (this.props.klass) {
+            case "stream-page":
+                this.state = {
+                    loading: true,
+                    streamSongs: null,
+                    defaultState: {
+                        followedSongs: null,
+                    },
+                    data: {
+                        current_user_id: this.props.currentUserId,
+                        fetching_followed_songs: true,
+                    },
+                }
+                break;
+            case "user-show-page":
+                this.state = {
+                    loading: true,
+                    defaultState: {
+                        songsOfSpecificUser: null,
+                    },
+                    data: {
+                        user_id: this.props.onPageArtist.id,
+                    },
+                }
+                break;
+            default:
+                break;
         }
         this.songs = null;
     }
@@ -37,23 +65,10 @@ class SongsList extends React.Component {
     componentDidMount() {
         switch (this.props.klass) {
             case "stream-page":
-                if (this.songs) {
-                    this.setState({
-                        loading: true,
-                        streamSongs: null,
-                    })
-                }
-                this.data = {
-                    current_user_id: this.props.currentUserId,
-                    fetching_followed_songs: true,
-                }
-                this.props.fetchFollowedSongs(this.data);
+                this.props.fetchFollowedSongs(this.state.data);
                 break;
             case "user-show-page":
-                this.data = {
-                    user_id: this.props.onPageArtist.id,
-                }
-                this.props.fetchSongsOfSpecificUser(this.data).then(
+                this.props.fetchSongsOfSpecificUser(this.state.data).then(
                     this.setState({
                         loading: false
                     })
@@ -67,18 +82,19 @@ class SongsList extends React.Component {
     componentWillReceiveProps(nextProps) {
         switch (this.props.klass) {
             case "stream-page":
-                if (!this.songs && this.state.counter > 1) {
-                    this.data = {
-                        current_user_id: this.props.currentUserId,
-                        fetching_followed_songs: true,
-                    }
-                    this.props.fetchFollowedSongs(this.data);
+                if ((!this.props.songs || !this.props.songs.followedSongs) && nextProps.songs.followedSongs) {
+                    this.setState({
+                        streamSongs: Object.values(nextProps.songs.followedSongs).reverse(),
+                        loading: false,
+                    })
+                } else if ((!this.props.follows && nextProps.follows) || (this.props.follows && nextProps.follows && Object.values(this.props.follows.interests).length !== Object.values(nextProps.follows.interests).length)) {
+                    this.props.emptyFollowedSongs(this.state.defaultState);
+                    this.setState({
+                        loading: true,
+                    })
+                } else if (this.state.loading) {
+                    this.props.fetchFollowedSongs(this.state.data);
                 }
-                this.setState({
-                    loading: false,
-                    streamSongs: nextProps.songs && nextProps.songs.followedSongs ? Object.values(nextProps.songs.followedSongs).reverse() : null,
-                    counter: this.state.counter + 1
-                });
                 break;
             case "user-show-page":
             default:
@@ -89,16 +105,10 @@ class SongsList extends React.Component {
     componentWillUnmount() {
          switch (this.props.klass) {
             case "stream-page":
-                this.defaultState = {
-                    followedSongs: null,
-                };
-                this.props.emptyFollowedSongs(this.defaultState);
+                this.props.emptyFollowedSongs(this.state.defaultState);
                 break;
             case "user-show-page":
-                this.defaultState = {
-                    songsOfSpecificUser: null,
-                }
-                this.props.emptySongsOfSpecificUser(this.defaultState);
+                this.props.emptySongsOfSpecificUser(this.state.defaultState);
                 break;
          }
     }

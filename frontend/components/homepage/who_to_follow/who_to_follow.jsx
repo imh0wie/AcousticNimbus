@@ -32,7 +32,6 @@ class WhoToFollow extends React.Component {
             [this.props.currentUserId]: this.props.currentUser,
         };
         this.props.emptyRandomThreeUsers(defaultState);
-        this.props.fetchRandomThreeUsers(this.props.currentUserId);
     }
 
     render() {

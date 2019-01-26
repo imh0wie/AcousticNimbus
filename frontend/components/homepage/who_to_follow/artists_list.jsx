@@ -31,33 +31,48 @@ class ArtistsList extends React.Component {
         super(props);
         this.state = {
             loading: true,
-        }
+            randomThree: null,
+            defaultState: {
+                randomThree: null,
+                [this.props.currentUserId]: this.props.currentUser,
+            },
+        };
     }
 
     componentDidMount() {
         this.props.fetchRandomThreeUsers(this.props.currentUserId);
-        this.setState({
-            loading: false,
-        })
+        
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!this.props.users.randomThree && nextProps.users.randomThree) {
+            this.setState({
+                loading: false,
+                randomThree: Object.values(nextProps.users.randomThree),
+            })
+        } else if (this.props.users.randomThree && !nextProps.users.randomThree) {
+            this.setState({
+                loading: true,
+            });
+            this.props.fetchRandomThreeUsers(this.props.currentUserId);
+        } else if ((!this.props.follows && nextProps.follows) || (this.props.follows && nextProps.follows && Object.values(this.props.follows.interests).length !== Object.values(nextProps.follows.interests).length)) {
+            this.props.emptyRandomThreeUsers(this.state.defaultState);
+        }
     }
 
     componentWillUnmount() {
-        const defaultState = {
-            randomThree: null,
-            [this.props.currentUserId]: this.props.currentUser,
-        }
-        this.props.emptyRandomThreeUsers(defaultState);
+        this.props.emptyRandomThreeUsers(this.state.defaultState);
     }
 
 
 
     render() {
-        if (this.state.loading || !this.props.randomThree) {
+        if (this.state.loading || !this.state.randomThree) {
             return (
                 <img src={window.loadingPizza} className="loading"></img>
             );
         } else {
-            if (this.props.randomThree.length === 0) {
+            if (this.state.randomThree.length === 0) {
                 return (
                     <div className="error-message">
                         <h4>We cannot recommend you any users because:</h4>
@@ -68,7 +83,7 @@ class ArtistsList extends React.Component {
             } else {
                 return (
                     <ul>
-                        {this.props.randomThree.map((artist) => {
+                        {this.state.randomThree.map((artist) => {
                             return (
                                 <ArtistsListItem 
                                     key={artist.id}
