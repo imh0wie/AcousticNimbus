@@ -237,7 +237,7 @@ class PlayerBar extends React.Component {
                     <div className="song-info-container">
                         <img src={this.props.currentSong.song.imageURL ? this.props.currentSong.song.imageURL : window.user_dp} ></img>
                         <div className="song-info">
-                            <Link to="" className="artist">{this.props.currentSong.song.artist}</Link>
+                            <Link to={`/users/${this.props.currentSong.song.artist.id}`} className="artist">{this.props.currentSong.song.artist.username}</Link>
                             <Link to={`/songs/${this.props.currentSong.song.id}`} className="title">{this.props.currentSong.song.title.length < 41 ? this.props.currentSong.song.title : this.props.currentSong.song.title.slice(0,40)}</Link>
                         </div>
                     </div>

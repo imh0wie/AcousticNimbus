@@ -52,12 +52,12 @@ class UserShowPage extends React.Component {
     }
 
     componentWillUnmount() {
-        const defaultState = {
-            individualUser: null,
-            [this.props.currentUserId]: this.props.currentUser,
-        };
-        this.props.emptyIndividualUser(defaultState);
-        if (this.props.likes) this.props.emptyLikes(null);
+        // const defaultState = {
+        //     individualUser: null,
+        //     [this.props.currentUserId]: this.props.currentUser,
+        // };
+        // this.props.emptyIndividualUser(defaultState);
+        if (this.props.likes) this.props.emptyLikes();
         if (this.props.follows) this.props.emptyFollows(null);
         if (this.props.comments) this.props.emptyComments(null);
     }

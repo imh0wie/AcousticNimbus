@@ -34,12 +34,10 @@ export const fetchLikes = () => {
   };
 };
 
-export const emptyLikes = (defaultState) => {
-  return {
+export const emptyLikes = () => {
+  return ({
     type: EMPTY_LIKES,
-    defaultState: defaultState,
-  }
-
+  });
 }
 
 const receiveExtraLikes = (likes) => {

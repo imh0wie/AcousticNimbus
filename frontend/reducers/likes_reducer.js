@@ -12,7 +12,7 @@ const likesReducer = (state = null, action) => {
       newState = merge({}, action.likes);
       return merge({}, newState);
     case EMPTY_LIKES:
-      newState = action.defaultState;
+      newState = null;
       return newState;
     default:
       return state;

@@ -41,19 +41,11 @@ class SongShowPage extends React.Component {
 
   componentDidMount() {
     const t = this.props.onPageSong ? 3000 : 0;
-    debugger
     if (!this.props.onPageSong) this.props.fetchSong(this.props.onPageSongId);
     setTimeout(() => this.setState({
       loading: false,
     }), t);
   }
-
-  // componentWillUnmount() {
-  //   const defaultState = {
-  //     individualSong: null,
-  //   };
-  //   this.props.emptyIndividualSong(defaultState);
-  // }
 
   randomSongBanner() {
     return randomize(this.songBanners)[0];
@@ -68,7 +60,7 @@ class SongShowPage extends React.Component {
       const songs = [this.props.onPageSong];
       return (
         <div className="song-show-page">
-          <Player klass="banner-player" songs={songs} song={this.props.onPageSong}/>
+          <Player klass="banner-player" songs={songs} song={this.props.onPageSong} songId={this.props.onPageSongId}/>
           <div className="content">
             <div className="social-els-container">
               <div className="extrovert-section">

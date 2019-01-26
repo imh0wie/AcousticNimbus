@@ -26,9 +26,9 @@ class CommentsList extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({
+        setTimeout(() => this.setState({
             loading: false,
-        })
+        }), 2000);
     }
 
     componentWillReceiveProps(nextProps) {

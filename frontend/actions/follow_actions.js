@@ -23,11 +23,10 @@ export const removeFollow = (followToServer) => {
   }
 }
 
-export const emptyFollows = (defaultState) => {
-  return {
+export const emptyFollows = () => {
+  return ({
     type: EMPTY_FOLLOWS,
-    defaultState: defaultState,
-  }
+  });
 }
 
 const receiveFollows = (follows) => {

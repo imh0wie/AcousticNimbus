@@ -49,18 +49,14 @@ class Player extends React.Component {
     }
 
     renderPlayPauseSign() {
-        if (!this.props.currentSong.song || this.props.songId !== this.props.currentSong.song.id) {
-          return (
-            <img src={window.play_button} className="play-sign" onClick={() => this.togglePlayPause()} />       
-          );
-        } else if (this.props.songId === this.props.currentSong.song.id && this.props.currentSong.playing) {
-          return (
-            <img src={window.pause_button} className="pause-sign" onClick={() => this.togglePlayPause()} />
-          );
-        } else if (this.props.songId === this.props.currentSong.song.id && !this.props.currentSong.playing) {
-          return (
-            <img src={window.play_button} className="play-sign" onClick={() => this.togglePlayPause()} />          
-          );
+        if (this.props.currentSong.song && this.props.songId === this.props.currentSong.song.id && this.props.currentSong.playing) {
+            return (
+                <img src={window.pause_button} className="pause-sign" onClick={() => this.togglePlayPause()} />
+            );
+        } else {
+            return (
+                <img src={window.play_button} className="play-sign" onClick={() => this.togglePlayPause()} />       
+            );
         }
     }
 

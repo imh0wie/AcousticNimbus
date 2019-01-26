@@ -48,7 +48,6 @@ class SocialElements extends React.Component {
                 this.state = {
                     currentFollow: this.props.follows ? followOf(this.props.onPageArtistId, this.props.follows) : (this.props.users.individualUser[this.props.onPageArtistId] ? this.props.users.individualUser[this.props.onPageArtistId].attentions[this.props.currentUserId] : null),
                 };
-                debugger
                 break;
             case "banner-player":
                 this.state = {
@@ -157,7 +156,6 @@ class SocialElements extends React.Component {
                     </div>
                 );
             case "user-show-page":
-            debugger
                 return (
                     <div className="buttons">
                         <button 

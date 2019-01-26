@@ -345,10 +345,9 @@ var removeFollow = function removeFollow(followToServer) {
     });
   };
 };
-var emptyFollows = function emptyFollows(defaultState) {
+var emptyFollows = function emptyFollows() {
   return {
-    type: EMPTY_FOLLOWS,
-    defaultState: defaultState
+    type: EMPTY_FOLLOWS
   };
 };
 
@@ -403,10 +402,9 @@ var fetchLikes = function fetchLikes() {
     });
   };
 };
-var emptyLikes = function emptyLikes(defaultState) {
+var emptyLikes = function emptyLikes() {
   return {
-    type: EMPTY_LIKES,
-    defaultState: defaultState
+    type: EMPTY_LIKES
   };
 };
 
@@ -2471,15 +2469,7 @@ function (_React$Component) {
     value: function renderPlayPauseSign() {
       var _this2 = this;
 
-      if (!this.props.currentSong.song || this.props.songId !== this.props.currentSong.song.id) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: window.play_button,
-          className: "play-sign",
-          onClick: function onClick() {
-            return _this2.togglePlayPause();
-          }
-        });
-      } else if (this.props.songId === this.props.currentSong.song.id && this.props.currentSong.playing) {
+      if (this.props.currentSong.song && this.props.songId === this.props.currentSong.song.id && this.props.currentSong.playing) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.pause_button,
           className: "pause-sign",
@@ -2487,7 +2477,7 @@ function (_React$Component) {
             return _this2.togglePlayPause();
           }
         });
-      } else if (this.props.songId === this.props.currentSong.song.id && !this.props.currentSong.playing) {
+      } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.play_button,
           className: "play-sign",
@@ -2974,9 +2964,9 @@ function (_React$Component) {
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "song-info"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
-          to: "",
+          to: "/users/".concat(this.props.currentSong.song.artist.id),
           className: "artist"
-        }, this.props.currentSong.song.artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+        }, this.props.currentSong.song.artist.username), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
           to: "/songs/".concat(this.props.currentSong.song.id),
           className: "title"
         }, this.props.currentSong.song.title.length < 41 ? this.props.currentSong.song.title : this.props.currentSong.song.title.slice(0, 40)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -3874,7 +3864,6 @@ function (_React$Component) {
         _this.state = {
           currentFollow: _this.props.follows ? Object(_util_follow_api_util__WEBPACK_IMPORTED_MODULE_6__["followOf"])(_this.props.onPageArtistId, _this.props.follows) : _this.props.users.individualUser[_this.props.onPageArtistId] ? _this.props.users.individualUser[_this.props.onPageArtistId].attentions[_this.props.currentUserId] : null
         };
-        debugger;
         break;
 
       case "banner-player":
@@ -4022,7 +4011,6 @@ function (_React$Component) {
           }), " ", this.state.likesCount));
 
         case "user-show-page":
-          debugger;
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "buttons"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -6168,9 +6156,13 @@ function (_React$Component) {
   _createClass(CommentsList, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.setState({
-        loading: false
-      });
+      var _this2 = this;
+
+      setTimeout(function () {
+        return _this2.setState({
+          loading: false
+        });
+      }, 2000);
     }
   }, {
     key: "componentWillReceiveProps",
@@ -6192,7 +6184,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       if (this.state.loading || !this.state.currentComments) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -6217,9 +6209,9 @@ function (_React$Component) {
               key: comment.id,
               comment: comment,
               commenter: comment.commenter,
-              song: _this2.props.song,
-              songId: _this2.props.songId,
-              songArtist: _this2.props.songArtist
+              song: _this3.props.song,
+              songId: _this3.props.songId,
+              songArtist: _this3.props.songArtist
             });
           })));
         }
@@ -6621,20 +6613,13 @@ function (_React$Component) {
       var _this2 = this;
 
       var t = this.props.onPageSong ? 3000 : 0;
-      debugger;
       if (!this.props.onPageSong) this.props.fetchSong(this.props.onPageSongId);
       setTimeout(function () {
         return _this2.setState({
           loading: false
         });
       }, t);
-    } // componentWillUnmount() {
-    //   const defaultState = {
-    //     individualSong: null,
-    //   };
-    //   this.props.emptyIndividualSong(defaultState);
-    // }
-
+    }
   }, {
     key: "randomSongBanner",
     value: function randomSongBanner() {
@@ -6655,7 +6640,8 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_components_player__WEBPACK_IMPORTED_MODULE_4__["default"], {
           klass: "banner-player",
           songs: songs,
-          song: this.props.onPageSong
+          song: this.props.onPageSong,
+          songId: this.props.onPageSongId
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "content"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -7753,8 +7739,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _common_components_hiring_info_section__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../common_components/hiring_info_section */ "./frontend/components/common_components/hiring_info_section.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -7845,12 +7829,12 @@ function (_React$Component) {
   }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
-      var defaultState = _defineProperty({
-        individualUser: null
-      }, this.props.currentUserId, this.props.currentUser);
-
-      this.props.emptyIndividualUser(defaultState);
-      if (this.props.likes) this.props.emptyLikes(null);
+      // const defaultState = {
+      //     individualUser: null,
+      //     [this.props.currentUserId]: this.props.currentUser,
+      // };
+      // this.props.emptyIndividualUser(defaultState);
+      if (this.props.likes) this.props.emptyLikes();
       if (this.props.follows) this.props.emptyFollows(null);
       if (this.props.comments) this.props.emptyComments(null);
     }
@@ -8191,7 +8175,7 @@ var likesReducer = function likesReducer() {
       return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, newState);
 
     case _actions_like_actions__WEBPACK_IMPORTED_MODULE_0__["EMPTY_LIKES"]:
-      newState = action.defaultState;
+      newState = null;
       return newState;
 
     default:
