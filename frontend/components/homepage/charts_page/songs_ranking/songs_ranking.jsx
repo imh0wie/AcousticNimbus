@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { fetchFilteredSongs } from "../../../../actions/song_actions";
+import { fetchFilteredSongs, emptyFilteredSongs } from "../../../../actions/song_actions";
 import SongsRankingItem from "./songs_ranking_item";
 
 const msp = (state) => {
@@ -17,6 +17,7 @@ const msp = (state) => {
 const mdp = (dispatch) => {
   return ({
     fetchFilteredSongs: (data) => dispatch(fetchFilteredSongs(data)),
+    emptyFilteredSongs: () => dispatch(emptyFilteredSongs()),
   });
 };
 
@@ -61,6 +62,10 @@ class SongsRanking extends React.Component {
       }
       this.props.fetchFilteredSongs(data);
     }
+  }
+
+  componentWillUnmount() {
+    this.props.emptyFilteredSongs();
   }
 
   render() {

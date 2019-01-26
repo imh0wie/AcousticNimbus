@@ -134,6 +134,21 @@ class LikesSection extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        switch (this.props.klass) {
+            case "homepage":
+                const defaultState = {
+                    likedSongs: null,
+                };
+                this.props.emptyLikedSongs(defaultState);
+                break;
+            case "user-show-page":
+                break;
+            case "song-show-page":
+                break;
+        }
+    }
+
     render() {
         switch (this.props.klass) {
             case "homepage":

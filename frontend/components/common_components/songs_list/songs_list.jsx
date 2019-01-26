@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { fetchFollowedSongs, fetchSongsOfSpecificUser, emptySongsOfSpecificUser, emptyFollowedAndLikedSongsOf } from "../../../actions/song_actions";
+import { fetchFollowedSongs, fetchSongsOfSpecificUser, emptySongsOfSpecificUser, emptyFollowedSongs } from "../../../actions/song_actions";
 import SongsListItem from "./songs_list_item";
 
 const msp = (state) => {
@@ -17,8 +17,8 @@ const mdp = (dispatch) => {
   return ({
       fetchFollowedSongs: (data) => dispatch(fetchFollowedSongs(data)),
       fetchSongsOfSpecificUser: (data) => dispatch(fetchSongsOfSpecificUser(data)),
+      emptyFollowedSongs: (defaultState) => dispatch(emptyFollowedSongs(defaultState)),
       emptySongsOfSpecificUser: (defaultState) => dispatch(emptySongsOfSpecificUser(defaultState)),
-      emptyFollowedAndLikedSongsOf: (defaultState) => dispatch(emptyFollowedAndLikedSongsOf(defaultState)),
   });
 };
 
@@ -91,9 +91,8 @@ class SongsList extends React.Component {
             case "stream-page":
                 this.defaultState = {
                     followedSongs: null,
-                    likedSongs: null,
                 };
-                this.props.emptyFollowedAndLikedSongsOf(this.defaultState);
+                this.props.emptyFollowedSongs(this.defaultState);
                 break;
             case "user-show-page":
                 this.defaultState = {

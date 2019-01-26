@@ -8,13 +8,15 @@ import { followOf } from "../../util/follow_api_util";
 
 const msp = (state, ownProps) => {
     const users = state.entities.users;
+    const currentUserId = state.session.id;
     return ({
         likes: state.entities.likes,
         follows: state.entities.follows,
         comments: state.entities.comments,
         users: users,
         onPageArtistId: parseInt(ownProps.match.params.userId),
-        currentUserId: users[state.session.id],
+        currentUserId: currentUserId,
+        currentUser: users[currentUserId],
     });
 }
 
@@ -46,6 +48,7 @@ class SocialElements extends React.Component {
                 this.state = {
                     currentFollow: this.props.follows ? followOf(this.props.onPageArtistId, this.props.follows) : (this.props.users.individualUser[this.props.onPageArtistId] ? this.props.users.individualUser[this.props.onPageArtistId].attentions[this.props.currentUserId] : null),
                 };
+                debugger
                 break;
             case "banner-player":
                 this.state = {
@@ -154,6 +157,7 @@ class SocialElements extends React.Component {
                     </div>
                 );
             case "user-show-page":
+            debugger
                 return (
                     <div className="buttons">
                         <button 

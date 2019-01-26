@@ -40,18 +40,20 @@ class SongShowPage extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchSong(this.props.onPageSongId);
-    this.setState({
+    const t = this.props.onPageSong ? 3000 : 0;
+    debugger
+    if (!this.props.onPageSong) this.props.fetchSong(this.props.onPageSongId);
+    setTimeout(() => this.setState({
       loading: false,
-    });
+    }), t);
   }
 
-  componentWillUnmount() {
-    const defaultState = {
-      individualSong: null,
-    };
-    this.props.emptyIndividualSong(defaultState);
-  }
+  // componentWillUnmount() {
+  //   const defaultState = {
+  //     individualSong: null,
+  //   };
+  //   this.props.emptyIndividualSong(defaultState);
+  // }
 
   randomSongBanner() {
     return randomize(this.songBanners)[0];

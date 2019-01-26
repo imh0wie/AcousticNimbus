@@ -1,4 +1,4 @@
-import { CHANGE_ORDER, CHANGE_GENRE } from "../actions/chart_actions";
+import { CHANGE_ORDER, CHANGE_GENRE, RESET_ORDER_AND_GENRE } from "../actions/chart_actions";
 import { merge } from "lodash";
 const defaultState = {
     order: "newest",
@@ -19,6 +19,8 @@ const chartsReducer = (state = defaultState, action) => {
                 genre: action.genre
             };
             return merge({}, state, newState);
+        case "RESET_ORDER_AND_GENRE":
+            return defaultState;
         default:
             return state;
     }

@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { resetOrderAndGenre } from "../../../actions/chart_actions";
 import FilterBar from "./filter_bar/filter_bar";
 import SongsRanking from "./songs_ranking/songs_ranking";
 
@@ -10,10 +11,20 @@ const msp = (state) => {
   })
 }
 
+const mdp = (dispatch) =>  {
+  return ({
+    resetOrderAndGenre: () => dispatch(resetOrderAndGenre()),
+  })
+}
+
 class ChartsPage extends React.Component {
   constructor(props) {
     super(props);
     this.renderFiltersMessage = this.renderFiltersMessage.bind(this);
+  }
+
+  componentWillUnmount() {
+    this.props.resetOrderAndGenre();
   }
 
   renderFiltersMessage() {
@@ -41,4 +52,4 @@ class ChartsPage extends React.Component {
   }
 }
 
-export default withRouter(connect(msp, null)(ChartsPage));
+export default withRouter(connect(msp, mdp)(ChartsPage));

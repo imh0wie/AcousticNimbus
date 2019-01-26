@@ -11,11 +11,12 @@ export const RECEIVE_RELATED_SONGS_BY_GENRE = "RECEIVE_RELATED_SONGS_BY_GENRE";
 export const RECEIVE_SONG_ERRORS = "RECEIVE_SONG_ERRORS";
 export const RECEIVE_SONGS_ERRORS = "RECEIVE_SONGS_ERRORS";
 export const EMPTY_INTRO_SONGS = "EMPTY_INTRO_SONGS";
+export const EMPTY_LIKED_SONGS = "EMPTY_LIKED_SONGS";
+export const EMPTY_FOLLOWED_SONGS = "EMPTY_FOLLOWED_SONGS";
+export const EMPTY_FOLLOWED_AND_LIKED_SONGS = "EMPTY_FOLLOWED_AND_LIKED_SONGS";
+export const EMPTY_FILTERED_SONGS = "EMPTY_FILTERED_SONGS";
 export const EMPTY_SONGS_OF_SPECIFIC_USER = "EMPTY_SONGS_OF_SPECIFIC_USER";
 export const EMPTY_LIKED_SONGS_OF_SPECIFIC_USER = "EMPTY_LIKED_SONGS_OF_SPECIFIC_USER";
-export const EMPTY_FOLLOWED_SONGS = "EMPTY_FOLLOWED_SONGS";
-export const EMPTY_LIKED_SONGS = "EMPTY_LIKED_SONGS";
-export const EMPTY_FOLLOWED_AND_LIKED_SONGS = "EMPTY_FOLLOWED_AND_LIKED_SONGS";
 export const EMPTY_INDIVIDUAL_SONG = "EMPTY_INDIVIDUAL_SONG";
 export const EMPTY_RELATED_SONGS_BY_GENRE = "EMPTY_RELATED_SONGS_BY_GENRE";
 
@@ -175,6 +176,13 @@ export const emptyFollowedAndLikedSongsOf = (defaultState) => {
   };
 };
 
+export const emptyFilteredSongs = (defaultState) => {
+  return ({
+    type: EMPTY_FILTERED_SONGS,
+    defaultState: defaultState,
+  });
+}
+
 export const emptyIndividualSong = (defaultState) => {
   return {
     type: EMPTY_INDIVIDUAL_SONG,
@@ -193,13 +201,6 @@ const receiveSong = (song) => {
   return {
     type: RECEIVE_SONG,
     song: song,
-  };
-};
-
-const receiveSongs = (songs) => {
-  return {
-    type: RECEIVE_SONGS,
-    songs: songs,
   };
 };
 
