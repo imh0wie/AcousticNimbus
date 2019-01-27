@@ -148,8 +148,8 @@ class SongsList extends React.Component {
                                 idx={idx}
                                 klass={this.props.klass}
                                 songs={this.songs}
-                                itemSong={song}
-                                itemSongId={song.id}
+                                song={song}
+                                songId={song.id}
                                 />
                             );
                         })}

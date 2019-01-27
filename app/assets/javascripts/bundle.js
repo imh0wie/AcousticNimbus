@@ -4576,8 +4576,8 @@ function (_React$Component) {
               idx: idx,
               klass: _this2.props.klass,
               songs: _this2.songs,
-              itemSong: song,
-              itemSongId: song.id
+              song: song,
+              songId: song.id
             });
           }));
         }
@@ -4684,16 +4684,16 @@ function (_React$Component) {
         className: "header",
         style: this.props.klass === "user-show-page" ? this.noneStyle : {}
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/users/".concat(this.props.itemSong.artistId)
+        to: "/users/".concat(this.props.song.artist.id)
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.user_dp
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/users/".concat(this.props.itemSong.artistId)
-      }, this.props.itemSong.artist), " posted a song ", this.renderItemCreationTime(this.props.itemSong.createdAt))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_player__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        to: "/users/".concat(this.props.song.artist.id)
+      }, this.props.song.artist.username), " posted a song ", this.renderItemCreationTime(this.props.song.createdAt))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_player__WEBPACK_IMPORTED_MODULE_2__["default"], {
         klass: "item-player",
         songs: this.props.songs,
-        song: this.props.itemSong,
-        songId: this.props.itemSongId
+        song: this.props.song,
+        songId: this.props.songId
       }));
     }
   }]);
@@ -6199,10 +6199,7 @@ function (_React$Component) {
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
-      debugger;
-
       if (!this.props.comments && nextProps.comments || nextProps.comments && nextProps.comments.commentsOfSpecificSong && this.state.currentComments.length !== Object.keys(nextProps.comments.commentsOfSpecificSong[this.props.songId]).length) {
-        debugger;
         this.setState({
           currentComments: Object.values(nextProps.comments.commentsOfSpecificSong[this.props.songId]).reverse()
         });

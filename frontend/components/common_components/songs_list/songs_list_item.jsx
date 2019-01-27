@@ -38,14 +38,14 @@ class SongsListItem extends React.Component {
         return (
             <li className="songs-list-item">
                 <div className="header" style={this.props.klass === "user-show-page" ? this.noneStyle : {}}>
-                    <Link to={`/users/${this.props.itemSong.artistId}`}><img src={window.user_dp}/></Link>
-                    <p><Link to={`/users/${this.props.itemSong.artistId}`}>{this.props.itemSong.artist}</Link> posted a song {this.renderItemCreationTime(this.props.itemSong.createdAt)}</p> 
+                    <Link to={`/users/${this.props.song.artist.id}`}><img src={window.user_dp}/></Link>
+                    <p><Link to={`/users/${this.props.song.artist.id}`}>{this.props.song.artist.username}</Link> posted a song {this.renderItemCreationTime(this.props.song.createdAt)}</p> 
                 </div>
                 <Player
                     klass="item-player"
                     songs={this.props.songs}
-                    song={this.props.itemSong}
-                    songId={this.props.itemSongId}
+                    song={this.props.song}
+                    songId={this.props.songId}
                 />
             </li>
         );

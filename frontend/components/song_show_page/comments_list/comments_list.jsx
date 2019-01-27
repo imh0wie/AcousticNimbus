@@ -32,9 +32,7 @@ class CommentsList extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        debugger
         if ((!this.props.comments && nextProps.comments) || (nextProps.comments && nextProps.comments.commentsOfSpecificSong && this.state.currentComments.length !== Object.keys(nextProps.comments.commentsOfSpecificSong[this.props.songId]).length)) {
-            debugger
             this.setState({
                 currentComments: Object.values(nextProps.comments.commentsOfSpecificSong[this.props.songId]).reverse(),
             })

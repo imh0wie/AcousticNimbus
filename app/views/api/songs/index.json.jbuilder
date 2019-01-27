@@ -44,8 +44,10 @@ if @followed_songs
           json.genre song.genre
           json.description song.description
           json.availability song.availability
-          json.artist song.artist.username
-          json.artistId song.artist.id
+          json.set! :artist do
+            json.id song.artist.id
+            json.username song.artist.username
+          end
           json.imageURL song.image_url
           json.audioURL song.audio_url
           json.likes do
