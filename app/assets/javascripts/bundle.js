@@ -5271,11 +5271,6 @@ function (_React$Component) {
   _createClass(SongsRanking, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      // const data = {
-      //   number: 10,
-      //   order: this.props.order,
-      //   genre: this.props.genre,
-      // }
       this.props.fetchFilteredSongs(this.state.data);
       this.setState({
         loading: false
@@ -6204,7 +6199,10 @@ function (_React$Component) {
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
-      if (!this.props.comments && nextProps.comments || nextProps.comments && nextProps.comments.commentsOfSpecificSong && this.state.currentComments.length !== Object.keys(nextProps.comments.commentsOfSpecificSong).length) {
+      debugger;
+
+      if (!this.props.comments && nextProps.comments || nextProps.comments && nextProps.comments.commentsOfSpecificSong && this.state.currentComments.length !== Object.keys(nextProps.comments.commentsOfSpecificSong[this.props.songId]).length) {
+        debugger;
         this.setState({
           currentComments: Object.values(nextProps.comments.commentsOfSpecificSong[this.props.songId]).reverse()
         });

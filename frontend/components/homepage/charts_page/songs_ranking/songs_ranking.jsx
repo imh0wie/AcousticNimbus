@@ -41,11 +41,6 @@ class SongsRanking extends React.Component {
   }
 
   componentDidMount() {
-    // const data = {
-    //   number: 10,
-    //   order: this.props.order,
-    //   genre: this.props.genre,
-    // }
     this.props.fetchFilteredSongs(this.state.data);
     this.setState({
       loading: false,
