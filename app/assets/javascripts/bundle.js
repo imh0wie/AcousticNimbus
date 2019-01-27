@@ -3197,9 +3197,9 @@ var QueueItem = function QueueItem(props) {
     to: "/songs/".concat(props.song.id),
     style: props.currentSong.song && props.currentSong.song.id === props.song.id ? current : {}
   }, props.song.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-    to: "/users/".concat(props.song.artistId),
+    to: "/users/".concat(props.song.artist.id),
     style: props.currentSong.song && props.currentSong.song.id === props.song.id ? current : {}
-  }, props.song.artist)));
+  }, props.song.artist.username)));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, null)(QueueItem)));

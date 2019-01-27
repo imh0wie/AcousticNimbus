@@ -19,7 +19,7 @@ const QueueItem = (props) => {
             <HoverButtons klass="queue-item" song={props.song} currentSong={props.currentSong}/>
             <div className="info-container">
                 <Link to={`/songs/${props.song.id}`} style={props.currentSong.song && props.currentSong.song.id === props.song.id ? current : {}}>{props.song.title}</Link>
-                <Link to={`/users/${props.song.artistId}`} style={props.currentSong.song && props.currentSong.song.id === props.song.id ? current : {}}>{props.song.artist}</Link>
+                <Link to={`/users/${props.song.artist.id}`} style={props.currentSong.song && props.currentSong.song.id === props.song.id ? current : {}}>{props.song.artist.username}</Link>
             </div>
         </li>
     );
